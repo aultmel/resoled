@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ import java.util.List;
 
 // perhaps change to @RestController
 @Controller
-@RequestMapping("/api/auth")
+@RequestMapping
 public class AuthController {
 
 
@@ -47,26 +48,43 @@ public class AuthController {
     }
 
 
+    @GetMapping("login")
+    public String loginGetMapping(Model model){
+        LoginDTO loginDTO = new LoginDTO();
+        model.addAttribute("loginDTO", loginDTO);
+        return "login";
+    }
+
+
+
     @PostMapping("login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO){
+    public String loginPostMapping(@RequestBody LoginDTO loginDTO){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginDTO.getUsername(),
                         loginDTO.getPassword()));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "redirect:../home";
 
-        return new ResponseEntity<>("User signed in success.", HttpStatus.OK);
+    }
 
+    @GetMapping("register")
+    public String registerGetMapping(Model model) {
+
+        RegisterDTO registerDTO = new RegisterDTO();
+
+        model.addAttribute(registerDTO);
+
+        return "register";
     }
 
 
     @PostMapping("register")
-    public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO) {
+    public String registerPostMapping(@RequestBody RegisterDTO registerDTO) {
 
         if(userRepository.existsByUsername(registerDTO.getUsername())) {
 
-            return new ResponseEntity<>("Username is taken", HttpStatus.BAD_REQUEST);
+            return "register";
 
         }
 
@@ -80,7 +98,7 @@ public class AuthController {
 
         userRepository.save(user);
 
-        return new ResponseEntity<>("User registration successful", HttpStatus.OK);
+        return "redirect:../home";
 
     }
 

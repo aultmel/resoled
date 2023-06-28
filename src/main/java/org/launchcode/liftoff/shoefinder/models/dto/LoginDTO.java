@@ -1,7 +1,6 @@
 package org.launchcode.liftoff.shoefinder.models.dto;
 
-
-public class RegisterDTO {
+public class LoginDTO {
 
     private String username;
     private String password;
@@ -22,4 +21,5 @@ public class RegisterDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

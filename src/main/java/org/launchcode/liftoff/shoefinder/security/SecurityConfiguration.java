@@ -26,14 +26,16 @@ public class SecurityConfiguration {
 
     private CustomUserDetailsService userDetailsService;
 
+
+
     @Autowired
     public SecurityConfiguration(CustomUserDetailsService userDetailsService){
         this.userDetailsService = userDetailsService;
     }
 
 
-
     // Security filter  use .requestMatchers to control access
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
@@ -49,12 +51,14 @@ public class SecurityConfiguration {
             )
             .rememberMe(Customizer.withDefaults());
 
+
+
         return http.build();
 
     }
 
 //
-//    // Below are users being created in memory because we are not using a database yet. This likely should be removed after database is running.
+//    // Below are users being created in memory for use if not using a database. This will be removed.
 //    @Bean
 //    public UserDetailsService users() {
 //        UserDetails admin = User.builder()
@@ -80,6 +84,7 @@ public class SecurityConfiguration {
     }
 
 
+    // Using BCryptPasswordEncoder
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

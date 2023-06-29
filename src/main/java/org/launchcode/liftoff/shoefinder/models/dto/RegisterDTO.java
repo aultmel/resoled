@@ -1,11 +1,25 @@
 package org.launchcode.liftoff.shoefinder.models.dto;
 
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class RegisterDTO {
 
+    private int id;
+
+    @NotEmpty
     private String username;
+
+    @NotEmpty
     private String password;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;

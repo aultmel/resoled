@@ -1,50 +1,30 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
-import org.launchcode.liftoff.shoefinder.data.RoleRepository;
-import org.launchcode.liftoff.shoefinder.data.UserRepository;
-import org.launchcode.liftoff.shoefinder.models.Role;
+import jakarta.validation.Valid;
+
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.LoginDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
+import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
 
 
 // perhaps change to @RestController
 @Controller
-@RequestMapping
 public class AuthController {
 
+    private UserService userService;
 
-    private AuthenticationManager authenticationManager;
-
-    private UserRepository userRepository;
-
-    private RoleRepository roleRepository;
-
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
+    public AuthController(UserService userService) {
+        this.userService = userService;
     }
 
 
@@ -56,56 +36,40 @@ public class AuthController {
     }
 
 
-
-    @PostMapping("login")
-    public String loginPostMapping(@RequestBody LoginDTO loginDTO){
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginDTO.getUsername(),
-                        loginDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return "redirect:../home";
-
-    }
-
     @GetMapping("register")
     public String registerGetMapping(Model model) {
-
         RegisterDTO registerDTO = new RegisterDTO();
-
-        model.addAttribute(registerDTO);
-
+        model.addAttribute("registerDTO", registerDTO);
         return "register";
     }
 
 
-    @PostMapping("register")
-    public String registerPostMapping(@RequestBody RegisterDTO registerDTO) {
+    @PostMapping("register/save")
+    public String register(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO,
+                           BindingResult result, Model model) {
 
-        if(userRepository.existsByUsername(registerDTO.getUsername())) {
+        UserEntity existingUserUsername = userService.findByUsername(registerDTO.getUsername());
 
-            return "register";
-
+        if(existingUserUsername != null && existingUserUsername.getUsername() != null && !existingUserUsername.getUsername().isEmpty()
+        ){
+            result.rejectValue("username", "There is already a user with that username.");
         }
 
-        UserEntity user = new UserEntity();
+        if(result.hasErrors()) {
+            model.addAttribute("registerDTO", registerDTO);
+            return "register";
+        }
 
-        user.setUsername(registerDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+        userService.saveUser(registerDTO);
 
-        Role roles = roleRepository.findByName("USER").get();
-        user.setRoles(Collections.singletonList(roles));
-
-        userRepository.save(user);
-
-        return "redirect:../home";
+        // return with a success param to use on landing page after registration
+        return "redirect:../";
 
     }
 
-    //    @GetMapping("/login")
-//    public String login() {
-//        return "login";
-//    }
+
+
+
 
 
 

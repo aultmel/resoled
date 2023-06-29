@@ -1,32 +1,24 @@
 package org.launchcode.liftoff.shoefinder.security;
 
-import org.launchcode.liftoff.shoefinder.services.CustomUserDetailsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-
     private CustomUserDetailsService userDetailsService;
-
-
 
     @Autowired
     public SecurityConfiguration(CustomUserDetailsService userDetailsService){
@@ -35,53 +27,31 @@ public class SecurityConfiguration {
 
 
     // Security filter  use .requestMatchers to control access
-
+    // Login security is handled here
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
             .authorizeHttpRequests(authorize -> authorize
-                    .requestMatchers("/").permitAll()
-                    .requestMatchers("/api/auth/**").permitAll()
+                    .requestMatchers("/", "/home", "/register").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
             )
             .formLogin(formLogin -> formLogin
                     .loginPage("/login")
+                    .failureUrl("/login?error=true")
                     .permitAll()
-            )
-            .rememberMe(Customizer.withDefaults());
-
-
+            ).logout( logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll())
+         .rememberMe(Customizer.withDefaults());
 
         return http.build();
 
     }
 
-//
-//    // Below are users being created in memory for use if not using a database. This will be removed.
-//    @Bean
-//    public UserDetailsService users() {
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password("admin")
-//                .roles("ADMIN")
-//                .build();
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password("user")
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(admin, user);
-//    }
 
-
-
-    @Bean
-    public AuthenticationManager authenticationManager(
-        AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+
 
 
     // Using BCryptPasswordEncoder

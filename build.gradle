@@ -20,6 +20,8 @@ dependencies {
 	// Dependency that manages authentication and authorization
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
+	implementation 'jakarta.validation:jakarta.validation-api'
+
 	implementation 'mysql:mysql-connector-java:8.0.32'
 
 

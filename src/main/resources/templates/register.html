@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+
+<<div class="main">
+    <div class="col-md-6 col-sm-12">
+        <div th:if="${param.fail}" class="alert alert-success">
+            Username or email already exists</div>
+        <div class="login-form">
+            <form method="post" role="form" th:action="@{register/save}">
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Username"
+                            th:field="${registerDTO.username}">
+                </div>
+                <p th:if="${#fields.hasErrors('registerDTO.username')}" class="text-danger"></p>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input
+                            type="password"
+                            class="form-control"
+                            placeholder="Password"
+                            th:field="${registerDTO.password}">
+                </div>
+                <p th:if="${#fields.hasErrors('registerDTO.password')}" class="text-danger"></p>
+
+                <button th:href="@{/login}" type="submit" class="btn btn-black">Login here.</button>
+                <button th:href="@{/register}" type="submit" class="btn btn-secondary">Register</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

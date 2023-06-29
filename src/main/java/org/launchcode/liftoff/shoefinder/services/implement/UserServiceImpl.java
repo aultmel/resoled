@@ -15,11 +15,8 @@ import java.util.Arrays;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private UserRepository userRepository;
-
     private RoleRepository roleRepository;
-
     private PasswordEncoder passwordEncoder;
 
 

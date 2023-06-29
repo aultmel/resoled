@@ -4,27 +4,19 @@ import jakarta.validation.Valid;
 
 import org.launchcode.liftoff.shoefinder.data.RoleRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
-import org.launchcode.liftoff.shoefinder.models.Role;
-import org.launchcode.liftoff.shoefinder.models.UserEntity;
-import org.launchcode.liftoff.shoefinder.models.dto.LoginDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 import org.launchcode.liftoff.shoefinder.services.UserService;
-import org.launchcode.liftoff.shoefinder.services.implement.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Arrays;
 
-
-// perhaps change to @RestController
 @Controller
 public class AuthController {
-
 
     private UserService userService;
 
@@ -37,18 +29,13 @@ public class AuthController {
     @Autowired
     private RoleRepository roleRepository;
 
-
-
     @Autowired
     public AuthController(UserService userService) {
         this.userService = userService;
     }
 
-
     @GetMapping("/login")
     public String loginGetMapping(Model model){
-//        LoginDTO loginDTO = new LoginDTO();
-//        model.addAttribute("loginDTO", loginDTO);
         return "login";
     }
 
@@ -58,69 +45,39 @@ public class AuthController {
         RegisterDTO registerDTO = new RegisterDTO();
         model.addAttribute("registerDTO", registerDTO);
 
-//        UserEntity userEntity = new UserEntity();
-////        userEntity.setUsername(registerDTO.getUsername());
-//
-//        userEntity.setUsername("TESTNAME");
-////        userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
-//        userEntity.setPassword(passwordEncoder.encode("TESTPASS"));
-//        Role role = roleRepository.findByName("USER");
-//        userEntity.setRoles(Arrays.asList(role));
-//        userRepository.save(userEntity);
-
-
-
         return "register";
     }
 
 
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO,
-                           BindingResult result, Model model) {
+                           BindingResult result, Model model, Errors errors) {
 
 
-
-//        UserEntity existingUserUsername = userService.findByUsername(registerDTO.getUsername());
-//
-//        if(existingUserUsername != null && existingUserUsername.getUsername() != null && !existingUserUsername.getUsername().isEmpty()
-//        ){
-//            result.rejectValue("username", "There is already a user with that username.");
-//        }
-//
-//        if(result.hasErrors()) {
-//            model.addAttribute("registerDTO", registerDTO);
-//            return "register";
-//        }
-
-
-        if(userRepository.existsByUsername(registerDTO.getUsername())){
-            // username is taken
-            model.addAttribute("registerDTO", registerDTO);
+        if (errors.hasErrors()) {
             return "register";
         }
 
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(registerDTO.getUsername());
-//
-//        userEntity.setUsername("TESTNAME");
-        userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
-//        userEntity.setPassword(passwordEncoder.encode("TESTPASS"));
-        Role role = roleRepository.findByName("USER");
-        userEntity.setRoles(Arrays.asList(role));
-        userRepository.save(userEntity);
+        // checks if username is taken
+        if(userRepository.existsByUsername(registerDTO.getUsername())){
+            model.addAttribute("registerDTO", registerDTO);
+            model.addAttribute("existingUsername", "That username is unavailable.");
+            return "register";
+        }
 
+        // checks if password and passwordCheck match
+        if(!registerDTO.getPassword().equals(registerDTO.getPasswordCheck())){
+            model.addAttribute("registerDTO", registerDTO);
+            model.addAttribute("passwordCheckFail", "The passwords did not match.");
+            return "register";
 
-//        userService.saveUser(registerDTO);
+        }
 
-        // return with a success param to use on landing page after registration
-        return "redirect:/";
+        userService.saveUser(registerDTO);
+
+        // possibly return with a success param to use on landing page after registration
+        return "redirect:/?success";
 
     }
-
-
-
-
-
-
 
 }

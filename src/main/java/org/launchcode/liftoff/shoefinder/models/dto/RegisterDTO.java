@@ -13,6 +13,9 @@ public class RegisterDTO {
     @NotEmpty
     private String password;
 
+    @NotEmpty
+    private String passwordCheck;
+
 
     public RegisterDTO() {
     }
@@ -39,5 +42,13 @@ public class RegisterDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordCheck() {
+        return passwordCheck;
+    }
+
+    public void setPasswordCheck(String passwordCheck) {
+        this.passwordCheck = passwordCheck;
     }
 }

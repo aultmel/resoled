@@ -7,10 +7,22 @@
 <body>
 
 TEST HOME
+<br/>
 
 <th:block th:if="${param.success}" class="alert alert-success">
     REGISTRATION SUCCESSFUL!!  SHOE TIME
 </th:block>
+
+<th:block th:if="${param.success}" class="alert alert-success">
+    LOGIN SUCCESSFUL!!  SHOE TIME
+</th:block>
+
+
+<!--pulling information related to the user into template-->
+<th:block th:if="${userEntity}" class="alert alert-success">
+    Welcome <span th:text="${userEntity.username}"></span>
+</th:block>
+
 
 </body>
 </html>

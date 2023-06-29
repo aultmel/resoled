@@ -1,6 +1,11 @@
 package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +16,14 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+
+
+//    @NotBlank(message = "name is required")
+//    @Size(message = "must be 3 to 20 characters")
     private String username;
 
+//    @NotNull
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

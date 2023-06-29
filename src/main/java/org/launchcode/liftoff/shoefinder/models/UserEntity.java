@@ -1,10 +1,7 @@
 package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -28,6 +25,11 @@ public class UserEntity {
     public UserEntity() {
     }
 
+    public UserEntity(String username, String password, List<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
 
     public int getId() {
         return id;

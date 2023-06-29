@@ -13,6 +13,10 @@ public class RegisterDTO {
     @NotEmpty
     private String password;
 
+
+    public RegisterDTO() {
+    }
+
     public int getId() {
         return id;
     }

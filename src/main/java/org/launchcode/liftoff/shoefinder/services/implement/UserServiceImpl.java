@@ -15,12 +15,16 @@ import java.util.Arrays;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserRepository userRepository;
 
     private RoleRepository roleRepository;
 
     private PasswordEncoder passwordEncoder;
 
+
+    public UserServiceImpl() {
+    }
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
@@ -32,12 +36,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(RegisterDTO registerDTO) {
-        UserEntity user = new UserEntity();
-        user.setUsername(registerDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername(registerDTO.getUsername());
+        userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
         Role role = roleRepository.findByName("USER");
-        user.setRoles(Arrays.asList(role));
-        userRepository.save(user);
+        userEntity.setRoles(Arrays.asList(role));
+        userRepository.save(userEntity);
     }
 
 

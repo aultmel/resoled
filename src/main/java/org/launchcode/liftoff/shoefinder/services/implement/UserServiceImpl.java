@@ -7,7 +7,11 @@ import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+
+// todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
+//import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -17,25 +21,31 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
+
+
+//todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
+//        private PasswordEncoder passwordEncoder;
 
 
     public UserServiceImpl() {
     }
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+//todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
+
+//    @Autowired
+//    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+//        this.userRepository = userRepository;
+//        this.roleRepository = roleRepository;
+//        this.passwordEncoder = passwordEncoder;
+//    }
 
 
     @Override
     public void saveUser(RegisterDTO registerDTO) {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registerDTO.getUsername());
-        userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+//todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
+    //  userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
         Role role = roleRepository.findByName("USER");
         userEntity.setRoles(Arrays.asList(role));
         userRepository.save(userEntity);

@@ -18,7 +18,10 @@ public class RegisterDTO {
     @NotEmpty
     private String passwordCheck;
     @NotEmpty
-    private String name;
+    private String firstName;
+
+    @NotEmpty
+    private String lastName;
     @NotEmpty
     private LocalDate birthday;
 
@@ -58,12 +61,20 @@ public class RegisterDTO {
         this.passwordCheck = passwordCheck;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public LocalDate getBirthday() {

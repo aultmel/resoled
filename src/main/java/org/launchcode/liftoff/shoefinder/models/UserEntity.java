@@ -27,7 +27,9 @@ public class UserEntity {
 //    @NotNull
     private String password;
 
-    private String name;
+    private String firstName;
+
+    private String lastName;
 
     private LocalDate birthday;
 
@@ -42,11 +44,12 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(String username, String password, List<Role> roles, String name, LocalDate birthday) {
+    public UserEntity(String username, String password, List<Role> roles, String firstName, String lastName, LocalDate birthday) {
         this.username = username;
         this.password = password;
         this.roles = roles;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.birthday = birthday;
     }
 
@@ -78,12 +81,20 @@ public class UserEntity {
         this.roles = roles;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public LocalDate getBirthday() {

@@ -79,7 +79,7 @@ public class AuthController {
             return "register";
 
         }
-
+        // checks if user entered a birthday above 13
         if(age < minAge) {
             model.addAttribute("registerDTO", registerDTO);
             model.addAttribute("birthdayCheckFail", "Must be 13 years old to register.");

@@ -3,6 +3,8 @@ package org.launchcode.liftoff.shoefinder.models.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 
+import java.time.LocalDate;
+
 public class RegisterDTO {
 
     private int id;
@@ -15,6 +17,10 @@ public class RegisterDTO {
 
     @NotEmpty
     private String passwordCheck;
+    @NotEmpty
+    private String name;
+    @NotEmpty
+    private LocalDate birthday;
 
 
     public RegisterDTO() {
@@ -50,5 +56,21 @@ public class RegisterDTO {
 
     public void setPasswordCheck(String passwordCheck) {
         this.passwordCheck = passwordCheck;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 }

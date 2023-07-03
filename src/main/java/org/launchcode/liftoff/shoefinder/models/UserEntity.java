@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,11 @@ public class UserEntity {
 //    @NotNull
     private String password;
 
+    private String name;
+
+    private LocalDate birthday;
+
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -36,10 +42,12 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(String username, String password, List<Role> roles) {
+    public UserEntity(String username, String password, List<Role> roles, String name, LocalDate birthday) {
         this.username = username;
         this.password = password;
         this.roles = roles;
+        this.name = name;
+        this.birthday = birthday;
     }
 
     public int getId() {
@@ -68,5 +76,21 @@ public class UserEntity {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 }

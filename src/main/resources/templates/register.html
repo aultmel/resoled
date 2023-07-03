@@ -12,6 +12,20 @@
                   th:action="@{/register}"
                   th:object="${registerDTO}">
                 <div class="form-group">
+                    <label>First Name</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            placeholder="First Name"
+                            th:field="*{firstName}">
+
+                    <label>Last Name</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Last Name"
+                            th:field="*{lastName}">
+
                     <label>Username</label>
                     <input
                             type="text"
@@ -42,7 +56,7 @@
                 </div>
 
 
-                <button th:href="@{/login}" type="submit" class="btn btn-black">Login here.</button>
+                <a th:href="@{/login}" class="btn btn-black">Login here.</a>
                 <button th:href="@{/register}" type="submit" class="btn btn-secondary">Register</button>
 
             </form>

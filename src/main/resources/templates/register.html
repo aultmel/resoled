@@ -3,7 +3,6 @@
 <head th:replace="~{fragments :: head}"></head>
 
 <body>
-
 <div class="main">
     <div class="col-md-6 col-sm-12">
         <th:block th:text="${existingUsername}" class="alert"></th:block>
@@ -32,6 +31,7 @@
                             class="form-control"
                             placeholder="Date of Birth"
                             th:field="*{birthday}">
+                    <p th:text="${birthdayCheckFail}" class="text-danger"></p>
 
                     <label>Username</label>
                     <input
@@ -51,7 +51,7 @@
                             th:field="*{password}">
                 </div>
                 <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>
-                <p th:text="${passwordCheckFail}" class="text-danger"></p>
+
 
                 <div class="form-group">
                     <label>Confirm Password</label>
@@ -60,6 +60,7 @@
                             class="form-control"
                             placeholder="Confirm Password"
                             th:field="*{passwordCheck}">
+                    <p th:text="${passwordCheckFail}" class="text-danger"></p>
                 </div>
 
 

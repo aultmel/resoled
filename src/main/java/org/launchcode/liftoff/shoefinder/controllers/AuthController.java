@@ -14,6 +14,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 
 @Controller
 public class AuthController {
@@ -53,6 +56,10 @@ public class AuthController {
     public String register(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO,
                            BindingResult result, Model model, Errors errors) {
 
+        LocalDate birthday = registerDTO.getBirthday();
+        LocalDate currentDate = LocalDate.now();
+        int minAge = 13;
+        int age = Period.between(currentDate, birthday).getYears();
 
         if (errors.hasErrors()) {
             return "register";
@@ -72,6 +79,14 @@ public class AuthController {
             return "register";
 
         }
+
+        if(age < minAge) {
+            model.addAttribute("registerDTO", registerDTO);
+            model.addAttribute("birthdayCheckFail", "Must be 13 years old to register.");
+            return "register";
+
+        }
+
 
         userService.saveUser(registerDTO);
 

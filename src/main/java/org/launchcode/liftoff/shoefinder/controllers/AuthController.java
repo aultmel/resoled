@@ -1,5 +1,7 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
+
+
 import jakarta.validation.Valid;
 
 import org.launchcode.liftoff.shoefinder.data.RoleRepository;
@@ -12,14 +14,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
-
-
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.time.LocalDate;
+import java.time.Period;
+
 
 @Controller
 public class AuthController {
 
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -31,10 +35,10 @@ public class AuthController {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
-    public AuthController(UserService userService) {
-        this.userService = userService;
-    }
+//    @Autowired
+//    public AuthController(UserService userService) {
+//        this.userService = userService;
+//    }
 
     @GetMapping("/login")
     public String loginGetMapping(Model model){
@@ -52,8 +56,8 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO,
-                           BindingResult result, Model model, Errors errors) {
+    public String register(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO, Errors errors,
+                           BindingResult result, Model model) {
 
 
         if (errors.hasErrors()) {
@@ -62,17 +66,19 @@ public class AuthController {
 
         // checks if username is taken
         if(userRepository.existsByUsername(registerDTO.getUsername())){
-            model.addAttribute("registerDTO", registerDTO);
+//            model.addAttribute("registerDTO", registerDTO);
             model.addAttribute("existingUsername", "That username is unavailable.");
             return "register";
         }
 
-        // checks if password and passwordCheck match
-        if(!registerDTO.getPassword().equals(registerDTO.getPasswordCheck())){
-            model.addAttribute("registerDTO", registerDTO);
-            model.addAttribute("passwordCheckFail", "The passwords did not match.");
-            return "register";
 
+// checks if passwords match for registration
+        String password = registerDTO.getPassword();
+        String verifyPassword = registerDTO.getPasswordCheck();
+        if (!password.equals(verifyPassword)) {
+            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
+//            model.addAttribute("registerDTO", registerDTO);
+            return "register";
         }
 
         userService.saveUser(registerDTO);
@@ -83,3 +89,18 @@ public class AuthController {
     }
 
 }
+
+
+
+//        LocalDate birthday = registerDTO.getBirthday();
+//        LocalDate currentDate = LocalDate.now();
+//        int minAge = 13;
+//        int age = Period.between(currentDate, birthday).getYears();
+//
+
+
+////        if(age < minAge) {
+////            model.addAttribute("registerDTO", registerDTO);
+////            model.addAttribute("birthdayCheckFail", "Must be 13 years old to register.");
+////            return "register";
+////        }

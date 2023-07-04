@@ -1,26 +1,31 @@
 package org.launchcode.liftoff.shoefinder.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "List")
-public class Listing {
+public class ShoeListing {
 
-private String brand;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-private Integer size;
+    private String brand;
+    private Integer size;
+    private Integer zipcode;
 
-private Integer zipcode;
-
-public Listing () {
+public ShoeListing() {
 
 }
-public Listing(String brand, Integer size, Integer zipcode){
+public ShoeListing(String brand, Integer size, Integer zipcode){
     this.brand = brand;
     this.size = size;
     this.zipcode = zipcode;
 }
+
+    public int getId() {
+        return id;
+    }
 
     public String getBrand() {
         return brand;
@@ -45,4 +50,5 @@ public Listing(String brand, Integer size, Integer zipcode){
     public void setZipcode(Integer zipcode) {
         this.zipcode = zipcode;
     }
+
 }

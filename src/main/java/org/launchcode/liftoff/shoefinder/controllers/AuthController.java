@@ -91,16 +91,3 @@ public class AuthController {
 }
 
 
-
-//        LocalDate birthday = registerDTO.getBirthday();
-//        LocalDate currentDate = LocalDate.now();
-//        int minAge = 13;
-//        int age = Period.between(currentDate, birthday).getYears();
-//
-
-
-////        if(age < minAge) {
-////            model.addAttribute("registerDTO", registerDTO);
-////            model.addAttribute("birthdayCheckFail", "Must be 13 years old to register.");
-////            return "register";
-////        }

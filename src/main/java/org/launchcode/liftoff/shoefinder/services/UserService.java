@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Arrays;
 
 @Service
@@ -40,13 +42,34 @@ public class UserService {
 
 
 
+    public int updateAge(UserEntity userEntity){
+    return 0;
+    }
+
+    public boolean checkAge(RegisterDTO registerDTO){
+
+            LocalDate birthDate = registerDTO.getBirthday();
+            LocalDate currentDate = LocalDate.now();
+            int minAge = 13;
+            int age = Period.between(currentDate, birthDate).getYears();
+                    if(age < minAge) {
+                return false;
+            }
+                    return true;
+
+    }
+
+
+
+
     public void saveUser(RegisterDTO registerDTO) {
+
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registerDTO.getUsername());
         userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
-//        userEntity.setFirstName(registerDTO.getFirstName());
-//        userEntity.setLastName(registerDTO.getLastName());
-//        userEntity.setBirthday(registerDTO.getBirthday());
+        userEntity.setFirstName(registerDTO.getFirstName());
+        userEntity.setLastName(registerDTO.getLastName());
+        userEntity.setBirthDate(registerDTO.getBirthday());
         Role role = roleRepository.findByName("USER");
         userEntity.setRoles(Arrays.asList(role));
         userRepository.save(userEntity);

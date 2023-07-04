@@ -102,7 +102,9 @@ public class UserEntity {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthDate(LocalDate birthday) {
         this.birthday = birthday;
     }
+
+
 }

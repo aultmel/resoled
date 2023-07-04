@@ -3,8 +3,6 @@
 <head th:replace="~{fragments :: head}"></head>
 
 <body>
-
-
 <div class="main">
     <div class="col-md-6 col-sm-12">
         <th:block th:text="${existingUsername}" class="alert"></th:block>
@@ -13,6 +11,28 @@
                   th:action="@{/register}"
                   th:object="${registerDTO}">
                 <div class="form-group">
+                    <label>First Name</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            placeholder="First Name"
+                            th:field="*{firstName}">
+
+                    <label>Last Name</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Last Name"
+                            th:field="*{lastName}">
+
+                    <label>Date of Birth</label>
+                    <input
+                            type="date"
+                            class="form-control"
+                            placeholder="Date of Birth"
+                            th:field="*{birthday}">
+                    <p th:text="${birthdayCheckFail}" class="text-danger"></p>
+
                     <label>Username</label>
                     <input
                             type="text"
@@ -29,9 +49,11 @@
                             class="form-control"
                             placeholder="Password"
                             th:field="*{password}">
+                    <p class="error" th:errors="*{password}"></p>
+
                 </div>
-                <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>
-                <p th:text="${passwordCheckFail}" class="text-danger"></p>
+                <!--                <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>-->
+
 
                 <div class="form-group">
                     <label>Confirm Password</label>
@@ -40,10 +62,11 @@
                             class="form-control"
                             placeholder="Confirm Password"
                             th:field="*{passwordCheck}">
+                    <p th:text="${passwordCheckFail}" class="text-danger"></p>
                 </div>
 
 
-                <button th:href="@{/login}" type="submit" class="btn btn-black">Login here.</button>
+                <a th:href="@{/login}" class="btn btn-black">Login here.</a>
                 <button th:href="@{/register}" type="submit" class="btn btn-secondary">Register</button>
 
             </form>

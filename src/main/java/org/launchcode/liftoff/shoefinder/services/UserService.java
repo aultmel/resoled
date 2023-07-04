@@ -43,8 +43,10 @@ public class UserService {
     public void saveUser(RegisterDTO registerDTO) {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registerDTO.getUsername());
-
         userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+//        userEntity.setFirstName(registerDTO.getFirstName());
+//        userEntity.setLastName(registerDTO.getLastName());
+//        userEntity.setBirthday(registerDTO.getBirthday());
         Role role = roleRepository.findByName("USER");
         userEntity.setRoles(Arrays.asList(role));
         userRepository.save(userEntity);

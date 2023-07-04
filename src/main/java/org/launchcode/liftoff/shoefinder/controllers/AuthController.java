@@ -72,13 +72,6 @@ public class AuthController {
             return "register";
         }
 
-//        // checks if password and passwordCheck match
-//        if(!registerDTO.getPassword().equals(registerDTO.getPasswordCheck())){
-//            model.addAttribute("registerDTO", registerDTO);
-//            model.addAttribute("passwordCheckFail", "The passwords did not match.");
-//            return "register";
-//
-//        }
 
         String password = registerDTO.getPassword();
         String verifyPassword = registerDTO.getPasswordCheck();
@@ -88,12 +81,12 @@ public class AuthController {
             return "register";
         }
 
-        if(age < minAge) {
-            model.addAttribute("registerDTO", registerDTO);
-            model.addAttribute("birthdayCheckFail", "Must be 13 years old to register.");
-            return "register";
-
-        }
+//        if(age < minAge) {
+//            model.addAttribute("registerDTO", registerDTO);
+//            model.addAttribute("birthdayCheckFail", "Must be 13 years old to register.");
+//            return "register";
+//
+//        }
 
 
         userService.saveUser(registerDTO);

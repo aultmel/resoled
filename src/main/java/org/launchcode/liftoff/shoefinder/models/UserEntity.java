@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +20,20 @@ public class UserEntity {
 
 
 
-//    @NotBlank(message = "name is required")
+    //    @NotBlank(message = "name is required")
 //    @Size(message = "must be 3 to 20 characters")
     private String username;
 
-//    @NotNull
+    //    @NotNull
     private String password;
+
+    private String firstName;
+
+    private String lastName;
+
+    private LocalDate birthday;
+
+
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
@@ -36,10 +45,13 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(String username, String password, List<Role> roles) {
+    public UserEntity(String username, String password, List<Role> roles, String firstName, String lastName, LocalDate birthday) {
         this.username = username;
         this.password = password;
         this.roles = roles;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
     }
 
     public int getId() {
@@ -68,5 +80,29 @@ public class UserEntity {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 }

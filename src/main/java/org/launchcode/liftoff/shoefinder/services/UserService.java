@@ -60,8 +60,6 @@ public class UserService {
     }
 
 
-
-
     public void saveUser(RegisterDTO registerDTO) {
 
         UserEntity userEntity = new UserEntity();

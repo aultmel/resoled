@@ -72,12 +72,20 @@ public class AuthController {
             return "register";
         }
 
-        // checks if password and passwordCheck match
-        if(!registerDTO.getPassword().equals(registerDTO.getPasswordCheck())){
-            model.addAttribute("registerDTO", registerDTO);
-            model.addAttribute("passwordCheckFail", "The passwords did not match.");
-            return "register";
+//        // checks if password and passwordCheck match
+//        if(!registerDTO.getPassword().equals(registerDTO.getPasswordCheck())){
+//            model.addAttribute("registerDTO", registerDTO);
+//            model.addAttribute("passwordCheckFail", "The passwords did not match.");
+//            return "register";
+//
+//        }
 
+        String password = registerDTO.getPassword();
+        String verifyPassword = registerDTO.getPasswordCheck();
+        if (!password.equals(verifyPassword)) {
+            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
+            model.addAttribute("title", "Register");
+            return "register";
         }
 
         if(age < minAge) {

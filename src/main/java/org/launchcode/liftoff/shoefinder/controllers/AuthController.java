@@ -14,8 +14,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 
-//todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
-//import org.springframework.security.crypto.password.PasswordEncoder;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Controller
 public class AuthController {
@@ -25,9 +25,9 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
-//todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
-//    @Autowired
-//    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     private RoleRepository roleRepository;

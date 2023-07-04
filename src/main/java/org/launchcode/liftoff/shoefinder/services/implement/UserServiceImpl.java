@@ -9,8 +9,7 @@ import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-// todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.stereotype.Service;
 
@@ -43,8 +42,8 @@ public class UserServiceImpl implements UserService {
     public void saveUser(RegisterDTO registerDTO) {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registerDTO.getUsername());
-//todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
-    //  userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+
+      userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
         Role role = roleRepository.findByName("USER");
         userEntity.setRoles(Arrays.asList(role));
         userRepository.save(userEntity);

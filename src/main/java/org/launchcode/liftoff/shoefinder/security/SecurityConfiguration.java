@@ -21,7 +21,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
- // todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
         private CustomUserDetailsService userDetailsService;
 
     @Autowired
@@ -31,7 +30,6 @@ public class SecurityConfiguration {
 
 
     // Using BCryptPasswordEncoder
-    // todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

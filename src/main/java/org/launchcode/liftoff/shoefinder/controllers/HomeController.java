@@ -24,7 +24,7 @@ public class HomeController {
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
 
-        return "home";
+        return "login";
     }
 
 }

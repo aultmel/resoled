@@ -17,9 +17,9 @@ repositories {
 
 dependencies {
 
-//todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
+
 	// Dependency that manages authentication and authorization
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	implementation 'jakarta.validation:jakarta.validation-api'
 

@@ -4,46 +4,45 @@
 
 <body>
 
-<!--todo COMMENTED OUT JUST FOR BUILDING restore this for security to function-->
 
-<!--<div class="main">-->
-<!--    <div class="col-md-6 col-sm-12">-->
-<!--        <th:block th:if="${param.error}" class="alert alert-success">-->
-<!--            invalid username and password-->
-<!--        </th:block>-->
-<!--        <th:block th:if="${param.logout}" class="alert alert-success">-->
-<!--            You have been logged out.-->
-<!--        </th:block>-->
-<!--        <div class="login-form">-->
-<!--            <form method="post" role="form" th:action="@{/login}">-->
-<!--                <div class="form-group">-->
-<!--                    <label>Username</label>-->
-<!--                    <input-->
-<!--                            id="username"-->
-<!--                            type="text"-->
-<!--                            class="form-control"-->
-<!--                            placeholder="Username"-->
-<!--                            name="username">-->
-<!--                </div>-->
+<div class="main">
+    <div class="col-md-6 col-sm-12">
+        <th:block th:if="${param.error}" class="alert alert-success">
+            invalid username and password
+        </th:block>
+        <th:block th:if="${param.logout}" class="alert alert-success">
+            You have been logged out.
+        </th:block>
+        <div class="login-form">
+            <form method="post" role="form" th:action="@{/login}">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input
+                            id="username"
+                            type="text"
+                            class="form-control"
+                            placeholder="Username"
+                            name="username">
+                </div>
 
-<!--                <div class="form-group">-->
-<!--                    <label>Password</label>-->
-<!--                    <input-->
-<!--                            id="password"-->
-<!--                            type="password"-->
-<!--                            class="form-control"-->
-<!--                            placeholder="Password"-->
-<!--                           name="password">-->
-<!--                </div>-->
+                <div class="form-group">
+                    <label>Password</label>
+                    <input
+                            id="password"
+                            type="password"
+                            class="form-control"
+                            placeholder="Password"
+                           name="password">
+                </div>
 
 
-<!--                <button th:href="@{/register}" type="submit" class="btn btn-black">Register here.</button>-->
-<!--                <button th:href="@{/login}" type="submit" value="Log in" class="btn btn-secondary">Login</button>-->
+                <button th:href="@{/register}" type="submit" class="btn btn-black">Register here.</button>
+                <button th:href="@{/login}" type="submit" value="Log in" class="btn btn-secondary">Login</button>
 
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+            </form>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

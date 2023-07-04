@@ -23,21 +23,20 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
 
 
-//todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
-//        private PasswordEncoder passwordEncoder;
+
+        private PasswordEncoder passwordEncoder;
 
 
     public UserServiceImpl() {
     }
 
-//todo COMMENTED OUT JUST FOR BUILDING restore this for security to function
 
-//    @Autowired
-//    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
-//        this.userRepository = userRepository;
-//        this.roleRepository = roleRepository;
-//        this.passwordEncoder = passwordEncoder;
-//    }
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
 
     @Override

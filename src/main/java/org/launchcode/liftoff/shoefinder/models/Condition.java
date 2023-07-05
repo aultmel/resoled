@@ -1,12 +1,17 @@
 package org.launchcode.liftoff.shoefinder.models;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
 import org.springframework.data.annotation.Id;
 
+@Entity
+@Table(name = "condition")
 public class Condition {
     @Id
-    @GeneratedValue
-    int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     /*
     Enum to set the level of condition for the shoes. When a condition class is created:
     Condition condition = new Condition();
@@ -35,7 +40,7 @@ public class Condition {
         this.condition = condition;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

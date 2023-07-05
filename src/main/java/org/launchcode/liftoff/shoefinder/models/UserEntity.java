@@ -16,7 +16,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
 
 
@@ -31,8 +31,18 @@ public class UserEntity {
 
     private String lastName;
 
+    private String email;
+
     private LocalDate birthday;
 
+    private int age;
+
+//    private Location location;
+
+//    private Image image;
+
+//    @OneToMany
+//    private List<ShoeListing> shoeListings;
 
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -54,7 +64,7 @@ public class UserEntity {
         this.birthday = birthday;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

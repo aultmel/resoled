@@ -35,11 +35,6 @@ public class AuthController {
     @Autowired
     private RoleRepository roleRepository;
 
-//    @Autowired
-//    public AuthController(UserService userService) {
-//        this.userService = userService;
-//    }
-
     @GetMapping("/login")
     public String loginGetMapping(Model model){
         return "login";
@@ -67,7 +62,7 @@ public class AuthController {
         // checks if username is taken
         if(userRepository.existsByUsername(registerDTO.getUsername())){
 //            model.addAttribute("registerDTO", registerDTO);
-            model.addAttribute("existingUsername", "That username is unavailable.");
+            errors.rejectValue("username", "username.unavailable", "Username is unavailable");;
             return "register";
         }
 

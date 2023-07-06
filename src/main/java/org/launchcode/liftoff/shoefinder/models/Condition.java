@@ -1,13 +1,9 @@
 package org.launchcode.liftoff.shoefinder.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "condition")
+@Table(name = "shoeCondition")
 public class Condition {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,10 +30,10 @@ public class Condition {
         }
     }
 
-    private ShoeCondition condition;
+    private ShoeCondition shoeCondition;
 
     public Condition(ShoeCondition condition) {
-        this.condition = condition;
+        this.shoeCondition = condition;
     }
 
     public Long getId() {
@@ -46,10 +42,10 @@ public class Condition {
 
 
     public ShoeCondition getCondition() {
-        return condition;
+        return shoeCondition;
     }
 
     public void setCondition(ShoeCondition condition) {
-        this.condition = condition;
+        this.shoeCondition = condition;
     }
 }

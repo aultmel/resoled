@@ -39,6 +39,8 @@ public class AuthController {
     public String loginGetMapping(Model model){
         return "login";
     }
+    //testing a postmap login
+
 
 
     @GetMapping("/register")

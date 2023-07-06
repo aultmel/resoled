@@ -40,7 +40,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
                                 // todo remove the "/**" to turn security on
-                                "/**",
+
                                 // todo remove the "/**" above this to turn security on
                                 "/login", "/", "/register", "/css**", "/js/**").permitAll()
                         .anyRequest().authenticated()

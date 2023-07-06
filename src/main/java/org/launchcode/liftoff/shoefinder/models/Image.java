@@ -16,6 +16,9 @@ public class Image {
 
     private String fileType;
 
+    public Image() {
+    }
+
     public Image(String fileName, String fileType, byte[] data) {
         this.data = data;
         this.fileName = fileName;

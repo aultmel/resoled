@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class ImageService {
@@ -23,5 +24,10 @@ public class ImageService {
             // Handle exception
             //TODO:handle exception
         }
+    }
+
+    public Optional<Image> getImageById(Long id){
+        Optional<Image> image = imageRepository.findById(id);
+        return image;
     }
 }

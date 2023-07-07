@@ -59,7 +59,7 @@ public class AuthController {
             return "register";
         }
 
-        // checks if username is taken
+        // checks if username is taken and if it is taken sends an error to the view
         if(userRepository.existsByUsername(registerDTO.getUsername())){
 //            model.addAttribute("registerDTO", registerDTO);
             errors.rejectValue("username", "username.unavailable", "Username is unavailable");;
@@ -67,7 +67,7 @@ public class AuthController {
         }
 
 
-// checks if passwords match for registration
+// checks if passwords match for registration and if they don't match sends an error to the view
         String password = registerDTO.getPassword();
         String verifyPassword = registerDTO.getPasswordCheck();
         if (!password.equals(verifyPassword)) {

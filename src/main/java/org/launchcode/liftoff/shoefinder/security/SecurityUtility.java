@@ -7,6 +7,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class SecurityUtility {
 
+
+    // This is getting the username from the session.  This method is often used in a controller in order to get the username.
+    // With the username in a controller we can look up the UserEntity based on username with the UserRepository findByUsername(String username);
     public static String getSessionUser() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

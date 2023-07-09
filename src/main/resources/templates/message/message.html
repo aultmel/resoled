@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments :: head}"></head>
+<body class="p-1">
+
+<p th:text="${userEntity.username}"></p>
+
+<p th:text="${messageChain.messageChainSubject}"></p>
+
+<div th:each="message : ${messageChain.messages}"
+     class="p-1">
+    <div class="border rounded">
+        <p th:text="${message.userEntity.username}"></p>
+        <p th:text="${message.text}"></p>
+
+    </div>
+
+</div>
+
+
+
+
+<form method="post" role="form"
+      th:action="@{../message/message}"
+      th:object="${addMessageDTO}">
+
+    <h2>Add Message</h2>
+
+    <label>Message:
+        <textarea th:field="*{text}" name="text" rows="5" cols="50" />
+
+    </label>
+    <input type="hidden" name="messageChainId" th:value="${messageChain.id}" />
+    <input type="hidden" name="messageChainId" th:field="*{messageChainId}" th:value="${messageChainIdFromController}" />
+
+    <input type="submit" value="Add Message" class="btn btn-primary">
+
+
+</form>
+
+
+<!--will hold a single message chain with a list of the chain's messages as well as a form to add a message.-->
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+
+TEST MESSAGES
+<br/>
+<table class="table table-striped">
+
+    <h2>Message List</h2>
+
+    <div th:each="messageChain : ${orderedUserMessageChain}">
+
+        <p>Message Placeholder</p>
+
+        <a th:href="'/message/message?messageChainId=' + ${messageChain.id}" th:text="${messageChain.messageChainSubject}"></a>
+
+
+    </div>
+
+</table>
+</div>
+
+
+
+
+
+</body>
+</html>

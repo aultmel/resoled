@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 @Entity
 @Table(name = "user")
 public class UserEntity {
@@ -18,10 +20,24 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    // UserEntity will have many Messages.  Messages will be connected to only one UserEntity and organized and gathered together by MessageChain
+    @OneToMany(mappedBy = "userEntity")
+    private List<Message> messages;
+
+    @ManyToMany(mappedBy = "userEntityList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<MessageChain> messageChains;
+
+
+    // UserEntity can have several Role.  UserEntity will receive role of "USER" by default on creation.
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles = new ArrayList<>();
 
 
     //    @NotBlank(message = "name is required")
-//    @Size(message = "must be 3 to 20 characters")
+    //    @Size(message = "must be 3 to 20 characters")
     private String username;
 
     //    @NotNull
@@ -45,11 +61,7 @@ public class UserEntity {
 //    private List<ShoeListing> shoeListings;
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles = new ArrayList<>();
+
 
 
     public UserEntity() {
@@ -112,9 +124,41 @@ public class UserEntity {
         return birthday;
     }
 
-    public void setBirthDate(LocalDate birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public List<MessageChain> getMessageChains() {
+        return messageChains;
+    }
+
+    public void setMessageChains(List<MessageChain> messageChains) {
+        this.messageChains = messageChains;
+    }
 }

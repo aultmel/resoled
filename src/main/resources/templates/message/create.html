@@ -7,7 +7,7 @@
 <h1>Create a Message</h1>
 
     <form method="post" role="form"
-          th:action="@{../communication/create}"
+          th:action="@{../message/create}"
           th:object="${createMessageDTO}">
 
 
@@ -15,7 +15,7 @@
         <label>Message Receiver Username:
             <input th:field="*{receiverUsername}" class="form-control">
         </label>
-->
+
     </div>
 
     <div class="form-group">

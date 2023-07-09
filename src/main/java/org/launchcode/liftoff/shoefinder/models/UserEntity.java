@@ -21,7 +21,7 @@ public class UserEntity {
     private long id;
 
     // UserEntity will have many Messages.  Messages will be connected to only one UserEntity and organized and gathered together by MessageChain
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userEntity")
     private List<Message> messages;
 
     @ManyToMany(mappedBy = "userEntityList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

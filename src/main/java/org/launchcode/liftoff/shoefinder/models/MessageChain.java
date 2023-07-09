@@ -60,6 +60,13 @@ public class MessageChain {
     public void setUserEntityList(List<UserEntity> userEntityList) {
         userEntityList = userEntityList;
     }
+
+
+    public Long getId() {
+        return id;
+    }
+
+
 }
 
 

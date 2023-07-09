@@ -10,13 +10,14 @@ TEST MESSAGES
 
     <h2>Message List</h2>
 
-    <tr th:each="messageChain : ${userEntity.messageChains}">
+    <div th:each="messageChain : ${orderedUserMessageChain}">
 
         <p>Message Placeholder</p>
 
-<!--        <td><a th:href="'/garden/detail?gardenId=' + ${garden.id}" th:text="${garden.name}"></a></td>-->
+        <a th:href="'/message/message?messageChainId=' + ${messageChain.id}" th:text="${messageChain.messageChainSubject}"></a>
 
-    </tr>
+
+    </div>
 
 </table>
 </div>

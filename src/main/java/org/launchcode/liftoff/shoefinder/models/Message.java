@@ -16,7 +16,7 @@ public class Message {
     // Message will have one MessageChain.  Messages will be connected to only one UserEntity and organized and gathered together by MessageChain
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private UserEntity userEntity;
 
     @ManyToOne
     @JoinColumn(name = "message_chain_id")
@@ -36,12 +36,12 @@ public class Message {
         this.text = text;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public MessageChain getMessageChain() {

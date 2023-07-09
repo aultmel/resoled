@@ -3,31 +3,29 @@ package org.launchcode.liftoff.shoefinder.controllers;
 
 import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
+import org.launchcode.liftoff.shoefinder.data.MessageRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.Message;
 import org.launchcode.liftoff.shoefinder.models.MessageChain;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 
-import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
+import org.launchcode.liftoff.shoefinder.models.dto.AddMessageDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("/communication")
+@RequestMapping("/message")
 public class MessageController {
 
     @Autowired
@@ -39,6 +37,20 @@ public class MessageController {
     @Autowired
     private MessageChainRepository messageChainRepository;
 
+    @Autowired
+    private MessageRepository messageRepository;
+
+    @GetMapping("/")
+    public String messageRootGetMapping(Model model) {
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsername(username);
+        model.addAttribute("userEntity", userEntity);
+
+        return "message/messages";
+    }
+
+
     @GetMapping("/messages")
     public String messagesGetMapping(Model model) {
 
@@ -46,7 +58,25 @@ public class MessageController {
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
 
-        return "communication/messages";
+
+        List<Message> userMessages = userEntity.getMessages();
+
+        List<MessageChain> orderedUserMessageChain = new ArrayList<>();
+
+        for (int i = userMessages.size() - 1; i >= 0; i--) {
+            Message message = userMessages.get(i);
+            MessageChain messageChain = message.getMessageChain();
+
+            if (!orderedUserMessageChain.contains(messageChain)) {
+                orderedUserMessageChain.add(messageChain);
+            }
+        }
+
+
+
+        model.addAttribute("orderedUserMessageChain", orderedUserMessageChain);
+
+        return "message/messages";
     }
 
 
@@ -62,25 +92,23 @@ public class MessageController {
         CreateMessageDTO createMessageDTO = new CreateMessageDTO();
         model.addAttribute("createMessageDTO", createMessageDTO);
 
-        return "communication/create";
+        return "message/create";
     }
 
 
-
-        @PostMapping("/create")
-        public String createMessagePostMapping(@Valid @ModelAttribute("createMessageDTO") CreateMessageDTO createMessageDTO, Errors errors, BindingResult result, Model model) {
+    @PostMapping("/create")
+    public String createMessagePostMapping(@Valid @ModelAttribute("createMessageDTO") CreateMessageDTO createMessageDTO, Errors errors, BindingResult result, Model model) {
 
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
 
-
 //         checks if receiver username exists and if it does not, sends an error to the view
-        if(!userRepository.existsByUsername(createMessageDTO.getReceiverUsername())){
+        if (!userRepository.existsByUsername(createMessageDTO.getReceiverUsername())) {
 //            model.addAttribute("createMessageDTO", createMessageDTO);
             errors.rejectValue("receiverUsername", "username.notValid", "Username does not exist");
 
-            return "communication/create";
+            return "message/create";
         }
 
         createMessageDTO.setReceiverUserEntity(userRepository.findByUsername(createMessageDTO.getReceiverUsername()));
@@ -88,11 +116,80 @@ public class MessageController {
         messageService.createMessageChain(createMessageDTO);
 
         // ultimately return to the message chain on the screen.
-        return "redirect:../communication/messages";
+        return "redirect:../message/messages";
+
+    }
+
+
+    @GetMapping("/message")
+    public String messageGetMapping(@RequestParam Long messageChainId, Model model) {
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsername(username);
+
+
+        List<MessageChain> userMessageChains = userEntity.getMessageChains();
+
+        Optional<MessageChain> requestMessageChain = messageChainRepository.findById(messageChainId);
+
+        if (!requestMessageChain.isPresent()) {
+            // The message chain was not
+        }
+
+        MessageChain requestedMessageChain =  requestMessageChain.get();
+
+        for (MessageChain messageChain : userMessageChains) {
+            if(messageChain.equals(requestedMessageChain)) {
+
+
+                AddMessageDTO addMessageDTO = new AddMessageDTO();
+                addMessageDTO.setMessageChainId(messageChainId);
+                addMessageDTO.setUserEntity(userEntity);
+                addMessageDTO.setMessageChain(messageChain);
+
+                model.addAttribute("addMessageDTO", addMessageDTO);
+
+                model.addAttribute("messageChain", messageChain);
+                model.addAttribute("userEntity", userEntity);
+                return "message/message";
+
+            }
+        }
+
+        return "message/messages";
+    }
+
+    @PostMapping("/message")
+    public String messagePostMapping(@Valid @ModelAttribute("addMessageDTO") AddMessageDTO addMessageDTO,
+                                     @Valid @ModelAttribute("messageChain") MessageChain messageChain,
+                                     Errors errors, BindingResult result, Model model) {
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsername(username);
+
+        Optional<MessageChain> requestMessageChain = messageChainRepository.findById(addMessageDTO.getMessageChainId());
+
+
+        if (!requestMessageChain.isPresent()) {
+            // The message chain was not
+        }
+
+        MessageChain requestedMessageChain =  requestMessageChain.get();
+
+        addMessageDTO.setMessageChain(requestedMessageChain);
+
+        addMessageDTO.setUserEntity(userEntity);
+
+
+        messageService.addMessage(addMessageDTO);
+
+
+
+        // ultimately return to the message chain on the screen.
+        return "redirect:../message/message?messageChainId=" + requestedMessageChain.getId();
 
     }
 
 
 
 }
-

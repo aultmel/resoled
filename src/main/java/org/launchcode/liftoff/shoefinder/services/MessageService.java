@@ -8,6 +8,7 @@ import org.launchcode.liftoff.shoefinder.models.Message;
 import org.launchcode.liftoff.shoefinder.models.MessageChain;
 import org.launchcode.liftoff.shoefinder.models.Role;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
+import org.launchcode.liftoff.shoefinder.models.dto.AddMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,22 +51,26 @@ public class MessageService {
 
         messageChain.getUserEntityList().add(senderUserEntity);
         messageChain.getUserEntityList().add(receiverUserEntity);
-//
-//        senderUserEntity.getMessageChains().add(messageChain);
-//        receiverUserEntity.getMessageChains().add(messageChain);
-//
+
         Message message = new Message();
-        message.setUser(senderUserEntity);
+        message.setUserEntity(senderUserEntity);
         message.setText(createMessageDTO.getMessage());
         message.setMessageChain(messageChain);
 
-//        userRepository.save(senderUserEntity);
-//        userRepository.save(receiverUserEntity);
         messageChainRepository.save(messageChain);
         messageRepository.save(message);
     }
 
 
+    public void addMessage(AddMessageDTO addMessageDTO) {
 
+        Message message = new Message();
+        message.setUserEntity(addMessageDTO.getUserEntity());
+        message.setText(addMessageDTO.getText());
+        message.setMessageChain(addMessageDTO.getMessageChain());
+
+        messageRepository.save(message);
+
+    }
 
 }

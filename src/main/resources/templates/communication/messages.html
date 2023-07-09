@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+
+TEST MESSAGES
+<br/>
+<table class="table table-striped">
+
+    <h2>Message List</h2>
+
+    <tr th:each="garden : ${userEntity.messageChains}">
+
+        <p>Message Placeholder</p>
+
+<!--        <td><a th:href="'/garden/detail?gardenId=' + ${garden.id}" th:text="${garden.name}"></a></td>-->
+
+    </tr>
+
+</table>
+</div>
+
+
+
+
+
+</body>
+</html>

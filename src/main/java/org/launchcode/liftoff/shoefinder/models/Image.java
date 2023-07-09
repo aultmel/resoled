@@ -1,26 +1,27 @@
 package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+
 
 @Entity
 @Table(name = "image")
+@Builder
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Lob
-    private byte[] data;
-
     private String fileName;
-
     private String fileType;
+    @Lob
+    @Column(name = "imageData", length = 1000)
+    private byte[] imageData;
 
     public Image() {
     }
 
-    public Image(String fileName, String fileType, byte[] data) {
-        this.data = data;
+    public Image(String fileName, String fileType, byte[] imageData) {
+        this.imageData = imageData;
         this.fileName = fileName;
         this.fileType = fileType;
     }
@@ -29,12 +30,12 @@ public class Image {
         return id;
     }
 
-    public byte[] getData() {
-        return data;
+    public byte[] getImageData() {
+        return imageData;
     }
 
-    public void setData(byte[] data) {
-        this.data = data;
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 
     public String getFileName() {

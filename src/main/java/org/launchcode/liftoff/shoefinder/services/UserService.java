@@ -77,7 +77,7 @@ public class UserService {
         userEntity.setBirthday(registerDTO.getBirthday());
         Role role = roleRepository.findByName("USER");
         userEntity.setRoles(Arrays.asList(role));
-        userEntity.setMessageChains(new ArrayList<>());
+//        userEntity.setMessageChains(new ArrayList<>());
         userEntity.setMessages(new ArrayList<>());
         userRepository.save(userEntity);
     }

@@ -2,12 +2,14 @@ package org.launchcode.liftoff.shoefinder.controllers;
 
 
 import jakarta.validation.Valid;
+import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.Message;
 import org.launchcode.liftoff.shoefinder.models.MessageChain;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 
+import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
-@RequestMapping("communication")
+@RequestMapping("/communication")
 public class MessageController {
 
     @Autowired
@@ -30,6 +35,9 @@ public class MessageController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private MessageChainRepository messageChainRepository;
 
     @GetMapping("/messages")
     public String messagesGetMapping(Model model) {
@@ -42,7 +50,7 @@ public class MessageController {
     }
 
 
-    @GetMapping("/createmessage")
+    @GetMapping("/create")
     public String createMessageGetMapping(Model model) {
 
 
@@ -50,32 +58,34 @@ public class MessageController {
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
 
+
         CreateMessageDTO createMessageDTO = new CreateMessageDTO();
-        createMessageDTO.setSenderUserEntity(userEntity);
         model.addAttribute("createMessageDTO", createMessageDTO);
 
-        return "communication/createmessage";
+        return "communication/create";
     }
 
-    @PostMapping("/createmessage")
-    public String register(@Valid @ModelAttribute("createMessageDTO") CreateMessageDTO createMessageDTO, Errors errors, Model model) {
+
+
+        @PostMapping("/create")
+        public String createMessagePostMapping(@Valid @ModelAttribute("createMessageDTO") CreateMessageDTO createMessageDTO, Errors errors, BindingResult result, Model model) {
 
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
-       ;
+
 
 //         checks if receiver username exists and if it does not, sends an error to the view
-//        if(!userRepository.existsByUsername(createMessageDTO.getReceiverUsername())){
-////            model.addAttribute("registerDTO", registerDTO);
-//            errors.rejectValue("receiverUsername", "username.notValid", "Username does not exist");;
-//            return "communication/createmessage";
-//        }
+        if(!userRepository.existsByUsername(createMessageDTO.getReceiverUsername())){
+//            model.addAttribute("createMessageDTO", createMessageDTO);
+            errors.rejectValue("receiverUsername", "username.notValid", "Username does not exist");
 
-//        createMessageDTO.setReceiverUserEntity(userRepository.findByUsername(createMessageDTO.getReceiverUsername()));
+            return "communication/create";
+        }
 
-
-        messageService.createMessageChain(createMessageDTO, userEntity);
+        createMessageDTO.setReceiverUserEntity(userRepository.findByUsername(createMessageDTO.getReceiverUsername()));
+        createMessageDTO.setSenderUserEntity(userEntity);
+        messageService.createMessageChain(createMessageDTO);
 
         // ultimately return to the message chain on the screen.
         return "redirect:../communication/messages";

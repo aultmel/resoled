@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 @Entity
 @Table(name = "user")
 public class UserEntity {
@@ -22,14 +24,8 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     private List<Message> messages;
 
-
-    // UserEntity is connected to MessageChain with @ManyToMany.  Current design is UserEntity to have many MessageChain, but MessageChain only have two UserEntity.
-    @ManyToMany
-    @JoinTable(
-            name = "message_chain_user",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "message_chain_id", referencedColumnName = "id"))
-    private List<MessageChain> messageChains = new ArrayList<>();
+    @ManyToMany(mappedBy = "userEntityList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<MessageChain> messageChains;
 
 
     // UserEntity can have several Role.  UserEntity will receive role of "USER" by default on creation.

@@ -20,9 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/message")
@@ -51,33 +49,28 @@ public class MessageController {
     }
 
 
-    @GetMapping("/messages")
-    public String messagesGetMapping(Model model) {
-
-        String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
-        model.addAttribute("userEntity", userEntity);
 
 
-        List<Message> userMessages = userEntity.getMessages();
+        @GetMapping("/messages")
+        public String messagesGetMapping(Model model) {
 
-        List<MessageChain> orderedUserMessageChain = new ArrayList<>();
+            String username = SecurityUtility.getSessionUser();
+            UserEntity userEntity = userRepository.findByUsername(username);
+            model.addAttribute("userEntity", userEntity);
 
-        for (int i = userMessages.size() - 1; i >= 0; i--) {
-            Message message = userMessages.get(i);
-            MessageChain messageChain = message.getMessageChain();
+            List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
 
-            if (!orderedUserMessageChain.contains(messageChain)) {
-                orderedUserMessageChain.add(messageChain);
-            }
+            Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
+                Message latestMessage1 = messageChain1.getMessages().get(messageChain1.getMessages().size() - 1);
+                Message latestMessage2 = messageChain2.getMessages().get(messageChain2.getMessages().size() - 1);
+
+                return latestMessage2.getLocalDateTime().compareTo(latestMessage1.getLocalDateTime());
+            });
+
+            model.addAttribute("orderedUserMessageChain", userEntityMessageChains);
+
+            return "message/messages";
         }
-
-
-
-        model.addAttribute("orderedUserMessageChain", orderedUserMessageChain);
-
-        return "message/messages";
-    }
 
 
     @GetMapping("/create")

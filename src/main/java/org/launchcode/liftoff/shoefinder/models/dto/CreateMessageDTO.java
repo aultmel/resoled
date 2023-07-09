@@ -16,7 +16,7 @@ private String receiverUsername;
 
 private String messageSubject;
 
-private String message;
+private String text;
 
 
     public CreateMessageDTO() {}
@@ -48,12 +48,12 @@ private String message;
         this.messageSubject = messageSubject;
     }
 
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public UserEntity getReceiverUserEntity() {

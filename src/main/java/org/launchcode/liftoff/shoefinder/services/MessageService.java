@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,8 +55,9 @@ public class MessageService {
 
         Message message = new Message();
         message.setUserEntity(senderUserEntity);
-        message.setText(createMessageDTO.getMessage());
+        message.setText(createMessageDTO.getText());
         message.setMessageChain(messageChain);
+        message.setLocalDateTime(LocalDateTime.now());
 
         messageChainRepository.save(messageChain);
         messageRepository.save(message);
@@ -68,6 +70,7 @@ public class MessageService {
         message.setUserEntity(addMessageDTO.getUserEntity());
         message.setText(addMessageDTO.getText());
         message.setMessageChain(addMessageDTO.getMessageChain());
+        message.setLocalDateTime(LocalDateTime.now());
 
         messageRepository.save(message);
 

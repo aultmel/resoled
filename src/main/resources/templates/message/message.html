@@ -28,7 +28,7 @@
 
     <label>Message:
         <textarea th:field="*{text}" name="text" rows="5" cols="50" />
-<!--        <input type="text" name="text" th:field="*{text}" />-->
+
     </label>
     <input type="hidden" name="messageChainId" th:value="${messageChain.id}" />
     <input type="hidden" name="messageChainId" th:field="*{messageChainId}" th:value="${messageChainIdFromController}" />

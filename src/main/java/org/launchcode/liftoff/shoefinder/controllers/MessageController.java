@@ -60,10 +60,11 @@ public class MessageController {
 
             List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
 
+            // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
+            // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
             Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
                 Message latestMessage1 = messageChain1.getMessages().get(messageChain1.getMessages().size() - 1);
                 Message latestMessage2 = messageChain2.getMessages().get(messageChain2.getMessages().size() - 1);
-
                 return latestMessage2.getLocalDateTime().compareTo(latestMessage1.getLocalDateTime());
             });
 
@@ -107,10 +108,13 @@ public class MessageController {
 
         createMessageDTO.setReceiverUserEntity(userRepository.findByUsername(createMessageDTO.getReceiverUsername()));
         createMessageDTO.setSenderUserEntity(userEntity);
-        messageService.createMessageChain(createMessageDTO);
 
-        // ultimately return to the message chain on the screen.
-        return "redirect:../message/messages";
+        //using createMessageDTO to create the MessageChain and first Message of the MessageChain
+        // this returns the Long id of the MessageChain that is newly created.
+        Long messageChainId = messageService.createMessageChain(createMessageDTO);
+
+        // ultimately return to the message chain on the screen using the messageChainId
+        return "redirect:../message/message?messageChainId=" + messageChainId;
 
     }
 

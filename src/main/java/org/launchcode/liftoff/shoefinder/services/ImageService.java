@@ -16,16 +16,10 @@ public class ImageService {
     private ImageRepository imageRepository;
 
     public String uploadImage(MultipartFile file) throws IOException {
-        Image image= imageRepository.save(new Image(file.getOriginalFilename(), file.getContentType(), ImageUtils.compressImage(file.getBytes())));
 
-                /*
-                Saving for the moment but probably trash
-                Image.builder()
-                .fileName(file.getOriginalFilename())
-                .fileType(file.getContentType())
-                .imageData(ImageUtils.compressImage(file.getBytes())).build());
+        //chaning first constructor variable from file.getOriginalFilename() to dbcheck
+        Image image= imageRepository.save(new Image(dbNameCheck(file.getOriginalFilename()), file.getContentType(), ImageUtils.compressImage(file.getBytes())));
 
-                 */
         if(image!=null){
             return "file uploaded: " + file.getOriginalFilename();
         }
@@ -38,6 +32,18 @@ public class ImageService {
         byte[] images = ImageUtils.decompressImage(dbImageFile.get().getImageData());
         return images;
     }
+
+    //checks the filenames in the db for duplicate images to fine the number to affix for a unique filename,
+    //returns fileName with said number affixed
+    public String dbNameCheck(String filename){
+        int count=1;
+        while(imageRepository.findByFileName(filename).isPresent()){
+            filename += count;
+        }
+        return filename;
+    }
+
+
 
 
 

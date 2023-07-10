@@ -69,6 +69,7 @@ public class MessageController {
 
             model.addAttribute("orderedUserMessageChain", userEntityMessageChains);
 
+
             return "message/messages";
         }
 

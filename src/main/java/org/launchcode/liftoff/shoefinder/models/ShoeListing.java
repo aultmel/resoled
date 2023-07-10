@@ -1,5 +1,5 @@
 package org.launchcode.liftoff.shoefinder.models;
-
+//comments added
 import jakarta.persistence.*;
 
 @Entity
@@ -8,47 +8,86 @@ public class ShoeListing {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String brand;
-    private Integer size;
-    private String style;
-    private String condition;
-    private Integer zipcode;
+    @ManyToOne
+    private UserEntity userEntity;
+    @OneToOne
+    private Location location;
+    private Brand brand;
+    private Size size;
+    private Style style;
+    private Condition condition;
+//    private Integer zipcode;
 
-    public ShoeListing () {
+    //Empty Constructor
+    public ShoeListing() {
 
     }
-    public ShoeListing(Integer id, String brand, Integer size, Integer zipcode){
+
+    // Constructor with parameters
+    public ShoeListing(Integer id, Brand brand, Size size, Style style, Condition condition, Location location, UserEntity userEntity) {
         this.id = id;
         this.brand = brand;
         this.size = size;
-        this.zipcode = zipcode;
+        this.style = style;
+        this.condition = condition;
+//        this.zipcode = zipcode;
+        this.location = location;
+        this.userEntity = userEntity;
     }
 
+    //Getters and Setters Methods
     public Integer getId() {
         return id;
     }
 
-    public String getBrand() {
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Brand getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(Brand brand) {
         this.brand = brand;
     }
 
-    public Integer getSize() {
+    public Size getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
-    public Integer getZipcode() {
-        return zipcode;
+    public Style getStyle() {
+        return style;
     }
 
-    public void setZipcode(Integer zipcode) {
-        this.zipcode = zipcode;
+    public void setStyle(Style style) {
+        this.style = style;
+    }
+
+    public Condition getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Condition condition) {
+        this.condition = condition;
     }
 }
+
+
+

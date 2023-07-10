@@ -167,21 +167,32 @@ public class MessageController {
 
         Optional<MessageChain> requestMessageChain = messageChainRepository.findById(addMessageDTO.getMessageChainId());
 
-
         if (!requestMessageChain.isPresent()) {
             // The message chain was not
+            //todo need to add error handling if the MassageChain does not exist.
+
+        }
+
+        //check if the userEntity should have access to the MessageChain
+       List<MessageChain> userEntityMessageChainsList = userEntity.getMessageChains();
+        Boolean userHasMessageChain = false;
+        for (MessageChain aMessageChain : userEntityMessageChainsList) {
+            if (aMessageChain.equals(requestMessageChain)) {
+                userHasMessageChain = true;
+            }
+        }
+
+        if (!userHasMessageChain) {
+            //user does not have access to that messageChain
+            //todo add error handling for if user should not have access to messageChain.
         }
 
         MessageChain requestedMessageChain =  requestMessageChain.get();
-
         addMessageDTO.setMessageChain(requestedMessageChain);
-
         addMessageDTO.setUserEntity(userEntity);
 
-
+        // use the AddMessageDTO to create a new Message and save it with the needed information from AddMessageDTO
         messageService.addMessage(addMessageDTO);
-
-
 
         // ultimately return to the message chain on the screen.
         return "redirect:../message/message?messageChainId=" + requestedMessageChain.getId();

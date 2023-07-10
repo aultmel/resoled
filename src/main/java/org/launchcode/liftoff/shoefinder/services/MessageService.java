@@ -42,7 +42,7 @@ public class MessageService {
     }
 
 
-    public void createMessageChain(CreateMessageDTO createMessageDTO) {
+    public Long createMessageChain(CreateMessageDTO createMessageDTO) {
 
         MessageChain messageChain = new MessageChain();
         messageChain.setMessageChainSubject(createMessageDTO.getMessageSubject());
@@ -61,6 +61,8 @@ public class MessageService {
 
         messageChainRepository.save(messageChain);
         messageRepository.save(message);
+
+        return messageChain.getId();
     }
 
 

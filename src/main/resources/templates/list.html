@@ -5,7 +5,7 @@
     <!-- Include necessary CSS and JS files -->
 </head>
 <body>
-<h1>Create Listing</h1>
+<h1>Create A Listing and Find A Trade</h1>
 
 <form th:action="@{/create-shoeListing}" th:object="${shoeListing}" method="post" enctype="multipart/form-data">
     <div class="form-group">
@@ -19,13 +19,23 @@
     </div>
 
     <div class="form-group">
-        <label for="location">Location (Zipcode):</label>
+        <label for="location">Location:</label>
         <input type="text" id="location" th:field="*{location}" class="form-control" required>
     </div>
 
     <div class="form-group">
         <label for="photoFile">Photo:</label>
         <input type="file" id="photoFile" name="photoFile" class="form-control-file" accept="image/*" required>
+    </div>
+
+    <div class="form-group">
+        <label for="condition">Condition:</label>
+        <input type="text" id="condition" th:field="*{condition}" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="style">Style:</label>
+        <input type="text" id="style" th:field="*{style}" class="form-control" required>
     </div>
 
     <button type="submit" class="btn btn-primary">Create Listing!</button>

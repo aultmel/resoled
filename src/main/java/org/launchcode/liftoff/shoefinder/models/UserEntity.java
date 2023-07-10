@@ -16,22 +16,33 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
 
 
-//    @NotBlank(message = "name is required")
+    //    @NotBlank(message = "name is required")
 //    @Size(message = "must be 3 to 20 characters")
     private String username;
 
-//    @NotNull
+    //    @NotNull
     private String password;
 
     private String firstName;
 
     private String lastName;
 
+    private String email;
+
     private LocalDate birthday;
+
+    private int age;
+
+//    private Location location;
+
+//    private Image image;
+
+//    @OneToMany
+//    private List<ShoeListing> shoeListings;
 
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -53,7 +64,7 @@ public class UserEntity {
         this.birthday = birthday;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -101,7 +112,9 @@ public class UserEntity {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthDate(LocalDate birthday) {
         this.birthday = birthday;
     }
+
+
 }

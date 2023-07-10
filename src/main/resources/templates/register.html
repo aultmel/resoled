@@ -39,8 +39,8 @@
                             class="form-control"
                             placeholder="Username"
                             th:field="*{username}">
+                    <p class="error" th:errors="*{username}"></p>
                 </div>
-                <p th:if="${#fields.hasErrors('username')}" class="text-danger"></p>
 
                 <div class="form-group">
                     <label>Password</label>
@@ -49,8 +49,10 @@
                             class="form-control"
                             placeholder="Password"
                             th:field="*{password}">
+                    <p class="error" th:errors="*{password}"></p>
+
                 </div>
-                <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>
+                <!--                <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>-->
 
 
                 <div class="form-group">

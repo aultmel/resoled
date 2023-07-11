@@ -1,8 +1,10 @@
 package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.annotation.Generated;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import org.springframework.data.annotation.Id;
+
 
 public class Brand {
     @Id

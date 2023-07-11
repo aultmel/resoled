@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments :: head}"></head>
-<body class="p-1">
+<body class="m-2">
 
-<p th:text="${userEntity.username}"></p>
+<h5><span th:text="${userEntity.username}"></span> and <span>
 
-<h3>Subject:</h3>
-<p th:text="${messageChain.messageChainSubject}"></p>
+
+    <th:block th:unless="${userEntity.username.equals(messageChain.userEntityList[0].username)}">
+                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[0].username}">
+                    <span th:text="${messageChain.userEntityList[0].username}"></span>
+                </a>
+        </th:block>
+    <!--            todo: update link to user profile page.-->
+            <th:block th:unless="${userEntity.username.equals(messageChain.userEntityList[1].username)}">
+                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[1].username}">
+                    <span th:text="${messageChain.userEntityList[1].username}"></span>
+                </a>
+
+            </th:block>
+</span>
+</h5>
+
+<span><h4>Subject:</h4> <span th:text="${messageChain.messageChainSubject}"></span></span>
 
 <div th:each="message : ${messageChain.messages}"
      class="p-1">
@@ -15,6 +30,7 @@
         <p th:text="${message.text}"></p>
 
     </div>
+
 
 </div>
 

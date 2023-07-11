@@ -1,8 +1,10 @@
 package org.launchcode.liftoff.shoefinder.models;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import org.springframework.data.annotation.Id;
 
+@Entity
 public class Style {
 
     @Id

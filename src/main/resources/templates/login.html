@@ -4,7 +4,6 @@
 
 <body>
 
-
 <div class="main">
     <div class="col-md-6 col-sm-12">
         <th:block th:if="${param.error}" class="alert alert-success">
@@ -36,7 +35,7 @@
                 </div>
 
 
-                <button th:href="@{/register}" type="submit" class="btn btn-black">Register here.</button>
+                <a th:href="@{/register}" class="btn btn-secondary">Register here.</a>
                 <button th:href="@{/login}" type="submit" value="Log in" class="btn btn-secondary">Login</button>
 
             </form>

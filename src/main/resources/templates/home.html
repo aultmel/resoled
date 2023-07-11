@@ -6,19 +6,6 @@
 
 TEST HOME
 <br/>
-
-<a href="/message/messages">MessageChain page</a>
-<br/>
-<a href="/register">Register Page</a>
-<br/>
-<a href="/login">Login Page</a>
-<br/>
-<a href="/message/create">Create a new Message Chain Page</a>
-<br/>
-<a href="/image/display">Image display Page</a>
-<br/>
-<a href="/image/imageUploadPlaceholder">Image upload placeholder Page</a>
-
 <th:block th:if="${param.success}" class="alert alert-success">
     REGISTRATION SUCCESSFUL!!  SHOE TIME
 </th:block>
@@ -32,6 +19,21 @@ TEST HOME
 <th:block th:if="${userEntity}" class="alert alert-success">
     Welcome <span th:text="${userEntity.username}"></span>
 </th:block>
+
+<br/>
+<br/>
+
+<a href="/register">Register Page</a>
+<br/>
+<a href="/login">Login Page</a>
+<br/>
+<a href="/message/create">Create a new Message Chain Page</a>
+<br/>
+<a href="/message/messages">MessageChain page</a>
+<br/>
+<a href="/image/display">Image display Page</a>
+<br/>
+<a href="/image/imageUploadPlaceholder">Image upload placeholder Page</a>
 
 
 </body>

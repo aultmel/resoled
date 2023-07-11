@@ -48,4 +48,5 @@ public class Condition {
     public void setCondition(ShoeCondition condition) {
         this.shoeCondition = condition;
     }
+
 }

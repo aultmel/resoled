@@ -1,3 +1,4 @@
+
 package org.launchcode.liftoff.shoefinder.controllers;
 
 import org.launchcode.liftoff.shoefinder.models.Image;
@@ -44,13 +45,7 @@ public class ImageController {
     }
 
 
-
-
-
     /*
-
-
-
 
     @PostMapping("/upload")
     public String uploadImage(@RequestParam("imageFile") MultipartFile file) {

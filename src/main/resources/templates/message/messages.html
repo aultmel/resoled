@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+
+<br/>
+<table class="table table-striped">
+
+    <h2>Message List</h2>
+    <br/>
+    <hr/>
+    <br/>
+    <div th:each="messageChain : ${orderedUserMessageChain}"
+    class="p-1">
+
+        <!--            todo: update link to user profile page.-->
+        <span>Message Subject: <a th:href="'/message/message?messageChainId=' + ${messageChain.id}" th:text="${messageChain.messageChainSubject}"></a></span>
+        <p>with:
+            <th:block th:unless="${userEntity.username.equals(messageChain.userEntityList[0].username)}">
+                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[0].username}">
+                    <span th:text="${messageChain.userEntityList[0].username}"></span>
+                </a>
+        </th:block>
+            <!--            todo: update link to user profile page.-->
+            <th:block th:unless="${userEntity.username.equals(messageChain.userEntityList[1].username)}">
+                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[1].username}">
+                    <span th:text="${messageChain.userEntityList[1].username}"></span>
+                </a>
+
+            </th:block>
+        </p>
+
+        <div class="p-2">
+        <p>Last Message in Chain: <span th:text="${messageChain.messages[messageChain.messages.size() - 1].text}"></span></p>
+            <p>From: <span th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.username}"></span></p>
+        </div>
+        <hr/>
+    </div>
+
+</table>
+</div>
+
+
+
+</body></html>

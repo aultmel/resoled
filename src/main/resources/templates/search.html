@@ -3,17 +3,27 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Search prototype</title>
-
-    <form>
-        <label for="shoetype">Shoe Type:</label>
-        <input type="text" id="shoetype" name="shoetype"><br><br>
-        <label for="shoebrand">Shoe Brand:</label>
-        <input type="text" id="shoebrand" name="shoebrand"><br><br>
-        <input type="submit" value="Submit">
-    </form>
-
 </head>
 <body>
+<div>
+    <form method="post">
+        <div id="searchbar">
+            <label>Search</label>
+            <input type="text"></br>
+        </div>
 
+        <input type="checkbox" id="male">
+        <label for="male">M</label>
+        <input type="checkbox" id="female">
+        <label for="female">F</label></br>
+
+        <label>Brand</label>
+<!--        <div th:ea="brand :${topBrands}">-->
+<!--            <input type="checkbox">-->
+<!--            <label th:text="brand"></label>-->
+<!--        </div>-->
+    </form>
+
+</div>
 </body>
 </html>

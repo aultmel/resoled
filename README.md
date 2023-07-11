@@ -1,5 +1,4 @@
-# shoe-finder
-
+# Resoled
 Feature List
 1. User Profiles
 2. Create a Listing

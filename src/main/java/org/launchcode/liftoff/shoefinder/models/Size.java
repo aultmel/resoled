@@ -27,7 +27,7 @@ public class Size {
         private wSizes(Double value) {
             this.value = value;
         }
-        };
+    };
 
 
 }

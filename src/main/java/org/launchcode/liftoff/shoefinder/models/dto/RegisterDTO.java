@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDate;
 
+
 public class RegisterDTO {
 
-    private int id;
 
     @NotEmpty
     private String username;
@@ -17,25 +17,23 @@ public class RegisterDTO {
 
     @NotEmpty
     private String passwordCheck;
+
+
     @NotEmpty
     private String firstName;
 
     @NotEmpty
     private String lastName;
+
     @NotEmpty
     private LocalDate birthday;
+
 
 
     public RegisterDTO() {
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -61,9 +59,9 @@ public class RegisterDTO {
         this.passwordCheck = passwordCheck;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+      public String getFirstName() {
+            return firstName;
+        }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

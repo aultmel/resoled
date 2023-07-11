@@ -16,7 +16,13 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.Arrays;
+
+
+// User Service contains methods to related UserEntity
+// saveUser is for Registering/Creating a new UserEntity from RegisterDTO
+
 
 @Service
 public class UserService {
@@ -59,6 +65,7 @@ public class UserService {
 
     }
 
+    //
 
     public void saveUser(RegisterDTO registerDTO) {
 
@@ -67,9 +74,11 @@ public class UserService {
         userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
         userEntity.setFirstName(registerDTO.getFirstName());
         userEntity.setLastName(registerDTO.getLastName());
-        userEntity.setBirthDate(registerDTO.getBirthday());
+        userEntity.setBirthday(registerDTO.getBirthday());
         Role role = roleRepository.findByName("USER");
         userEntity.setRoles(Arrays.asList(role));
+//        userEntity.setMessageChains(new ArrayList<>());
+        userEntity.setMessages(new ArrayList<>());
         userRepository.save(userEntity);
     }
 

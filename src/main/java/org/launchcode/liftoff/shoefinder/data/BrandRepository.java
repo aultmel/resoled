@@ -8,11 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, Integer> {
-//    @Query(nativeQuery = true, value = "SELECT name, COUNT(name) AS frequency\n" +
-//            "FROM brand\n" +
-//            "GROUP BY name\n" +
-//            "ORDER BY frequency DESC\n" +
-//            "LIMIT 5;")
 @Query("SELECT b.name, COUNT(b.name) AS frequency " +
         "FROM Brand b " +
         "GROUP BY b.name " +

@@ -11,6 +11,6 @@ public interface BrandRepository extends JpaRepository<Brand, Integer> {
 @Query("SELECT b.name, COUNT(b.name) AS frequency " +
         "FROM Brand b " +
         "GROUP BY b.name " +
-        "ORDER BY COUNT(b.name) DESC")
+        "ORDER BY COUNT(b.name) DESC LIMIT 5")
     List<Object[]> findPopularBrands();
 }

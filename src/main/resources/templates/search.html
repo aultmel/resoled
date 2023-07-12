@@ -18,64 +18,36 @@
         <label for="female">F</label></br>
 
         <label>Brand:</label></br>
-        <input type="checkbox" name="brands">
-        <label th:text=${topBrands[0]}></label></br>
-        <input type="checkbox" name="brands">
-        <label th:text=${topBrands[1]}></label></br>
-        <input type="checkbox" name="brands">
-        <label th:text=${topBrands[2]}></label></br>
-        <input type="checkbox" name="brands">
-        <label th:text=${topBrands[3]}></label></br>
-        <input type="checkbox" name="brands">
-        <label th:text=${topBrands[4]}></label></br>
+        <th:block th:each="brand : ${topBrands}">
+            <input type="checkbox" name="brands">
+            <label>
+                <span th:text="${brand}"></span>
+            </label></br>
+        </th:block>
 
         <label>Size:</label></br>
-        <input type="checkbox" name="sizes">
-        <label th:text=${shoeSizes[0]}></label>
-        <input type="checkbox" name="sizes">
-        <label th:text=${shoeSizes[1]}></label>
-        <input type="checkbox" name="sizes">
-        <label th:text=${shoeSizes[2]}></label>
-        <input type="checkbox" name="sizes">
-        <label th:text=${shoeSizes[3]}></label>
-        <input type="checkbox" name="sizes">
-        <label th:text=${shoeSizes[4]}></label>
-        <input type="checkbox" name="sizes">
-        <label th:text=${shoeSizes[5]}></label>
-        <input type="checkbox" name="sizes">
-        <label th:text=${shoeSizes[6]}></label>
-        <input type="checkbox" name="sizes">
-        <label th:text=${shoeSizes[7]}></label>
-        <input type="checkbox" name="sizes">
-        <label th:text=${shoeSizes[8]}></label></br>
-
-<!--        <th:block th:ea="size : ${shoeSizes}">-->
-<!--            <input type="checkbox" name="sizes">-->
-<!--            <label th:text=${size}></label>-->
-
-<!--        </th:block>-->
+        <th:block th:each="size : ${shoeSizes}">
+            <input type="checkbox" name="sizes">
+            <label>
+                <span th:text="${size}"></span>
+            </label>
+        </th:block></br>
 
         <label>Style:</label></br>
-        <input type="checkbox" name="styles">
-        <label th:text=${topStyles[0]}></label></br>
-        <input type="checkbox" name="styles">
-        <label th:text=${topStyles[1]}></label></br>
-        <input type="checkbox" name="styles">
-        <label th:text=${topStyles[2]}></label></br>
-        <input type="checkbox" name="styles">
-        <label th:text=${topStyles[3]}></label></br>
-        <input type="checkbox" name="styles">
-        <label th:text=${topStyles[4]}></label></br>
+        <th:block th:each="style : ${topStyles}">
+            <input type="checkbox" name="styles">
+            <label>
+                <span th:text="${style}"></span>
+            </label></br>
+        </th:block>
 
         <label>Condition:</label></br>
-        <input type="checkbox" name="conditions">
-        <label>New</label></br>
-        <input type="checkbox" name="conditions">
-        <label>Very Good</label></br>
-        <input type="checkbox" name="conditions">
-        <label>Good</label></br>
-        <input type="checkbox" name="conditions">
-        <label>Acceptable</label></br>
+        <th:block th:each="condition : ${conditions}">
+            <input type="checkbox" name="conditions">
+            <label>
+                <span th:text="${condition}"></span>
+            </label></br>
+        </th:block>
 
     </form>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8"/>
     <title>Search prototype</title>
@@ -8,20 +8,53 @@
 <div>
     <form method="post">
         <div id="searchbar">
-            <label>Search</label>
-            <input type="text"></br>
+            <label>Search:</label>
+            <input type="text" name="searchTerm"></br>
         </div>
 
-        <input type="checkbox" id="male">
+        <input type="checkbox" id="male" name="gender">
         <label for="male">M</label>
-        <input type="checkbox" id="female">
+        <input type="checkbox" id="female" name="gender">
         <label for="female">F</label></br>
 
-        <label>Brand</label>
-<!--        <div th:ea="brand :${topBrands}">-->
-<!--            <input type="checkbox">-->
-<!--            <label th:text="brand"></label>-->
-<!--        </div>-->
+        <label>Brand:</label></br>
+        <input type="checkbox" name="brands">
+        <label th:text=${topBrands[0]}></label></br>
+        <input type="checkbox" name="brands">
+        <label th:text=${topBrands[1]}></label></br>
+        <input type="checkbox" name="brands">
+        <label th:text=${topBrands[2]}></label></br>
+        <input type="checkbox" name="brands">
+        <label th:text=${topBrands[3]}></label></br>
+        <input type="checkbox" name="brands">
+        <label th:text=${topBrands[4]}></label></br>
+
+        <label>Size:</label></br>
+        <input type="checkbox" name="sizes">
+        <label th:text=${shoeSizes[0]}></label>
+        <input type="checkbox" name="sizes">
+        <label th:text=${shoeSizes[1]}></label>
+        <input type="checkbox" name="sizes">
+        <label th:text=${shoeSizes[2]}></label>
+        <input type="checkbox" name="sizes">
+        <label th:text=${shoeSizes[3]}></label>
+        <input type="checkbox" name="sizes">
+        <label th:text=${shoeSizes[4]}></label>
+        <input type="checkbox" name="sizes">
+        <label th:text=${shoeSizes[5]}></label>
+        <input type="checkbox" name="sizes">
+        <label th:text=${shoeSizes[6]}></label>
+        <input type="checkbox" name="sizes">
+        <label th:text=${shoeSizes[7]}></label>
+        <input type="checkbox" name="sizes">
+        <label th:text=${shoeSizes[8]}></label></br>
+
+<!--        <th:block th:ea="size : ${shoeSizes}">-->
+<!--            <input type="checkbox" name="sizes">-->
+<!--            <label th:text=${size}></label>-->
+
+<!--        </th:block>-->
+
     </form>
 
 </div>

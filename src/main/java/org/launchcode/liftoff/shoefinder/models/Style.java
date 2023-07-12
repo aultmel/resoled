@@ -11,6 +11,7 @@ public class Style {
     @GeneratedValue
     private Long id;
     private static final String KEY_ = "";
+    private String name;
     public enum styleType {
         RUNNING("Running"), HEELS("Heels"), WINGTIP("Wingtip"), OXFORD("Oxford"), BOOTS("Boots"), FLATS("Flats"), SANDALS("Sandals"), CLOGS("Clogs"), WATERSHOES("Water Shoes"), PLATFORMS("Platforms"), HIGHTOPS("Hightops"), TOESHOES("Toe Shoes"), MOONSHOES("Moonshoes"), LOAFERS("Loafers"), BALLET("Ballet"), TAP("Tap");
 

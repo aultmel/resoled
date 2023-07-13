@@ -45,25 +45,5 @@ public class ImageController {
     }
 
 
-    /*
 
-    @PostMapping("/upload")
-    public String uploadImage(@RequestParam("imageFile") MultipartFile file) {
-        imageService.storeImage(file);
-        return "redirect:/";
-    }
-
-    @GetMapping("/image/{id}")
-    public String showImage(@PathVariable("id") Long id, Model model) {
-
-        Optional<Image> image = imageService.getImageById(id);
-        if (image.isPresent()) {
-            model.addAttribute("image", image.get());
-            return "image/";
-        } else {
-            return "error"; // or handle the error in a different way
-        }
-    }
-
-     */
 }

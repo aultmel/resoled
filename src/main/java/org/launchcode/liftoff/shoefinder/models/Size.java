@@ -1,10 +1,12 @@
 package org.launchcode.liftoff.shoefinder.models;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
 
+@Entity
 public class Size {
 
     @Id

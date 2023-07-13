@@ -45,6 +45,18 @@ public class MessageController {
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
 
+        List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
+
+        // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
+        // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
+        Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
+            Message latestMessage1 = messageChain1.getMessages().get(messageChain1.getMessages().size() - 1);
+            Message latestMessage2 = messageChain2.getMessages().get(messageChain2.getMessages().size() - 1);
+            return latestMessage2.getLocalDateTime().compareTo(latestMessage1.getLocalDateTime());
+        });
+
+        model.addAttribute("orderedUserMessageChain", userEntityMessageChains);
+
         return "message/messages";
     }
 
@@ -100,11 +112,20 @@ public class MessageController {
 
 //         checks if receiver username exists and if it does not, sends an error to the view
         if (!userRepository.existsByUsername(createMessageDTO.getReceiverUsername())) {
-//            model.addAttribute("createMessageDTO", createMessageDTO);
-            errors.rejectValue("receiverUsername", "username.notValid", "Username does not exist");
-
+            errors.rejectValue("receiverUsername", "username.notValid", "Username does not exist.");
             return "message/create";
         }
+
+        if (createMessageDTO.getMessageSubject().isEmpty()) {
+            errors.rejectValue("messageSubject", "messageSubject.notValid", "To initiate a message please add a subject.");
+            return "message/create";
+        }
+
+        if (createMessageDTO.getText().isEmpty()) {
+            errors.rejectValue("text", "text.notValid", "Please type a message.");
+            return "message/create";
+        }
+
 
         createMessageDTO.setReceiverUserEntity(userRepository.findByUsername(createMessageDTO.getReceiverUsername()));
         createMessageDTO.setSenderUserEntity(userEntity);

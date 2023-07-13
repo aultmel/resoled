@@ -2,11 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 
-<body>
+<body class="m-1 color1">
 
 TEST HOME
 <br/>
-
 <th:block th:if="${param.success}" class="alert alert-success">
     REGISTRATION SUCCESSFUL!!  SHOE TIME
 </th:block>
@@ -21,6 +20,53 @@ TEST HOME
     Welcome <span th:text="${userEntity.username}"></span>
 </th:block>
 
+<br/>
+<br/>
 
+<a href="/register">Register Page</a>
+<br/>
+<a href="/login">Login Page</a>
+<br/>
+<a href="/message/create">Create a new Message Chain Page</a>
+<br/>
+<a href="/message/messages">MessageChain page</a>
+<br/>
+<a href="/image/display">Image display Page</a>
+<br/>
+<a href="/image/upload">Image upload placeholder Page</a></br>
+<a href="/search">Search Page</a>
+
+
+<br/>
+<br/>
+<p>Potential Color Pallet up for review:</p>
+<br/>
+<div class="color1 border rounded">
+   <br/>
+    <br/>
+    <br/>
+</div>
+<div class="color2 border rounded">
+    <br/>
+    <br/>
+    <br/>
+</div>
+<div class="color3 border rounded">
+    <br/>
+    <br/>
+    <br/>
+</div>
+<div class="color4 border rounded">
+    <br/>
+    <br/>
+    <br/>
+</div>
+<div class="color5 border rounded">
+    <br/>
+    <br/>
+    <br/>
+</div>
+
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

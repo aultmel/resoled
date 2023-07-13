@@ -2,11 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 
-<body>
+<body class="m-2">
 
 <br/>
-<table class="table table-striped">
 
+<a href="/message/create">Click here to message someone new (Create new MessageChain)</a>
+
+<br/>
+<br/>
+<hr/>
+<br/>
     <h2>Message List</h2>
     <br/>
     <hr/>
@@ -38,9 +43,10 @@
         <hr/>
     </div>
 
-</table>
+
 </div>
 
 
-
-</body></html>
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
+</body>
+</html>

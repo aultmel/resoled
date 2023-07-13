@@ -6,6 +6,8 @@
 
 <h1>Create a Message</h1>
 
+
+
     <form method="post" role="form"
           th:action="@{../message/create}"
           th:object="${createMessageDTO}">
@@ -15,19 +17,19 @@
         <label>Message Receiver Username:
             <input th:field="*{receiverUsername}" class="form-control">
         </label>
-
+                <p class="error" th:errors="*{receiverUsername}"></p>
     </div>
 
     <div class="form-group">
         <label>Subject of the message:
         <input th:field="*{messageSubject}" class="form-control">
-
         </label>
+        <p class="error" th:errors="*{messageSubject}"></p>
     </div>
     <div class="form-group">
 
 
-
+        <p class="error" th:errors="*{text}"></p>
         <label><h5>Message:</h5>
             <br/>
             <textarea th:field="*{text}" name="text" rows="5" cols="50" />

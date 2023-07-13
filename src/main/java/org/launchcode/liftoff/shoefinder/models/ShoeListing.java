@@ -2,6 +2,9 @@ package org.launchcode.liftoff.shoefinder.models;
 //comments added
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "List")
 public class ShoeListing {
@@ -17,6 +20,9 @@ public class ShoeListing {
     private Size size;
     private Style style;
     private Condition condition;
+    @OneToMany(mappedBy = "listing")
+    private List<Image> images = new ArrayList<>();
+
 //    private Integer zipcode;
 
     //Empty Constructor
@@ -87,6 +93,15 @@ public class ShoeListing {
 
     public void setCondition(Condition condition) {
         this.condition = condition;
+    }
+
+    //returns list of image byte[] data
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 }
 

@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "shoeCondition")
 public class Condition {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /*
     Enum to set the level of condition for the shoes. When a condition class is created:

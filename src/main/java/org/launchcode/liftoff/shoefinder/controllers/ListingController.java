@@ -26,13 +26,14 @@ public class ListingController {
     @PostMapping("/listing")
     public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,
                                 @RequestParam("photoFile") MultipartFile photoFile) {
-        try {
+        //TODO:Need to handle multiple image files before worrying about this
+        /*try {
             if (!photoFile.isEmpty()) {
                 // Get the bytes of the photo file
                 byte[] photoBytes = photoFile.getBytes();
 
                 // Set the photo bytes to the listing
-                shoeListing.setPhoto(photoBytes);
+                shoeListing.setImages(photoBytes);
             }
 
             // Save the listing to the database
@@ -41,7 +42,7 @@ public class ListingController {
             // Handle any exceptions, e.g., return to the form with an error message
             return "redirect:/listing?error=upload";
         }
-
+        */
         // Redirect to a success page
         return "redirect:/success";
     }

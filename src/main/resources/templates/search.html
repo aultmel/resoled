@@ -48,7 +48,7 @@
         </th:block>
 
         <label>Condition:</label></br>
-        <th:block th:each="condition : ${conditions}">
+        <th:block th:each="condition : ${conditionList}">
             <input type="checkbox" name="conditions">
             <label>
                 <span th:text="${condition}"></span>

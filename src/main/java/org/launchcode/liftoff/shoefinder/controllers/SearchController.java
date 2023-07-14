@@ -69,12 +69,8 @@ public class SearchController {
         model.addAttribute("shoeSizes", shoeSizes);
 
         //Create list of conditions for the model
-        List<String> conditions = new ArrayList<>();
-        conditions.add("New");
-        conditions.add("Excellent");
-        conditions.add("Good");
-        conditions.add("Acceptable");
-        model.addAttribute("conditions", conditions);
+        List<String> conditionList = Condition.getAllConditionDisplayTexts();
+        model.addAttribute("conditionList", conditionList);
 
         return "search";
     }

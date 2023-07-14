@@ -2,6 +2,10 @@ package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Entity
 @Table(name = "shoeCondition")
 public class Condition {
@@ -30,6 +34,17 @@ public class Condition {
         }
     }
 
+    public static List<ShoeCondition> getAllConditions() {
+        return Arrays.asList(ShoeCondition.values());
+    }
+    public static List<String> getAllConditionDisplayTexts() {
+        List<String> displayTexts = new ArrayList<>();
+        for (ShoeCondition condition : ShoeCondition.values()) {
+            displayTexts.add(condition.displayText);
+        }
+        return displayTexts;
+    }
+
     private ShoeCondition shoeCondition;
 
     public Condition(ShoeCondition condition) {
@@ -48,5 +63,7 @@ public class Condition {
     public void setCondition(ShoeCondition condition) {
         this.shoeCondition = condition;
     }
+
+
 
 }

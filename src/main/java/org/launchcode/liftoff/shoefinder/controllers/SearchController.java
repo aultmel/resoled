@@ -3,11 +3,14 @@ package org.launchcode.liftoff.shoefinder.controllers;
 import org.launchcode.liftoff.shoefinder.data.BrandRepository;
 import org.launchcode.liftoff.shoefinder.data.StyleRepository;
 import org.launchcode.liftoff.shoefinder.models.Brand;
+import org.launchcode.liftoff.shoefinder.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +24,12 @@ public class SearchController {
     private StyleRepository styleRepository;
 
     @GetMapping("/search")
-    public String search(Model model){
+    public String search(@RequestParam(required = false) String searchTerm,
+                         @RequestParam(required = false) List<Brand> brands,
+                         @RequestParam(required = false) List<Size> sizes,
+                         @RequestParam(required = false) List<Style> styles,
+                         @RequestParam(required = false) List<Condition> conditions,
+                         Model model){
 
         //Grab 5 most recurring brands from database
         List<Object[]> topBrandsData = brandRepository.findPopularBrands();
@@ -70,6 +78,4 @@ public class SearchController {
 
         return "search";
     }
-
-
 }

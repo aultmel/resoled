@@ -18,7 +18,10 @@
         <label for="female">F</label></br>
 
         <label>Brand:</label></br>
-        <th:block th:each="brand : ${topBrands}">
+        <th:block th:if="${topBrands.size() == 0 or topBrands == null}">
+            <p>No brands found. Please add brands to enable filtering.</p>
+        </th:block>
+        <th:block th:each="brand : ${topBrands}" th:if="${topBrands.size() > 0}">
             <input type="checkbox" name="brands">
             <label>
                 <span th:text="${brand}"></span>
@@ -34,7 +37,10 @@
         </th:block></br>
 
         <label>Style:</label></br>
-        <th:block th:each="style : ${topStyles}">
+        <th:block th:if="${topStyles.size() == 0 or topStyles == null}">
+            <p>No styles found. Please add styles to enable filtering.</p>
+        </th:block>
+        <th:block th:each="style : ${topStyles}" th:if="${topStyles.size() > 0}">
             <input type="checkbox" name="styles">
             <label>
                 <span th:text="${style}"></span>

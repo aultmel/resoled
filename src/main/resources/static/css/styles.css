@@ -1,0 +1,26 @@
+
+
+body {
+ font-size: large;
+ background: hsla(48, 83%, 89%, 1);
+}
+
+.color1 {
+background: hsla(48, 83%, 89%, 1);
+}
+
+.color2 {
+background: hsla(47, 87%, 66%, 1);
+}
+
+.color3 {
+background: hsla(28, 83%, 61%, 1);
+}
+
+.color4 {
+background:  hsla(10, 94%, 60%, 1);
+}
+
+.color5 {
+background:  hsla(209, 77%, 23%, 1);
+}

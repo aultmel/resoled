@@ -57,7 +57,6 @@ public class MessageController {
 
         model.addAttribute("orderedUserMessageChain", userEntityMessageChains);
 
-
         return "message/messages";
     }
 
@@ -113,11 +112,20 @@ public class MessageController {
 
 //         checks if receiver username exists and if it does not, sends an error to the view
         if (!userRepository.existsByUsername(createMessageDTO.getReceiverUsername())) {
-//            model.addAttribute("createMessageDTO", createMessageDTO);
-            errors.rejectValue("receiverUsername", "username.notValid", "Username does not exist");
-
+            errors.rejectValue("receiverUsername", "username.notValid", "Username does not exist.");
             return "message/create";
         }
+
+        if (createMessageDTO.getMessageSubject().isEmpty()) {
+            errors.rejectValue("messageSubject", "messageSubject.notValid", "To initiate a message please add a subject.");
+            return "message/create";
+        }
+
+        if (createMessageDTO.getText().isEmpty()) {
+            errors.rejectValue("text", "text.notValid", "Please type a message.");
+            return "message/create";
+        }
+
 
         createMessageDTO.setReceiverUserEntity(userRepository.findByUsername(createMessageDTO.getReceiverUsername()));
         createMessageDTO.setSenderUserEntity(userEntity);

@@ -17,6 +17,9 @@ public class Image {
     @Column(name = "imageData", length = 1000)
     private byte[] imageData;
 
+    @ManyToOne
+    private ShoeListing listing;
+
     public Image() {
     }
 

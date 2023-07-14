@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+<form  method="POST" th:action="@{/upload}" enctype="multipart/form-data">
+<!--    user handled in controller/session, make sure to grab current user-->
+<!--    brand, style, size, condition, images-->
+    <th:block th:each="brand : ${topBrands}">
+        <label><span th:text="${brand}"></span>
+            <input type="checkbox" name="brands">
+        </label></br>
+    </th:block>
+
+<!--    Get brand value through enums-->
+<!--    <select th:field="*{brandName}">-->
+<!--        <option th:each="brand : ${T(org.launchcode.liftoff.shoefinder.models.BrandName).values()}"-->
+<!--                th:value="${brand}" th:text="${brand.displayName}"></option>-->
+<!--    </select>-->
+
+
+
+
+
+
+<!-- upload image, TODO: add multiple images-->
+    <input type="file" name="imageFile" accept="image/*">
+    <button type="submit">Upload</button>
+</form>
+
+</body>
+</html>

@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
-
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
 <body>
 <!--
 Below is a general concept for the form to upload images, to be placed into the create listing page I assume.
 -->
-<form  method="POST" th:action="@{/upload}" enctype="multipart/form-data">
-    <input type="file" name="imageFile" accept="image/*">
-    <button type="submit">Upload</button>
+<form action="/upload" method="POST" enctype="multipart/form-data">
+  <input type="file" name="imageFile" accept="image/*">
+  <button type="submit">Upload</button>
 </form>
 
 </body>

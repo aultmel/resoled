@@ -34,75 +34,14 @@ async function suggestionFetch(inputBoxValue) {
   }
 
 
+function displaySuggestions(suggestions) {
+  const content = suggestions.map((list) => {
+     return `<li onclick=selectInput(this)>${list}</li>`;
+  });
+  resultsWrapper.innerHTML = `<ul>${content.join('')}</ul>`;
+}
 
-
-
-//function displaySuggestions(suggestions) {
-//  const content = suggestions.map((list) => {
-//     return `<li onclick=selectInput(this)>${list}</li>`;
-//  });
-//  resultsWrapper.innerHTML = `<ul>${content.join('')}</ul>`;
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//      displaySuggestions(suggestions);
-//        if (!suggestions.length) {
-//         resultsWrapper.innerHTML = '';
-//        }
-//
-//  } else {
-//    // The request failed
-//  }
-//};
-//xhr.send();
-//
-
-
-//
-
-//
-//  displaySuggestions(suggestionsList);
-//    if (!suggestionsList.length) {
-//      resultsWrapper.innerHTML = '';
-//    }
-//});
-//
-//function displaySuggestions(suggestionsList) {
-//  const content = suggestionsList.map((list) => {
-//      return `<li onclick=selectInput(this)>${list}</li>`;
-//    });
-//  resultsWrapper.innerHTML = `<ul>${content.join('')}</ul>`;
-//}
-//
-//function selectInput(list) {
-//    inputBox.value = list.innerHTML;
-//    resultsWrapper.innerHTML = '';
-//}
-//
-//
-//const getSuggestions = (lookupString) => {
-//  return fetch('/get-suggestions', {
-//    method: 'POST',
-//    headers: {
-//      'Content-Type': 'application/json',
-//    },
-//    body: JSON.stringify({
-//      lookupString: lookupString,
-//    }),
-//  }).then(response => response.json()).then(data => data.suggestions);
-//};
-//
-//const suggestionsList = getSuggestions(lookupString);
+function selectInput(list) {
+  inputBox.value = list.innerHTML;
+  resultsWrapper.innerHTML = "";
+}

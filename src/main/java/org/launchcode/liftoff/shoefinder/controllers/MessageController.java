@@ -1,6 +1,8 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
 import org.launchcode.liftoff.shoefinder.data.MessageRepository;
@@ -13,6 +15,7 @@ import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.AddMessageDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
+import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.function.Function;
 
 @Controller
 @RequestMapping("/message")
@@ -30,6 +34,9 @@ public class MessageController {
     private UserRepository userRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private MessageService messageService;
 
     @Autowired
@@ -37,6 +44,9 @@ public class MessageController {
 
     @Autowired
     private MessageRepository messageRepository;
+
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping("/")
     public String messageRootGetMapping(Model model) {
@@ -87,6 +97,12 @@ public class MessageController {
         }
 
 
+
+
+
+
+
+
     @GetMapping("/create")
     public String createMessageGetMapping(Model model) {
 
@@ -99,8 +115,29 @@ public class MessageController {
         CreateMessageDTO createMessageDTO = new CreateMessageDTO();
         model.addAttribute("createMessageDTO", createMessageDTO);
 
+
+        //TEST
+//        Function<String, List<String>> getSuggestions = (lookupString) -> {
+//
+//        };
+
+//        if (usernameKeyword != null) {
+////            List<UserEntity> suggestions = userService.getSuggestionsUserEntity(keyword);
+
+//
+//
+//            model.addAttribute("suggestions", suggestions);
+
+//        }
+
+
+        //TEST
+
+
+
         return "message/create";
     }
+
 
 
     @PostMapping("/create")

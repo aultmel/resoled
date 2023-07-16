@@ -1,0 +1,49 @@
+
+
+const url = "http://localhost:8080/api/message";
+
+const inputSearchBox = document.getElementById('input-search-box');
+const resultsWrapper = document.querySelector('.results');
+
+
+// Event Listener for the inputSearchBox keyup events.
+//This will fire everytime a user types a character in the inputSearchBox.
+inputSearchBox.addEventListener("keyup", (event) => {
+         if (event.isComposing || event.keyCode === 229) {
+        return;
+        }
+        else if (inputSearchBox.value.trim() === "") {
+                 resultsWrapper.innerHTML = '';
+            return;
+        }
+
+    suggestionFetch(inputSearchBox.value);
+ });
+
+
+//Function sends the searchTerm as a GET request and receives JSON list back.
+//Then sends the list to displaySuggestions.  If the list is empty it will not display anything.
+async function suggestionFetch(inputSearchBoxValue) {
+
+  const response = await fetch(url + "?searchTerm=" + inputSearchBoxValue);
+  const usernameList = await response.json();
+  console.log(usernameList);
+
+  displaySuggestions(usernameList);
+        if (!usernameList.length) {
+                 resultsWrapper.innerHTML = '';
+         }
+  }
+
+//Maps out the suggestions list with onclick for the selection and pushes it into the select input function
+function displaySuggestions(suggestions) {
+  const content = suggestions.map((list) => {
+     return `<li onclick=selectInput(this)>${list}</li>`;
+  });
+  resultsWrapper.innerHTML = `<ul>${content.join('')}</ul>`;
+}
+
+function selectInput(list) {
+  inputBox.value = list.innerHTML;
+  resultsWrapper.innerHTML = "";
+}

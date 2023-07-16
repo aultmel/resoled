@@ -13,7 +13,9 @@
         <label>Message Receiver Username:
             <input th:field="*{receiverUsername}" class="form-control" id="input-search-box" autocomplete="off">
         </label>
-                <div class="result-box"></div>
+                <div class="results">
+                    <ul></ul>
+                </div>
                 <p class="error" th:errors="*{receiverUsername}"></p>
             </div>
 
@@ -36,25 +38,7 @@
 </form>
 
 
-
-TESTING
-
-<div class="container">
-    <div class="wrapper">
-        <input class="autocompleteInputText" type="text" id="input-box" placeholder="Type to search" autocomplete="off">
-        <button type="submit">GO!</button>
-
-        <div class="results">
-            <ul>
-            </ul>
-        </div>
-    </div>
-</div>
-TESTING
-
-MOAR TESTING
-
-<script th:src="@{/js/autocomplete.js}"></script>
+<script th:src="@{/js/fetchSuggestions.js}"></script>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

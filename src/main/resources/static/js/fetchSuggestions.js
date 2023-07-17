@@ -16,7 +16,7 @@ inputSearchBox.addEventListener("keyup", (event) => {
                  resultsWrapper.innerHTML = '';
             return;
         }
-
+        
     suggestionFetch(inputSearchBox.value);
  });
 
@@ -26,11 +26,10 @@ inputSearchBox.addEventListener("keyup", (event) => {
 async function suggestionFetch(inputSearchBoxValue) {
 
   const response = await fetch(url + "?searchTerm=" + inputSearchBoxValue);
-  const usernameList = await response.json();
-  console.log(usernameList);
+  const suggestionsList = await response.json();
 
-  displaySuggestions(usernameList);
-        if (!usernameList.length) {
+  displaySuggestions(suggestionsList);
+        if (!suggestionsList.length) {
                  resultsWrapper.innerHTML = '';
          }
   }
@@ -44,6 +43,8 @@ function displaySuggestions(suggestions) {
 }
 
 function selectInput(list) {
-  inputBox.value = list.innerHTML;
+  inputSearchBox.value = list.innerHTML;
   resultsWrapper.innerHTML = "";
 }
+
+

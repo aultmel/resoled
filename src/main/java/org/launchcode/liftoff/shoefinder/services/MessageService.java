@@ -2,22 +2,16 @@ package org.launchcode.liftoff.shoefinder.services;
 
 import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
 import org.launchcode.liftoff.shoefinder.data.MessageRepository;
-import org.launchcode.liftoff.shoefinder.data.RoleRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.Message;
 import org.launchcode.liftoff.shoefinder.models.MessageChain;
-import org.launchcode.liftoff.shoefinder.models.Role;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.AddMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
-import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -59,6 +53,8 @@ public class MessageService {
         message.setMessageChain(messageChain);
         message.setLocalDateTime(LocalDateTime.now());
 
+        messageChain.setLocalDateTime(message.getLocalDateTime());
+
         messageChainRepository.save(messageChain);
         messageRepository.save(message);
 
@@ -74,8 +70,20 @@ public class MessageService {
         message.setMessageChain(addMessageDTO.getMessageChain());
         message.setLocalDateTime(LocalDateTime.now());
 
-        messageRepository.save(message);
+        message.getMessageChain().setLocalDateTime(message.getLocalDateTime());
 
+        messageRepository.save(message);
     }
 
+//    public List<MessageChain> sortMessageChainsByRecentMessage(){
+////
+////        List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
+////
+////        Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
+////            Message latestMessage1 = messageChain1.getMessages().get(messageChain1.getMessages().size() - 1);
+////            Message latestMessage2 = messageChain2.getMessages().get(messageChain2.getMessages().size() - 1);
+////            return latestMessage2.getLocalDateTime().compareTo(latestMessage1.getLocalDateTime());
+////        });
+//
+//    }
 }

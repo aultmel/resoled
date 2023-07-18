@@ -1,7 +1,6 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
@@ -15,8 +14,13 @@ import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.AddMessageDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
+
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +28,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.function.Function;
+
 
 @Controller
 @RequestMapping("/message")
@@ -50,6 +54,16 @@ public class MessageController {
 
     @GetMapping("/")
     public String messageRootGetMapping(Model model) {
+        return messagesGetMapping(model);
+    }
+
+        @GetMapping("/messages")
+        public String messagesGetMapping(Model model) {
+                return getOneMessageChainPage(model, 1);
+        }
+
+    @GetMapping("messages/page/{pageNumber}")
+    public String getOneMessageChainPage(Model model, @PathVariable("pageNumber") int currentPage){
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
@@ -57,49 +71,28 @@ public class MessageController {
 
         List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
 
+        // Creating a pageable framework AND
         // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
         // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
-        Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
-            Message latestMessage1 = messageChain1.getMessages().get(messageChain1.getMessages().size() - 1);
-            Message latestMessage2 = messageChain2.getMessages().get(messageChain2.getMessages().size() - 1);
-            return latestMessage2.getLocalDateTime().compareTo(latestMessage1.getLocalDateTime());
-        });
+        // number of items on page is set by the size parameter of the PageRequest.of()
+        Pageable pageableSortedByLocalDateTime = PageRequest.of( currentPage - 1, 5, Sort.by("LocalDateTime").descending());
+        Page<MessageChain> pageMessageChains = messageChainRepository.findAll(pageableSortedByLocalDateTime);
 
-        model.addAttribute("orderedUserMessageChain", userEntityMessageChains);
+
+        int totalPages = pageMessageChains.getTotalPages();
+        long totalItems = pageMessageChains.getTotalElements();
+
+        //Get content of the list it will be the size set by the Pageable
+        List<MessageChain> messageChainList = pageMessageChains.getContent();
+
+        model.addAttribute("pageMessageChains", pageMessageChains);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("messageChainList", messageChainList);
 
         return "message/messages";
     }
-
-
-
-
-        @GetMapping("/messages")
-        public String messagesGetMapping(Model model) {
-
-            String username = SecurityUtility.getSessionUser();
-            UserEntity userEntity = userRepository.findByUsername(username);
-            model.addAttribute("userEntity", userEntity);
-
-            List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
-
-            // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
-            // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
-            Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
-                Message latestMessage1 = messageChain1.getMessages().get(messageChain1.getMessages().size() - 1);
-                Message latestMessage2 = messageChain2.getMessages().get(messageChain2.getMessages().size() - 1);
-                return latestMessage2.getLocalDateTime().compareTo(latestMessage1.getLocalDateTime());
-            });
-
-            model.addAttribute("orderedUserMessageChain", userEntityMessageChains);
-
-
-            return "message/messages";
-        }
-
-
-
-
-
 
 
 
@@ -115,7 +108,7 @@ public class MessageController {
         model.addAttribute("createMessageDTO", createMessageDTO);
 
         // api url for suggestions for the username
-        model.addAttribute("suggestionsUrl", "http://localhost:8080/api/message");
+        model.addAttribute("suggestionsUrl", "http://localhost:8080/api/messageCreate");
 
         return "message/create";
     }
@@ -238,6 +231,8 @@ public class MessageController {
         return "redirect:../message/message?messageChainId=" + requestedMessageChain.getId();
 
     }
+
+
 
 
 

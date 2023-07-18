@@ -16,7 +16,7 @@
     <br/>
     <hr/>
     <br/>
-    <div th:each="messageChain : ${orderedUserMessageChain}"
+    <div th:each="messageChain : ${messageChainList}"
     class="p-1">
 
         <!--            todo: update link to user profile page.-->
@@ -49,4 +49,13 @@
 
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
+
+<footer style="font-size: large" class="panel-footer">
+    Total Items [[${totalItems}]] : Page [[${currentPage}]] of [[${totalPages}]]
+    &nbsp; &nbsp; - &nbsp;
+    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+        <a th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
+        &nbsp; &nbsp;
+    </span>
+</footer>
 </html>

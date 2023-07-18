@@ -3,6 +3,8 @@ package org.launchcode.liftoff.shoefinder.controllers;
 import org.launchcode.liftoff.shoefinder.data.BrandRepository;
 import org.launchcode.liftoff.shoefinder.data.StyleRepository;
 import org.launchcode.liftoff.shoefinder.models.Brand;
+import org.launchcode.liftoff.shoefinder.models.Condition;
+import org.launchcode.liftoff.shoefinder.models.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,28 +46,14 @@ public class SearchController {
             String styleName = (String) style[0];
             topStyles.add(styleName);
         }
-        //Add topStyles to the model for search.html
         model.addAttribute("topStyles", topStyles);
 
         //Create list of shoe sizes for the model
-        List<String> shoeSizes = new ArrayList<>();
-        shoeSizes.add("5");
-        shoeSizes.add("6");
-        shoeSizes.add("7");
-        shoeSizes.add("8");
-        shoeSizes.add("9");
-        shoeSizes.add("10");
-        shoeSizes.add("11");
-        shoeSizes.add("12");
-        shoeSizes.add("13");
+        List<String> shoeSizes = Size.getAllSizes();
         model.addAttribute("shoeSizes", shoeSizes);
 
         //Create list of conditions for the model
-        List<String> conditions = new ArrayList<>();
-        conditions.add("New");
-        conditions.add("Excellent");
-        conditions.add("Good");
-        conditions.add("Acceptable");
+        List<String> conditions = Condition.getAllConditionDisplayTexts();
         model.addAttribute("conditions", conditions);
 
         return "search";

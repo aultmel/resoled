@@ -16,9 +16,14 @@ public class ShoeListing {
     @OneToOne
     private Location location;
 
+    @ManyToOne
     private Brand brand;
+
+    @ManyToOne
     private Size size;
+    @ManyToOne
     private Style style;
+    @ManyToOne
     private Condition condition;
     @OneToMany(mappedBy = "listing")
     private List<Image> images = new ArrayList<>();

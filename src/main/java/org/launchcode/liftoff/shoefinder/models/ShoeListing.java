@@ -10,15 +10,20 @@ import java.util.List;
 public class ShoeListing {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     @ManyToOne
     private UserEntity userEntity;
-    @OneToOne
+
+    @ManyToOne
     private Location location;
 
+    @ManyToOne
     private Brand brand;
+    @ManyToOne
     private Size size;
+    @ManyToOne
     private Style style;
+    @ManyToOne
     private Condition condition;
     @OneToMany(mappedBy = "listing")
     private List<Image> images = new ArrayList<>();
@@ -31,7 +36,7 @@ public class ShoeListing {
     }
 
     // Constructor with parameters
-    public ShoeListing(Integer id, Brand brand, Size size, Style style, Condition condition, Location location, UserEntity userEntity) {
+    public ShoeListing(Long id, Brand brand, Size size, Style style, Condition condition, Location location, UserEntity userEntity) {
         this.id = id;
         this.brand = brand;
         this.size = size;
@@ -43,7 +48,7 @@ public class ShoeListing {
     }
 
     //Getters and Setters Methods
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

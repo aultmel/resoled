@@ -53,12 +53,13 @@ public class UserEntity {
 
     private int age;
 
-//    private Location location;
+    @OneToOne
+    private Location location;
 
 //    private Image image;
 
-//    @OneToMany
-//    private List<ShoeListing> shoeListings;
+    @OneToMany(mappedBy = "userEntity")
+    private List<ShoeListing> shoeListings;
 
 
 

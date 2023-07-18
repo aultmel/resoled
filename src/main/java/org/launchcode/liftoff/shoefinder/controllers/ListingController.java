@@ -11,19 +11,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-@Controller
+@Controller("/listing")
 public class ListingController {
 
     @Autowired
     private ShoeListingRepository listingRepository;
 
-    @GetMapping("/listing")
+    @GetMapping("create")
     public String showListingForm(Model model) {
         model.addAttribute("listing", new ShoeListing());
-        return "listing-form";
+        return "/listing/listing-form";
     }
 
-    @PostMapping("/listing")
+    //will need dto to transfer userEntity info along with form data to create populate Listing
+    @PostMapping("create")
     public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,
                                 @RequestParam("photoFile") MultipartFile photoFile) {
         //TODO:Need to handle multiple image files before worrying about this

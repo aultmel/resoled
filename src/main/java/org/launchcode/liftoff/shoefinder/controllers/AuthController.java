@@ -40,15 +40,15 @@ public class AuthController {
 
     private RoleRepository roleRepository;
 
-    private AuthenticationManager authenticationManager;
+
 
     @Autowired
-    public AuthController(UserService userService, UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, AuthenticationManager authenticationManager) {
+    public AuthController(UserService userService, UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
-        this.authenticationManager = authenticationManager;
+
     }
 
     @GetMapping("/login")
@@ -88,24 +88,15 @@ public class AuthController {
         String verifyPassword = registerDTO.getPasswordCheck();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-//            model.addAttribute("registerDTO", registerDTO);
+//  todo remove if no issues          model.addAttribute("registerDTO", registerDTO);
             return "register";
         }
 
         //Save new user via UserService
         userService.saveUser(registerDTO);
 
-        //TEST
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                registerDTO.getUsername(),
-                registerDTO.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        //TEST
-
         // possibly return with a success param to use on landing page after registration
-        return "redirect:/home/?success";
+        return "redirect:/home?success";
 
     }
 

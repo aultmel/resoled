@@ -106,7 +106,6 @@ public class MessageController {
     @GetMapping("/create")
     public String createMessageGetMapping(Model model) {
 
-
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
@@ -115,25 +114,8 @@ public class MessageController {
         CreateMessageDTO createMessageDTO = new CreateMessageDTO();
         model.addAttribute("createMessageDTO", createMessageDTO);
 
-
-        //TEST
-//        Function<String, List<String>> getSuggestions = (lookupString) -> {
-//
-//        };
-
-//        if (usernameKeyword != null) {
-////            List<UserEntity> suggestions = userService.getSuggestionsUserEntity(keyword);
-
-//
-//
-//            model.addAttribute("suggestions", suggestions);
-
-//        }
-
-
-        //TEST
-
-
+        // api url for suggestions for the username
+        model.addAttribute("suggestionsUrl", "http://localhost:8080/api/message");
 
         return "message/create";
     }

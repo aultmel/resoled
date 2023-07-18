@@ -17,9 +17,10 @@
                     <ul></ul>
                 </div>
                 <p class="error" th:errors="*{receiverUsername}"></p>
-
             </div>
+
         <input type="hidden" id="suggestionsUrl" th:value="${suggestionsUrl}" />
+
     <div class="form-group">
         <label>Subject of the message:
         <input th:field="*{messageSubject}" class="form-control">

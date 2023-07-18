@@ -2,7 +2,7 @@
 
 // To use this script you will need to create a hidden input field in your template
 // <input type="hidden" th:hidden="*{whatEverNameYouPick}" />
-// then in your controller model.addAttribute("whatEverNameYouPick", "
+// then in your controller model.addAttribute("whatEverNameYouPick", http://localhost:8080/api/ whatEverYouPick"
 
 const suggestionsUrlField = document.getElementById('suggestionsUrl')
 const inputSearchBox = document.getElementById('input-search-box');

@@ -1,6 +1,9 @@
 package org.launchcode.liftoff.shoefinder.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import org.hibernate.annotations.Formula;
 
 @Entity
@@ -21,7 +24,6 @@ public class Brand {
 
         //may switch to arrayList, double check
     }
-
 
     private BrandName brandName;
 

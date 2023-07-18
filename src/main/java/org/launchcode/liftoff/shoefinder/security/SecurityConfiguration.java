@@ -3,22 +3,25 @@ package org.launchcode.liftoff.shoefinder.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 
 
 @Configuration
-
 @EnableWebSecurity
 public class SecurityConfiguration {
 
@@ -35,12 +38,15 @@ public class SecurityConfiguration {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/", "/register").permitAll()
+                .authorizeHttpRequests(authorize ->
+                        authorize.requestMatchers("/login", "/", "/register").permitAll()
                         .requestMatchers( "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
@@ -58,6 +64,7 @@ public class SecurityConfiguration {
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+
 
 
 }

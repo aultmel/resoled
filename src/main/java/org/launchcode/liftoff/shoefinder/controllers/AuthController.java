@@ -9,6 +9,7 @@ import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -78,10 +79,11 @@ public class AuthController {
             return "register";
         }
 
+        //Save new user via UserService
         userService.saveUser(registerDTO);
 
         // possibly return with a success param to use on landing page after registration
-        return "redirect:/?success";
+        return "redirect:/home/?success";
 
     }
 

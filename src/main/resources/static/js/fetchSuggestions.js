@@ -1,7 +1,10 @@
 
 
-const url = "http://localhost:8080/api/message";
+// To use this script you will need to create a hidden input field in your template
+// <input type="hidden" th:hidden="*{whatEverNameYouPick}" />
+// then in your controller model.addAttribute("whatEverNameYouPick", "
 
+const suggestionsUrlField = document.getElementById('suggestionsUrl')
 const inputSearchBox = document.getElementById('input-search-box');
 const resultsWrapper = document.querySelector('.results');
 
@@ -25,7 +28,7 @@ inputSearchBox.addEventListener("keyup", (event) => {
 //Then sends the list to displaySuggestions.  If the list is empty it will not display anything.
 async function suggestionFetch(inputSearchBoxValue) {
 
-  const response = await fetch(url + "?searchTerm=" + inputSearchBoxValue);
+  const response = await fetch(suggestionsUrlField.value + "?searchTerm=" + inputSearchBoxValue);
   const suggestionsList = await response.json();
 
   displaySuggestions(suggestionsList);

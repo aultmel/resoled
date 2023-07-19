@@ -29,8 +29,9 @@ public class ImageController {
     public String uploadImage(@RequestParam("imageFile") MultipartFile file, Model model) throws IOException {
         imageService.uploadImage(file);
         //model.addAttribute("images", imageService)
+        //model.addAttribute("message", "it worked");
         //return "/image/uploadSuccess";
-        return "redirect:/" + file.getOriginalFilename();
+        return "redirect:/image/" + file.getOriginalFilename();
     }
 
     //Not configured, also not sure if useable for our application. (Why would we want to show one specific image only?)

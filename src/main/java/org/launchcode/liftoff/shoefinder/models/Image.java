@@ -9,13 +9,16 @@ import lombok.Builder;
 @Builder
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String fileName;
     private String fileType;
     @Lob
     @Column(name = "imageData", length = 1000)
     private byte[] imageData;
+
+    @ManyToOne
+    private ShoeListing listing;
 
     public Image() {
     }

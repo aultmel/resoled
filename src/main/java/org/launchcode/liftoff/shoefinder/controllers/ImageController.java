@@ -29,8 +29,9 @@ public class ImageController {
     public String uploadImage(@RequestParam("imageFile") MultipartFile file, Model model) throws IOException {
         imageService.uploadImage(file);
         //model.addAttribute("images", imageService)
+        //model.addAttribute("message", "it worked");
         //return "/image/uploadSuccess";
-        return "redirect:/" + file.getOriginalFilename();
+        return "redirect:/image/" + file.getOriginalFilename();
     }
 
     //Not configured, also not sure if useable for our application. (Why would we want to show one specific image only?)
@@ -43,25 +44,5 @@ public class ImageController {
     }
 
 
-    /*
 
-    @PostMapping("/upload")
-    public String uploadImage(@RequestParam("imageFile") MultipartFile file) {
-        imageService.storeImage(file);
-        return "redirect:/";
-    }
-
-    @GetMapping("/image/{id}")
-    public String showImage(@PathVariable("id") Long id, Model model) {
-
-        Optional<Image> image = imageService.getImageById(id);
-        if (image.isPresent()) {
-            model.addAttribute("image", image.get());
-            return "image/";
-        } else {
-            return "error"; // or handle the error in a different way
-        }
-    }
-
-     */
 }

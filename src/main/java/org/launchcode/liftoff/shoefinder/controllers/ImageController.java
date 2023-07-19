@@ -19,12 +19,12 @@ public class ImageController {
     @Autowired
     ImageService imageService;
 
-    @GetMapping("upload")
+    @GetMapping("/upload")
     public String displayUploadForm(Model model){
         return "/image/imageUploadPlaceholder";
     }
 
-    @PostMapping("upload")
+    @PostMapping("/upload")
     public String uploadImage(@RequestParam("imageFile") MultipartFile file, Model model) throws IOException {
         imageService.uploadImage(file);
         //model.addAttribute("images", imageService)

@@ -17,8 +17,11 @@ public class ImageService {
 
     public String uploadImage(MultipartFile file) throws IOException {
 
-        //chaning first constructor variable from file.getOriginalFilename() to dbcheck
-        Image image= imageRepository.save(new Image(dbNameCheck(file.getOriginalFilename()), file.getContentType(), ImageUtils.compressImage(file.getBytes())));
+        //changing first constructor variable from file.getOriginalFilename() to dbcheck
+        Image image= imageRepository.save(new Image(
+//switch this out later                    dbNameCheck(file.getOriginalFilename()),
+                file.getOriginalFilename(),
+                file.getContentType(), ImageUtils.compressImage(file.getBytes())));
 
         if(image!=null){
             return "file uploaded: " + file.getOriginalFilename();
@@ -42,11 +45,6 @@ public class ImageService {
         }
         return filename;
     }
-
-
-
-
-
 
 
 

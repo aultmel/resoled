@@ -9,7 +9,7 @@ import lombok.Builder;
 @Builder
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String fileName;
     private String fileType;

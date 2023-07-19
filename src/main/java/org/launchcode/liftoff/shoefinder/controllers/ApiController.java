@@ -1,16 +1,10 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
 
-
 import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
-import org.launchcode.liftoff.shoefinder.models.MessageChain;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RequestMapping("/api")

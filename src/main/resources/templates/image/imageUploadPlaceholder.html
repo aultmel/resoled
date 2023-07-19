@@ -8,7 +8,7 @@
 <!--
 Below is a general concept for the form to upload images, to be placed into the create listing page I assume.
 -->
-<form  method="POST" th:action="@{/upload}" enctype="multipart/form-data">
+<form action="/upload" method="POST" enctype="multipart/form-data">
     <input type="file" name="imageFile" accept="image/*">
     <button type="submit">Upload</button>
 </form>

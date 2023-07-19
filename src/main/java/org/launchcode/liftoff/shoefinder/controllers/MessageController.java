@@ -54,7 +54,7 @@ public class MessageController {
 
     @GetMapping("/")
     public String messageRootGetMapping(Model model) {
-        return messagesGetMapping(model);
+        return getOneMessageChainPage(model, 1);
     }
 
         @GetMapping("/messages")
@@ -90,6 +90,11 @@ public class MessageController {
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("messageChainList", messageChainList);
+
+        //Number of pages total that will be listed at once in the pagination menu.  Keep an even number for current code configuration.
+        int paginationMenuTotalVisible = 6;
+        model.addAttribute("paginationMenuTotalVisible", paginationMenuTotalVisible);
+        model.addAttribute("paginationMenuSplitSidesVisible", paginationMenuTotalVisible / 2);
 
         return "message/messages";
     }

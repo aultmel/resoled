@@ -1,9 +1,7 @@
 package org.launchcode.liftoff.shoefinder.models;
 
-import jakarta.persistence.*;
-import lombok.Builder;
-
-
+//DEPRECATED DUE TO STORING IMAGES LOCALLY INSTEAD OF IN A DB
+/*
 @Entity
 @Table(name = "image")
 @Builder
@@ -14,7 +12,7 @@ public class Image {
     private String fileName;
     private String fileType;
     @Lob
-    @Column(name = "imageData", length = 1000)
+    @Column(name = "imageData", length = 2000)
     private byte[] imageData;
 
     @ManyToOne
@@ -57,3 +55,5 @@ public class Image {
         this.fileType = fileType;
     }
 }
+
+ */

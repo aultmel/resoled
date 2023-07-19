@@ -1,8 +1,9 @@
 
 package org.launchcode.liftoff.shoefinder.controllers;
 
-import org.launchcode.liftoff.shoefinder.models.Image;
-import org.launchcode.liftoff.shoefinder.services.ImageService;
+//import org.launchcode.liftoff.shoefinder.models.Image;
+//import org.launchcode.liftoff.shoefinder.services.ImageService;
+import org.launchcode.liftoff.shoefinder.models.ImageLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,23 +18,27 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/image")
 public class ImageController {
-    @Autowired
-    ImageService imageService;
 
+    //DEPRECATED TO STORE IMAGES LOCALLY
+
+//    @Autowired
+//    ImageService imageService;
     @GetMapping("upload")
     public String displayUploadForm(Model model){
         return "/image/imageUploadPlaceholder";
     }
-
     @PostMapping("upload")
-    public String uploadImage(@RequestParam("imageFile") MultipartFile file, Model model) throws IOException {
-        imageService.uploadImage(file);
+    public String uploadImage(@RequestParam("imageFiles") MultipartFile[] files, Model model) throws IOException {
+        for(MultipartFile file:files){
+            ImageLocal imageLocal = new ImageLocal();
+
+        }
+
+
         //model.addAttribute("images", imageService)
         //model.addAttribute("message", "it worked");
-        //return "/image/uploadSuccess";
-        return "redirect:/image/" + file.getOriginalFilename();
+        return "/image/uploadSuccess";
     }
-
     //Not configured, also not sure if useable for our application. (Why would we want to show one specific image only?)
     @GetMapping("/{filename}")
     public String downloadImage(@PathVariable String filename, Model model){
@@ -45,4 +50,7 @@ public class ImageController {
 
 
 
+
+
 }
+*/

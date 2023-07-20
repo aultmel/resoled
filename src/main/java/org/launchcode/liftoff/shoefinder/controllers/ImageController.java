@@ -33,9 +33,14 @@ public class ImageController {
     }
     @PostMapping("upload")
     public String uploadImage(@RequestParam("imageFiles") MultipartFile[] files, Model model) throws IOException {
-        ImageLocal imageLocal = new ImageLocal();
+        for(MultipartFile imageFile: files) {
+            ImageLocal imageLocal = new ImageLocal();
+            imageLocal.setImageFile(imageFile);
+            imageRepository.save(imageLocal);
+            imageLocal.saveImageLocally(files);
+        }
 
-        imageLocal.saveImageLocally(files);
+
 
         return "/image/uploadSuccess";
     }

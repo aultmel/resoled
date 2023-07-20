@@ -10,7 +10,8 @@ import java.util.Optional;
 public interface ImageRepository extends JpaRepository<ImageLocal, Long> {
 
 
-    Optional<ImageLocal> findByFileName(String fileName);
+
+    //Optional<ImageLocal> findByFileName(String fileName);
 
 
 }

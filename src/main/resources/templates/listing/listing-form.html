@@ -3,9 +3,12 @@
 <head th:replace="~{fragments :: head}"></head>
 
 <body>
-<form  method="POST" th:action="@{/upload}" enctype="multipart/form-data">
+<form th:object="${shoeListing}" th:action="@{/listing/create}" method="POST" enctype="multipart/form-data">
+
 <!--    user handled in controller/session, make sure to grab current user-->
 <!--    brand, style, size, condition, images-->
+
+<!--    BRAND-->
     <th:block th:each="brand : ${topBrands}">
         <label><span th:text="${brand}"></span>
             <input type="checkbox" name="brands">
@@ -18,15 +21,27 @@
 <!--                th:value="${brand}" th:text="${brand.displayName}"></option>-->
 <!--    </select>-->
 
+<!--    STYLE-->
 
+<!--    SIZE-->
 
+<!--    CONDITION-->
 
+    <select th:field="*{condition}">
+        <option th:each="condition : ${T(org.launchcode.liftoff.shoefinder.models.Condition$ShoeCondition).values()}"
+                th:value="${condition}" th:text="${condition}">
+        </option>
+    </select>
 
-
+<!--    IMAGES-->
 <!-- upload image, TODO: add multiple images-->
-    <input type="file" name="imageFile" accept="image/*">
-    <button type="submit">Upload</button>
-</form>
+    <th:block>
+        <input type="file" name="imageFiles" accept="image/*" multiple>
+    </th:block>
+
+<!--    SUBMIT BUTTON-->
+    <button type="submit">Create Listing</button>
+    </form>
 
 </body>
 </html>

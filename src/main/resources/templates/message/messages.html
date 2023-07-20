@@ -2,56 +2,63 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 
-<body class="m-2">
+<body class="m-2 gradientBg">
 
 <br/>
+<div class="color9 container w-75 rounded-top p-1">
+    <div class="color13 container rounded p-4">
+        <div class="color12 container rounded p-4">
+            <div class="color7 container rounded p-4">
 
-<a href="/message/create">Click here to message someone new (Create new MessageChain)</a>
+                <h2 class="text-center">Your Conversations</h2>
 
-<br/>
-<br/>
-<hr/>
-<br/>
-    <h2>Your Conversations</h2>
-    <br/>
-    <hr/>
-    <br/>
-    <div th:each="messageChain : ${messageChainList}"
-    class="p-1">
 
-        <!--            todo: update link to user profile page.-->
-        <span>Message Subject: <a th:href="'/message/message?messageChainId=' + ${messageChain.id}" th:text="${messageChain.messageChainSubject}"></a></span>
-        <p>with:
+
+
+                <a href="/message/create">Click here to message someone new (Create new MessageChain)</a>
+                <br/>
+        <div th:each="messageChain : ${messageChainList}" class="p-1">
+<!--            <div class="color14 container rounded p-1">-->
+            <div class="color6 container rounded p-1">
+                <div class="color7 container rounded p-2">
+
+            <h5>Message Subject: <a th:href="'/message/message?messageChainId=' + ${messageChain.id}" th:text="${messageChain.messageChainSubject}"></a></h5>
+            <h5>with:
+            <!--            todo: update link to user profile page.-->
             <th:block th:unless="${userEntity.username.equals(messageChain.userEntityList[0].username)}">
                 <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[0].username}">
                     <span th:text="${messageChain.userEntityList[0].username}"></span>
                 </a>
-        </th:block>
-            <!--            todo: update link to user profile page.-->
-            <th:block th:unless="${userEntity.username.equals(messageChain.userEntityList[1].username)}">
-                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[1].username}">
-                    <span th:text="${messageChain.userEntityList[1].username}"></span>
-                </a>
-
             </th:block>
-        </p>
+            <!--            todo: update link to user profile page.-->
+                <th:block th:unless="${userEntity.username.equals(messageChain.userEntityList[1].username)}">
+                    <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[1].username}">
+                        <span th:text="${messageChain.userEntityList[1].username}"></span>
+                    </a>
+                </th:block>
+            </h5>
 
-        <div class="p-2">
-        <p>Last Message in Chain: <span th:text="${messageChain.messages[messageChain.messages.size() - 1].text}"></span></p>
-            <p>From: <span th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.username}"></span></p>
+            <div class="p-2">
+            <p>Most Recent Message:
+                <div class="color5 rounded w-50 p-2">
+                <span th:text="${messageChain.messages[messageChain.messages.size() - 1].text}"></span></p>
+                <p><span th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.username}"></span>:</p>
+                </div>
+            </div>
+
         </div>
-        <hr/>
-    </div>
-
-
+        </div></div>
+            </div>
+<!--        </div>-->
+    </div></div>
 </div>
-
-
+</div>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 
 <footer style="font-size: large" class="panel-footer">
-
+    <div class="container color9 w-75 p-1 rounded-bottom">
+    <div class="color9 p-1">
     <!--    sets the pagination menu / control-->
     <nav aria-label="Conversations Page Navigation Menu">
         <ul class="pagination pagination-lg justify-content-center">
@@ -135,14 +142,12 @@
                             <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
                         </li>
                     </th:block>
-
                 </th:block>
             </th:block>
-
             <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link" th:href="@{'/message/messages/page/' + ${currentPage + 1}}">Next</a></li>
             <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link" th:href="@{'/message/messages/page/' + ${totalPages}}">Last</a></li>
-
         </ul>
     </nav>
+    </div></div>
 </footer>
 </html>

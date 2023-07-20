@@ -1,17 +1,12 @@
 package org.launchcode.liftoff.shoefinder.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
+import jakarta.persistence.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 
 @Entity
 public class ImageLocal {
@@ -22,6 +17,10 @@ public class ImageLocal {
 
     @Transient
     private MultipartFile imageFile;
+
+
+    @ManyToOne
+    private ShoeListing listing;
 
     public Long getId() {
         return id;
@@ -36,14 +35,18 @@ public class ImageLocal {
     }
 
 
-    public ImageLocal(MultipartFile imageFile) {
-        this.imageFile = imageFile;
+    public ShoeListing getListing() {
+        return listing;
+    }
+
+    public void setListing(ShoeListing listing) {
+        this.listing = listing;
     }
 
     public ImageLocal() {}
 
-    public void saveImageLocally(List<MultipartFile> imageFiles){
-        if(imageFiles!= null && !imageFiles.isEmpty()){
+    public void saveImageLocally(MultipartFile[] imageFiles){
+        if(imageFiles!= null && imageFiles.length>0){
             for(MultipartFile imageFile: imageFiles){
                 if(!imageFile.isEmpty()) {
                     try {
@@ -51,7 +54,6 @@ public class ImageLocal {
                         String fileName = "image_" + getId() + ".jpg";
                         //create file path for image
                         Path filePath = Paths.get("images/" + fileName);
-
                         // Save the file to the images directory within resources
                         Files.write(filePath, imageFile.getBytes());
 

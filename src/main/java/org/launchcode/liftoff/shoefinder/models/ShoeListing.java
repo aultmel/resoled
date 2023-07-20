@@ -26,7 +26,7 @@ public class ShoeListing {
     @ManyToOne
     private Condition condition;
     @OneToMany(mappedBy = "listing")
-    private List<Image> images = new ArrayList<>();
+    private List<ImageLocal> images = new ArrayList<>();
 
 //    private Integer zipcode;
 
@@ -101,11 +101,11 @@ public class ShoeListing {
     }
 
     //returns list of image byte[] data
-    public List<Image> getImages() {
+    public List<ImageLocal> getImages() {
         return images;
     }
 
-    public void setImages(List<Image> images) {
+    public void setImages(List<ImageLocal> images) {
         this.images = images;
     }
 }

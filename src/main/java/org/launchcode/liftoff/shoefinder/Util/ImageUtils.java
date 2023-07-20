@@ -6,6 +6,9 @@ import java.util.zip.Inflater;
 //DEPRECATED TO STORE IMAGES LOCALLY
 public class ImageUtils {
 
+
+
+
     public static byte[] compressImage(byte[] data){
         Deflater deflater = new Deflater();
         deflater.setLevel(Deflater.BEST_COMPRESSION);
@@ -40,4 +43,6 @@ public class ImageUtils {
         }
         return outputStream.toByteArray();
     }
+
+
 }

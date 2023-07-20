@@ -1,7 +1,7 @@
 package org.launchcode.liftoff.shoefinder.services;
 
 import org.launchcode.liftoff.shoefinder.Util.ImageUtils;
-import org.launchcode.liftoff.shoefinder.data.ImageRepository;
+//import org.launchcode.liftoff.shoefinder.data.ImageRepository;
 //import org.launchcode.liftoff.shoefinder.models.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

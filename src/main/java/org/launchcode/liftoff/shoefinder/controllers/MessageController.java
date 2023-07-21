@@ -14,6 +14,7 @@ import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,18 +62,24 @@ public class MessageController {
 
         List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
 
-//        Collections.sort(userEntityMessageChains, Comparator.comparing(MessageChain::getLocalDateTime).reversed());
+        PagedListHolder<MessageChain> pagedListHolder = new PagedListHolder<>(userEntityMessageChains);
+        pagedListHolder.setPage(currentPage - 1);
+        pagedListHolder.setPageSize(4);
 
-        // Creating a pageable framework AND
+        List<MessageChain> pageSlice = pagedListHolder.getPageList();
+        Pageable pageableSortedByLocalDateTime = PageRequest.of( currentPage - 1, 4, Sort.by("LocalDateTime").descending());
+
+        Page<MessageChain> pageMessageChains = new PageImpl<>(pageSlice, pageableSortedByLocalDateTime, userEntityMessageChains.size() );
+
+
+        // Creating a pageable framework from a list of UserEntity MessageChain
         // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
         // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
         // number of items on page is set by the size parameter of the PageRequest.of()
-//        Pageable pageableSortedByLocalDateTime = PageRequest.of( currentPage - 1, 4, Sort.by("LocalDateTime").descending();
 
-        Pageable pageable = PageRequest.of(0, 4, Sort.by("LocalDateTime").descending());
-            messageRepository.findAll(userEntityMessageChains, pageable);
 
-//        Page<MessageChain> pageMessageChains = new PageImpl<>(userEntityMessageChains, pageable, userEntityMessageChains.size();
+
+
 
         int totalPages = pageMessageChains.getTotalPages();
         long totalItems = pageMessageChains.getTotalElements();

@@ -12,5 +12,4 @@ import java.util.List;
 //For Both Paging/Sorting and CRUD we use JPA Repository
 public interface MessageRepository extends JpaRepository<Message, Long>{
 
-    void findAll(List<MessageChain> userEntityMessageChains, Pageable pageable);
 }

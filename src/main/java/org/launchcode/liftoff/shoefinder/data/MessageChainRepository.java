@@ -1,6 +1,8 @@
 package org.launchcode.liftoff.shoefinder.data;
 
 import org.launchcode.liftoff.shoefinder.models.MessageChain;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

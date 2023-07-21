@@ -14,10 +14,7 @@ import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -64,12 +61,18 @@ public class MessageController {
 
         List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
 
+//        Collections.sort(userEntityMessageChains, Comparator.comparing(MessageChain::getLocalDateTime).reversed());
+
         // Creating a pageable framework AND
         // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
         // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
         // number of items on page is set by the size parameter of the PageRequest.of()
-        Pageable pageableSortedByLocalDateTime = PageRequest.of( currentPage - 1, 4, Sort.by("LocalDateTime").descending());
-        Page<MessageChain> pageMessageChains = messageChainRepository.findAll(pageableSortedByLocalDateTime);
+//        Pageable pageableSortedByLocalDateTime = PageRequest.of( currentPage - 1, 4, Sort.by("LocalDateTime").descending();
+
+        Pageable pageable = PageRequest.of(0, 4, Sort.by("LocalDateTime").descending());
+            messageRepository.findAll(userEntityMessageChains, pageable);
+
+//        Page<MessageChain> pageMessageChains = new PageImpl<>(userEntityMessageChains, pageable, userEntityMessageChains.size();
 
         int totalPages = pageMessageChains.getTotalPages();
         long totalItems = pageMessageChains.getTotalElements();

@@ -6,13 +6,13 @@
 <h5><span th:text="${userEntity.username}"></span> and <span>
 
 
-    <th:block th:unless="${userEntity.username.equals(messageChain.userEntityList[0].username)}">
+    <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
                 <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[0].username}">
                     <span th:text="${messageChain.userEntityList[0].username}"></span>
                 </a>
         </th:block>
     <!--            todo: update link to user profile page.-->
-            <th:block th:unless="${userEntity.username.equals(messageChain.userEntityList[1].username)}">
+            <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
                 <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[1].username}">
                     <span th:text="${messageChain.userEntityList[1].username}"></span>
                 </a>

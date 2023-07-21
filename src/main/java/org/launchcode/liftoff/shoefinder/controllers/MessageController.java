@@ -60,14 +60,14 @@ public class MessageController {
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
 
-        List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
+        List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
 
         PagedListHolder<MessageChain> pagedListHolder = new PagedListHolder<>(userEntityMessageChains);
         pagedListHolder.setPage(currentPage - 1);
         pagedListHolder.setPageSize(4);
 
         List<MessageChain> pageSlice = pagedListHolder.getPageList();
-        Pageable pageableSortedByLocalDateTime = PageRequest.of( currentPage - 1, 4, Sort.by("LocalDateTime").descending());
+        Pageable pageableSortedByLocalDateTime = PageRequest.of( currentPage - 1, 4);
 
         Page<MessageChain> pageMessageChains = new PageImpl<>(pageSlice, pageableSortedByLocalDateTime, userEntityMessageChains.size() );
 

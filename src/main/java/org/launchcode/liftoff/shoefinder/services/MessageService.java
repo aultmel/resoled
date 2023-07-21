@@ -75,15 +75,20 @@ public class MessageService {
         messageRepository.save(message);
     }
 
-//    public List<MessageChain> sortMessageChainsByRecentMessage(){
-////
-////        List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
-////
-////        Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
-////            Message latestMessage1 = messageChain1.getMessages().get(messageChain1.getMessages().size() - 1);
-////            Message latestMessage2 = messageChain2.getMessages().get(messageChain2.getMessages().size() - 1);
-////            return latestMessage2.getLocalDateTime().compareTo(latestMessage1.getLocalDateTime());
-////        });
-//
-//    }
+
+    public List<MessageChain> sortMessageChainsByRecentMessage(UserEntity userEntity){
+
+        List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
+
+//        Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
+//            Message latestMessage1 = messageChain1.getMessages().get(messageChain1.getMessages().size() - 1);
+//            Message latestMessage2 = messageChain2.getMessages().get(messageChain2.getMessages().size() - 1);
+//            return latestMessage2.getLocalDateTime().compareTo(latestMessage1.getLocalDateTime());
+//        });
+        Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
+            return messageChain2.getLocalDateTime().compareTo(messageChain1.getLocalDateTime());
+        });
+
+        return userEntityMessageChains;
+    }
 }

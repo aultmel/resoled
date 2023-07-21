@@ -13,6 +13,9 @@ public class RegisterDTO {
     private String username;
 
     @NotEmpty
+    private String displayName;
+
+    @NotEmpty
     private String password;
 
     @NotEmpty
@@ -81,5 +84,13 @@ public class RegisterDTO {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

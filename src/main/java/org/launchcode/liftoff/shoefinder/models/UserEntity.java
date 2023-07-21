@@ -40,6 +40,8 @@ public class UserEntity {
     //    @Size(message = "must be 3 to 20 characters")
     private String username;
 
+    private String displayName;
+
     //    @NotNull
     private String password;
 
@@ -67,13 +69,15 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(String username, String password, List<Role> roles, String firstName, String lastName, LocalDate birthday) {
+    public UserEntity(String username, String password, List<Role> roles, String firstName,
+                      String lastName, LocalDate birthday, String displayName) {
         this.username = username;
         this.password = password;
         this.roles = roles;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
+        this.displayName = displayName;
     }
 
     public long getId() {
@@ -144,8 +148,6 @@ public class UserEntity {
         this.age = age;
     }
 
-
-
     public List<Message> getMessages() {
         return messages;
     }
@@ -160,5 +162,13 @@ public class UserEntity {
 
     public void setMessageChains(List<MessageChain> messageChains) {
         this.messageChains = messageChains;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

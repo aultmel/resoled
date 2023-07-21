@@ -14,10 +14,8 @@ import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -62,14 +60,26 @@ public class MessageController {
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
 
-        List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
+        List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
 
-        // Creating a pageable framework AND
+        PagedListHolder<MessageChain> pagedListHolder = new PagedListHolder<>(userEntityMessageChains);
+        pagedListHolder.setPage(currentPage - 1);
+        pagedListHolder.setPageSize(4);
+
+        List<MessageChain> pageSlice = pagedListHolder.getPageList();
+        Pageable pageableSortedByLocalDateTime = PageRequest.of( currentPage - 1, 4);
+
+        Page<MessageChain> pageMessageChains = new PageImpl<>(pageSlice, pageableSortedByLocalDateTime, userEntityMessageChains.size() );
+
+
+        // Creating a pageable framework from a list of UserEntity MessageChain
         // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
         // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
         // number of items on page is set by the size parameter of the PageRequest.of()
-        Pageable pageableSortedByLocalDateTime = PageRequest.of( currentPage - 1, 4, Sort.by("LocalDateTime").descending());
-        Page<MessageChain> pageMessageChains = messageChainRepository.findAll(pageableSortedByLocalDateTime);
+
+
+
+
 
         int totalPages = pageMessageChains.getTotalPages();
         long totalItems = pageMessageChains.getTotalElements();

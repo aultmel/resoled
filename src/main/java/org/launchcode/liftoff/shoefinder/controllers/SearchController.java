@@ -5,11 +5,13 @@ import org.launchcode.liftoff.shoefinder.data.StyleRepository;
 import org.launchcode.liftoff.shoefinder.models.Brand;
 import org.launchcode.liftoff.shoefinder.models.Condition;
 import org.launchcode.liftoff.shoefinder.models.Size;
+import org.launchcode.liftoff.shoefinder.models.Style;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,12 +51,12 @@ public class SearchController {
         model.addAttribute("topStyles", topStyles);
 
         //Create list of shoe sizes for the model
-        List<String> shoeSizes = Size.getAllSizes();
-        model.addAttribute("shoeSizes", shoeSizes);
+        List<String> shoeSizeList = Size.getAllSizes();
+        model.addAttribute("shoeSizes", shoeSizeList);
 
         //Create list of conditions for the model
-        List<String> conditions = Condition.getAllConditionDisplayTexts();
-        model.addAttribute("conditions", conditions);
+        List<String> conditionList = Condition.getAllConditionDisplayTexts();
+        model.addAttribute("conditions", conditionList);
 
         return "search";
     }

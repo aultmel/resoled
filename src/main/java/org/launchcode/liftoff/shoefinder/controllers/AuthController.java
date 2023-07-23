@@ -61,7 +61,6 @@ public class AuthController {
     public String registerGetMapping(Model model) {
         RegisterDTO registerDTO = new RegisterDTO();
         model.addAttribute("registerDTO", registerDTO);
-
         return "register";
     }
 
@@ -69,15 +68,11 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO, Errors errors,
                            BindingResult result, Model model) {
-
-
         if (errors.hasErrors()) {
             return "register";
         }
-
         // checks if username is taken and if it is taken sends an error to the view
         if(userRepository.existsByUsername(registerDTO.getUsername())){
-//            model.addAttribute("registerDTO", registerDTO);
             errors.rejectValue("username", "username.unavailable", "Username is unavailable");;
             return "register";
         }
@@ -88,9 +83,14 @@ public class AuthController {
         String verifyPassword = registerDTO.getPasswordCheck();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-//  todo remove if no issues          model.addAttribute("registerDTO", registerDTO);
             return "register";
         }
+
+        //todo uncomment this once we are ready to have age restriction live.
+//        if(!userService.checkAge(registerDTO)) {
+//            errors.rejectValue("birthday", "age.unavailable", "You must be at least 13 years of age");
+//            return "register";
+//        }
 
         //Save new user via UserService
         userService.saveUser(registerDTO);

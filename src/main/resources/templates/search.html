@@ -12,14 +12,14 @@
             <input type="text" name="searchTerm"></br>
         </div>
 
-        <input type="checkbox" id="male" name="gender">
+        <input type="checkbox" id="male" name="gender" value="male">
         <label for="male">M</label>
-        <input type="checkbox" id="female" name="gender">
+        <input type="checkbox" id="female" name="gender" value="female">
         <label for="female">F</label></br>
 
         <label>Brand:</label></br>
         <th:block th:each="brand : ${topBrands}">
-            <input type="checkbox" name="brands">
+            <input type="checkbox" name="brands" th:value="${brand}">
             <label>
                 <span th:text="${brand}"></span>
             </label></br>
@@ -27,7 +27,7 @@
 
         <label>Size:</label></br>
         <th:block th:each="size : ${shoeSizes}">
-            <input type="checkbox" name="sizes">
+            <input type="checkbox" name="sizes" th:value="${size}">
             <label>
                 <span th:text="${size}"></span>
             </label>
@@ -35,7 +35,7 @@
 
         <label>Style:</label></br>
         <th:block th:each="style : ${topStyles}">
-            <input type="checkbox" name="styles">
+            <input type="checkbox" name="styles" th:value="${style}">
             <label>
                 <span th:text="${style}"></span>
             </label></br>
@@ -43,7 +43,7 @@
 
         <label>Condition:</label></br>
         <th:block th:each="condition : ${conditions}">
-            <input type="checkbox" name="conditions">
+            <input type="checkbox" name="conditions" th:value="${condition}">
             <label>
                 <span th:text="${condition}"></span>
             </label></br>

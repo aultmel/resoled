@@ -37,7 +37,13 @@ public class SearchController {
             topBrands.add(brandName);
         }
         //Add topBrands to the model for search.html
-        model.addAttribute("topBrands", topBrands);
+        if (topBrands.size() < 5) {
+            Brand brand = new Brand();
+            model.addAttribute("topBrands", brand.getBrandNames());
+        } else {
+            model.addAttribute("topBrands", topBrands);
+        }
+
 
         //Grab 5 most recurring styles from database
         List<Object[]> topStylesData = styleRepository.findPopularStyles();
@@ -48,7 +54,12 @@ public class SearchController {
             String styleName = (String) style[0];
             topStyles.add(styleName);
         }
-        model.addAttribute("topStyles", topStyles);
+        if (topStyles.size() < 5) {
+            Style style = new Style();
+            model.addAttribute("topStyles", style.getStyleNames());
+        } else {
+            model.addAttribute("topStyles", topStyles);
+        }
 
         //Create list of shoe sizes for the model
         List<String> shoeSizeList = Size.getAllSizes();

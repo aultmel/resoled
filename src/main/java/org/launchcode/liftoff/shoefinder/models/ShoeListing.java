@@ -26,8 +26,8 @@ public class ShoeListing {
     @ManyToOne
     private Condition condition;
 
-    @OneToMany(mappedBy = "listing")
-    private List<Image> images = new ArrayList<>();
+//    @OneToMany(mappedBy = "listing")
+//    private List<Image> images = new ArrayList<>();
 
 
     //Empty Constructor

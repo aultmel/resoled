@@ -57,8 +57,8 @@ public class UserEntity {
 
 //    private Image image;
 
-//    @OneToMany
-//    private List<ShoeListing> shoeListings;
+    @OneToMany(mappedBy = "userEntity")
+    private List<ShoeListing> shoeListings;
 
 
 

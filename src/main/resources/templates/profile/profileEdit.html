@@ -5,7 +5,7 @@
 
 <h1>Edit User Profile</h1>
 
-<form th:object="${editProfileDTO}" th:action="@{../profile/profileEdit}" method="post">
+<form th:object="${EditProfileDTO}" th:action="@{../profile/profileEdit}" method="post">
     <p>
         <label>Edit Display Name:
             <input type="text" th:field="*{displayName}" />

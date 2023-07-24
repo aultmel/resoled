@@ -22,19 +22,15 @@ public class AuthController {
     private static final int MIN_PASSWORD_LENGTH = 1;
     private static final int MIN_DISPLAY_NAME_LENGTH = 1;
     private static final int MAX_DISPLAY_NAME_LENGTH = 25;
-
+    private static final int MIN_FIRST_NAME_LENGTH = 1;
+    private static final int MAX_FIRST_NAME_LENGTH = 25;
+    private static final int MIN_LAST_NAME_LENGTH = 1;
+    private static final int MAX_LAST_NAME_LENGTH = 25;
 
     private UserService userService;
-
-
     private UserRepository userRepository;
-
-
     private PasswordEncoder passwordEncoder;
-
-
     private RoleRepository roleRepository;
-
 
 
     @Autowired
@@ -94,7 +90,7 @@ public class AuthController {
         // checks size of displayName
         if (registerDTO.getDisplayName().length() < MIN_DISPLAY_NAME_LENGTH || registerDTO.getDisplayName().length() > MAX_DISPLAY_NAME_LENGTH) {
             bindingResult.rejectValue("displayName", "displayName.invalid",
-                    "Display name must be " + MAX_USERNAME_LENGTH +" - " + MAX_USERNAME_LENGTH + " characters");;
+                    "Display name must be " + MAX_DISPLAY_NAME_LENGTH +" - " + MAX_DISPLAY_NAME_LENGTH + " characters");;
             return "register";
         }
 
@@ -118,9 +114,24 @@ public class AuthController {
             return "register";
         }
 
+        // checks size of first name
+        if (registerDTO.getFirstName().length() < MIN_FIRST_NAME_LENGTH  || registerDTO.getFirstName().length() > MAX_FIRST_NAME_LENGTH ) {
+            bindingResult.rejectValue("firstName", "firstName.invalid",
+                    "First name must be " + MAX_FIRST_NAME_LENGTH +" - " + MAX_FIRST_NAME_LENGTH + " characters");;
+            return "register";
+        }
+
+        // checks size of last name
+        if (registerDTO.getLastName().length() < MIN_LAST_NAME_LENGTH  || registerDTO.getLastName().length() > MAX_LAST_NAME_LENGTH ) {
+            bindingResult.rejectValue("lastName", "lastName.invalid",
+                    "Last name must be " + MAX_LAST_NAME_LENGTH +" - " + MAX_LAST_NAME_LENGTH + " characters");;
+            return "register";
+        }
 
 
         //todo uncomment this once we are ready to have age restriction live.
+
+        // checks if old enough
 //        if(!userService.checkAge(registerDTO)) {
 //            errors.rejectValue("birthday", "age.unavailable", "You must be at least 13 years of age");
 //            return "register";

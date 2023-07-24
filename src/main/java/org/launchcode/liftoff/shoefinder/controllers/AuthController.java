@@ -9,6 +9,11 @@ import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,17 +28,28 @@ import java.time.Period;
 @Controller
 public class AuthController {
 
-    @Autowired
+
     private UserService userService;
 
-    @Autowired
+
     private UserRepository userRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+
+    private PasswordEncoder passwordEncoder;
+
+
+    private RoleRepository roleRepository;
+
+
 
     @Autowired
-    private RoleRepository roleRepository;
+    public AuthController(UserService userService, UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+        this.userService = userService;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
+
+    }
 
     @GetMapping("/login")
     public String loginGetMapping(Model model){
@@ -76,22 +92,16 @@ public class AuthController {
         String verifyPassword = registerDTO.getPasswordCheck();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-//            model.addAttribute("registerDTO", registerDTO);
+//  todo remove if no issues          model.addAttribute("registerDTO", registerDTO);
             return "register";
         }
 
-        if(age < minAge) {
-            model.addAttribute("registerDTO", registerDTO);
-            model.addAttribute("birthdayCheckFail", "Must be 13 years old to register.");
-            return "register";
 
-        }
-
-
+        //Save new user via UserService
         userService.saveUser(registerDTO);
 
         // possibly return with a success param to use on landing page after registration
-        return "redirect:/?success";
+        return "redirect:/home?success";
 
     }
 

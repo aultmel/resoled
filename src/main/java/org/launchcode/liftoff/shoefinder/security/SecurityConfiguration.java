@@ -2,28 +2,36 @@ package org.launchcode.liftoff.shoefinder.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
-@Configuration
 
+
+@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-        private CustomUserDetailsService userDetailsService;
+
+    private CustomUserDetailsService userDetailsService;
 
     @Autowired
     public SecurityConfiguration(CustomUserDetailsService userDetailsService){
         this.userDetailsService = userDetailsService;
+
     }
 
 
@@ -32,20 +40,20 @@ public class SecurityConfiguration {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(
-                                // todo remove the "/**" to turn security on
-                                "/**",
-                                // todo remove the "/**" above this to turn security on
-                                "/login", "/", "/register", "/css**", "/js/**").permitAll()
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests(authorize ->
+                                authorize.requestMatchers("/login", "/", "/register", "/css/**", "/js/**").permitAll()
+//   todo check and remove if no issues      .requestMatchers( "/css/**", "/js/**").permitAll()
+                                        .requestMatchers("/api/**").authenticated()
+                                        .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/home")
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true").permitAll()
                 ).logout(
@@ -55,9 +63,13 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+
+
+
 
 
 }

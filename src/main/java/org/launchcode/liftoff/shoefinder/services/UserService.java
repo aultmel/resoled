@@ -40,14 +40,15 @@ public class UserService {
     }
 
 
-
-
-    public int updateAge(UserEntity userEntity) {
-        return 0;
+    public void updateAge(UserEntity userEntity) {
+        LocalDate birthDate = userEntity.getBirthday();
+        LocalDate currentDate = LocalDate.now();
+        userEntity.setAge(Period.between(currentDate, birthDate).getYears());
+        userRepository.save(userEntity);
     }
 
-    public boolean checkAge(RegisterDTO registerDTO) {
 
+    public boolean checkAge(RegisterDTO registerDTO) {
         LocalDate birthDate = registerDTO.getBirthday();
         LocalDate currentDate = LocalDate.now();
         int minAge = 13;
@@ -60,7 +61,6 @@ public class UserService {
 
 
     public void saveUser(RegisterDTO registerDTO) {
-
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registerDTO.getUsername());
         userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));

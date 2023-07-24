@@ -1,28 +1,16 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
-
-
 import jakarta.validation.Valid;
-
 import org.launchcode.liftoff.shoefinder.data.RoleRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDate;
-import java.time.Period;
 
 
 @Controller
@@ -68,16 +56,12 @@ public class AuthController {
     public String registerGetMapping(Model model) {
         RegisterDTO registerDTO = new RegisterDTO();
         model.addAttribute("registerDTO", registerDTO);
-
         return "register";
     }
 
 
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO, BindingResult bindingResult, Model model) {
-
-
-
 
         // trim off any spaces before or after
         registerDTO.setUsername(registerDTO.getUsername().trim());
@@ -135,6 +119,12 @@ public class AuthController {
         }
 
 
+
+        //todo uncomment this once we are ready to have age restriction live.
+//        if(!userService.checkAge(registerDTO)) {
+//            errors.rejectValue("birthday", "age.unavailable", "You must be at least 13 years of age");
+//            return "register";
+//        }
 
         //Save new user via UserService
         userService.saveUser(registerDTO);

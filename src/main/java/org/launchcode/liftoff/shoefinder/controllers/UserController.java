@@ -53,6 +53,9 @@ public class UserController {
         model.addAttribute("userEntity", userEntity);
 
         userEntity.setDisplayName(editProfileDTO.getDisplayName());
+        userEntity.setFirstName(editProfileDTO.getFirstName());
+        userEntity.setLastName(editProfileDTO.getLastName());
+        userEntity.setEmail(editProfileDTO.getEmail());
         userRepository.save(userEntity);
 
         return "profile/profileMain";

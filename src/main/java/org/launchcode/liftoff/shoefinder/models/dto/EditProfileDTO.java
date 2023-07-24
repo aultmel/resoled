@@ -5,8 +5,8 @@ public class EditProfileDTO {
     private String displayName;
 
 
-    public String getUsername(){return displayName;}
+    public String getDisplayName(){return displayName;}
 
-    public void setUsername(String displayName){this.displayName=displayName;}
+    public void setDisplayName(String displayName){this.displayName=displayName;}
 
 }

@@ -1,37 +1,18 @@
 package org.launchcode.liftoff.shoefinder.models.dto;
 
 
-import jakarta.validation.constraints.NotEmpty;
-
 import java.time.LocalDate;
 
 
 public class RegisterDTO {
 
-
-    @NotEmpty
     private String username;
-
-    @NotEmpty
     private String displayName;
-
-    @NotEmpty
     private String password;
-
-    @NotEmpty
     private String passwordCheck;
-
-
-    @NotEmpty
     private String firstName;
-
-    @NotEmpty
     private String lastName;
-
-    @NotEmpty
     private LocalDate birthday;
-
-
 
     public RegisterDTO() {
     }

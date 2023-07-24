@@ -35,24 +35,13 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
 
-
-    //    @NotBlank(message = "name is required")
-    //    @Size(message = "must be 3 to 20 characters")
     private String username;
-
     private String displayName;
-
-    //    @NotNull
     private String password;
-
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private LocalDate birthday;
-
     private int age;
 
 //    private Location location;

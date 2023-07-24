@@ -19,7 +19,6 @@ public class HomeController {
     @GetMapping("/")
     public String baseUrlGetMapping(Model model) {
 
-
         // sample of how to bring in user from the spring security.
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
@@ -37,17 +36,6 @@ public class HomeController {
         model.addAttribute("userEntity", userEntity);
 
         return "home";
-    }
-
-    @GetMapping("/home")
-    public String homeGetMapping(Model model) {
-
-        // sample of how to bring in user from the spring security.
-        String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
-        model.addAttribute("userEntity", userEntity);
-
-        return "login";
     }
 
 }

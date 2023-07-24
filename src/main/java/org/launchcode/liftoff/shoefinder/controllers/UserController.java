@@ -13,20 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-public class UserController {
 
-//    @Autowired
-//    private UserRepository userRepository;
-
-    @GetMapping("/profile")
-    public String showProfile (Model model) {
-        UserEntity userEntity = new UserEntity();
-//        String username = SecurityUtility.getSessionUser();
-//        UserEntity userEntity = userRepository.findByUsername(username);
-        model.addAttribute("userEntity", userEntity);
-        return ("profiles/profile");
-=======
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

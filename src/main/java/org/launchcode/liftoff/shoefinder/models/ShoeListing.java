@@ -26,8 +26,8 @@ public class ShoeListing {
     @ManyToOne
     private Condition condition;
 
-    @OneToMany(mappedBy = "listing")
-    private List<Image> images = new ArrayList<>();
+//    @OneToMany(mappedBy = "listing")
+//    private List<Image> images = new ArrayList<>();
 
 
     //Empty Constructor
@@ -99,13 +99,13 @@ public class ShoeListing {
         this.condition = condition;
     }
 
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
+//    public List<Image> getImages() {
+//        return images;
+//    }
+//
+//    public void setImages(List<Image> images) {
+//        this.images = images;
+//    }
 }
 
 

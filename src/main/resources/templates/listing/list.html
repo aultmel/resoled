@@ -7,7 +7,8 @@
 <body>
 <h1>Create A Listing and Find Your Sole-Mate!</h1>
 
-<form th:action="@{/create-shoeListing}" th:object="${shoeListing}" method="post" enctype="multipart/form-data">
+<form th:action="@{/listing/create}" th:object="${createListingDto}" method="post" >
+<!--  enctype="multipart/form-data"-->
   <div class="form-group">
     <label for="brand">Brand:</label>
     <input type="text" id="brand" th:field="*{brand}" class="form-control" required>
@@ -18,15 +19,15 @@
     <input type="text" id="size" th:field="*{size}" class="form-control" required>
   </div>
 
-  <div class="form-group">
-    <label for="location">Location:</label>
-    <input type="text" id="location" th:field="*{location}" class="form-control" required>
-  </div>
+<!--  <div class="form-group">-->
+<!--    <label for="location">Location:</label>-->
+<!--    <input type="text" id="location" th:field="*{location}" class="form-control" required>-->
+<!--  </div>-->
 
-  <div class="form-group">
-    <label for="photoFile">Photo:</label>
-    <input type="file" id="photoFile" name="photoFile" class="form-control-file" accept="image/*" required>
-  </div>
+<!--  <div class="form-group">-->
+<!--    <label for="photoFile">Photo:</label>-->
+<!--    <input type="file" id="photoFile" name="photoFile" class="form-control-file" accept="image/*" required>-->
+<!--  </div>-->
 
   <div class="form-group">
     <label for="condition">Condition:</label>

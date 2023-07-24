@@ -17,7 +17,9 @@ public class Condition {
     the condition can be set by:
     condition.setCondition(Condition.ShoeCondition.NEW);
     .NEW, .LIKE_NEW, etc
+
      */
+    private String condition;
     public enum ShoeCondition {
         NEW("New"),
         LIKE_NEW("Like New"),

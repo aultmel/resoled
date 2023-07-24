@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <td th:text="${shoeListing.id}"></td>
+        </tr>
+        <tr>
+            <th>Brand</th>
+            <td th:text="${shoeListing.brand.name}"></td>
+        </tr>
+        <tr>
+            <th>Size</th>
+            <td th:text="${shoeListing.size.size}"></td>
+        </tr>
+        <tr>
+            <th>Style</th>
+            <td th:text="${shoeListing.style.name}"></td>
+        </tr>
+        <tr>
+            <th>Condition</th>
+            <td th:text="${shoeListing.condition.condition}"></td>
+        </tr>
+
+</body>
+</html>

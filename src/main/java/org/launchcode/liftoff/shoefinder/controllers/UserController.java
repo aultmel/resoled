@@ -58,7 +58,7 @@ public class UserController {
         userEntity.setEmail(editProfileDTO.getEmail());
         userRepository.save(userEntity);
 
-        return "profile/profileMain";
+        return "redirect:/profile";
     }
 
 }

@@ -6,19 +6,19 @@
 <h1>Edit User Profile</h1>
 
 
-<form th:object="${editProfileDTO}" th:action="@{../profile/profileEdit}" method="post">
+<form th:object="${userEntity}" th:action="@{../profile/profileEdit}" method="post">
     <p>
         <label>Edit Display Name:
-            <input type="text" th:value="${userEntity.displayName}" th:field="*{displayName}" />
+            <input type="text" th:field="*{displayName}" />
         </label>
         <label>Edit First Name:
-            <input type="text" th:value="${userEntity.firstName}" th:field="*{firstName}" />
+            <input type="text" th:field="*{firstName}" />
         </label>
         <label>Edit Last Name:
-            <input type="text" th:value="${userEntity.lastName}" th:field="*{lastName}" />
+            <input type="text" th:field="*{lastName}"  />
         </label>
         <label>Edit Email:
-            <input type="text" th:value="${userEntity.email}" th:field="*{email}" />
+            <input type="text" th:field="*{email}" />
         </label>
     </p>
     <button type="submit">Save</button>

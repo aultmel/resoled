@@ -30,7 +30,11 @@ public class Size {
         return size;
     }
 
+
     public void setSize(Long size) {
         this.size = size;
     }
-}
+//        private wSizes(Double value) {
+//            this.value = value;
+//        }
+    }

@@ -6,11 +6,15 @@
 </head>
 <body>
 <!--
-Below is a general concept for the form to upload images, to be placed into the create listing page I assume.
+DEPRECATED DUE TO STORING IMAGES LOCALLY INSTEAD OF IN A DB
+Below is a general concept for the form to upload images, to save images in the database
+
 -->
 <form th:action="@{/image/upload}" method="POST" enctype="multipart/form-data">
+
     <input type="file" name="imageFile" accept="image/*">
     <button type="submit">Upload</button>
+
 </form>
 
 </body>

@@ -6,41 +6,59 @@ import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Controller
-@RequestMapping("/listing")
+@RequestMapping("/listings")
 public class ListingController {
 
     @Autowired
-    private ShoeListingRepository listingRepository;
+    private ShoeListingRepository shoeListingRepository;
 
-    @GetMapping("/create")
+    @GetMapping
+    public String displayAllListings(Model model) {
+        model.addAttribute("title", "All Listings");
+        model.addAttribute("allListings", shoeListingRepository.findAll());
+
+        return "/listings/listings";
+    }
+
+    @GetMapping("details")
+    public String displayListingDetails(@RequestParam Long listingId, Model model) {
+        Optional<ShoeListing> result = shoeListingRepository.findById(listingId);
+
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid ShoeListing ID: " + listingId);
+        } else {
+            ShoeListing shoeListing = result.get();
+            model.addAttribute("title", shoeListing.getId());
+            model.addAttribute("shoeListing", shoeListing);
+        }
+        return "/listings/listing";
+    }
+
+    @GetMapping("create")
     public String showListingForm(Model model) {
+
         model.addAttribute("createListingDto", new CreateListingDTO());
-        model.addAttribute("shoeListing", new ShoeListing());
-        return "create";
+        return "/listings/create";
     }
 
-    //will need dto to transfer userEntity info along with form data to create populate Listing
-    @PostMapping("create")
-    public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,
-                                @RequestParam("photoFile") MultipartFile photoFile) {
-
-
-
-
-
-        // Redirect to a success page
-        return "redirect:/success";
-    }
-}
-//    @GetMapping("/listing")
-//    public String showListingForm(Model model) {
-//        model.addAttribute("listing", new ShoeListing());
-//        return "listing-form";
+//    //will need dto to transfer userEntity info along with form data to create populate Listing
+//    @PostMapping("create")
+//    public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,
+//                                @RequestParam("photoFile") MultipartFile photoFile) {
+//
+//
+//        // Redirect to a success page
+//        return "redirect:/success";
 //    }
+}
+
 //
 //    @PostMapping("/listing")
 //    public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,

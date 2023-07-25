@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class AuthController {
 
-
     private UserService userService;
     private UserRepository userRepository;
-
 
     @Autowired
     public AuthController(UserService userService, UserRepository userRepository) {
@@ -31,14 +29,12 @@ public class AuthController {
         return "login";
     }
 
-
     @GetMapping("/register")
     public String registerGetMapping(Model model) {
         RegisterDTO registerDTO = new RegisterDTO();
         model.addAttribute("registerDTO", registerDTO);
         return "register";
     }
-
 
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO, BindingResult bindingResult, Model model) {
@@ -91,7 +87,6 @@ public class AuthController {
 ////            errors.rejectValue("birthday", "age.unavailable", "You must be at least 13 years of age");
 ////            return "register";
 ////        }
-
 
         //Save new user via UserService
         userService.saveUser(registerDTO);

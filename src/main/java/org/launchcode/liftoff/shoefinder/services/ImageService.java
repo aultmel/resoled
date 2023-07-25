@@ -1,8 +1,8 @@
 package org.launchcode.liftoff.shoefinder.services;
 
 import org.launchcode.liftoff.shoefinder.Util.ImageUtils;
-import org.launchcode.liftoff.shoefinder.data.ImageRepository;
-import org.launchcode.liftoff.shoefinder.models.Image;
+//import org.launchcode.liftoff.shoefinder.data.ImageRepository;
+//import org.launchcode.liftoff.shoefinder.models.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Optional;
 
+//DEPRECATED DUE TO STORING IMAGES LOCALLY INSTEAD OF IN A DB
+/*
 @Service
 public class ImageService {
     @Autowired
@@ -18,7 +20,15 @@ public class ImageService {
     public String uploadImage(MultipartFile file) throws IOException {
 
         //changing first constructor variable from file.getOriginalFilename() to dbcheck
+<<<<<<< HEAD
         Image image= imageRepository.save(new Image(dbNameCheck(file.getOriginalFilename()), file.getContentType(), ImageUtils.compressImage(file.getBytes())));
+=======
+
+        String fileName = dbNameCheck(file.getOriginalFilename());
+
+
+        Image image= imageRepository.save(new Image(fileName, file.getContentType(), ImageUtils.compressImage(file.getBytes())));
+>>>>>>> speck-nav
 
         if(image!=null){
             return "file uploaded: " + file.getOriginalFilename();
@@ -37,8 +47,10 @@ public class ImageService {
     //returns fileName with said number affixed
     public String dbNameCheck(String filename){
         int count=1;
+        String originalFileName = filename;
         while(imageRepository.findByFileName(filename).isPresent()){
-            filename += count;
+            filename= originalFileName.concat("(" + count + ")");
+            count++;
         }
         return filename;
     }
@@ -66,5 +78,6 @@ public class ImageService {
         Optional<Image> image = imageRepository.findById(id);
         return image;
     }
+<<<<<<< HEAD
 */
-}
+//}

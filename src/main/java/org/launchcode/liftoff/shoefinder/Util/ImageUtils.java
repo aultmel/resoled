@@ -3,7 +3,7 @@ package org.launchcode.liftoff.shoefinder.Util;
 import java.io.ByteArrayOutputStream;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
-
+//DEPRECATED TO STORE IMAGES LOCALLY
 public class ImageUtils {
 
     public static byte[] compressImage(byte[] data){
@@ -40,4 +40,5 @@ public class ImageUtils {
         }
         return outputStream.toByteArray();
     }
+
 }

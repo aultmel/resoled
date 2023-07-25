@@ -2,11 +2,15 @@ package org.launchcode.liftoff.shoefinder.controllers;
 
 import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
 import org.launchcode.liftoff.shoefinder.models.ShoeListing;
+
+import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
@@ -23,7 +27,7 @@ public class ListingController {
         model.addAttribute("title", "All Listings");
         model.addAttribute("allListings", shoeListingRepository.findAll());
 
-        return "listings";
+        return "/listing/listings";
     }
 
     @GetMapping("details")
@@ -37,14 +41,19 @@ public class ListingController {
             model.addAttribute("title", shoeListing.getId());
             model.addAttribute("shoeListing", shoeListing);
         }
-        return "listing";
+        return "/listing/listing";
     }
 
     @GetMapping("create")
     public String showListingForm(Model model) {
         //model.addAttribute("createListingDto", new CreateListingDTO());
-        model.addAttribute("shoeListing", new ShoeListing());
-        return "create";
+
+
+
+    @GetMapping("/create")
+    public String showListingForm(Model model) {
+        model.addAttribute("createListingDto", new CreateListingDTO());
+        return "/listing/create";
     }
 
     //will need dto to transfer userEntity info along with form data to create populate Listing

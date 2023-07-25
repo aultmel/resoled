@@ -6,6 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import org.hibernate.annotations.Formula;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Brand {
 
@@ -13,18 +16,28 @@ public class Brand {
     @GeneratedValue
     private Long id;
     private String name;
-    public enum brandName {
-        ADIDAS("Adidas"), NIKE("Nike"), GUCCI("Gucci"), JIMMYCHOO("Jimmy Choo"), CALVINKLIEN("Calvin Klien"), PUMA("Puma"), CROC("Croc"), ARIAT("Ariat"), REDWING("Redwing"), TIMBERLAND("Timberland"), VERSACE("Versace"), NEWBALANCE("New Balance"), CONVERSE("Converse"), CHINESELAUNDRY("Chinese Laundry"), HEELYS("Heelys"), JANSPORT("Jansport"), MADDENGIRL("Madden Girl"), REEBOK("Reebok"), VANS("Vans");
+    private static final List<String> brandNames = new ArrayList<>();
 
-        private String value;
-
-        private brandName(String value) {
-            this.value = value;
-        }
-
-        //may switch to arrayList, double check
+    static {
+        brandNames.add("Adidas");
+        brandNames.add("Nike");
+        brandNames.add("Reebok");
+        brandNames.add("Puma");
+        brandNames.add("Under Armour");
+    }
+    public List<String> getBrandNames() {
+        return brandNames;
+    }
+    public Long getId() {
+        return id;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }
 

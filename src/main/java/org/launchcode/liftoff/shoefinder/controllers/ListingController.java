@@ -23,8 +23,8 @@ public class ListingController {
     public String displayAllListings(Model model) {
         model.addAttribute("title", "All Listings");
         model.addAttribute("allListings", shoeListingRepository.findAll());
-
         return "/listings/listings";
+
     }
 
     @GetMapping("details")
@@ -50,6 +50,7 @@ public class ListingController {
 
 //    //will need dto to transfer userEntity info along with form data to create populate Listing
 //    @PostMapping("create")
+
 //    public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,
 //                                @RequestParam("photoFile") MultipartFile photoFile) {
 //
@@ -59,27 +60,5 @@ public class ListingController {
 //    }
 }
 
-//
-//    @PostMapping("/listing")
-//    public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,
-//                                @RequestParam("photoFile") MultipartFile photoFile) {
-//        try {
-//            if (!photoFile.isEmpty()) {
-//                // Get the bytes of the photo file
-//                byte[] photoBytes = photoFile.getBytes();
-//
-//                // Set the photo bytes to the listing
-//                shoeListing.setPhoto(photoBytes);
-//            }
-//
-//            // Save the listing to the database
-//            listingRepository.save(shoeListing);
-//        } catch (Exception e) {
-//            // Handle any exceptions, e.g., return to the form with an error message
-//            return "redirect:/listing?error=upload";
-//        }
-//
-//        // Redirect to a success page
-//        return "redirect:/success";
-//    }
-//}
+
+

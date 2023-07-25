@@ -14,28 +14,22 @@ public class ShoeListing {
     @ManyToOne
     private UserEntity userEntity;
 
-
-    @OneToOne
-    private Location location;
-    @ManyToOne
-    private Brand brand;
-    @ManyToOne
-    private Size size;
-    @ManyToOne
-    private Style style;
-    @ManyToOne
-    private Condition condition;
+     @OneToOne
+     private Location location;
+     @ManyToOne
+     private Brand brand;
+     @ManyToOne
+     private Size size;
+     @ManyToOne
+     private Style style;
+     @ManyToOne
+     private Condition condition;
 
     private Integer zipcode;
 
 
     @OneToMany(mappedBy = "listing")
     private List<ImageLocal> images = new ArrayList<>();
-
-
-
-//    private Integer zipcode;
-
 
     //Empty Constructor
     public ShoeListing() {
@@ -57,7 +51,6 @@ public class ShoeListing {
 
     //Getters and Setters Methods
 
-
     public Long getId() {
         return id;
     }
@@ -69,9 +62,6 @@ public class ShoeListing {
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
     }
-
-
-
 
     public Location getLocation() {
         return location;
@@ -121,4 +111,6 @@ public class ShoeListing {
     public void setImages(List<ImageLocal> images) {
         this.images = images;
     }
+
 }
+

@@ -44,12 +44,13 @@ public class UserEntity {
     private LocalDate birthday;
     private int age;
 
-//    private Location location;
+    @OneToOne
+    private Location location;
 
 //    private Image image;
 
-//    @OneToMany
-//    private List<ShoeListing> shoeListings;
+    @OneToMany(mappedBy = "userEntity")
+    private List<ShoeListing> shoeListings;
 
 
 
@@ -160,4 +161,5 @@ public class UserEntity {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
 }

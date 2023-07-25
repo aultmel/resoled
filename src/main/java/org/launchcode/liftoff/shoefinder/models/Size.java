@@ -30,10 +30,9 @@ public class Size {
         return size;
     }
 
-
     public void setSize(Long size) {
         this.size = size;
     }
 
 
-}
+    }

@@ -28,6 +28,8 @@ public class AuthController {
     public String loginGetMapping(Model model){
         return "login";
     }
+    //testing a postmap login
+
 
     @GetMapping("/register")
     public String registerGetMapping(Model model) {
@@ -38,7 +40,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO, BindingResult bindingResult, Model model) {
-
         if(bindingResult.hasErrors()){
             return "register";
         }
@@ -71,6 +72,7 @@ public class AuthController {
             bindingResult.rejectValue("displayName", "displayName.unavailable", "Display name is unavailable");;
             return "register";
         }
+
 
         // checks if passwords match for registration and if they don't match sends an error to the view
         String password = registerDTO.getPassword();

@@ -1,6 +1,7 @@
 package org.launchcode.liftoff.shoefinder.services;
 
 
+import org.launchcode.liftoff.shoefinder.constants.MessageConstants;
 import org.launchcode.liftoff.shoefinder.data.RoleRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.Role;
@@ -83,7 +84,7 @@ public class UserService {
         // Iterate over the usernames.
         for (String username : usernames) {
             //Checking for size of suggestion list.  SETS SIZE OF SUGGESTION LIST
-            if (suggestions.size() == 6) {
+            if (suggestions.size() == MessageConstants.MAX_USER_FORM_SUGGESTIONS) {
                 return suggestions;
             }
             // Check if the username contains the substring then adds to suggestions

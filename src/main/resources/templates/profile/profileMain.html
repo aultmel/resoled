@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+
+<h1>User Profile</h1>
+
+<div th:object="${userEntity}">
+    <p th:text="'DisplayName: ' + ${userEntity.displayName}"></p>
+    <p th:text="'Username: ' + ${userEntity.username}"></p>
+    <p th:text="'Email: ' + ${userEntity.email}"></p>
+    <p th:text="'First Name: ' + ${userEntity.firstName}"></p>
+    <p th:text="'Last Name: ' + ${userEntity.lastName}"></p>
+
+    <a th:href="@{'profile/profileEdit'}">Edit</a>
+    <a th:href="@{'home'}">Home</a>
+
+
+</div>
+
+</body>
+</html>

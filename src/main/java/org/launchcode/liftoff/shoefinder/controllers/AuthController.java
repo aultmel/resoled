@@ -1,6 +1,7 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
 import jakarta.validation.Valid;
+
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 import org.launchcode.liftoff.shoefinder.services.UserService;
@@ -10,11 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 public class AuthController {
 
+
     private UserService userService;
     private UserRepository userRepository;
+
 
     @Autowired
     public AuthController(UserService userService, UserRepository userRepository) {
@@ -79,6 +83,13 @@ public class AuthController {
             bindingResult.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             return "register";
         }
+        // checks size of password
+        if (registerDTO.getPassword().length() < MIN_PASSWORD_LENGTH) {
+            bindingResult.rejectValue("password", "password.invalid",
+                    "Password must be at least " + MIN_PASSWORD_LENGTH + " characters long" );
+            return "register";
+        }
+
 
 //        //todo uncomment this once we are ready to have age restriction live.
 //
@@ -88,6 +99,7 @@ public class AuthController {
 ////            return "register";
 ////        }
 
+
         //Save new user via UserService
         userService.saveUser(registerDTO);
 
@@ -95,5 +107,3 @@ public class AuthController {
         return "redirect:/home?success";
     }
 }
-
-

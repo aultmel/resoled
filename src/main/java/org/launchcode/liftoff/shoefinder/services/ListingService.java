@@ -9,10 +9,11 @@ import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+@Service
 public class ListingService {
 
     private final ShoeListingRepository shoeListingRepository;

@@ -78,12 +78,7 @@ public class ImageService {
         Optional<Image> image = imageRepository.findById(id);
         return image;
     }
-<<<<<<< HEAD
+
 */
+
 //}
-
-
-
-
-
-

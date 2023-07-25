@@ -44,9 +44,6 @@ public class ImageUtils {
         return outputStream.toByteArray();
     }
 
+
 }
-
-
-
-
 

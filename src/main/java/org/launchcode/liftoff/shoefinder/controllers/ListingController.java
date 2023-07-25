@@ -23,8 +23,8 @@ public class ListingController {
     public String displayAllListings(Model model) {
         model.addAttribute("title", "All Listings");
         model.addAttribute("allListings", shoeListingRepository.findAll());
+        return "/listings/listings";
 
-        return "/listing/listings";
     }
 
     @GetMapping("details")
@@ -38,18 +38,19 @@ public class ListingController {
             model.addAttribute("title", shoeListing.getId());
             model.addAttribute("shoeListing", shoeListing);
         }
-        return "/listing/listing";
+        return "/listings/listing";
     }
 
     @GetMapping("create")
     public String showListingForm(Model model) {
 
         model.addAttribute("createListingDto", new CreateListingDTO());
-        return "/listing/create";
+        return "/listings/create";
     }
 
 //    //will need dto to transfer userEntity info along with form data to create populate Listing
 //    @PostMapping("create")
+
 //    public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,
 //                                @RequestParam("photoFile") MultipartFile photoFile) {
 //
@@ -58,5 +59,6 @@ public class ListingController {
 //        return "redirect:/success";
 //    }
 }
+
 
 

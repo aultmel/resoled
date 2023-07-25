@@ -44,4 +44,3 @@ public class Brand {
         this.name = name;
     }
 }
-

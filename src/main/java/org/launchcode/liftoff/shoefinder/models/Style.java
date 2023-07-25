@@ -17,6 +17,7 @@ public class Style {
     private String name;
     private static final List<String> styleNames = new ArrayList<>();
 
+
     static {
         styleNames.add("Running");
         styleNames.add("Casual");
@@ -27,7 +28,6 @@ public class Style {
     public List<String> getStyleNames() {
         return styleNames;
     }
-
 
     public Long getId() {
         return id;
@@ -41,9 +41,9 @@ public class Style {
         this.name = name;
     }
 
+
         private String value;
 //        private styleType(String value) {
 //            this.value = value;
 //        }
     }
-

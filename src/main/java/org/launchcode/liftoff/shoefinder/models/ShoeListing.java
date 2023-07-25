@@ -11,26 +11,24 @@ import java.util.List;
 public class ShoeListing {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    @ManyToOne
-    private UserEntity userEntity;
-  private Long id;
-
+    private Long id;
     @ManyToOne
     private UserEntity userEntity;
 
-//     @OneToOne
-//     private Location location;
-//     @ManyToOne
-//     private Brand brand;
-//     @ManyToOne
-//     private Size size;
-//     @ManyToOne
-//     private Style style;
-//     @ManyToOne
-//     private Condition condition;
 
-//    private Integer zipcode;
+
+     @OneToOne
+     private Location location;
+     @ManyToOne
+     private Brand brand;
+     @ManyToOne
+     private Size size;
+     @ManyToOne
+     private Style style;
+     @ManyToOne
+     private Condition condition;
+
+    private Integer zipcode;
 
 
 //    @OneToMany(mappedBy = "listing")
@@ -44,24 +42,20 @@ public class ShoeListing {
 
     // Constructor with parameters
 
-    public ShoeListing(Long id, Brand brand, Size size, Style style, Condition condition, Location location, UserEntity userEntity) {
-        this.id = id;
-        this.brand = brand;
-        this.size = size;
-        this.style = style;
-        this.condition = condition;
-//        this.zipcode = zipcode;
-        this.location = location;
-        this.userEntity = userEntity;
-    }
+//    public ShoeListing(Long id, Brand brand, Size size, Style style, Condition condition, Location location, UserEntity userEntity) {
+//        this.id = id;
+//        this.brand = brand;
+//        this.size = size;
+//        this.style = style;
+//        this.condition = condition;
+////        this.zipcode = zipcode;
+//        this.location = location;
+//        this.userEntity = userEntity;
+//    }
 
     //Getters and Setters Methods
-    public Integer getId() {
-        this.location = location;
-        this.userEntity = userEntity;
-    }
 
-    //Getters and Setters Methods
+
     public Long getId() {
         return id;
     }
@@ -72,46 +66,6 @@ public class ShoeListing {
 
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
-
-    public Size getSize() {
-        return size;
-    }
-
-    public void setSize(Size size) {
-        this.size = size;
-    }
-
-    public Style getStyle() {
-        return style;
-    }
-
-    public void setStyle(Style style) {
-        this.style = style;
-    }
-
-    public Condition getCondition() {
-        return condition;
-    }
-
-    public void setCondition(Condition condition) {
-        this.condition = condition;
     }
 
 

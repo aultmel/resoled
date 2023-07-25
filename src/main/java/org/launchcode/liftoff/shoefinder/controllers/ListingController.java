@@ -31,7 +31,7 @@ public class ListingController {
     }
 
     @GetMapping("details")
-    public String displayListingDetails(@RequestParam Integer listingId, Model model) {
+    public String displayListingDetails(@RequestParam Long listingId, Model model) {
         Optional<ShoeListing> result = shoeListingRepository.findById(listingId);
 
         if (result.isEmpty()) {
@@ -46,26 +46,18 @@ public class ListingController {
 
     @GetMapping("create")
     public String showListingForm(Model model) {
-        //model.addAttribute("createListingDto", new CreateListingDTO());
 
-
-
-    @GetMapping("/create")
-    public String showListingForm(Model model) {
         model.addAttribute("createListingDto", new CreateListingDTO());
         return "/listing/create";
     }
 
-    //will need dto to transfer userEntity info along with form data to create populate Listing
-    @PostMapping("create")
-    public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,
-                                @RequestParam("photoFile") MultipartFile photoFile) {
-
-
-
-
-
-        // Redirect to a success page
-        return "redirect:/success";
-    }
+//    //will need dto to transfer userEntity info along with form data to create populate Listing
+//    @PostMapping("create")
+//    public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,
+//                                @RequestParam("photoFile") MultipartFile photoFile) {
+//
+//
+//        // Redirect to a success page
+//        return "redirect:/success";
+//    }
 }

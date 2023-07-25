@@ -83,13 +83,6 @@ public class AuthController {
             bindingResult.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             return "register";
         }
-        // checks size of password
-        if (registerDTO.getPassword().length() < MIN_PASSWORD_LENGTH) {
-            bindingResult.rejectValue("password", "password.invalid",
-                    "Password must be at least " + MIN_PASSWORD_LENGTH + " characters long" );
-            return "register";
-        }
-
 
 //        //todo uncomment this once we are ready to have age restriction live.
 //

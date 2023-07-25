@@ -52,6 +52,11 @@ public class UserController {
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
 
+        try {
+            if (editProfileDTO.getDisplayName().isEmpty() || editProfileDTO.getFirstName().isEmpty() || editProfileDTO.getLastName().isEmpty() || editProfileDTO.getEmail().isEmpty()) {
+                throw new Error ("Field cannot be left blank.");
+            }
+
         userEntity.setDisplayName(editProfileDTO.getDisplayName());
         userEntity.setFirstName(editProfileDTO.getFirstName());
         userEntity.setLastName(editProfileDTO.getLastName());
@@ -59,6 +64,14 @@ public class UserController {
         userRepository.save(userEntity);
 
         return "redirect:/profile";
+
+        } catch (Error e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        } catch (Exception e) {
+            model.addAttribute("error", "An unexpected error occurred.");
+            return "error";
+        }
     }
 
 }

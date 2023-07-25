@@ -11,15 +11,19 @@
         <label>Edit Display Name:
             <input type="text" th:field="*{displayName}" />
         </label>
+        <br/>
         <label>Edit First Name:
             <input type="text" th:field="*{firstName}" />
         </label>
+        <br/>
         <label>Edit Last Name:
             <input type="text" th:field="*{lastName}"  />
         </label>
+        <br/>
         <label>Edit Email:
             <input type="text" th:field="*{email}" />
         </label>
+        <br/>
     </p>
     <button type="submit">Save</button>
     <a th:href="@{'../profile'}">Back to profile</a>

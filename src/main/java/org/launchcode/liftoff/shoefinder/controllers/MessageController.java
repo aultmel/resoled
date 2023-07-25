@@ -63,6 +63,9 @@ public class MessageController {
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
 
+        // api url for suggestions for the username
+        model.addAttribute("suggestionsUrl", "http://localhost:8080/api/messageCreate");
+
         List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
 
         PagedListHolder<MessageChain> pagedListHolder = new PagedListHolder<>(userEntityMessageChains);
@@ -103,6 +106,7 @@ public class MessageController {
 
         return "message/messages";
     }
+
 
 
     @GetMapping("/create")

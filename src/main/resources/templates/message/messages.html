@@ -7,14 +7,55 @@
 <br/>
 <div class="color9 container w-75 rounded-top p-1">
     <div class="color13 container rounded p-4">
-        <div class="color12 container rounded p-4 row">
+        <div class="color12 container rounded p-4">
+            <div class="row">
 
-            <div class="color7 container rounded p-4 col">
+                <div class="color7 container rounded p-4 col mx-1">
+
+
+                <h1>Start a New Conversation</h1>
+
+                <form method="post" role="form"
+                      th:action="@{../message/create}"
+                      th:object="${createMessageDTO}">
+                    <div class="form-group">
+                        <div class="dropdown">
+                        <label>Message Receiver Username:
+                            <input th:field="*{receiverUsername}" class="form-control" id="input-search-box" autocomplete="off" />
+                        </label>
+                        <div class="results">
+                        </div>
+                    </div>
+                        <p class="error" th:errors="*{receiverUsername}"></p>
+                    </div>
+
+                    <input type="hidden" id="suggestionsUrl" th:value="${suggestionsUrl}" />
+
+                    <div class="form-group">
+                        <label>Subject of the message:
+                            <input th:field="*{messageSubject}" class="form-control">
+                        </label>
+                        <p class="error" th:errors="*{messageSubject}"></p>
+                    </div>
+                    <div class="form-group">
+
+                        <p class="error" th:errors="*{text}"></p>
+                        <label><h5>Message:</h5>
+                            <br/>
+                            <textarea th:field="*{text}" name="text" rows="5" cols="50" />
+                        </label>
+                        <br/>
+                    </div>
+                    <input type="submit" value="Send Message" class="btn btn-primary">
+                </form>
+            </div>
+
+            <div class="color7 container rounded p-4 col mx-1">
 
                 <h2 class="text-center">Your Conversations</h2>
 
-                <a href="/message/create">Click here to message someone new (Create new MessageChain)</a>
-                <br/>
+<!--                <a href="/message/create">Click here to message someone new (Create new MessageChain)</a>-->
+<!--                <br/>-->
         <div th:each="messageChain : ${messageChainList}" class="p-1">
 
             <div class="color6 container rounded p-1">
@@ -47,54 +88,11 @@
         </div>
         </div></div>
             </div>
-            <div class="color7 container rounded p-4 col">
-
-
-
-                <h1>Create a Message</h1>
-
-                <form method="post" role="form"
-                      th:action="@{../message/create}"
-                      th:object="${createMessageDTO}">
-                    <div class="form-group">
-                        <label>Message Receiver Username:
-                            <input th:field="*{receiverUsername}" class="form-control" id="input-search-box" autocomplete="off" />
-                        </label>
-                        <div class="results">
-                            <ul></ul>
-                        </div>
-                        <p class="error" th:errors="*{receiverUsername}"></p>
-                    </div>
-
-                    <input type="hidden" id="suggestionsUrl" th:value="${suggestionsUrl}" />
-
-                    <div class="form-group">
-                        <label>Subject of the message:
-                            <input th:field="*{messageSubject}" class="form-control">
-                        </label>
-                        <p class="error" th:errors="*{messageSubject}"></p>
-                    </div>
-                    <div class="form-group">
-
-                        <p class="error" th:errors="*{text}"></p>
-                        <label><h5>Message:</h5>
-                            <br/>
-                            <textarea th:field="*{text}" name="text" rows="5" cols="50" />
-                        </label>
-                        <br/>
-                    </div>
-                    <input type="submit" value="Send Message" class="btn btn-primary">
-                </form>
-
-
-
-
             </div>
-
-
     </div></div>
 </div>
 </div>
+<script th:src="@{/js/fetchSuggestions.js}"></script>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 

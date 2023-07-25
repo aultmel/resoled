@@ -64,25 +64,22 @@ background:  hsla(201, 100%, 14%, 1);
 
 
 
-
-
 /* For fetchSuggestions.js and associated suggestions code in templates */
-.autocompleteInputText {
-    flex: 1;
-    height: 50px;
-}
 .results ul{
-padding: 15px 10px;
+padding: 10px 10px;
 }
 .results ul li {
-list-style: none;
-padding: 15px 10px;
-cursor: pointer;
-}
-.results ul li:hover {
-background:#e9f3ff;
+    display:block;
+    list-style: none;
+    padding: 12px 10px;
+    cursor: pointer;
+    min-width: 200px;
 }
 .results {
-    max-height: 300px;
-    overflow-y: scroll;
+    position:absolute;
+    background-color:#f9f9f9;
+    max-height: 280px;
+}
+.results ul li:hover {
+    background:#e9f3ff;
 }

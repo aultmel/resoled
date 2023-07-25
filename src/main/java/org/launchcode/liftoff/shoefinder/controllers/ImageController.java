@@ -31,6 +31,7 @@ public class ImageController {
     public String displayUploadForm(Model model){
         return "/image/imageUploadPlaceholder";
     }
+
     @PostMapping("upload")
     public String uploadImage(@RequestParam("imageFiles") MultipartFile[] files, Model model) throws IOException {
         for(MultipartFile imageFile: files) {

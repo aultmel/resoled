@@ -35,22 +35,13 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
 
-
-    //    @NotBlank(message = "name is required")
-    //    @Size(message = "must be 3 to 20 characters")
     private String username;
-
-    //    @NotNull
+    private String displayName;
     private String password;
-
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private LocalDate birthday;
-
     private int age;
 
 //    private Location location;
@@ -67,13 +58,15 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(String username, String password, List<Role> roles, String firstName, String lastName, LocalDate birthday) {
+    public UserEntity(String username, String password, List<Role> roles, String firstName,
+                      String lastName, LocalDate birthday, String displayName) {
         this.username = username;
         this.password = password;
         this.roles = roles;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
+        this.displayName = displayName;
     }
 
     public long getId() {
@@ -144,8 +137,6 @@ public class UserEntity {
         this.age = age;
     }
 
-
-
     public List<Message> getMessages() {
         return messages;
     }
@@ -160,5 +151,13 @@ public class UserEntity {
 
     public void setMessageChains(List<MessageChain> messageChains) {
         this.messageChains = messageChains;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

@@ -8,12 +8,6 @@ import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.stereotype.Service;
@@ -46,12 +40,15 @@ public class UserService {
     }
 
 
-    public int updateAge(UserEntity userEntity) {
-        return 0;
+    public void updateAge(UserEntity userEntity) {
+        LocalDate birthDate = userEntity.getBirthday();
+        LocalDate currentDate = LocalDate.now();
+        userEntity.setAge(Period.between(currentDate, birthDate).getYears());
+        userRepository.save(userEntity);
     }
 
-    public boolean checkAge(RegisterDTO registerDTO) {
 
+    public boolean checkAge(RegisterDTO registerDTO) {
         LocalDate birthDate = registerDTO.getBirthday();
         LocalDate currentDate = LocalDate.now();
         int minAge = 13;
@@ -64,7 +61,6 @@ public class UserService {
 
 
     public void saveUser(RegisterDTO registerDTO) {
-
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registerDTO.getUsername());
         userEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
@@ -73,35 +69,28 @@ public class UserService {
         userEntity.setBirthday(registerDTO.getBirthday());
         Role role = roleRepository.findByName("USER");
         userEntity.setRoles(Arrays.asList(role));
-//        userEntity.setMessageChains(new ArrayList<>());
+        userEntity.setDisplayName(registerDTO.getDisplayName());
         userEntity.setMessages(new ArrayList<>());
         userRepository.save(userEntity);
     }
 
 
     public List<String> getSuggestionsString(String substring) {
-
         // Get the list of usernames.
         List<String> usernames = userRepository.getUsernames();
-
         // Create a list of suggestions.
         List<String> suggestions = new ArrayList<>();
-
-
         // Iterate over the usernames.
         for (String username : usernames) {
-
             //Checking for size of suggestion list.  SETS SIZE OF SUGGESTION LIST
             if (suggestions.size() == 6) {
                 return suggestions;
             }
-
             // Check if the username contains the substring then adds to suggestions
             if (username.contains(substring)) {
                 suggestions.add(username);
             }
         }
-
         // Return the suggestions list.
         return suggestions;
     }

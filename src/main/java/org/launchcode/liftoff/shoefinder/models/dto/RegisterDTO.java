@@ -1,52 +1,56 @@
 package org.launchcode.liftoff.shoefinder.models.dto;
 
-
-import jakarta.validation.constraints.NotEmpty;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.launchcode.liftoff.shoefinder.constants.RegistrationConstants;
 import java.time.LocalDate;
-
 
 public class RegisterDTO {
 
 
-    @NotEmpty
+    @Size(min = RegistrationConstants.MIN_USERNAME_LENGTH,
+            max = RegistrationConstants.MAX_USERNAME_LENGTH,
+            message = "Username must be between {min} and {max} characters")
+    @NotNull
     private String username;
 
-    @NotEmpty
-    private String password;
+    @Size(min = RegistrationConstants.MIN_DISPLAY_NAME_LENGTH,
+            max = RegistrationConstants.MAX_DISPLAY_NAME_LENGTH,
+            message = "Display Name must be between {min} and {max} characters")
+    @NotNull
+    private String displayName;
 
-    @NotEmpty
+    @Size(min = RegistrationConstants.MIN_PASSWORD_LENGTH,
+            message = "Password must be more than {min}")
+    @NotNull
+    private String password;
     private String passwordCheck;
 
-
-    @NotEmpty
+    @Size(min = RegistrationConstants.MIN_FIRST_NAME_LENGTH,
+            max = RegistrationConstants.MAX_FIRST_NAME_LENGTH,
+            message = "First Name must be between {min} and {max} characters")
+    @NotNull
     private String firstName;
 
-    @NotEmpty
+    @Size(min = RegistrationConstants.MIN_LAST_NAME_LENGTH,
+            max = RegistrationConstants.MAX_LAST_NAME_LENGTH,
+            message = "Last Name must be between {min} and {max} characters")
+    @NotNull
     private String lastName;
 
-    @NotEmpty
+    @NotNull(message = "Date of Birth is required")
     private LocalDate birthday;
-
-
 
     public RegisterDTO() {
     }
 
-
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getUsername() {return username;}
+    public void setUsername(String username) {this.username = username;}
 
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -54,15 +58,13 @@ public class RegisterDTO {
     public String getPasswordCheck() {
         return passwordCheck;
     }
-
     public void setPasswordCheck(String passwordCheck) {
         this.passwordCheck = passwordCheck;
     }
 
-      public String getFirstName() {
+    public String getFirstName() {
             return firstName;
         }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -70,7 +72,6 @@ public class RegisterDTO {
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -78,8 +79,14 @@ public class RegisterDTO {
     public LocalDate getBirthday() {
         return birthday;
     }
-
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

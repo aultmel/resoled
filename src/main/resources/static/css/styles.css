@@ -1,56 +1,88 @@
 
 
 body {
- font-size: large;
- background: hsla(48, 83%, 89%, 1);
+    font-size: large;
+    color: gray;
+    background:  hsla(201, 100%, 14%, 1);
+}
+
+.gradientBg {
+    background-image: linear-gradient(hsla(201, 100%, 8%, 1), hsla(201, 100%, 20%, 1));
 }
 
 
-/* COLOR PALLET */
-.color1 {
-background: hsla(48, 83%, 89%, 1);
-}
-.color2 {
-background: hsla(47, 87%, 66%, 1);
-}
-.color3 {
-background: hsla(28, 83%, 61%, 1);
-}
-.color4 {
-background:  hsla(10, 94%, 60%, 1);
-}
+
+
+/* COLORS */
+/* baby powder */
 .color5 {
-background:  hsla(209, 77%, 23%, 1);
+background: hsla(45, 100%, 98%, 1);
+}
+/** lighter vanilla **/
+.color6 {
+background: hsla(51, 55%, 82%, 1);
+}
+
+/** cream **/
+.color7 {
+background: hsla(61, 100%, 87%, 1);
+}
+
+/* jasmine */
+.color8 {
+background: hsla(41, 71%, 74%, 1);
+}
+
+/** shamrock green **/
+.color9 {
+background: hsla(143, 52%, 41%, 1);
+}
+/** jungle green **/
+.color10 {
+background: hsla(164, 93%, 34%, 1);
+}
+/* orange web */
+.color11 {
+background: hsla(39, 96%, 53%, 1);
+}
+
+
+/* princeton orange */
+.color12 {
+background: hsla(33, 99%, 56%, 1);
+}
+/** fire engine red **/
+.color13 {
+background:  hsla(0, 69%, 50%, 1);
+}
+
+/** prussian blue **/
+.color14 {
+background:  hsla(201, 100%, 14%, 1);
 }
 
 
 
-/* FOR CREATE MESSAGE CHAIN USER AUTOCOMPLETE */
 
+
+
+/* For fetchSuggestions.js and associated suggestions code in templates */
 .autocompleteInputText {
     flex: 1;
     height: 50px;
 }
-
 .results ul{
-
 padding: 15px 10px;
-
 }
-
 .results ul li {
 list-style: none;
 padding: 15px 10px;
 cursor: pointer;
 }
 .results ul li:hover {
-
 background:#e9f3ff;
-
 }
-
 .results {
     max-height: 300px;
     overflow-y: scroll;
-
 }

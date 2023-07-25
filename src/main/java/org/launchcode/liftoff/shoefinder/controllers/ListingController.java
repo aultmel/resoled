@@ -3,12 +3,11 @@ package org.launchcode.liftoff.shoefinder.controllers;
 import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
 import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
+import org.launchcode.liftoff.shoefinder.services.ListingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -16,8 +15,15 @@ import java.util.Optional;
 @RequestMapping("/listings")
 public class ListingController {
 
-    @Autowired
+
     private ShoeListingRepository shoeListingRepository;
+
+    private final ListingService listingService;
+
+    public ListingController(ShoeListingRepository shoeListingRepository, ListingService listingService) {
+        this.shoeListingRepository = shoeListingRepository;
+        this.listingService = listingService;
+    }
 
     @GetMapping
     public String displayAllListings(Model model) {
@@ -44,20 +50,20 @@ public class ListingController {
     @GetMapping("create")
     public String showListingForm(Model model) {
 
-        model.addAttribute("createListingDto", new CreateListingDTO());
+        model.addAttribute("createListingDTO", new CreateListingDTO());
         return "/listings/create";
     }
 
 //    //will need dto to transfer userEntity info along with form data to create populate Listing
-//    @PostMapping("create")
+    @PostMapping("create")
+    public String createListing(@ModelAttribute("createListingDTO") CreateListingDTO createListingDTO) {
+//        @RequestParam("photoFile") MultipartFile photoFile
 
-//    public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,
-//                                @RequestParam("photoFile") MultipartFile photoFile) {
-//
-//
-//        // Redirect to a success page
-//        return "redirect:/success";
-//    }
+        listingService.saveListing(createListingDTO);
+
+        // Redirect to a success page
+        return "redirect:/success";
+    }
 }
 
 

@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "shoeCondition")
 public class Condition {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String conditionName;
     public enum ShoeCondition {
@@ -56,4 +56,5 @@ public class Condition {
     public void setConditionName(String conditionName) {
         this.conditionName = conditionName;
     }
+
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+<form th:object="${shoeListing}" th:action="@{/listing/create}" method="POST" enctype="multipart/form-data">
+
+<!--    user handled in controller/session, make sure to grab current user-->
+<!--    brand, style, size, condition, images-->
+
+<!--    BRAND-->
+    <th:block th:each="brand : ${topBrands}">
+        <label><span th:text="${brand}"></span>
+            <input type="checkbox" name="brands">
+        </label></br>
+    </th:block>
+
+
+<!--    STYLE-->
+
+<!--    SIZE-->
+
+<!--    CONDITION-->
+
+    <select th:field="*{condition}">
+        <option th:each="condition : ${T(org.launchcode.liftoff.shoefinder.models.Condition$ShoeCondition).values()}"
+                th:value="${condition}" th:text="${condition}">
+        </option>
+    </select>
+
+<!--    IMAGES-->
+<!-- upload image, TODO: add multiple images-->
+    <th:block>
+        <input type="file" name="imageFiles" accept="image/*" multiple>
+    </th:block>
+
+<!--    SUBMIT BUTTON-->
+    <button type="submit">Create Listing</button>
+    </form>
+
+</body>
+</html>

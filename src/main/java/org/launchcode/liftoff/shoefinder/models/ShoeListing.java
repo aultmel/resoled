@@ -2,7 +2,6 @@ package org.launchcode.liftoff.shoefinder.models;
 //comments added
 import jakarta.persistence.*;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,6 @@ public class ShoeListing {
     private Long id;
     @ManyToOne
     private UserEntity userEntity;
-
 
 
      @OneToOne
@@ -31,8 +29,12 @@ public class ShoeListing {
     private Integer zipcode;
 
 
-//    @OneToMany(mappedBy = "listing")
-//    private List<Image> images = new ArrayList<>();
+    @OneToMany(mappedBy = "listing")
+    private List<ImageLocal> images = new ArrayList<>();
+
+
+
+//    private Integer zipcode;
 
 
     //Empty Constructor
@@ -41,6 +43,7 @@ public class ShoeListing {
     }
 
     // Constructor with parameters
+
 
 //    public ShoeListing(Long id, Brand brand, Size size, Style style, Condition condition, Location location, UserEntity userEntity) {
 //        this.id = id;
@@ -69,12 +72,56 @@ public class ShoeListing {
     }
 
 
-//    public List<Image> getImages() {
-//        return images;
-//    }
-//
-//    public void setImages(List<Image> images) {
-//        this.images = images;
-//    }
+
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+    public Style getStyle() {
+        return style;
+    }
+
+    public void setStyle(Style style) {
+        this.style = style;
+    }
+
+    public Condition getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Condition condition) {
+        this.condition = condition;
+    }
+
+    //returns list of image byte[] data
+    public List<ImageLocal> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageLocal> images) {
+        this.images = images;
+    }
 }
+
 

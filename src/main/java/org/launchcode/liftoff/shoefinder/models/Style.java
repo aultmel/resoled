@@ -28,6 +28,7 @@ public class Style {
         return styleNames;
     }
 
+
     public Long getId() {
         return id;
     }
@@ -39,4 +40,10 @@ public class Style {
     public void setName(String name) {
         this.name = name;
     }
-}
+
+        private String value;
+//        private styleType(String value) {
+//            this.value = value;
+//        }
+    }
+

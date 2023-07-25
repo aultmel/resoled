@@ -1,4 +1,7 @@
 package org.launchcode.liftoff.shoefinder.data;
 
-public interface LocationRepository {
+import org.launchcode.liftoff.shoefinder.models.Location;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LocationRepository extends JpaRepository<Location, Long> {
 }

@@ -24,7 +24,7 @@ public class ShoeListing {
 
     private String style;
 
-    private String condition;
+    private String conditionDTO;
 
 //    @OneToMany(mappedBy = "listing")
 //    private List<Image> images = new ArrayList<>();
@@ -92,11 +92,11 @@ public class ShoeListing {
     }
 
     public String getCondition() {
-        return condition;
+        return conditionDTO;
     }
 
     public void setCondition(String condition) {
-        this.condition = condition;
+        this.conditionDTO = condition;
     }
 //    public List<Image> getImages() {
 //        return images;

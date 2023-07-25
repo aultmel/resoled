@@ -7,8 +7,8 @@
 <body>
 <h1>Create A Listing and Find Your Sole-Mate!</h1>
 
-<form th:action="@{/listing/create}" th:object="${createListingDto}" method="post" >
-  <!--  enctype="multipart/form-data"-->
+<form th:action="@{/listing/create}" th:object="${createListingDTO}" method="post" enctype="multipart/form-data" >
+
   <div class="form-group">
     <label for="brand">Brand:</label>
     <input type="text" id="brand" th:field="*{brand}" class="form-control" required>

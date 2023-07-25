@@ -17,14 +17,14 @@ public class ShoeListing {
 
     @OneToOne
     private Location location;
-    @ManyToOne
-    private Brand brand;
-    @ManyToOne
-    private Size size;
-    @ManyToOne
-    private Style style;
-    @ManyToOne
-    private Condition condition;
+
+    private String brand;
+
+    private Integer size;
+
+    private String style;
+
+    private String condition;
 
 //    @OneToMany(mappedBy = "listing")
 //    private List<Image> images = new ArrayList<>();
@@ -36,15 +36,15 @@ public class ShoeListing {
     }
 
     // Constructor with parameters
-    public ShoeListing(Long id, Brand brand, Size size, Style style, Condition condition, Location location, UserEntity userEntity) {
-        this.id = id;
-        this.brand = brand;
-        this.size = size;
-        this.style = style;
-        this.condition = condition;
-        this.location = location;
-        this.userEntity = userEntity;
-    }
+//    public ShoeListing(Long id, Brand brand, Size size, Style style, Condition condition, Location location, UserEntity userEntity) {
+//        this.id = id;
+//        this.brand = brand;
+//        this.size = size;
+//        this.style = style;
+//        this.condition = condition;
+//        this.location = location;
+//        this.userEntity = userEntity;
+//    }
     //
     //Getters and Setters Methods
     public Long getId() {
@@ -67,38 +67,37 @@ public class ShoeListing {
         this.location = location;
     }
 
-    public Brand getBrand() {
+    public String getBrand() {
         return brand;
     }
 
-    public void setBrand(Brand brand) {
+    public void setBrand(String brand) {
         this.brand = brand;
     }
 
-    public Size getSize() {
+    public Integer getSize() {
         return size;
     }
 
-    public void setSize(Size size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
 
-    public Style getStyle() {
+    public String getStyle() {
         return style;
     }
 
-    public void setStyle(Style style) {
+    public void setStyle(String style) {
         this.style = style;
     }
 
-    public Condition getCondition() {
+    public String getCondition() {
         return condition;
     }
 
-    public void setCondition(Condition condition) {
+    public void setCondition(String condition) {
         this.condition = condition;
     }
-
 //    public List<Image> getImages() {
 //        return images;
 //    }

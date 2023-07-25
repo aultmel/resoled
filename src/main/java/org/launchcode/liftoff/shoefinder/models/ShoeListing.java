@@ -11,12 +11,12 @@ public class ShoeListing {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @ManyToOne
     private UserEntity userEntity;
 
-    @ManyToOne
+    @OneToOne
     private Location location;
-
     @ManyToOne
     private Brand brand;
     @ManyToOne
@@ -25,10 +25,10 @@ public class ShoeListing {
     private Style style;
     @ManyToOne
     private Condition condition;
-    @OneToMany(mappedBy = "listing")
-    private List<Image> images = new ArrayList<>();
 
-//    private Integer zipcode;
+//    @OneToMany(mappedBy = "listing")
+//    private List<Image> images = new ArrayList<>();
+
 
     //Empty Constructor
     public ShoeListing() {
@@ -42,11 +42,10 @@ public class ShoeListing {
         this.size = size;
         this.style = style;
         this.condition = condition;
-//        this.zipcode = zipcode;
         this.location = location;
         this.userEntity = userEntity;
     }
-
+    //
     //Getters and Setters Methods
     public Long getId() {
         return id;
@@ -100,12 +99,11 @@ public class ShoeListing {
         this.condition = condition;
     }
 
-    //returns list of image byte[] data
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
+//    public List<Image> getImages() {
+//        return images;
+//    }
+//
+//    public void setImages(List<Image> images) {
+//        this.images = images;
+//    }
 }

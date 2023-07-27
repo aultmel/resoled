@@ -1,48 +1,95 @@
+/* Color Theme Variable Definitions */
 
+/* dark blue red orange og color theme*//*
+:root {
+    --bgGradient: linear-gradient(to bottom, hsla(201, 100%, 8%, 1) 0%, hsla(201, 100%, 40%, 1) 100%);
+    --formGradient: linear-gradient(to right, hsla(45, 100%, 95%, 1) 0% ,hsla(51, 55%, 82%, 1) 20%, hsla(51, 55%, 82%, 1) 80%, hsla(45, 100%, 95%, 1) 100%);
+    --smallAccent: hsla(202, 49%, 10%, 1);
+    --mediumAccent: hsla(0, 69%, 50%, 1);
+    --largeAccent: hsla(33, 99%, 56%, 1);
+}
+*/
+
+/* compound blue color theme */
+:root {
+    --bgGradient: linear-gradient(hsla(51, 100%, 90%, 1), hsla(51, 100%, 81%, 1));
+    --formGradient: linear-gradient(to right, hsla(51, 100%, 88%, 1) 0% ,hsla(51, 100%, 81%, 1) 20%, hsla(51, 100%, 81%, 1) 80%, hsla(51, 100%, 88%, 1) 100%) ;
+    --smallAccent: hsla(171, 75%, 54%, 1);
+    --mediumAccent: hsla(231, 75%, 63%, 1);
+    --largeAccent: hsla(351, 100%, 70%, 1);
+    --button1Accent: hsla(231, 75%, 63%, 1);
+    --button1Hover: hsla(231, 75%, 55%, 1);
+    --button2Accent: hsla(201, 100%, 20%, 1);
+    --button2Hover: hsla(201, 100%, 15%, 1);
+    --lightText: hsla(51, 100%, 95%, 1);
+    --darkText: hsla(201, 100%, 20%, 1);
+}
 
 body {
     font-size: large;
     color: gray;
-    background:  hsla(201, 100%, 14%, 1);
+}
+
+h3 {
+color: var(--darkText);
+}
+
+.color1 {
+background: var( --largeAccent);
+}
+.color2 {
+ background: var( --mediumAccent);
+}
+.color3 {
+background: var( --smallAccent);
+}
+
+.button1 {
+ background-color: var( --button1Accent);
+    color: var( --lightText);
+ &:hover {
+         background-color: var( --button1Hover);
+         color: var( --lightText);
+     }
+}
+.button2 {
+background-color: var( --button2Accent);
+ color: var( --lightText);
+&:hover {
+        background-color: var( --button2Hover);
+        color: var( --lightText);
+    }
+}
+.button3 {
+background-color: var( --mediumAccent);
 }
 
 
-/* Gradient from Dark down to Light of Prussian Blue */
+/* Gradient for most Page Backgrounds */
 .gradientBg {
-    background-image: linear-gradient(hsla(201, 100%, 8%, 1), hsla(201, 100%, 20%, 1));
+    background-image: var(--bgGradient);
     background-repeat: no-repeat;
     background-size: cover;
     min-height: calc(97vh - 10px);
 }
 
-
-/* Gradient from Red to Orange */
-.gradientRedOrange {
-    background-image: linear-gradient(hsla(33, 99%, 56%, 1), hsla(0, 69%, 50%, 1));
-}
-
-/* Gradient from lighter vanilla to baby powder*/
-.gradientLVBP {
-    background-image: linear-gradient(to right, hsla(45, 100%, 95%, 1) 0% ,hsla(51, 55%, 82%, 1) 20%, hsla(51, 55%, 82%, 1) 80%, hsla(45, 100%, 95%, 1) 100%) ;
+/* Gradient for Login and Registration Form */
+.gradientForm {
+    background-image: var(--formGradient);
 }
 
 
-
-/* COLORS */
-
-
+/* COLORS many to be removed soon */
 /* ash grey */
 .color4 {
 background: hsla(135, 10%, 77%, 1);
 }
 
 /* baby powder hsla(45, 100%, 98%, 1);*/
-
 /* white color go to with lighter vanilla gradients */
 .color5 {
 background: hsla(45, 100%, 95%, 1);
 }
-
 
 /** lighter vanilla **/
 .color6 {
@@ -104,9 +151,6 @@ width: 800px;
 .loginForm {
 width: 800px;
 }
-
-
-
 
 
 /* For fetchSuggestions.js and associated suggestions code in templates */

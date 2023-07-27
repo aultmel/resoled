@@ -6,18 +6,44 @@ body {
     background:  hsla(201, 100%, 14%, 1);
 }
 
+
+/* Gradient from Dark down to Light of Prussian Blue */
 .gradientBg {
     background-image: linear-gradient(hsla(201, 100%, 8%, 1), hsla(201, 100%, 20%, 1));
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: calc(97vh - 10px);
 }
 
+
+/* Gradient from Red to Orange */
+.gradientRedOrange {
+    background-image: linear-gradient(hsla(33, 99%, 56%, 1), hsla(0, 69%, 50%, 1));
+}
+
+/* Gradient from lighter vanilla to baby powder*/
+.gradientLVBP {
+    background-image: linear-gradient(to right, hsla(45, 100%, 95%, 1) 0% ,hsla(51, 55%, 82%, 1) 20%, hsla(51, 55%, 82%, 1) 80%, hsla(45, 100%, 95%, 1) 100%) ;
+}
 
 
 
 /* COLORS */
-/* baby powder */
-.color5 {
-background: hsla(45, 100%, 98%, 1);
+
+
+/* ash grey */
+.color4 {
+background: hsla(135, 10%, 77%, 1);
 }
+
+/* baby powder hsla(45, 100%, 98%, 1);*/
+
+/* white color go to with lighter vanilla gradients */
+.color5 {
+background: hsla(45, 100%, 95%, 1);
+}
+
+
 /** lighter vanilla **/
 .color6 {
 background: hsla(51, 55%, 82%, 1);
@@ -33,9 +59,16 @@ background: hsla(61, 100%, 87%, 1);
 background: hsla(41, 71%, 74%, 1);
 }
 
-/** shamrock green **/
+/** Reseda Green
+110, 14%, 40%
+**/
+
+
+/** shamrock green
+ hsla(143, 52%, 41%, 1)
+ **/
 .color9 {
-background: hsla(143, 52%, 41%, 1);
+background: hsla(110, 14%, 40%, 1);
 }
 /** jungle green **/
 .color10 {
@@ -60,6 +93,18 @@ background:  hsla(0, 69%, 50%, 1);
 .color14 {
 background:  hsla(201, 100%, 14%, 1);
 }
+
+
+/* For New User Registration form */
+.registrationForm {
+width: 800px;
+}
+
+/* Returning User Login Form */
+.loginForm {
+width: 800px;
+}
+
 
 
 

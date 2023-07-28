@@ -6,15 +6,11 @@ package org.launchcode.liftoff.shoefinder.controllers;
 import org.launchcode.liftoff.shoefinder.data.ImageRepository;
 import org.launchcode.liftoff.shoefinder.models.ImageLocal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
-import java.util.Base64;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/image")
@@ -41,12 +37,9 @@ public class ImageController {
             imageLocal.saveImageLocally(files);
         }
 
-
-
         return "/image/uploadSuccess";
+
     }
-
-
 
 
     //Not configured, also not sure if useable for our application. (Why would we want to show one specific image only?)
@@ -61,3 +54,4 @@ public class ImageController {
     */
 
 }
+

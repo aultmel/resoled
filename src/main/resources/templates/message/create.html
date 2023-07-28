@@ -10,14 +10,17 @@
           th:action="@{../message/create}"
           th:object="${createMessageDTO}">
             <div class="form-group">
+                <div class="wrapper">
         <label>Message Receiver Username:
-            <input th:field="*{receiverUsername}" class="form-control" id="input-search-box" autocomplete="off">
+            <input th:field="*{receiverUsername}" class="form-control" id="input-search-box" autocomplete="off" />
         </label>
-                <div class="results">
-                    <ul></ul>
+                    <div class="results">
+
                 </div>
-                <p class="error" th:errors="*{receiverUsername}"></p>
-            </div>
+
+            </div><p class="error" th:errors="*{receiverUsername}"></p>
+</div>
+        <input type="hidden" id="suggestionsUrl" th:value="${suggestionsUrl}" />
 
     <div class="form-group">
         <label>Subject of the message:
@@ -36,6 +39,7 @@
     </div>
     <input type="submit" value="Send Message" class="btn btn-primary">
 </form>
+
 
 
 <script th:src="@{/js/fetchSuggestions.js}"></script>

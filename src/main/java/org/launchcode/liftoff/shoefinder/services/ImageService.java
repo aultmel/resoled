@@ -20,11 +20,15 @@ public class ImageService {
     public String uploadImage(MultipartFile file) throws IOException {
 
         //changing first constructor variable from file.getOriginalFilename() to dbcheck
+<<<<<<< HEAD
+        Image image= imageRepository.save(new Image(dbNameCheck(file.getOriginalFilename()), file.getContentType(), ImageUtils.compressImage(file.getBytes())));
+=======
 
         String fileName = dbNameCheck(file.getOriginalFilename());
 
 
         Image image= imageRepository.save(new Image(fileName, file.getContentType(), ImageUtils.compressImage(file.getBytes())));
+>>>>>>> speck-nav
 
         if(image!=null){
             return "file uploaded: " + file.getOriginalFilename();
@@ -74,7 +78,7 @@ public class ImageService {
         Optional<Image> image = imageRepository.findById(id);
         return image;
     }
-}
- */
 
+*/
 
+//}

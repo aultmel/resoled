@@ -1,56 +1,181 @@
+/* Color Theme Variable Definitions */
 
+/* dark blue red orange og color theme*//*
+:root {
+    --bgGradient: linear-gradient(to bottom, hsla(201, 100%, 8%, 1) 0%, hsla(201, 100%, 40%, 1) 100%);
+    --formGradient: linear-gradient(to right, hsla(45, 100%, 95%, 1) 0% ,hsla(51, 55%, 82%, 1) 20%, hsla(51, 55%, 82%, 1) 80%, hsla(45, 100%, 95%, 1) 100%);
+    --smallAccent: hsla(202, 49%, 10%, 1);
+    --mediumAccent: hsla(0, 69%, 50%, 1);
+    --largeAccent: hsla(33, 99%, 56%, 1);
+}
+*/
+
+/* light mode new color theme */
+:root {
+
+    --bgGradient: linear-gradient(to bottom, hsla(0, 100%, 100%, 1) 0%, hsla(0, 100%, 100%, 1) 50%,  hsla(194, 85%, 62%, 1) 100%);
+    --formGradient: linear-gradient(hsla(0, 100%, 100%, 1), hsla(194, 90%, 98%, 1));
+    --smallAccent: hsla(229, 83%, 60%, 1);
+    --mediumAccent: hsla(276, 91%, 38%, 1);
+    --largeAccent: hsla(333, 93%, 56%, 1);
+    --button1Accent: hsla(276, 91%, 38%, 1);
+    --button1Hover: hsla(276, 91%, 28%, 1);
+    --button2Accent: hsla(258, 86%, 34%, 1);
+    --button2Hover: hsla(258, 86%, 24%, 1);
+    --lightText: hsla(51, 100%, 95%, 1);
+    --darkText: hsla(201, 100%, 20%, 1);
+    
+}
 
 body {
- font-size: large;
- background: hsla(48, 83%, 89%, 1);
+    font-size: large;
+    color: gray;
 }
 
+h3 {
+color: var(--darkText);
+}
 
-/* COLOR PALLET */
 .color1 {
-background: hsla(48, 83%, 89%, 1);
+background: var( --largeAccent);
 }
 .color2 {
-background: hsla(47, 87%, 66%, 1);
+ background: var( --mediumAccent);
 }
 .color3 {
-background: hsla(28, 83%, 61%, 1);
+background: var( --smallAccent);
 }
+
+.button1 {
+ background-color: var( --button1Accent);
+    color: var( --lightText);
+ &:hover {
+         background-color: var( --button1Hover);
+         color: var( --lightText);
+     }
+}
+.button2 {
+background-color: var( --button2Accent);
+ color: var( --lightText);
+&:hover {
+        background-color: var( --button2Hover);
+        color: var( --lightText);
+    }
+}
+.button3 {
+background-color: var( --mediumAccent);
+}
+
+
+/* Gradient for most Page Backgrounds */
+.gradientBg {
+    background-image: var(--bgGradient);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: calc(97vh - 10px);
+}
+
+/* Gradient for Login and Registration Form */
+.gradientForm {
+    background-image: var(--formGradient);
+}
+
+
+/* COLORS many to be removed soon */
+/* ash grey */
 .color4 {
-background:  hsla(10, 94%, 60%, 1);
+background: hsla(135, 10%, 77%, 1);
 }
+
+/* baby powder hsla(45, 100%, 98%, 1);*/
+/* white color go to with lighter vanilla gradients */
 .color5 {
-background:  hsla(209, 77%, 23%, 1);
+background: hsla(45, 100%, 95%, 1);
+}
+
+/** lighter vanilla **/
+.color6 {
+background: hsla(51, 55%, 82%, 1);
+}
+
+/** cream **/
+.color7 {
+background: hsla(61, 100%, 87%, 1);
+}
+
+/* jasmine */
+.color8 {
+background: hsla(41, 71%, 74%, 1);
+}
+
+/** Reseda Green
+110, 14%, 40%
+**/
+
+
+/** shamrock green
+ hsla(143, 52%, 41%, 1)
+ **/
+.color9 {
+background: hsla(110, 14%, 40%, 1);
+}
+/** jungle green **/
+.color10 {
+background: hsla(164, 93%, 34%, 1);
+}
+/* orange web */
+.color11 {
+background: hsla(39, 96%, 53%, 1);
 }
 
 
-
-/* FOR CREATE MESSAGE CHAIN USER AUTOCOMPLETE */
-
-.autocompleteInputText {
-    flex: 1;
-    height: 50px;
+/* princeton orange */
+.color12 {
+background: hsla(33, 99%, 56%, 1);
+}
+/** fire engine red **/
+.color13 {
+background:  hsla(0, 69%, 50%, 1);
 }
 
+/** prussian blue **/
+.color14 {
+background:  hsla(201, 100%, 14%, 1);
+}
+
+
+/* For New User Registration form */
+.registrationForm {
+width: 700px;
+}
+
+/* Returning User Login Form */
+.loginForm {
+width: 700px;
+}
+
+
+/* For fetchSuggestions.js and associated suggestions code in templates */
 .results ul{
-
-padding: 15px 10px;
-
+padding: 10px 10px;
 }
-
 .results ul li {
-list-style: none;
-padding: 15px 10px;
-cursor: pointer;
+    display:block;
+    list-style: none;
+    padding: 12px 10px;
+    cursor: pointer;
+    min-width: 200px;
+}
+.results {
+    position:absolute;
+    background-color:#f9f9f9;
+    max-height: 280px;
 }
 .results ul li:hover {
-
-background:#e9f3ff;
-
+    background:#e9f3ff;
 }
 
-.results {
-    max-height: 300px;
-    overflow-y: scroll;
+
+.homepage{
 
 }

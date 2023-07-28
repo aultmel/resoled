@@ -18,6 +18,9 @@ public class Location {
     private int zipCode;
     private String state;
 
+    public Location() {
+    }
+
     public Location(double latitude, double longitude, int streetNumber, String streetName, String city, int zipCode, String state) {
         this.latitude = latitude;
         this.longitude = longitude;

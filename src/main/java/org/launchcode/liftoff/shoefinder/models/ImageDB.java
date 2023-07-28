@@ -1,13 +1,19 @@
 package org.launchcode.liftoff.shoefinder.models;
 
+import jakarta.persistence.*;
+import lombok.Builder;
+
+
+
 //DEPRECATED DUE TO STORING IMAGES LOCALLY INSTEAD OF IN A DB
 /*
+>>>>>>> speck-nav:src/main/java/org/launchcode/liftoff/shoefinder/models/ImageDB.java
 @Entity
 @Table(name = "image")
 @Builder
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String fileName;
     private String fileType;
@@ -54,6 +60,11 @@ public class Image {
     public void setFileType(String fileType) {
         this.fileType = fileType;
     }
+<<<<<<< HEAD:src/main/java/org/launchcode/liftoff/shoefinder/models/Image.java
 }
 
+}
+
+<<<<<<< HEAD
  */
+

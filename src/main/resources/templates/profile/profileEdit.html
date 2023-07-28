@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+
+<h1>Edit User Profile</h1>
+
+
+<form th:object="${userEntity}" th:action="@{../profile/profileEdit}" method="post">
+    <p>
+        <label>Edit Display Name:
+            <input type="text" th:field="*{displayName}" />
+        </label>
+        <br/>
+        <label>Edit First Name:
+            <input type="text" th:field="*{firstName}" />
+        </label>
+        <br/>
+        <label>Edit Last Name:
+            <input type="text" th:field="*{lastName}"  />
+        </label>
+        <br/>
+        <label>Edit Email:
+            <input type="text" th:field="*{email}" />
+        </label>
+        <br/>
+    </p>
+    <button type="submit">Save</button>
+    <a th:href="@{'../profile'}">Back to profile</a>
+</form>
+
+
+<!--<form method="post" role="form"-->
+<!--      th:action="@{..profileEdit}"-->
+<!--      th:object="${editProfileDTO}">-->
+<!--    <div class="form-control">-->
+<!--        <label>Edit Username:-->
+<!--            <input th:field="*{username}" class="form-control" >-->
+<!--        </label>-->
+<!--        <label>Edit Password:-->
+<!--            <input th:field="*{password}" class="form-control" >-->
+<!--        </label>-->
+<!--    </div>-->
+<!--    <input type="submit" value="Finished Editing" class="btn btn-primary">-->
+<!--</form>-->
+
+
+</body>
+</html>

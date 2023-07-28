@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Listings</th>
+    </tr>
+    </thead>
+    <tr th:each="listing : ${allListings}">
+        <td><a th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.id}"></a></td>
+        <td th:text="${listing.brand.name}"></td>
+        <td th:text="${listing.style.name}"></td>
+        <td th:text="${listing.size.size}"></td>
+        <td th:text="${listing.location.zipCode}"></td>
+    </tr>
+</table>
+</body>
+</html>

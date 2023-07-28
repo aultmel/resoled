@@ -81,67 +81,6 @@ background-color: var( --mediumAccent);
 }
 
 
-/* COLORS many to be removed soon */
-/* ash grey */
-.color4 {
-background: hsla(135, 10%, 77%, 1);
-}
-
-/* baby powder hsla(45, 100%, 98%, 1);*/
-/* white color go to with lighter vanilla gradients */
-.color5 {
-background: hsla(45, 100%, 95%, 1);
-}
-
-/** lighter vanilla **/
-.color6 {
-background: hsla(51, 55%, 82%, 1);
-}
-
-/** cream **/
-.color7 {
-background: hsla(61, 100%, 87%, 1);
-}
-
-/* jasmine */
-.color8 {
-background: hsla(41, 71%, 74%, 1);
-}
-
-/** Reseda Green
-110, 14%, 40%
-**/
-
-
-/** shamrock green
- hsla(143, 52%, 41%, 1)
- **/
-.color9 {
-background: hsla(110, 14%, 40%, 1);
-}
-/** jungle green **/
-.color10 {
-background: hsla(164, 93%, 34%, 1);
-}
-/* orange web */
-.color11 {
-background: hsla(39, 96%, 53%, 1);
-}
-
-
-/* princeton orange */
-.color12 {
-background: hsla(33, 99%, 56%, 1);
-}
-/** fire engine red **/
-.color13 {
-background:  hsla(0, 69%, 50%, 1);
-}
-
-/** prussian blue **/
-.color14 {
-background:  hsla(201, 100%, 14%, 1);
-}
 
 
 /* For New User Registration form */

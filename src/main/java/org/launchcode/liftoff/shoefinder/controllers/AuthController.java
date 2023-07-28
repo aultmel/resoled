@@ -1,6 +1,7 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
 import jakarta.validation.Valid;
+
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 import org.launchcode.liftoff.shoefinder.services.UserService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 public class AuthController {
@@ -26,6 +28,7 @@ public class AuthController {
     public String loginGetMapping(Model model){
         return "login";
     }
+    //testing a postmap login
 
 
     @GetMapping("/register")
@@ -35,10 +38,8 @@ public class AuthController {
         return "register";
     }
 
-
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO, BindingResult bindingResult, Model model) {
-
         if(bindingResult.hasErrors()){
             return "register";
         }
@@ -72,6 +73,7 @@ public class AuthController {
             return "register";
         }
 
+
         // checks if passwords match for registration and if they don't match sends an error to the view
         String password = registerDTO.getPassword();
         String verifyPassword = registerDTO.getPasswordCheck();
@@ -95,5 +97,3 @@ public class AuthController {
         return "redirect:/home?success";
     }
 }
-
-

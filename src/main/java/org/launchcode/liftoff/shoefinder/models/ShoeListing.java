@@ -11,7 +11,6 @@ public class ShoeListing {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @ManyToOne
     private UserEntity userEntity;
 
@@ -67,42 +66,45 @@ public class ShoeListing {
         this.location = location;
     }
 
-    public String getBrand() {
+    public Brand getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(Brand brand) {
         this.brand = brand;
     }
 
-    public Integer getSize() {
+    public Size getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
-    public String getStyle() {
+    public Style getStyle() {
         return style;
     }
 
-    public void setStyle(String style) {
+    public void setStyle(Style style) {
         this.style = style;
     }
 
-    public String getCondition() {
-        return conditionDTO;
+    public Condition getCondition() {
+        return condition;
     }
 
-    public void setCondition(String condition) {
-        this.conditionDTO = condition;
+    public void setCondition(Condition condition) {
+        this.condition = condition;
     }
-//    public List<Image> getImages() {
-//        return images;
-//    }
-//
-//    public void setImages(List<Image> images) {
-//        this.images = images;
-//    }
+
+    //returns list of image byte[] data
+    public List<ImageLocal> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageLocal> images) {
+        this.images = images;
+    }
+
 }

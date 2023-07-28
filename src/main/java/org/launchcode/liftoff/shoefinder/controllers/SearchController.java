@@ -3,11 +3,15 @@ package org.launchcode.liftoff.shoefinder.controllers;
 import org.launchcode.liftoff.shoefinder.data.BrandRepository;
 import org.launchcode.liftoff.shoefinder.data.StyleRepository;
 import org.launchcode.liftoff.shoefinder.models.Brand;
+import org.launchcode.liftoff.shoefinder.models.Condition;
+import org.launchcode.liftoff.shoefinder.models.Size;
+import org.launchcode.liftoff.shoefinder.models.Style;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +37,13 @@ public class SearchController {
             topBrands.add(brandName);
         }
         //Add topBrands to the model for search.html
-        model.addAttribute("topBrands", topBrands);
+        if (topBrands.size() < 5) {
+            Brand brand = new Brand();
+            model.addAttribute("topBrands", brand.getBrandNames());
+        } else {
+            model.addAttribute("topBrands", topBrands);
+        }
+
 
         //Grab 5 most recurring styles from database
         List<Object[]> topStylesData = styleRepository.findPopularStyles();
@@ -44,29 +54,20 @@ public class SearchController {
             String styleName = (String) style[0];
             topStyles.add(styleName);
         }
-        //Add topStyles to the model for search.html
-        model.addAttribute("topStyles", topStyles);
+        if (topStyles.size() < 5) {
+            Style style = new Style();
+            model.addAttribute("topStyles", style.getStyleNames());
+        } else {
+            model.addAttribute("topStyles", topStyles);
+        }
 
         //Create list of shoe sizes for the model
-        List<String> shoeSizes = new ArrayList<>();
-        shoeSizes.add("5");
-        shoeSizes.add("6");
-        shoeSizes.add("7");
-        shoeSizes.add("8");
-        shoeSizes.add("9");
-        shoeSizes.add("10");
-        shoeSizes.add("11");
-        shoeSizes.add("12");
-        shoeSizes.add("13");
-        model.addAttribute("shoeSizes", shoeSizes);
+        List<String> shoeSizeList = Size.getAllSizes();
+        model.addAttribute("shoeSizes", shoeSizeList);
 
         //Create list of conditions for the model
-        List<String> conditions = new ArrayList<>();
-        conditions.add("New");
-        conditions.add("Excellent");
-        conditions.add("Good");
-        conditions.add("Acceptable");
-        model.addAttribute("conditions", conditions);
+        List<String> conditionList = Condition.getAllConditionDisplayTexts();
+        model.addAttribute("conditions", conditionList);
 
         return "search";
     }

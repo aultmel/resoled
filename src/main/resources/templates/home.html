@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}">
-</head>
+<head th:replace="~{fragments :: head}"></head>
+<header th:replace="fragments :: header"></header>
 
 <body class="m-1">
 
@@ -27,7 +27,7 @@ TEST HOME
 <br/>
 <a href="/login">Login Page</a>
 <br/>
-<a href="/listing/create">Create A Listing</a>
+<a href="/profile">Profile Page</a>
 <br/>
 <a href="/message/create">Create a new Message Chain Page</a>
 <br/>
@@ -39,7 +39,7 @@ TEST HOME
 <a href="/search">Search Page</a>
 
 <p>Potential Color Pallet up for review:</p>
-<th:block th:each="i: ${#numbers.sequence(5, 14)}">
+<th:block th:each="i: ${#numbers.sequence(4, 14)}">
     <div th:class="'color' + ${i} + ' border rounded border-black'">
         <br/>
         <br/>

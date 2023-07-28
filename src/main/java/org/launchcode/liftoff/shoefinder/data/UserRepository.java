@@ -11,6 +11,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
     UserEntity findByUsername(String username);
+    UserEntity findByDisplayName(String displayName);
+
     Boolean existsByUsername(String username);
 
     UserEntity findFirstByUsername(String username);
@@ -20,5 +22,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     @Query("SELECT username FROM UserEntity")
     List<String> getUsernames();
 
-
+    @Query("SELECT displayName FROM UserEntity")
+    List<String> getDisplayNames();
 }

@@ -58,15 +58,10 @@ public class MessageController {
     @GetMapping("messages/page/{pageNumber}")
     public String getOneMessageChainPage(Model model, @PathVariable("pageNumber") int currentPage){
 
-        CreateMessageDTO createMessageDTO = new CreateMessageDTO();
-        model.addAttribute("createMessageDTO", createMessageDTO);
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
-
-        // api url for suggestions for the username
-        model.addAttribute("suggestionsUrl", "http://localhost:8080/api/messageCreate");
 
         List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
 
@@ -79,15 +74,10 @@ public class MessageController {
 
         Page<MessageChain> pageMessageChains = new PageImpl<>(pageSlice, pageableSortedByLocalDateTime, userEntityMessageChains.size() );
 
-
         // Creating a pageable framework from a list of UserEntity MessageChain
         // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
         // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
         // number of items on page is set by the size parameter of the PageRequest.of()
-
-
-
-
 
         int totalPages = pageMessageChains.getTotalPages();
         long totalItems = pageMessageChains.getTotalElements();
@@ -152,8 +142,8 @@ public class MessageController {
         UserEntity userEntity = userRepository.findByUsername(username);
 
 //         checks if receiver username exists and if it does not, sends an error to the view
-        if (!userRepository.existsByUsername(createMessageDTO.getReceiverUsername())) {
-            errors.rejectValue("receiverUsername", "username.notValid", "Username does not exist.");
+        if (!userRepository.existsByDisplayName(createMessageDTO.getReceiverDisplayName())) {
+            errors.rejectValue("receiverDisplayName", "displayName.notValid", "That user does not exist.");
             return "message/create";
         }
         if (createMessageDTO.getMessageSubject().isEmpty()) {
@@ -165,7 +155,7 @@ public class MessageController {
             return "message/create";
         }
 
-        createMessageDTO.setReceiverUserEntity(userRepository.findByUsername(createMessageDTO.getReceiverUsername()));
+        createMessageDTO.setReceiverUserEntity(userRepository.findByDisplayName(createMessageDTO.getReceiverDisplayName()));
         createMessageDTO.setSenderUserEntity(userEntity);
 
         //using createMessageDTO to create the MessageChain and first Message of the MessageChain

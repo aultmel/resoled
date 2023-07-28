@@ -7,13 +7,13 @@
 
 
     <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
-                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[0].username}">
+                <a th:href="'/profile/PUTUSERPROFILEHERE?displayName=' + ${messageChain.userEntityList[0].username}">
                     <span th:text="${messageChain.userEntityList[0].username}"></span>
                 </a>
         </th:block>
     <!--            todo: update link to user profile page.-->
             <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
-                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[1].username}">
+                <a th:href="'/profile/PUTUSERPROFILEHERE?displayName=' + ${messageChain.userEntityList[1].username}">
                     <span th:text="${messageChain.userEntityList[1].username}"></span>
                 </a>
 

@@ -25,16 +25,33 @@
   <!--    <input type="text" id="location" th:field="*{location}" class="form-control" required>-->
   <!--  </div>-->
 
-  <!--  <div class="form-group">-->
-  <!--    <label for="photoFile">Photo:</label>-->
-  <!--    <input type="file" id="photoFile" name="photoFile" class="form-control-file" accept="image/*" required>-->
-  <!--  </div>-->
+  <form th:action="@{/image/upload}" method="POST" enctype="multipart/form-data">
+    <input type="file" name="imageFile" accept="image/*">
+  </form>
 
   <div class="form-group">
-    <label for="condition">Condition:</label>
-    <input type="text" id="condition" th:field="*{condition}" class="form-control" required>
-  </div>
+    <label>Condition:</label>
+    <label>
+      <input type="radio" th:id="imageRadio_1" th:name="imageRadio" th:value="1">
+      <img th:src="@{/images/new.png}" alt="New Shoes" width="100" height="100">
+    </label>
 
+    <label>
+      <input type="radio" th:id="imageRadio_2" th:name="imageRadio" th:value="2">
+      <img th:src="@{/images/great.png}" alt="Great Condition" width="100" height="100">
+    </label>
+
+    <label>
+      <input type="radio" th:id="imageRadio_3" th:name="imageRadio" th:value="3">
+      <img th:src="@{/images/good.png}" alt="Good Condition" width="100" height="100">
+    </label>
+
+    <label>
+      <input type="radio" th:id="imageRadio_4" th:name="imageRadio" th:value="4">
+      <img th:src="@{/images/ugly.png}" alt="Bad Condition" width="100" height="100">
+    </label>
+
+</div>
   <div class="form-group">
     <label for="style">Style:</label>
     <input type="text" id="style" th:field="*{style}" class="form-control" required>

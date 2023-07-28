@@ -1,48 +1,108 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
-<body class="m-2">
+
+<body class="m-2 gradientBg">
+<br/>
+<div class="color2 container w-75 rounded-5 p-2 shadow-lg mt-5">
+    <div class="color1 container rounded-5 p-3">
+        <div class="gradientForm container rounded-5 shadow-lg p-4">
+            <div class="row">
+
+                <div class="color7 container rounded-5 p-4 col mx-1">
 
 
-<h1>Create a Message</h1>
+                    <h3>Start a New Conversation</h3>
 
-    <form method="post" role="form"
-          th:action="@{../message/create}"
-          th:object="${createMessageDTO}">
-            <div class="form-group">
-                <div class="wrapper">
-        <label>Message Receiver Username:
-            <input th:field="*{receiverUsername}" class="form-control" id="input-search-box" autocomplete="off" />
-        </label>
-                    <div class="results">
+                    <form method="post" role="form"
+                          th:action="@{../message/create}"
+                          th:object="${createMessageDTO}">
+                        <div class="form-group">
+                            <div class="dropdown">
+                                <label>Message Receiver:
+                                    <input th:field="*{receiverUsername}" class="form-control" id="input-search-box"
+                                           autocomplete="off"/>
+                                </label>
+                                <div class="results">
+                                </div>
+                            </div>
+                            <p class="error" th:errors="*{receiverUsername}"></p>
+                        </div>
 
+                        <input type="hidden" id="suggestionsUrl" th:value="${suggestionsUrl}"/>
+
+                        <div class="form-group">
+                            <label>Subject of the message:
+                                <input th:field="*{messageSubject}" class="form-control">
+                            </label>
+                            <p class="error" th:errors="*{messageSubject}"></p>
+                        </div>
+                        <div class="form-group">
+
+                            <p class="error" th:errors="*{text}"></p>
+                            <label><h5>Message:</h5>
+                                <br/>
+                                <textarea th:field="*{text}" name="text" rows="5" cols="50"/>
+                            </label>
+                            <br/>
+                        </div>
+                        <input type="submit" value="Send Message" class="btn btn-primary">
+                    </form>
                 </div>
 
-            </div><p class="error" th:errors="*{receiverUsername}"></p>
+                <div class="color7 container rounded p-4 col mx-1">
+
+                    <h3 class="text-center">Recent Conversations</h3>
+
+                    <!--                <a href="/message/create">Click here to message someone new (Create new MessageChain)</a>-->
+                    <!--                <br/>-->
+                    <div th:each="messageChain : ${messageChainList}" class="p-1">
+
+
+                        <div class="row container rounded-5 border border-3 border-secondary-subtle shadow p-2 mb-3">
+
+
+                            <div class="col p-2 ">
+
+                                <h5>Message Subject: <a
+                                        th:href="'/message/message?messageChainId=' + ${messageChain.id}"
+                                        th:text="${messageChain.messageChainSubject}"></a></h5>
+                                <h5>with:
+                                    <!--            todo: update link to user profile page.-->
+                                    <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
+                                        <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[0].username}">
+                                            <span th:text="${messageChain.userEntityList[0].username}"></span>
+                                        </a>
+                                    </th:block>
+                                    <!--            todo: update link to user profile page.-->
+                                    <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
+                                        <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[1].username}">
+                                            <span th:text="${messageChain.userEntityList[1].username}"></span>
+                                        </a>
+                                    </th:block>
+                                </h5>
+                            </div>
+                            <div class="col p-2">
+                                <p>Most Recent Message:
+                                <div class="color5 rounded w-50 p-2">
+                                    <span th:text="${messageChain.messages[messageChain.messages.size() - 1].text}"></span></p>
+                                    <p><span
+                                            th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.username}"></span>:
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-        <input type="hidden" id="suggestionsUrl" th:value="${suggestionsUrl}" />
-
-    <div class="form-group">
-        <label>Subject of the message:
-        <input th:field="*{messageSubject}" class="form-control">
-        </label>
-        <p class="error" th:errors="*{messageSubject}"></p>
-    </div>
-    <div class="form-group">
-
-        <p class="error" th:errors="*{text}"></p>
-        <label><h5>Message:</h5>
-            <br/>
-            <textarea th:field="*{text}" name="text" rows="5" cols="50" />
-        </label>
-        <br/>
-    </div>
-    <input type="submit" value="Send Message" class="btn btn-primary">
-</form>
-
-
-
 <script th:src="@{/js/fetchSuggestions.js}"></script>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
+
+<footer style="font-size: large" class="panel-footer">
+</footer>
 </html>

@@ -49,32 +49,3 @@ public class ListingController {
         }
     }}
 
-//    @GetMapping("/listing")
-//    public String showListingForm(Model model) {
-//        model.addAttribute("listing", new ShoeListing());
-//        return "listing-form";
-//    }
-//
-//    @PostMapping("/listing")
-//    public String createListing(@ModelAttribute("listing") ShoeListing shoeListing,
-//                                @RequestParam("photoFile") MultipartFile photoFile) {
-//        try {
-//            if (!photoFile.isEmpty()) {
-//                // Get the bytes of the photo file
-//                byte[] photoBytes = photoFile.getBytes();
-//
-//                // Set the photo bytes to the listing
-//                shoeListing.setPhoto(photoBytes);
-//            }
-//
-//            // Save the listing to the database
-//            listingRepository.save(shoeListing);
-//        } catch (Exception e) {
-//            // Handle any exceptions, e.g., return to the form with an error message
-//            return "redirect:/listing?error=upload";
-//        }
-//
-//        // Redirect to a success page
-//        return "redirect:/success";
-//    }
-//}

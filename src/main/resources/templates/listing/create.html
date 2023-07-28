@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+  <meta charset="UTF-8"/>
+
   <title>Create Listing</title>
   <!-- Include necessary CSS and JS files -->
 </head>
 <body>
 <h1>Create A Listing and Find Your Sole-Mate!</h1>
-
+<br/>
 <form th:action="@{/listing/create}" th:object="${createListingDTO}" method="post" enctype="multipart/form-data" >
-
+  <br/>
   <div class="form-group">
     <label for="brand">Brand:</label>
     <input type="text" id="brand" th:field="*{brand}" class="form-control" required>
   </div>
-
+  <br/>
   <div class="form-group">
     <label for="size">Size:</label>
     <input type="text" id="size" th:field="*{size}" class="form-control" required>
   </div>
-
+  <br/>
   <!--  <div class="form-group">-->
   <!--    <label for="location">Location:</label>-->
   <!--    <input type="text" id="location" th:field="*{location}" class="form-control" required>-->
   <!--  </div>-->
-
+  <br/>
   <form th:action="@{/image/upload}" method="POST" enctype="multipart/form-data">
     <input type="file" name="imageFile" accept="image/*">
   </form>
-
+  <br/>
   <div class="form-group">
     <label>Condition:</label>
     <label>
@@ -38,7 +40,7 @@
 
     <label>
       <input type="radio" th:id="imageRadio_2" th:name="imageRadio" th:value="2">
-      <img th:src="@{/images/great.png}" alt="Great Condition" width="100" height="100">
+      <img th:src="@{/images/great.jpg}" alt="Great Condition" width="100" height="100">
     </label>
 
     <label>
@@ -52,11 +54,12 @@
     </label>
 
 </div>
+  <br/>
   <div class="form-group">
     <label for="style">Style:</label>
     <input type="text" id="style" th:field="*{style}" class="form-control" required>
   </div>
-
+  <br/>
   <button type="submit" class="btn btn-primary">Create Listing!</button>
 </form>
 

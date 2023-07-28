@@ -15,7 +15,7 @@
 
     --bgGradient: linear-gradient(to bottom, hsla(0, 100%, 100%, 1) 0%, hsla(0, 100%, 100%, 1) 50%,  hsla(194, 85%, 62%, 1) 100%);
     --formGradient: linear-gradient(hsla(0, 100%, 100%, 1), hsla(194, 90%, 98%, 1));
-
+     --loginGradient: radial-gradient(hsla(0, 100%, 100%, .7) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(194, 85%, 62%, 0) 100%);
     --smallAccent: hsla(229, 83%, 60%, 1);
     --mediumAccent: hsla(276, 91%, 38%, 1);
     --largeAccent: hsla(333, 93%, 56%, 1);
@@ -127,11 +127,19 @@ background-color: var( --button2Accent);
 
 
 /* Gradient for most Page Backgrounds */
+.login {
+    background-image: var(--loginGradient), url('../images/home/home-image-1.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-height: calc(97vh - 10px);
+}
+
 .gradientBg {
-    background-image: var(--bgGradient);
+ background-image: var(--bgGradient);
     background-repeat: no-repeat;
     background-size: cover;
     min-height: calc(97vh - 10px);
+
 }
 
 /* Gradient for Login and Registration Form */
@@ -140,6 +148,11 @@ background-color: var( --button2Accent);
 }
 
 
+.home {
+    background-image: url('../images/home/home-image-1.jpg');
+  background-size: 100% auto;
+
+}
 
 
 /* For New User Registration form */
@@ -175,3 +188,4 @@ padding: 10px 10px;
 .results ul li:hover {
     background:#e9f3ff;
 }
+

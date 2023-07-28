@@ -11,7 +11,7 @@
 <!--    Below is part of Bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
-<!--    Now our style.css sheet-->
+    <!--    Now our style.css sheet-->
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 
 
@@ -19,26 +19,61 @@
 </head>
 <body>
 <header th:fragment="header">
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">ReSoled</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="home">Home</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="">Soles
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/listing">Local Soles</a></li>
-                    <li><a href="/listing/create">Add a Sole</a></li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home">ShoeFinder</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Soles
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/listing">Local Soles</a></li>
+                            <li><a class="dropdown-item" href="/listing/create">Add a Sole</a></li>
+                        </ul>
+                    </li>
                 </ul>
-            </li>
-            <li><a href="/search">Search</a></li>
-            <li><a href="/login">Login</a></li>
-        </ul>
-    </div>
-</nav>
+            </div>
+        </div>
+    </nav>
+<!--    <nav class="navbar navbar-expand navbar-dark bg-dark">-->
+<!--        <div class="container-fluid">-->
+<!--            <a class="navbar-brand" href="home" >ShoeFinder</a>-->
+<!--            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </button>-->
+<!--            <div class="collapse navbar-collapse" id="navbarNavDropdown">-->
+
+<!--                <ul class="navbar-nav">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="navbarDropdownMenuLink" role="button" aria-expanded="false">-->
+<!--                            Soles-->
+<!--                        </a>-->
+<!--                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
+<!--                            <li><a class="dropdown-item" href="/listing">Local Soles</a></li>-->
+<!--                            <li><a class="dropdown-item" href="/listing/create">Add a Sole</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item"><a class="nav-link" href="/search">Search</a></li>-->
+<!--                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+
+
+
 </header>
 
 

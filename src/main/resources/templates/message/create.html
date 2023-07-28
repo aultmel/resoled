@@ -20,13 +20,13 @@
                         <div class="form-group">
                             <div class="dropdown">
                                 <label>Message Receiver:
-                                    <input th:field="*{receiverUsername}" class="form-control" id="input-search-box"
+                                    <input th:field="*{receiverDisplayName}" class="form-control" id="input-search-box"
                                            autocomplete="off"/>
                                 </label>
                                 <div class="results">
                                 </div>
                             </div>
-                            <p class="error" th:errors="*{receiverUsername}"></p>
+                            <p class="error" th:errors="*{receiverDisplayName}"></p>
                         </div>
 
                         <input type="hidden" id="suggestionsUrl" th:value="${suggestionsUrl}"/>

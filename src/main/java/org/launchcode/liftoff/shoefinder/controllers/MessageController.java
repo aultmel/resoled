@@ -23,6 +23,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
+import static org.launchcode.liftoff.shoefinder.constants.MessageConstants.MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE;
+
 @Controller
 @RequestMapping("/message")
 public class MessageController {
@@ -111,16 +113,33 @@ public class MessageController {
 
     @GetMapping("/create")
     public String createMessageGetMapping(Model model) {
+        CreateMessageDTO createMessageDTO = new CreateMessageDTO();
+        model.addAttribute("createMessageDTO", createMessageDTO);
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
 
-        CreateMessageDTO createMessageDTO = new CreateMessageDTO();
-        model.addAttribute("createMessageDTO", createMessageDTO);
-
         // api url for suggestions for the username
         model.addAttribute("suggestionsUrl", "http://localhost:8080/api/messageCreate");
+
+
+        // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
+        // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
+        // number of items on page is set by the size parameter of the PageRequest.of()
+        List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
+
+
+        List<MessageChain> messageChainList = new ArrayList<>();
+        if(userEntityMessageChains.size() > MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE) {
+            for (int i = 0; i < MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE; i++) {
+                messageChainList.add(userEntityMessageChains.get(i));
+            }
+        } else {
+           messageChainList = userEntityMessageChains;
+        }
+
+        model.addAttribute("messageChainList", messageChainList);
 
         return "message/create";
     }

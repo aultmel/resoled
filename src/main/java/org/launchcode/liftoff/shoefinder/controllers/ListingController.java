@@ -1,28 +1,32 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
+import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
 import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
+import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.launchcode.liftoff.shoefinder.services.ListingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+
 
 @Controller
 @RequestMapping("listings")
 public class ListingController {
 
 
-    private ShoeListingRepository shoeListingRepository;
-
     private final ListingService listingService;
+    private final ShoeListingRepository shoeListingRepository;
 
-    public ListingController(ShoeListingRepository shoeListingRepository, ListingService listingService) {
-        this.shoeListingRepository = shoeListingRepository;
+    public ListingController (ListingService listingService, ShoeListingRepository shoeListingRepository) {
         this.listingService = listingService;
+        this.shoeListingRepository = shoeListingRepository;
     }
+
 
     @GetMapping
     public String displayAllListings(Model model) {
@@ -64,6 +68,3 @@ public class ListingController {
         return "redirect:/success";
     }
 }
-
-
-

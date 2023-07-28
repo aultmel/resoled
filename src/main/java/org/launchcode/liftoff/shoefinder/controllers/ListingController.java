@@ -4,7 +4,6 @@ import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
 import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
 import org.launchcode.liftoff.shoefinder.services.ListingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/listings")
+@RequestMapping("listings")
 public class ListingController {
 
 
@@ -47,7 +46,7 @@ public class ListingController {
         return "/listings/listing";
     }
 
-    @GetMapping("create")
+    @GetMapping("/create")
     public String showListingForm(Model model) {
 
         model.addAttribute("createListingDTO", new CreateListingDTO());

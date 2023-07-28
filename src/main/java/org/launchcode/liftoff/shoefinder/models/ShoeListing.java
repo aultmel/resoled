@@ -44,15 +44,26 @@ public class ShoeListing {
 //        this.size = size;
 //        this.style = style;
 //        this.condition = condition;
+//        this.location = location;
+//        this.userEntity = userEntity;
+//    }
+    //
+
 ////        this.zipcode = zipcode;
 //        this.location = location;
 //        this.userEntity = userEntity;
 //    }
 
+
     //Getters and Setters Methods
+
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public UserEntity getUserEntity() {
@@ -103,6 +114,14 @@ public class ShoeListing {
         this.condition = condition;
     }
 
+    public Integer getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(Integer zipcode) {
+        this.zipcode = zipcode;
+    }
+
     //returns list of image byte[] data
     public List<ImageLocal> getImages() {
         return images;
@@ -113,4 +132,5 @@ public class ShoeListing {
     }
 
 }
+
 

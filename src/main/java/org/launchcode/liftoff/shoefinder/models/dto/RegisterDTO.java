@@ -1,10 +1,11 @@
 package org.launchcode.liftoff.shoefinder.models.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.launchcode.liftoff.shoefinder.constants.RegistrationConstants;
 import java.time.LocalDate;
+
 
 public class RegisterDTO {
 
@@ -27,6 +28,7 @@ public class RegisterDTO {
     private String password;
     private String passwordCheck;
 
+
     @Size(min = RegistrationConstants.MIN_FIRST_NAME_LENGTH,
             max = RegistrationConstants.MAX_FIRST_NAME_LENGTH,
             message = "First Name must be between {min} and {max} characters")
@@ -36,7 +38,7 @@ public class RegisterDTO {
     @Size(min = RegistrationConstants.MIN_LAST_NAME_LENGTH,
             max = RegistrationConstants.MAX_LAST_NAME_LENGTH,
             message = "Last Name must be between {min} and {max} characters")
-    @NotNull
+    @NotEmpty
     private String lastName;
 
     @NotNull(message = "Date of Birth is required")
@@ -61,6 +63,7 @@ public class RegisterDTO {
     public void setPasswordCheck(String passwordCheck) {
         this.passwordCheck = passwordCheck;
     }
+
 
     public String getFirstName() {
             return firstName;

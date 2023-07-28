@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.Builder;
 
 
+
+//DEPRECATED DUE TO STORING IMAGES LOCALLY INSTEAD OF IN A DB
+/*
+>>>>>>> speck-nav:src/main/java/org/launchcode/liftoff/shoefinder/models/ImageDB.java
 @Entity
 @Table(name = "image")
 @Builder
@@ -14,7 +18,7 @@ public class Image {
     private String fileName;
     private String fileType;
     @Lob
-    @Column(name = "imageData", length = 1000)
+    @Column(name = "imageData", length = 2000)
     private byte[] imageData;
 
     @ManyToOne
@@ -56,4 +60,11 @@ public class Image {
     public void setFileType(String fileType) {
         this.fileType = fileType;
     }
+<<<<<<< HEAD:src/main/java/org/launchcode/liftoff/shoefinder/models/Image.java
 }
+
+}
+
+<<<<<<< HEAD
+ */
+

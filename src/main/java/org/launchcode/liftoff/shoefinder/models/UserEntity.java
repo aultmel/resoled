@@ -1,11 +1,6 @@
 package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,12 +39,13 @@ public class UserEntity {
     private LocalDate birthday;
     private int age;
 
-//    private Location location;
+    @OneToOne
+    private Location location;
 
 //    private Image image;
 
-//    @OneToMany
-//    private List<ShoeListing> shoeListings;
+    @OneToMany(mappedBy = "userEntity")
+    private List<ShoeListing> shoeListings;
 
 
 
@@ -160,4 +156,5 @@ public class UserEntity {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
 }

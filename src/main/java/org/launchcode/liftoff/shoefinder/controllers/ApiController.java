@@ -1,9 +1,7 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
-
 import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
 import org.launchcode.liftoff.shoefinder.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -12,27 +10,18 @@ import java.util.List;
 public class ApiController {
 
     UserService userService;
-
     MessageChainRepository messageChainRepository;
 
-
-    @Autowired
     ApiController(UserService userService, MessageChainRepository messageChainRepository) {
         this.userService = userService;
         this.messageChainRepository = messageChainRepository;
     }
 
-
-
     @GetMapping("/messageCreate")
     public List<String> messageUserSuggestion(@RequestParam String searchTerm) {
-
         List<String> usernameSuggestionsList = userService.getSuggestionsString(searchTerm);
-
         return usernameSuggestionsList;
-
     }
-
 
 
 }

@@ -11,24 +11,25 @@ public class ShoeListing {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @ManyToOne
     private UserEntity userEntity;
 
-    @OneToOne
-    private Location location;
+     @OneToOne
+     private Location location;
+     @ManyToOne
+     private Brand brand;
+     @ManyToOne
+     private Size size;
+     @ManyToOne
+     private Style style;
+     @ManyToOne
+     private Condition condition;
 
-    private String brand;
+    private Integer zipcode;
 
-    private Integer size;
 
-    private String style;
-
-    private String conditionDTO;
-
-//    @OneToMany(mappedBy = "listing")
-//    private List<Image> images = new ArrayList<>();
-
+    @OneToMany(mappedBy = "listing")
+    private List<ImageLocal> images = new ArrayList<>();
 
     //Empty Constructor
     public ShoeListing() {
@@ -36,6 +37,7 @@ public class ShoeListing {
     }
 
     // Constructor with parameters
+
 //    public ShoeListing(Long id, Brand brand, Size size, Style style, Condition condition, Location location, UserEntity userEntity) {
 //        this.id = id;
 //        this.brand = brand;
@@ -46,9 +48,22 @@ public class ShoeListing {
 //        this.userEntity = userEntity;
 //    }
     //
+
+////        this.zipcode = zipcode;
+//        this.location = location;
+//        this.userEntity = userEntity;
+//    }
+
+
     //Getters and Setters Methods
+
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public UserEntity getUserEntity() {
@@ -67,42 +82,55 @@ public class ShoeListing {
         this.location = location;
     }
 
-    public String getBrand() {
+    public Brand getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(Brand brand) {
         this.brand = brand;
     }
 
-    public Integer getSize() {
+    public Size getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
-    public String getStyle() {
+    public Style getStyle() {
         return style;
     }
 
-    public void setStyle(String style) {
+    public void setStyle(Style style) {
         this.style = style;
     }
 
-    public String getCondition() {
-        return conditionDTO;
+    public Condition getCondition() {
+        return condition;
     }
 
-    public void setCondition(String condition) {
-        this.conditionDTO = condition;
+    public void setCondition(Condition condition) {
+        this.condition = condition;
     }
-//    public List<Image> getImages() {
-//        return images;
-//    }
-//
-//    public void setImages(List<Image> images) {
-//        this.images = images;
-//    }
+
+    public Integer getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(Integer zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    //returns list of image byte[] data
+    public List<ImageLocal> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageLocal> images) {
+        this.images = images;
+    }
+
 }
+
+

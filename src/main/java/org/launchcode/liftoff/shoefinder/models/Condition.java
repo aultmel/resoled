@@ -2,19 +2,16 @@ package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "shoeCondition")
 public class Condition {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    /*
-    Enum to set the level of condition for the shoes. When a condition class is created:
-    Condition condition = new Condition();
-    the condition can be set by:
-    condition.setCondition(Condition.ShoeCondition.NEW);
-    .NEW, .LIKE_NEW, etc
-     */
+    private String conditionName;
     public enum ShoeCondition {
         NEW("New"),
         LIKE_NEW("Like New"),
@@ -29,24 +26,35 @@ public class Condition {
             this.displayText = displayText;
         }
     }
+    public Condition() {
 
-    private ShoeCondition shoeCondition;
-
-    public Condition(ShoeCondition condition) {
-        this.shoeCondition = condition;
     }
+    public Condition(Long id, String conditionName) {
+        this.id = id;
+        this.conditionName = conditionName;
+    }
+
+
+
+    public static List<String> getAllConditionDisplayTexts() {
+        List<String> displayTexts = new ArrayList<>();
+        for (ShoeCondition condition : ShoeCondition.values()) {
+            displayTexts.add(condition.displayText);
+        }
+        return displayTexts;
+    }
+
 
     public Long getId() {
         return id;
     }
 
-
-    public ShoeCondition getCondition() {
-        return shoeCondition;
+    public String getConditionName() {
+        return conditionName;
     }
 
-    public void setCondition(ShoeCondition condition) {
-        this.shoeCondition = condition;
+    public void setConditionName(String conditionName) {
+        this.conditionName = conditionName;
     }
 
 }

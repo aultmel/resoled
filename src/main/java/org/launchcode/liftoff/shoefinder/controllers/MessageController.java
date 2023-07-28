@@ -56,9 +56,15 @@ public class MessageController {
     @GetMapping("messages/page/{pageNumber}")
     public String getOneMessageChainPage(Model model, @PathVariable("pageNumber") int currentPage){
 
+        CreateMessageDTO createMessageDTO = new CreateMessageDTO();
+        model.addAttribute("createMessageDTO", createMessageDTO);
+
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
+
+        // api url for suggestions for the username
+        model.addAttribute("suggestionsUrl", "http://localhost:8080/api/messageCreate");
 
         List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
 
@@ -100,6 +106,7 @@ public class MessageController {
 
         return "message/messages";
     }
+
 
 
     @GetMapping("/create")

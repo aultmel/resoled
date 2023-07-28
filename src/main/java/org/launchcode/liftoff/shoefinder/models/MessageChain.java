@@ -2,6 +2,7 @@ package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class MessageChain {
     private Long id;
 
     private String messageChainSubject;
+
+    private LocalDateTime localDateTime;
 
 
         // UserEntity is connected to MessageChain with @ManyToMany.  Current design is UserEntity to have many MessageChain, but MessageChain only have two UserEntity.
@@ -66,7 +69,13 @@ public class MessageChain {
         return id;
     }
 
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
 
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
 }
 
 

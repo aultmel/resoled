@@ -1,19 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Search prototype</title>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}"></head>
 
-    <form>
-        <label for="shoetype">Shoe Type:</label>
-        <input type="text" id="shoetype" name="shoetype"><br><br>
-        <label for="shoebrand">Shoe Brand:</label>
-        <input type="text" id="shoebrand" name="shoebrand"><br><br>
-        <input type="submit" value="Submit">
+<body>
+<div>
+    <form method="get" action="/listings">
+        <div id="searchbar">
+            <label>Search:</label>
+            <input type="text" name="searchTerm"></br>
+        </div>
+
+        <input type="checkbox" id="male" name="gender" value="male">
+        <label for="male">M</label>
+        <input type="checkbox" id="female" name="gender" value="female">
+        <label for="female">F</label></br>
+
+        <label>Brand:</label></br>
+        <th:block th:each="brand : ${topBrands}">
+            <input type="checkbox" name="brands" th:value="${brand}">
+            <label>
+                <span th:text="${brand}"></span>
+            </label></br>
+        </th:block>
+
+        <label>Size:</label></br>
+        <th:block th:each="size : ${shoeSizes}">
+            <input type="checkbox" name="sizes" th:value="${size}">
+            <label>
+                <span th:text="${size}"></span>
+            </label>
+        </th:block></br>
+
+        <label>Style:</label></br>
+        <th:block th:each="style : ${topStyles}">
+            <input type="checkbox" name="styles" th:value="${style}">
+            <label>
+                <span th:text="${style}"></span>
+            </label></br>
+        </th:block>
+
+        <label>Condition:</label></br>
+        <th:block th:each="condition : ${conditions}">
+            <input type="checkbox" name="conditions" th:value="${condition}">
+            <label>
+                <span th:text="${condition}"></span>
+            </label></br>
+        </th:block>
+
+        <button type="submit">Search Listings</button>
     </form>
 
-</head>
-<body>
-
+</div>
 </body>
 </html>

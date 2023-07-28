@@ -1,91 +1,119 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
 import org.launchcode.liftoff.shoefinder.data.MessageRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
-import org.launchcode.liftoff.shoefinder.models.Message;
 import org.launchcode.liftoff.shoefinder.models.MessageChain;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
-
 import org.launchcode.liftoff.shoefinder.models.dto.AddMessageDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
+import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 @Controller
 @RequestMapping("/message")
 public class MessageController {
 
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
+    private UserService userService;
     private MessageService messageService;
-
-    @Autowired
     private MessageChainRepository messageChainRepository;
+    private MessageRepository messageRepository;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
-    private MessageRepository messageRepository;
+    public MessageController(UserRepository userRepository, UserService userService, MessageService messageService, MessageChainRepository messageChainRepository, MessageRepository messageRepository) {
+        this.userRepository = userRepository;
+        this.userService = userService;
+        this.messageService = messageService;
+        this.messageChainRepository = messageChainRepository;
+        this.messageRepository = messageRepository;
+    }
 
     @GetMapping("/")
     public String messageRootGetMapping(Model model) {
+        return getOneMessageChainPage(model, 1);
+    }
+
+        @GetMapping("/messages")
+        public String messagesGetMapping(Model model) {
+                return getOneMessageChainPage(model, 1);
+        }
+
+    @GetMapping("messages/page/{pageNumber}")
+    public String getOneMessageChainPage(Model model, @PathVariable("pageNumber") int currentPage){
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
+
+        List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
+
+        PagedListHolder<MessageChain> pagedListHolder = new PagedListHolder<>(userEntityMessageChains);
+        pagedListHolder.setPage(currentPage - 1);
+        pagedListHolder.setPageSize(4);
+
+        List<MessageChain> pageSlice = pagedListHolder.getPageList();
+        Pageable pageableSortedByLocalDateTime = PageRequest.of( currentPage - 1, 4);
+
+        Page<MessageChain> pageMessageChains = new PageImpl<>(pageSlice, pageableSortedByLocalDateTime, userEntityMessageChains.size() );
+
+
+        // Creating a pageable framework from a list of UserEntity MessageChain
+        // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
+        // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
+        // number of items on page is set by the size parameter of the PageRequest.of()
+
+
+
+
+
+        int totalPages = pageMessageChains.getTotalPages();
+        long totalItems = pageMessageChains.getTotalElements();
+
+        //Get content of the list it will be the size set by the Pageable
+        List<MessageChain> messageChainList = pageMessageChains.getContent();
+
+        model.addAttribute("pageMessageChains", pageMessageChains);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("messageChainList", messageChainList);
+
+        //Number of pages total that will be listed at once in the pagination menu.  Keep an even number for current code configuration.
+        int paginationMenuTotalVisible = 6;
+        model.addAttribute("paginationMenuTotalVisible", paginationMenuTotalVisible);
+        model.addAttribute("paginationMenuSplitSidesVisible", paginationMenuTotalVisible / 2);
 
         return "message/messages";
     }
 
 
-
-
-        @GetMapping("/messages")
-        public String messagesGetMapping(Model model) {
-
-            String username = SecurityUtility.getSessionUser();
-            UserEntity userEntity = userRepository.findByUsername(username);
-            model.addAttribute("userEntity", userEntity);
-
-            List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
-
-            // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
-            // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
-            Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
-                Message latestMessage1 = messageChain1.getMessages().get(messageChain1.getMessages().size() - 1);
-                Message latestMessage2 = messageChain2.getMessages().get(messageChain2.getMessages().size() - 1);
-                return latestMessage2.getLocalDateTime().compareTo(latestMessage1.getLocalDateTime());
-            });
-
-            model.addAttribute("orderedUserMessageChain", userEntityMessageChains);
-
-
-            return "message/messages";
-        }
-
-
     @GetMapping("/create")
     public String createMessageGetMapping(Model model) {
-
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
 
-
         CreateMessageDTO createMessageDTO = new CreateMessageDTO();
         model.addAttribute("createMessageDTO", createMessageDTO);
+
+        // api url for suggestions for the username
+        model.addAttribute("suggestionsUrl", "http://localhost:8080/api/messageCreate");
 
         return "message/create";
     }
@@ -94,15 +122,20 @@ public class MessageController {
     @PostMapping("/create")
     public String createMessagePostMapping(@Valid @ModelAttribute("createMessageDTO") CreateMessageDTO createMessageDTO, Errors errors, BindingResult result, Model model) {
 
-
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
 
 //         checks if receiver username exists and if it does not, sends an error to the view
         if (!userRepository.existsByUsername(createMessageDTO.getReceiverUsername())) {
-//            model.addAttribute("createMessageDTO", createMessageDTO);
-            errors.rejectValue("receiverUsername", "username.notValid", "Username does not exist");
-
+            errors.rejectValue("receiverUsername", "username.notValid", "Username does not exist.");
+            return "message/create";
+        }
+        if (createMessageDTO.getMessageSubject().isEmpty()) {
+            errors.rejectValue("messageSubject", "messageSubject.notValid", "To initiate a message please add a subject.");
+            return "message/create";
+        }
+        if (createMessageDTO.getText().isEmpty()) {
+            errors.rejectValue("text", "text.notValid", "Please type a message.");
             return "message/create";
         }
 
@@ -115,46 +148,63 @@ public class MessageController {
 
         // ultimately return to the message chain on the screen using the messageChainId
         return "redirect:../message/message?messageChainId=" + messageChainId;
-
     }
 
-
     @GetMapping("/message")
-    public String messageGetMapping(@RequestParam Long messageChainId, Model model) {
+    public String messageGetMapping(@RequestParam(required = false) String messageChainId, Model model) {
+
+
+        if (messageChainId == null) {
+            // The messageChainId is not present
+            return "redirect:../message/messages";
+        }
+        try {
+            Long messageChainIdLong = (Long.parseLong(messageChainId));
+        } catch (NumberFormatException e) {
+            // The messageChainId is not a valid Long
+            return "redirect:../message/messages";
+        }
+
+
+        Long messageChainIdLong = Long.parseLong(messageChainId);
+        if (messageChainIdLong <= 0) {
+            // The messageChainId is 0 or lower and not a valid id
+            return "redirect:../message/messages";
+        }
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
 
-
         List<MessageChain> userMessageChains = userEntity.getMessageChains();
 
-        Optional<MessageChain> requestMessageChain = messageChainRepository.findById(messageChainId);
+        Optional<MessageChain> requestMessageChain = messageChainRepository.findById(messageChainIdLong);
 
-        if (!requestMessageChain.isPresent()) {
-            // The message chain was not
+        MessageChain requestedMessageChain = requestMessageChain.orElse(null);
+
+        if (requestedMessageChain == null) {
+            // The messageChainId is not in the database
+            return "redirect:../message/messages";
         }
 
-        MessageChain requestedMessageChain =  requestMessageChain.get();
+        // Checks through UserEntity's MessageChains to see if it is associated with the UserEntity
+        // adds it to model if it finds a match
+            for (MessageChain messageChain : userMessageChains) {
+                if (messageChain.equals(requestedMessageChain)) {
 
-        for (MessageChain messageChain : userMessageChains) {
-            if(messageChain.equals(requestedMessageChain)) {
+                    AddMessageDTO addMessageDTO = new AddMessageDTO();
+                    addMessageDTO.setMessageChainId(messageChainIdLong);
+                    addMessageDTO.setUserEntity(userEntity);
+                    addMessageDTO.setMessageChain(messageChain);
 
-
-                AddMessageDTO addMessageDTO = new AddMessageDTO();
-                addMessageDTO.setMessageChainId(messageChainId);
-                addMessageDTO.setUserEntity(userEntity);
-                addMessageDTO.setMessageChain(messageChain);
-
-                model.addAttribute("addMessageDTO", addMessageDTO);
-
-                model.addAttribute("messageChain", messageChain);
-                model.addAttribute("userEntity", userEntity);
-                return "message/message";
-
+                    model.addAttribute("addMessageDTO", addMessageDTO);
+                    model.addAttribute("messageChain", messageChain);
+                    model.addAttribute("userEntity", userEntity);
+                    return "message/message";
+                }
             }
-        }
 
-        return "message/messages";
+            return "redirect:../message/messages";
+
     }
 
     @PostMapping("/message")
@@ -167,38 +217,34 @@ public class MessageController {
 
         Optional<MessageChain> requestMessageChain = messageChainRepository.findById(addMessageDTO.getMessageChainId());
 
-        if (!requestMessageChain.isPresent()) {
-            // The message chain was not
-            //todo need to add error handling if the MassageChain does not exist.
+        MessageChain requestedMessageChain =  requestMessageChain.orElse(null);
 
+        if (requestedMessageChain == null) {
+            // check if the MessageChain is in the repository
+            return "redirect:../message/messages";
         }
 
-        //check if the userEntity should have access to the MessageChain
        List<MessageChain> userEntityMessageChainsList = userEntity.getMessageChains();
-        Boolean userHasMessageChain = false;
+        // Check to make sure UserEntity has access to the MessageChain
         for (MessageChain aMessageChain : userEntityMessageChainsList) {
-            if (aMessageChain.equals(requestMessageChain)) {
-                userHasMessageChain = true;
+            if (aMessageChain.equals(requestedMessageChain)) {
+
+                // user has access to the messageChain
+                addMessageDTO.setMessageChain(requestedMessageChain);
+                addMessageDTO.setUserEntity(userEntity);
+
+                // use the AddMessageDTO to create a new Message and save it with the needed information from AddMessageDTO
+                messageService.addMessage(addMessageDTO);
+
+                // return to the message chain on the screen.
+                return "redirect:../message/message?messageChainId=" + requestedMessageChain.getId();
+
             }
         }
 
-        if (!userHasMessageChain) {
-            //user does not have access to that messageChain
-            //todo add error handling for if user should not have access to messageChain.
-        }
-
-        MessageChain requestedMessageChain =  requestMessageChain.get();
-        addMessageDTO.setMessageChain(requestedMessageChain);
-        addMessageDTO.setUserEntity(userEntity);
-
-        // use the AddMessageDTO to create a new Message and save it with the needed information from AddMessageDTO
-        messageService.addMessage(addMessageDTO);
-
-        // ultimately return to the message chain on the screen.
-        return "redirect:../message/message?messageChainId=" + requestedMessageChain.getId();
+        //user does not have access to that messageChain
+        return "redirect:../message/messages";
 
     }
-
-
 
 }

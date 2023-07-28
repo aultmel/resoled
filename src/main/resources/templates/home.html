@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
+<header th:replace="fragments :: header"></header>
 
-<body>
+<body class="m-1">
 
 TEST HOME
 <br/>
-
 <th:block th:if="${param.success}" class="alert alert-success">
     REGISTRATION SUCCESSFUL!!  SHOE TIME
 </th:block>
@@ -15,12 +15,37 @@ TEST HOME
     LOGIN SUCCESSFUL!!  SHOE TIME
 </th:block>
 
-
 <!--pulling information related to the user into template-->
 <th:block th:if="${userEntity}" class="alert alert-success">
     Welcome <span th:text="${userEntity.username}"></span>
 </th:block>
 
+<br/>
+<br/>
 
+<a href="/register">Register Page</a>
+<br/>
+<a href="/login">Login Page</a>
+<br/>
+<a href="/profile">Profile Page</a>
+<br/>
+<a href="/message/create">Create a new Message Chain Page</a>
+<br/>
+<a href="/message/messages">MessageChain page</a>
+<br/>
+<a href="/image/display">Image display Page</a>
+<br/>
+<a href="/image/upload">Image upload placeholder Page</a></br>
+<a href="/search">Search Page</a>
+
+<p>Potential Color Pallet up for review:</p>
+<th:block th:each="i: ${#numbers.sequence(5, 14)}">
+    <div th:class="'color' + ${i} + ' border rounded border-black'">
+        <br/>
+        <br/>
+    </div>
+</th:block>
+
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

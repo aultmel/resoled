@@ -26,14 +26,14 @@
                         <h5>with:
                             <!--            todo: update link to user profile page.-->
                             <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
-                                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[0].username}">
-                                    <span th:text="${messageChain.userEntityList[0].username}"></span>
+                                <a th:href="'/profile/PUTUSERPROFILEHERE?displayName=' + ${messageChain.userEntityList[0].displayName}">
+                                    <span th:text="${messageChain.userEntityList[0].displayName}"></span>
                                 </a>
                             </th:block>
                             <!--            todo: update link to user profile page.-->
                             <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
-                                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[1].username}">
-                                    <span th:text="${messageChain.userEntityList[1].username}"></span>
+                                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[1].displayName}">
+                                    <span th:text="${messageChain.userEntityList[1].displayName}"></span>
                                 </a>
                             </th:block>
                         </h5>
@@ -43,7 +43,7 @@
                         <div class="color5 rounded w-50 p-2">
                             <span th:text="${messageChain.messages[messageChain.messages.size() - 1].text}"></span></p>
                             <p><span
-                                    th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.username}"></span>:
+                                    th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.displayName}"></span>:
                             </p>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
 
 <footer style="font-size: large" class="panel-footer">
     <div class="container color2 messagesPage p-1 rounded-bottom-5">
-        <div class="color2 p-1">
+        <div class="color2 rounded-bottom-5 p-1">
             <!--    sets the pagination menu / control-->
             <nav aria-label="Conversations Page Navigation Menu">
                 <ul class="pagination pagination-lg justify-content-center">

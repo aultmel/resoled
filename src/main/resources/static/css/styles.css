@@ -10,19 +10,21 @@
 }
 */
 
-/* compound blue color theme */
+/* light mode new color theme */
 :root {
-    --bgGradient: linear-gradient(hsla(51, 100%, 90%, 1), hsla(51, 100%, 81%, 1));
-    --formGradient: linear-gradient(to right, hsla(51, 100%, 88%, 1) 0% ,hsla(51, 100%, 81%, 1) 20%, hsla(51, 100%, 81%, 1) 80%, hsla(51, 100%, 88%, 1) 100%) ;
-    --smallAccent: hsla(171, 75%, 54%, 1);
-    --mediumAccent: hsla(231, 75%, 63%, 1);
-    --largeAccent: hsla(351, 100%, 70%, 1);
-    --button1Accent: hsla(231, 75%, 63%, 1);
-    --button1Hover: hsla(231, 75%, 55%, 1);
-    --button2Accent: hsla(201, 100%, 20%, 1);
-    --button2Hover: hsla(201, 100%, 15%, 1);
+
+    --bgGradient: linear-gradient(to bottom, hsla(0, 100%, 100%, 1) 0%, hsla(0, 100%, 100%, 1) 50%,  hsla(194, 85%, 62%, 1) 100%);
+    --formGradient: linear-gradient(hsla(0, 100%, 100%, 1), hsla(194, 90%, 98%, 1));
+    --smallAccent: hsla(229, 83%, 60%, 1);
+    --mediumAccent: hsla(276, 91%, 38%, 1);
+    --largeAccent: hsla(333, 93%, 56%, 1);
+    --button1Accent: hsla(276, 91%, 38%, 1);
+    --button1Hover: hsla(276, 91%, 28%, 1);
+    --button2Accent: hsla(258, 86%, 34%, 1);
+    --button2Hover: hsla(258, 86%, 24%, 1);
     --lightText: hsla(51, 100%, 95%, 1);
     --darkText: hsla(201, 100%, 20%, 1);
+    
 }
 
 body {
@@ -144,12 +146,12 @@ background:  hsla(201, 100%, 14%, 1);
 
 /* For New User Registration form */
 .registrationForm {
-width: 800px;
+width: 700px;
 }
 
 /* Returning User Login Form */
 .loginForm {
-width: 800px;
+width: 700px;
 }
 
 
@@ -171,4 +173,9 @@ padding: 10px 10px;
 }
 .results ul li:hover {
     background:#e9f3ff;
+}
+
+
+.homepage{
+
 }

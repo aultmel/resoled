@@ -75,8 +75,9 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-
+//        todo switch lookup to display
     public List<String> getSuggestionsString(String substring) {
+//        todo switch lookup to display name
         // Get the list of usernames.
         List<String> usernames = userRepository.getUsernames();
         // Create a list of suggestions.

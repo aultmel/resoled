@@ -5,8 +5,8 @@
 
 <body class="m-3 text-dark gradientBg">
 <div class="container loginForm px-5">
-    <div class="color3 container rounded p-1 shadow-lg mt-5">
-    <div class="color2 container rounded p-2">
+    <div class="color2 container rounded p-2 shadow-lg mt-5">
+<!--    <div class="color2 container rounded p-2">-->
         <div class="color1 container rounded p-3">
 
                 <div class="gradientForm container rounded shadow-lg p-4">
@@ -23,7 +23,7 @@
                         <div class="login-form">
 
                             <form method="post" role="form" th:action="@{/login}">
-                                <div class="form-floating mb-3 mx-4">
+                                <div class="form-group form-floating mb-3 mx-4">
 
                                     <input
                                             id="username"
@@ -34,7 +34,7 @@
                                     <label for="username">Username</label>
                                 </div>
 
-                                <div class="form-floating mb-3 mx-4">
+                                <div class="form-group form-floating mb-3 mx-4">
 
                                     <input
                                             id="password"
@@ -46,23 +46,23 @@
                                 </div>
 
                                 <br/>
-                                <div class="d-grid mb-4 mx-auto w-75">
+                                <div class="form-group d-grid mb-4 mx-auto w-75">
                                     <button th:href="@{/login}" type="submit" value="Log in"
-                                            class="btn button1 btn-lg">
+                                            class="btn button1 btn-lg shadow-lg">
                                         Login
                                     </button>
                                 </div>
                             </form>
                             <hr/>
-                            <div class="d-grid mt-5 mb-2 mx-auto w-50">
-                                <a th:href="@{/register}" class="btn button2 btn-lg">Create a New Account</a>
+                            <div class="form-group d-grid mt-5 mb-2 mx-auto w-50 shadow-lg">
+                                <a th:href="@{/register}" class="btn button1 btn-lg">Create a New Account</a>
                             </div>
 
                         </div>
                     </div>
               </div>
             </div>
-        </div>
+<!--        </div>-->
     </div>
 </div>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>

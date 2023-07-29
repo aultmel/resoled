@@ -13,10 +13,16 @@
 /* light mode new color theme */
 :root {
 
+    --color1: hsla(333, 93%, 56%, 1);
+    --color2: hsla(276, 91%, 38%, 1);
+    --color3: hsla(258, 86%, 34%, 1);
+    --color4: hsla(194, 85%, 62%, 1);
+
     --bgGradient: linear-gradient(to bottom, hsla(0, 100%, 100%, 1) 0%, hsla(0, 100%, 100%, 1) 50%,  hsla(194, 85%, 62%, 1) 100%);
     --formGradient: linear-gradient(hsla(0, 100%, 100%, 1), hsla(194, 90%, 98%, 1));
-     --loginGradient: radial-gradient(hsla(0, 100%, 100%, .7) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(194, 85%, 62%, 0) 100%);
-    --smallAccent: hsla(229, 83%, 60%, 1);
+    --loginGradient: radial-gradient(hsla(0, 100%, 100%, .7) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(194, 85%, 62%, 0) 100%);
+
+    --smallAccent: hsla(258, 86%, 34%, 1);
     --mediumAccent: hsla(276, 91%, 38%, 1);
     --largeAccent: hsla(333, 93%, 56%, 1);
 
@@ -33,33 +39,8 @@
     --linkHover: hsla(333, 93%, 56%, 1);
     --linkActive: hsla(333, 93%, 56%, 1);
 
-    --paginationActive: hsla(258, 86%, 34%, 1);
-
-
 }
 
-
-/* Pagination menu */
-.pagination > li > a:focus,
-.pagination > li > a:hover,
-.pagination > li > span:focus,
-.pagination > li > span:hover {
-    background-color: purple;
-    border-color: #ddd;
-}
-
-.pagination > .active > a
-{
-    color: white;
-    background-color: var( --paginationActive) !Important;
-    border: solid 1px #5A4181 !Important;
-}
-
-.pagination > .active > a:hover
-{
-    background-color: #5A4181 !Important;
-    border: solid 1px #5A4181;
-}
 
 
 
@@ -96,17 +77,19 @@ a:active {
 }
 
 
-
-
 .color1 {
-background: var( --largeAccent);
+background: var( --color1);
 }
 .color2 {
- background: var( --mediumAccent);
+ background: var( --color2);
 }
 .color3 {
-background: var( --smallAccent);
+background: var( --color3);
 }
+.color4 {
+background: var( --color4);
+}
+
 
 .button1 {
  background-color: var( --button1Accent);
@@ -130,7 +113,8 @@ background-color: var( --button2Accent);
 .login {
     background-image: var(--loginGradient), url('../images/home/home-image-1.jpg');
     background-repeat: no-repeat;
-    background-size: 100% auto;
+    background-size: cover;
+    background-position: center center;
     min-height: calc(97vh - 10px);
 }
 
@@ -139,7 +123,6 @@ background-color: var( --button2Accent);
     background-repeat: no-repeat;
     background-size: cover;
     min-height: calc(97vh - 10px);
-
 }
 
 /* Gradient for Login and Registration Form */
@@ -150,8 +133,7 @@ background-color: var( --button2Accent);
 
 .home {
     background-image: url('../images/home/home-image-1.jpg');
-  background-size: 100% auto;
-
+    background-size: cover;
 }
 
 
@@ -189,3 +171,24 @@ padding: 10px 10px;
     background:#e9f3ff;
 }
 
+
+/* Pagination menu */
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+    color: var( --color3);
+    background-color: white !Important;
+    border: solid 1px var( --color3) !Important;
+}
+.pagination > .active > a {
+    color: white;
+    background-color: var( --color3) !Important;
+    border: solid 1px var( --color3) !Important;
+}
+.pagination > .active > a:hover {
+    color: white;
+    font-weight: bold;
+    background-color: var( --color3) !Important;
+    border: solid 1px var( --color3) !Important;
+}

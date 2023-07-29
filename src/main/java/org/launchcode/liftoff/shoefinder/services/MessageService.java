@@ -77,9 +77,7 @@ public class MessageService {
 
 
     public List<MessageChain> sortMessageChainsByRecentMessage(UserEntity userEntity){
-
         List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
-
 //        Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
 //            Message latestMessage1 = messageChain1.getMessages().get(messageChain1.getMessages().size() - 1);
 //            Message latestMessage2 = messageChain2.getMessages().get(messageChain2.getMessages().size() - 1);
@@ -88,7 +86,18 @@ public class MessageService {
         Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
             return messageChain2.getLocalDateTime().compareTo(messageChain1.getLocalDateTime());
         });
-
         return userEntityMessageChains;
     }
+
+
+    public List<Message> sortMessagesByRecentMessage(MessageChain messageChain){
+        List<Message> messageChainMessages = messageChain.getMessages();
+
+        Collections.sort(messageChainMessages, (message1, message2) -> {
+            return message2.getLocalDateTime().compareTo(message1.getLocalDateTime());
+        });
+        return messageChainMessages;
+    }
+
+
 }

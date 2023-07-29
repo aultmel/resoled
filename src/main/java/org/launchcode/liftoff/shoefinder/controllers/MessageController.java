@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
 import org.launchcode.liftoff.shoefinder.data.MessageRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
+import org.launchcode.liftoff.shoefinder.models.Message;
 import org.launchcode.liftoff.shoefinder.models.MessageChain;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
@@ -212,8 +213,12 @@ public class MessageController {
                     addMessageDTO.setUserEntity(userEntity);
                     addMessageDTO.setMessageChain(messageChain);
 
+//                   todo  might not need this sortMessagesByRecentMessage
+//                   List<Message> sortedMessages = messageService.sortMessagesByRecentMessage(messageChain);
+
                     model.addAttribute("addMessageDTO", addMessageDTO);
                     model.addAttribute("messageChain", messageChain);
+//                    model.addAttribute("sortedMessages", sortedMessages);
                     model.addAttribute("userEntity", userEntity);
                     return "message/message";
                 }

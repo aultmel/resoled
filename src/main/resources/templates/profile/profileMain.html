@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments :: head}"></head>
 
 <body>
@@ -15,6 +15,11 @@
 
     <a th:href="@{'profile/profileEdit'}">Edit</a>
     <a th:href="@{'home'}">Home</a>
+    </br>
+    </br>
+
+    <a th:if="${userEntity.roles[0].getName() == 'ADMIN'}" th:href="@{'../admin'}">Admin Menu</a>
+
 
 
 </div>

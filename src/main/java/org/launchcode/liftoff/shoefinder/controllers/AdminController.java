@@ -12,15 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+    @Autowired
+    private UserRepository userRepository;
 
-        @Autowired
-        private UserRepository userRepository;
-
-        @GetMapping("")
-        public String showAdmin (Model model) {
-            String username = SecurityUtility.getSessionUser();
-            UserEntity userEntity = userRepository.findByUsername(username);
-            model.addAttribute("userEntity", userEntity);
-            return "admin";
-        }
+    @GetMapping("")
+    public String showProfile (Model model) {
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsername(username);
+        model.addAttribute("userEntity", userEntity);
+        return "profile/profileMain";
 }

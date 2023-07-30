@@ -18,7 +18,7 @@
     </br>
     </br>
 
-    <a th:if="${userEntity.roles[0].getName() == 'ADMIN'}" th:href="@{'../admin'}">Admin Menu</a>
+    <p th:if="${userEntity.roles[0].getName() == 'ADMIN'}"> <a th:href="@{'admin'}">Admin Menu</a></p>
 
 
 

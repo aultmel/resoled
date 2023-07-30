@@ -95,4 +95,8 @@ public class UserService {
         return suggestions;
     }
 
+    public UserEntity findUserByDisplayName(String displayName) {
+        return userRepository.findByDisplayName(displayName);
+    }
+
 }

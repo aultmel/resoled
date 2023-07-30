@@ -10,12 +10,9 @@ import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -72,6 +69,18 @@ public class UserController {
             model.addAttribute("error", "An unexpected error occurred.");
             return "error";
         }
+    }
+
+
+
+    @GetMapping("/userData/{displayName}")
+    public String showPage(@PathVariable("displayName") String displayName, Model model) {
+
+
+        UserEntity otherUser = userRepository.findByDisplayName(displayName);
+        model.addAttribute("otherUser", otherUser);
+
+        return "profile/userData/" + displayName ;
     }
 
 }

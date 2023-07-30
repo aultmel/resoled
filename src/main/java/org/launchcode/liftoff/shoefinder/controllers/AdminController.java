@@ -16,9 +16,10 @@ public class AdminController {
     private UserRepository userRepository;
 
     @GetMapping("")
-    public String showProfile (Model model) {
+    public String showAdmin (Model model) {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
-        return "profile/profileMain";
+        return "admin";
+    }
 }

@@ -80,7 +80,7 @@ public class UserController {
         UserEntity otherUser = userRepository.findByDisplayName(displayName);
         model.addAttribute("otherUser", otherUser);
 
-        return "profile/userData/" + displayName ;
+        return "profile/userData";
     }
 
 }

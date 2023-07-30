@@ -71,11 +71,8 @@ public class UserController {
         }
     }
 
-
-
     @GetMapping("/userData/{displayName}")
     public String showPage(@PathVariable("displayName") String displayName, Model model) {
-
 
         UserEntity otherUser = userRepository.findByDisplayName(displayName);
         model.addAttribute("otherUser", otherUser);

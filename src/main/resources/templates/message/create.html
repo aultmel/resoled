@@ -1,47 +1,125 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
-<body class="m-2">
+
+<body class="m-2 gradientBg">
+<br/>
+<div class="color2 container w-75 rounded-5 p-2 shadow-lg mt-5">
+    <div class="color1 container rounded-5 p-3">
+        <div class="gradientForm container rounded-5 shadow-lg p-4">
+            <div class="row">
+
+                <div class="container rounded-5 p-4 col mx-1">
 
 
-<h1>Create a Message</h1>
+                    <h4>Start a New Conversation</h4>
 
-    <form method="post" role="form"
-          th:action="@{../message/create}"
-          th:object="${createMessageDTO}">
-            <div class="form-group">
-        <label>Message Receiver Username:
-            <input th:field="*{receiverUsername}" class="form-control" id="input-search-box" autocomplete="off" />
-        </label>
-                <div class="results">
-                    <ul></ul>
+                    <form method="post" role="form"
+                          th:action="@{../message/create}"
+                          th:object="${createMessageDTO}">
+
+                        <div class="form-group  mb-2 ">
+                            <div class="dropdown form-floating border border-3 rounded-4 border-secondary-subtle shadow-sm p-2"
+                                 style="z-index: 5">
+                                <input th:field="*{receiverDisplayName}" class="form-control border border-0"
+                                       id="input-search-box"
+                                       autocomplete="off"/>
+                                <div class="results">
+                                </div>
+                                <label for="input-search-box">To:</label>
+                            </div>
+                            <p class="error" th:errors="*{receiverDisplayName}"></p>
+                        </div>
+
+                        <input type="hidden" id="suggestionsUrl" th:value="${suggestionsUrl}"/>
+
+                        <div class="form-group mb-2">
+                            <div class="form-floating border border-3 rounded-4 border-secondary-subtle p-2">
+                                <input th:field="*{messageSubject}" id="messageSubject"
+                                       class="form-control border border-0">
+                                <label for="messageSubject">Subject</label>
+                                <p class="error" th:errors="*{messageSubject}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <p class="error" th:errors="*{text}"></p>
+                            <label>
+                                <textarea th:field="*{text}" name="text" rows="5" cols="50"
+                                          class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"/>
+                            </label>
+                            <br/>
+                        </div>
+
+                        <div class="d-grid mb-2">
+                            <input type="submit" value="Send Message" class="btn button1 btn-lg w-50 shadow ms-2">
+                        </div>
+
+
+                    </form>
                 </div>
-                <p class="error" th:errors="*{receiverUsername}"></p>
+
+                <div class="color7 container rounded p-4 col mx-1">
+
+                    <h4 class="text-center">Recent Conversations</h4>
+
+                    <!--                <a href="/message/create">Click here to message someone new (Create new MessageChain)</a>-->
+                    <!--                <br/>-->
+                    <div th:each="messageChain : ${messageChainList}" class="p-1">
+
+
+                        <div class="row container rounded-5 border border-3 border-secondary-subtle shadow p-2 mb-3">
+
+
+                            <div class="col p-2 ">
+
+                                <h5>Message Subject: <a
+                                        th:href="@{'/message/message?messageChainId=' + ${messageChain.id}}"
+                                        th:text="${messageChain.messageChainSubject}"></a></h5>
+                                <h5>with:
+                                    <!--            todo: update link to user profile page.-->
+                                    <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
+                                        <a th:href="@{'/profile/PUTUSERPROFILEHERE?displayName=' + ${messageChain.userEntityList[0].displayName}}">
+                                            <span th:text="${messageChain.userEntityList[0].displayName}"></span>
+                                        </a>
+                                    </th:block>
+                                    <!--            todo: update link to user profile page.-->
+                                    <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
+                                        <a th:href="@{'/profile/PUTUSERPROFILEHERE?displayName=' + ${messageChain.userEntityList[1].displayName}}">
+                                            <span th:text="${messageChain.userEntityList[1].displayName}"></span>
+                                        </a>
+                                    </th:block>
+                                </h5>
+                            </div>
+                            <div class="col p-2">
+                                <p>Most Recent Message:
+                                <div class="color5 rounded w-50 p-2">
+                                    <span th:text="${messageChain.messages[messageChain.messages.size() - 1].text}"></span></p>
+                                    <p><span
+                                            th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.displayName}"></span>:
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="d-grid mb-2 mx-auto w-50 shadow-lg">
+                        <a th:href="@{/message/}" class="btn button1 btn-lg" style="color: var( --lightText);">
+                            More Conversations </a>
+                    </div>
+
+
+                </div>
             </div>
-
-        <input type="hidden" id="suggestionsUrl" th:value="${suggestionsUrl}" />
-
-    <div class="form-group">
-        <label>Subject of the message:
-        <input th:field="*{messageSubject}" class="form-control">
-        </label>
-        <p class="error" th:errors="*{messageSubject}"></p>
+        </div>
     </div>
-    <div class="form-group">
-
-        <p class="error" th:errors="*{text}"></p>
-        <label><h5>Message:</h5>
-            <br/>
-            <textarea th:field="*{text}" name="text" rows="5" cols="50" />
-        </label>
-        <br/>
-    </div>
-    <input type="submit" value="Send Message" class="btn btn-primary">
-</form>
-
-
-
+</div>
 <script th:src="@{/js/fetchSuggestions.js}"></script>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
+
+<footer style="font-size: large" class="panel-footer">
+</footer>
 </html>

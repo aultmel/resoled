@@ -19,8 +19,8 @@ public class ApiController {
 
     @GetMapping("/messageCreate")
     public List<String> messageUserSuggestion(@RequestParam String searchTerm) {
-        List<String> usernameSuggestionsList = userService.getSuggestionsString(searchTerm);
-        return usernameSuggestionsList;
+        List<String> displayNameSuggestionsList = userService.getSuggestionsString(searchTerm);
+        return displayNameSuggestionsList;
     }
 
 

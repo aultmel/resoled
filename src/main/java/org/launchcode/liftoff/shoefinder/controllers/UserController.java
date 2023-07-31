@@ -1,19 +1,25 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
 import org.apache.catalina.User;
+import org.launchcode.liftoff.shoefinder.data.ReportRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
+import org.launchcode.liftoff.shoefinder.models.Report;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.EditProfileDTO;
+import org.launchcode.liftoff.shoefinder.models.dto.ReportDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/profile")
@@ -21,6 +27,8 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ReportRepository reportRepository;
 
 
     @GetMapping("")
@@ -28,6 +36,8 @@ public class UserController {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
+
+
         return "profile/profileMain";
     }
 
@@ -51,7 +61,8 @@ public class UserController {
 
         try {
             if (editProfileDTO.getDisplayName().isEmpty() || editProfileDTO.getFirstName().isEmpty() || editProfileDTO.getLastName().isEmpty() || editProfileDTO.getEmail().isEmpty()) {
-                throw new Error ("Field cannot be left blank.");
+                Error blankField = new Error ("Field cannot be left blank.");
+                throw blankField;
             }
 
         userEntity.setDisplayName(editProfileDTO.getDisplayName());
@@ -62,12 +73,10 @@ public class UserController {
 
         return "redirect:/profile";
 
-        } catch (Error e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        } catch (Exception e) {
-            model.addAttribute("error", "An unexpected error occurred.");
-            return "error";
+        } catch (Error blankField) {
+            model.addAttribute("error", blankField.getMessage());
+            return "profile/profileEdit";
+
         }
     }
 
@@ -77,7 +86,26 @@ public class UserController {
         UserEntity otherUser = userRepository.findByDisplayName(displayName);
         model.addAttribute("otherUser", otherUser);
 
+        ReportDTO reportDTO = new ReportDTO();
+        model.addAttribute("reportDTO", reportDTO);
+
         return "profile/userData";
+    }
+
+    @PostMapping("/userData/{displayName}")
+    public String reportUser(@PathVariable("displayName") String displayName, @ModelAttribute("reportDTO")ReportDTO reportDTO, Model model) {
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsername(username);
+        model.addAttribute("userEntity", userEntity);
+
+        UserEntity otherUser = userRepository.findByDisplayName(displayName);
+        model.addAttribute("otherUser", otherUser);
+
+        Report report = new Report(otherUser, reportDTO.getComplaintDetail(), userEntity);
+
+        reportRepository.save(report);
+
+        return"redirect:/profile/userData/{displayName}";
     }
 
 }

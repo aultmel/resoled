@@ -13,6 +13,8 @@
     <p th:text="'First Name: ' + ${userEntity.firstName}"></p>
     <p th:text="'Last Name: ' + ${userEntity.lastName}"></p>
 
+    <p th:text="'Roles: ' + ${userEntity.roles[0].getName}"></p>
+
     <a th:href="@{'profile/profileEdit'}">Edit</a>
     <a th:href="@{'home'}">Home</a>
     </br>

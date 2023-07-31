@@ -1,5 +1,6 @@
 package org.launchcode.liftoff.shoefinder.services;
 
+
 import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.ShoeListing;
@@ -9,6 +10,7 @@ import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.springframework.stereotype.Service;
 
 
+
 @Service
 public class ListingService {
 
@@ -16,8 +18,8 @@ public class ListingService {
     private final UserRepository userRepository;
 
     public ListingService(ShoeListingRepository shoeListingRepository, UserRepository userRepository) {
-        this.shoeListingRepository = shoeListingRepository;
         this.userRepository = userRepository;
+        this.shoeListingRepository = shoeListingRepository;
     }
 
 
@@ -27,17 +29,15 @@ public class ListingService {
         UserEntity userEntity = userRepository.findByUsername(username);
 
         ShoeListing shoeListing = new ShoeListing();
-        shoeListing.setUserEntity(userEntity);
-//        shoeListing.setSize();
-//        shoeListing.setStyle();
-//        shoeListing.setBrand();
-//        shoeListing.setCondition();
+
+       shoeListing.setUserEntity(userEntity);
+//        shoeListing.setBrand(createListingDTO.getBrand());
+//        shoeListing.setSize(createListingDTO.getSize());
+//        shoeListing.setCondition(createListingDTO.getCondition());
+//        shoeListing.setStyle(createListingDTO.getStyle());
 
 
         shoeListingRepository.save(shoeListing);
     }
-
-
-
 
 }

@@ -42,7 +42,6 @@ public class MessageChain {
     public String getMessageChainSubject() {
         return messageChainSubject;
     }
-
     public void setMessageChainSubject(String messageChainSubject) {
         this.messageChainSubject = messageChainSubject;
     }
@@ -50,7 +49,6 @@ public class MessageChain {
     public List<Message> getMessages() {
         return messages;
     }
-
     public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
@@ -59,11 +57,9 @@ public class MessageChain {
     public List<UserEntity> getUserEntityList() {
         return userEntityList;
     }
-
     public void setUserEntityList(List<UserEntity> userEntityList) {
         userEntityList = userEntityList;
     }
-
 
     public Long getId() {
         return id;
@@ -72,7 +68,6 @@ public class MessageChain {
     public LocalDateTime getLocalDateTime() {
         return localDateTime;
     }
-
     public void setLocalDateTime(LocalDateTime localDateTime) {
         this.localDateTime = localDateTime;
     }

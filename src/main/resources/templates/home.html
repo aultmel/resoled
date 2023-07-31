@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
 <head th:replace="~{fragments :: head}"></head>
 <header th:replace="fragments :: header"></header>
 
-<body class="m-1">
+<body class="m-1 home">
 
 TEST HOME
 <br/>
@@ -27,24 +28,21 @@ TEST HOME
 <br/>
 <a href="/login">Login Page</a>
 <br/>
+
+<a href="/listings/create">Create A Listing</a>
+<br/>
 <a href="/profile">Profile Page</a>
 <br/>
-<a href="/message/create">Create a new Message Chain Page</a>
+<a href="/message/messages">MessageChain "Conversations" page</a>
 <br/>
-<a href="/message/messages">MessageChain page</a>
+<a href="/message/create">Create New Message Chain "Conversations" page</a>
 <br/>
 <a href="/image/display">Image display Page</a>
 <br/>
 <a href="/image/upload">Image upload placeholder Page</a></br>
 <a href="/search">Search Page</a>
 
-<p>Potential Color Pallet up for review:</p>
-<th:block th:each="i: ${#numbers.sequence(5, 14)}">
-    <div th:class="'color' + ${i} + ' border rounded border-black'">
-        <br/>
-        <br/>
-    </div>
-</th:block>
+
 
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>

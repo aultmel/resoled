@@ -13,10 +13,12 @@
     </thead>
     <tr th:each="listing : ${allListings}">
         <td><a th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.id}"></a></td>
+<!--        This will be used to display the username and link to profile-->
+        <td><a th:href="'../profile/userData/' + ${listing.userEntity.displayName}" th:text="${listing.userEntity.displayName}"></a></td>
         <td th:text="${listing.brand.name}"></td>
-        <td th:text="${listing.style.name}"></td>
-        <td th:text="${listing.size.size}"></td>
-        <td th:text="${listing.location.zipCode}"></td>
+<!--        <td th:text="${listing.style.name}"></td>-->
+<!--        <td th:text="${listing.size.size}"></td>-->
+<!--        <td th:text="${listing.location.zipCode}"></td>-->
     </tr>
 </table>
 </body>

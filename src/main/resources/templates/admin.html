@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+
+<h1>ADMIN TEST</h1>
+
+<h3>Report List</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Report ID</th>
+        <th>Display Name</th>
+        <th>Reported By</th>
+        <th>Reason</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="report : ${allReports}">
+        <td th:text="${report.id}"></td>
+        <td th:text="${report.userEntity.displayName}"></td>
+        <td th:text="${report.submittingUser.displayName}"></td>
+        <td th:text="${report.complaintDetail}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

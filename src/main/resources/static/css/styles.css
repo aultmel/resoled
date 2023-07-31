@@ -1,88 +1,194 @@
+/* Color Theme Variable Definitions */
+
+/* dark blue red orange og color theme*//*
+:root {
+    --bgGradient: linear-gradient(to bottom, hsla(201, 100%, 8%, 1) 0%, hsla(201, 100%, 40%, 1) 100%);
+    --formGradient: linear-gradient(to right, hsla(45, 100%, 95%, 1) 0% ,hsla(51, 55%, 82%, 1) 20%, hsla(51, 55%, 82%, 1) 80%, hsla(45, 100%, 95%, 1) 100%);
+    --smallAccent: hsla(202, 49%, 10%, 1);
+    --mediumAccent: hsla(0, 69%, 50%, 1);
+    --largeAccent: hsla(33, 99%, 56%, 1);
+}
+*/
+
+/* light mode new color theme */
+:root {
+
+    --color1: hsla(333, 93%, 56%, 1);
+    --color2: hsla(276, 91%, 38%, 1);
+    --color3: hsla(258, 86%, 34%, 1);
+    --color4: hsla(194, 85%, 62%, 1);
+
+    --bgGradient: linear-gradient(to bottom, hsla(0, 100%, 100%, 1) 0%, hsla(0, 100%, 100%, 1) 50%,  hsla(194, 85%, 62%, 1) 100%);
+    --formGradient: linear-gradient(hsla(0, 100%, 100%, 1), hsla(194, 90%, 98%, 1));
+    --loginGradient: radial-gradient(hsla(0, 100%, 100%, .7) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(194, 85%, 62%, 0) 100%);
+
+    --smallAccent: hsla(258, 86%, 34%, 1);
+    --mediumAccent: hsla(276, 91%, 38%, 1);
+    --largeAccent: hsla(333, 93%, 56%, 1);
+
+    --button1Accent: hsla(276, 91%, 38%, 1);
+    --button1Hover: hsla(276, 91%, 28%, 1);
+    --button2Accent: hsla(258, 86%, 34%, 1);
+    --button2Hover: hsla(258, 86%, 24%, 1);
+
+    --lightText: hsla(51, 100%, 95%, 1);
+    --darkText: hsla(201, 100%, 20%, 1);
+
+    --link: hsla(258, 86%, 34%, 1);
+    --linkVisited: hsla(258, 86%, 34%, 1);
+    --linkHover: hsla(333, 93%, 56%, 1);
+    --linkActive: hsla(333, 93%, 56%, 1);
+
+}
+
+
+
 
 
 body {
     font-size: large;
     color: gray;
-    background:  hsla(201, 100%, 14%, 1);
+}
+
+h3 {
+color: var( --darkText);
+}
+
+
+a {
+ font-weight: bold;
+}
+
+/* unvisited link */
+a:link {
+  color: var( --link);
+}
+/* visited link */
+a:visited {
+  color: var( --linkVisited);
+}
+/* hover link */
+a:hover {
+  color: var( --linkHover);
+}
+/* selected link */
+a:active {
+  color: var( --linkActive);
+}
+
+
+.color1 {
+background: var( --color1);
+}
+.color2 {
+ background: var( --color2);
+}
+.color3 {
+background: var( --color3);
+}
+.color4 {
+background: var( --color4);
+}
+
+
+.button1 {
+ background-color: var( --button1Accent);
+    color: var( --lightText);
+ &:hover {
+         background-color: var( --button1Hover);
+         color: var( --lightText);
+     }
+}
+.button2 {
+background-color: var( --button2Accent);
+ color: var( --lightText);
+&:hover {
+        background-color: var( --button2Hover);
+        color: var( --lightText);
+    }
+}
+
+
+/* Gradient for most Page Backgrounds */
+.login {
+    background-image: var(--loginGradient), url('../images/home/home-image-1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    min-height: calc(97vh - 10px);
 }
 
 .gradientBg {
-    background-image: linear-gradient(hsla(201, 100%, 8%, 1), hsla(201, 100%, 20%, 1));
+ background-image: var(--bgGradient);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: calc(97vh - 10px);
+}
+
+/* Gradient for Login and Registration Form */
+.gradientForm {
+    background-image: var(--formGradient);
 }
 
 
-
-
-/* COLORS */
-/* baby powder */
-.color5 {
-background: hsla(45, 100%, 98%, 1);
-}
-/** lighter vanilla **/
-.color6 {
-background: hsla(51, 55%, 82%, 1);
-}
-
-/** cream **/
-.color7 {
-background: hsla(61, 100%, 87%, 1);
-}
-
-/* jasmine */
-.color8 {
-background: hsla(41, 71%, 74%, 1);
-}
-
-/** shamrock green **/
-.color9 {
-background: hsla(143, 52%, 41%, 1);
-}
-/** jungle green **/
-.color10 {
-background: hsla(164, 93%, 34%, 1);
-}
-/* orange web */
-.color11 {
-background: hsla(39, 96%, 53%, 1);
+.home {
+    background-image: url('../images/home/home-image-1.jpg');
+    background-size: cover;
 }
 
 
-/* princeton orange */
-.color12 {
-background: hsla(33, 99%, 56%, 1);
-}
-/** fire engine red **/
-.color13 {
-background:  hsla(0, 69%, 50%, 1);
+/* For New User Registration form */
+.registrationForm {
+width: 700px;
 }
 
-/** prussian blue **/
-.color14 {
-background:  hsla(201, 100%, 14%, 1);
+/* Returning User Login Form */
+.loginForm {
+width: 700px;
 }
 
-
-
-
-
+.messagesPage {
+width: 700px;
+}
 
 /* For fetchSuggestions.js and associated suggestions code in templates */
-.autocompleteInputText {
-    flex: 1;
-    height: 50px;
-}
 .results ul{
-padding: 15px 10px;
+padding: 10px 10px;
 }
 .results ul li {
-list-style: none;
-padding: 15px 10px;
-cursor: pointer;
-}
-.results ul li:hover {
-background:#e9f3ff;
+    display:block;
+    list-style: none;
+    padding: 12px 10px;
+    cursor: pointer;
+    min-width: 200px;
 }
 .results {
-    max-height: 300px;
-    overflow-y: scroll;
+    position:absolute;
+    background-color:#f9f9f9;
+    max-height: 280px;
+}
+.results ul li:hover {
+    background:#e9f3ff;
+}
+
+
+/* Pagination menu */
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+    color: var( --color3);
+    background-color: white !Important;
+    border: solid 1px var( --color3) !Important;
+}
+.pagination > .active > a {
+    color: white;
+    background-color: var( --color3) !Important;
+    border: solid 1px var( --color3) !Important;
+}
+.pagination > .active > a:hover {
+    color: white;
+    font-weight: bold;
+    background-color: var( --color3) !Important;
+    border: solid 1px var( --color3) !Important;
 }

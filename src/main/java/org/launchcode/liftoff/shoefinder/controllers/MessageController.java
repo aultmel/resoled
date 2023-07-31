@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
 import org.launchcode.liftoff.shoefinder.data.MessageRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
+import org.launchcode.liftoff.shoefinder.models.Message;
 import org.launchcode.liftoff.shoefinder.models.MessageChain;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
@@ -22,6 +23,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
+
+import static org.launchcode.liftoff.shoefinder.constants.MessageConstants.MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE;
 
 @Controller
 @RequestMapping("/message")
@@ -56,6 +59,7 @@ public class MessageController {
     @GetMapping("messages/page/{pageNumber}")
     public String getOneMessageChainPage(Model model, @PathVariable("pageNumber") int currentPage){
 
+
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
@@ -71,15 +75,10 @@ public class MessageController {
 
         Page<MessageChain> pageMessageChains = new PageImpl<>(pageSlice, pageableSortedByLocalDateTime, userEntityMessageChains.size() );
 
-
         // Creating a pageable framework from a list of UserEntity MessageChain
         // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
         // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
         // number of items on page is set by the size parameter of the PageRequest.of()
-
-
-
-
 
         int totalPages = pageMessageChains.getTotalPages();
         long totalItems = pageMessageChains.getTotalElements();
@@ -102,18 +101,36 @@ public class MessageController {
     }
 
 
+
     @GetMapping("/create")
     public String createMessageGetMapping(Model model) {
+        CreateMessageDTO createMessageDTO = new CreateMessageDTO();
+        model.addAttribute("createMessageDTO", createMessageDTO);
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
         model.addAttribute("userEntity", userEntity);
 
-        CreateMessageDTO createMessageDTO = new CreateMessageDTO();
-        model.addAttribute("createMessageDTO", createMessageDTO);
-
         // api url for suggestions for the username
         model.addAttribute("suggestionsUrl", "http://localhost:8080/api/messageCreate");
+
+
+        // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
+        // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
+        // number of items on page is set by the size parameter of the PageRequest.of()
+        List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
+
+
+        List<MessageChain> messageChainList = new ArrayList<>();
+        if(userEntityMessageChains.size() > MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE) {
+            for (int i = 0; i < MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE; i++) {
+                messageChainList.add(userEntityMessageChains.get(i));
+            }
+        } else {
+           messageChainList = userEntityMessageChains;
+        }
+
+        model.addAttribute("messageChainList", messageChainList);
 
         return "message/create";
     }
@@ -126,8 +143,8 @@ public class MessageController {
         UserEntity userEntity = userRepository.findByUsername(username);
 
 //         checks if receiver username exists and if it does not, sends an error to the view
-        if (!userRepository.existsByUsername(createMessageDTO.getReceiverUsername())) {
-            errors.rejectValue("receiverUsername", "username.notValid", "Username does not exist.");
+        if (!userRepository.existsByDisplayName(createMessageDTO.getReceiverDisplayName())) {
+            errors.rejectValue("receiverDisplayName", "displayName.notValid", "That user does not exist.");
             return "message/create";
         }
         if (createMessageDTO.getMessageSubject().isEmpty()) {
@@ -139,7 +156,7 @@ public class MessageController {
             return "message/create";
         }
 
-        createMessageDTO.setReceiverUserEntity(userRepository.findByUsername(createMessageDTO.getReceiverUsername()));
+        createMessageDTO.setReceiverUserEntity(userRepository.findByDisplayName(createMessageDTO.getReceiverDisplayName()));
         createMessageDTO.setSenderUserEntity(userEntity);
 
         //using createMessageDTO to create the MessageChain and first Message of the MessageChain
@@ -196,8 +213,12 @@ public class MessageController {
                     addMessageDTO.setUserEntity(userEntity);
                     addMessageDTO.setMessageChain(messageChain);
 
+//                   todo  might not need this sortMessagesByRecentMessage
+//                   List<Message> sortedMessages = messageService.sortMessagesByRecentMessage(messageChain);
+
                     model.addAttribute("addMessageDTO", addMessageDTO);
                     model.addAttribute("messageChain", messageChain);
+//                    model.addAttribute("sortedMessages", sortedMessages);
                     model.addAttribute("userEntity", userEntity);
                     return "message/message";
                 }

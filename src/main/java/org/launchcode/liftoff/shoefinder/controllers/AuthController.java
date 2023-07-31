@@ -26,6 +26,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginGetMapping(Model model){
+        System.out.println("dummy line");
         return "login";
     }
     //testing a postmap login

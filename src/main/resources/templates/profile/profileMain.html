@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments :: head}"></head>
 
 <body>
@@ -13,8 +13,15 @@
     <p th:text="'First Name: ' + ${userEntity.firstName}"></p>
     <p th:text="'Last Name: ' + ${userEntity.lastName}"></p>
 
+    <p th:text="'Roles: ' + ${userEntity.roles[0].getName}"></p>
+
     <a th:href="@{'profile/profileEdit'}">Edit</a>
     <a th:href="@{'home'}">Home</a>
+    </br>
+    </br>
+
+    <p th:if="${userEntity.roles[0].getName() == 'ADMIN'}"> <a th:href="@{'admin'}">Admin Menu</a></p>
+
 
 
 </div>

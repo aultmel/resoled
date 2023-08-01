@@ -13,10 +13,20 @@
 /* light mode new color theme */
 :root {
 
+    /* PINK */
     --color1: hsla(333, 93%, 56%, 1);
+
+    /* PURPLE */
     --color2: hsla(276, 91%, 38%, 1);
+
+    /* DARK PURPLE */
     --color3: hsla(258, 86%, 34%, 1);
+
+    /* LIGHT BLUE */
     --color4: hsla(194, 85%, 62%, 1);
+
+    /* GREY */
+    --grey: hsla(0, 0%, 79%, 1);
 
     --bgGradient: linear-gradient(to bottom, hsla(0, 100%, 100%, 1) 0%, hsla(0, 100%, 100%, 1) 50%,  hsla(194, 85%, 62%, 1) 100%);
     --formGradient: linear-gradient(hsla(0, 100%, 100%, 1), hsla(194, 90%, 98%, 1));
@@ -191,4 +201,19 @@ padding: 10px 10px;
     font-weight: bold;
     background-color: var( --color3) !Important;
     border: solid 1px var( --color3) !Important;
+}
+
+
+/** Image Radio Buttons **/
+input[type=radio]:checked + label>img {
+  border: 3px solid var( --color2);
+  box-shadow: 0 .5rem 1rem var( --color1);
+}
+input[type=radio] + label>img {
+  border: 3px solid var( --grey);
+  border-radius: 25px;
+  box-shadow: 0 .5rem 1rem var( --grey);
+  width: 100px;
+  height: 100px;
+  transition: 500ms all;
 }

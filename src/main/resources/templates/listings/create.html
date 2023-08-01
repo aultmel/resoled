@@ -1,84 +1,93 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
-  <meta charset="UTF-8"/>
+<head th:replace="~{fragments :: head}"></head>
+<body class="p-2">
+<div class="container p-2">
+    <h1>Create A Listing and Find Your Sole-Mate!</h1>
+    <br/>
+    <form th:action="@{/image/upload}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="imageFile" accept="image/*">
+        <button type="submit" class="btn btn-primary">Add image</button>
+    </form>
+    <br/>
+    <form th:action="@{/listings/create}" th:object="${createListingDTO}" method="post" enctype="multipart/form-data">
+        <br/>
+        <div class="form-group">
+            <label for="brand">Brand:</label>
+            <input type="text" id="brand" th:field="*{brand}" class="form-control" required>
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="size">Size:</label>
+            <select name="size" id="size" th:field="*{size}" class="form-control">
+                <th:block th:each="size : ${sizeList}" class="p-1">">
+                    <option th:value="${size}" th:text="${size}"></option>
+                </th:block>
+            </select>
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="gender">(W/M):</label>
+            <select name="gender" id="gender" th:field="*{gender}" class="form-control">
+                <th:block th:each="gender : ${genderList}" class="p-1">">
+                    <option th:value="${gender}" th:text="${gender}"></option>
+                </th:block>
+            </select>
 
-  <title>Create Listing</title>
-  <!-- Include necessary CSS and JS files -->
-</head>
-<body>
-<h1>Create A Listing and Find Your Sole-Mate!</h1>
-<br/>
-<form th:action="@{/image/upload}" method="POST" enctype="multipart/form-data">
-  <input type="file" name="imageFile" accept="image/*">
-  <button type="submit" class="btn btn-primary">Add image</button>
-</form>
-<br/>
-<form th:action="@{/listings/create}" th:object="${createListingDTO}" method="post" enctype="multipart/form-data" >
-  <br/>
-  <div class="form-group">
-    <label for="brand">Brand:</label>
-    <input type="text" id="brand" th:field="*{brand}" class="form-control" required>
-  </div>
-  <br/>
-  <div class="form-group">
-    <label for="size">Size:</label>
-    <select name="size" id="size" th:field="*{size}" class="form-control">
-      <th:block th:each="size : ${sizeList}" class="p-1">">
-        <option th:value="${size}" th:text="${size}"></option>
-      </th:block>
-    </select>
-  </div>
-  <br/>
-  <div class="form-group">
-    <label for="gender">(W/M):</label>
-    <select name="gender" id="gender" th:field="*{gender}" class="form-control">
-      <th:block th:each="gender : ${genderList}" class="p-1">">
-        <option th:value="${gender}" th:text="${gender}"></option>
-      </th:block>
-    </select>
+        </div>
+        <!--  <div class="form-group">-->
+        <!--    <label for="location">Location:</label>-->
+        <!--    <input type="text" id="location" th:field="*{location}" class="form-control" required>-->
+        <!--  </div>-->
+        <br/>
 
-  </div>
-  <!--  <div class="form-group">-->
-  <!--    <label for="location">Location:</label>-->
-  <!--    <input type="text" id="location" th:field="*{location}" class="form-control" required>-->
-  <!--  </div>-->
-  <br/>
+        <br/>
+        <div class="form-group row">
+            <h3>Condition:</h3>
+            <div class="col container text-center">
+                <input type="radio" th:id="imageRadio_1" th:name="imageRadio" th:value="NEW" th:field="*{condition}"
+                       style="display:none;">
+                <label th:for="imageRadio_1" class="fw-semibold" style="color: var( --color2);">
+                    New
+                    <br/>
+                    <img th:src="@{/images/new-shoe.png}" alt="New Shoes" width="100" height="100" class="">
+                </label>
+            </div>
 
-  <br/>
-  <div class="form-group">
-    <label>Condition:</label>
-    <label>New:
-      <input type="radio" th:id="imageRadio_1" th:name="imageRadio" th:value="NEW" th:field="*{condition}">
-      <img th:src="@{/images/new.png}" alt="New Shoes" width="100" height="100">
-    </label>
+            <div class="col">
+                <label>Great:
+                    <input type="radio" th:id="imageRadio_2" th:name="imageRadio" th:value="GREAT"
+                           th:field="*{condition}">
+                    <img th:src="@{/images/great.jpg}" alt="Great Condition" width="100" height="100">
+                </label>
+            </div>
 
-    <label>Great:
-      <input type="radio" th:id="imageRadio_2" th:name="imageRadio" th:value="GREAT" th:field="*{condition}">
-      <img th:src="@{/images/great.jpg}" alt="Great Condition" width="100" height="100">
-    </label>
-
-    <label>Good:
-      <input type="radio" th:id="imageRadio_3" th:name="imageRadio" th:value="GOOD" th:field="*{condition}">
-      <img th:src="@{/images/good.png}" alt="Good Condition" width="100" height="100">
-    </label>
-
-    <label>Bad:
-      <input type="radio" th:id="imageRadio_4" th:name="imageRadio" th:value="BAD" th:field="*{condition}">
-      <img th:src="@{/images/ugly.png}" alt="Bad Condition" width="100" height="100">
-    </label>
-
-  </div>
-  <br/>
-  <div class="form-group">
-    <label for="style">Style:</label>
-    <input type="text" id="style" th:field="*{style}" class="form-control" required>
-  </div>
-  <br/>
-  <button type="submit" class="btn btn-primary">Create Listing!</button>
-</form>
-
+            <div class="col">
+                <label>Good:
+                    <input type="radio" th:id="imageRadio_3" th:name="imageRadio" th:value="GOOD"
+                           th:field="*{condition}">
+                    <img th:src="@{/images/good.png}" alt="Good Condition" width="100" height="100">
+                </label>
+            </div>
+            <div class="col">
+                <label>Bad:
+                    <input type="radio" th:id="imageRadio_4" th:name="imageRadio" th:value="BAD"
+                           th:field="*{condition}">
+                    <img th:src="@{/images/ugly.png}" alt="Bad Condition" width="100" height="100">
+                </label>
+            </div>
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="style">Style:</label>
+            <input type="text" id="style" th:field="*{style}" class="form-control" required>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary">Create Listing!</button>
+    </form>
+</div>
 <!-- Include any additional HTML or scripts -->
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
+
 </body>
 </html>

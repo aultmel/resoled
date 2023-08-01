@@ -31,6 +31,11 @@ public class AdminController {
         allReports.addAll(reportRepository.findAll());
         model.addAttribute("allReports", allReports);
 
+
+        // add in the ability to ban 
+
         return "admin";
+
+
     }
 }

@@ -42,38 +42,42 @@
         <br/>
 
         <br/>
-        <div class="form-group row">
+        <div class="form-group row fw-semibold" style="width: 500px">
             <h3>Condition:</h3>
             <div class="col container text-center">
                 <input type="radio" th:id="imageRadio_1" th:name="imageRadio" th:value="NEW" th:field="*{condition}"
-                       style="display:none;">
-                <label th:for="imageRadio_1" class="fw-semibold" style="color: var( --color2);">
+                       class="hidden-radio">
+                <label th:for="imageRadio_1"  style="color: var( --color2);">
                     New
                     <br/>
                     <img th:src="@{/images/new-shoe.png}" alt="New Shoes" width="100" height="100" class="">
                 </label>
             </div>
 
-            <div class="col">
-                <label>Great:
+            <div class="col container text-center">
+
                     <input type="radio" th:id="imageRadio_2" th:name="imageRadio" th:value="GREAT"
-                           th:field="*{condition}">
-                    <img th:src="@{/images/great.jpg}" alt="Great Condition" width="100" height="100">
+                           th:field="*{condition}" class="hidden-radio">
+                <label th:for="imageRadio_2"  style="color: var( --color2);">Great
+                    <br/>
+                    <img th:src="@{/images/great-shoe.png}" alt="Great Condition" width="100" height="100">
                 </label>
             </div>
 
-            <div class="col">
-                <label>Good:
+            <div class="col container text-center">
                     <input type="radio" th:id="imageRadio_3" th:name="imageRadio" th:value="GOOD"
-                           th:field="*{condition}">
-                    <img th:src="@{/images/good.png}" alt="Good Condition" width="100" height="100">
+                           th:field="*{condition}" class="hidden-radio">
+                <label th:for="imageRadio_3"  style="color: var( --color2);">Good
+                    <br/>
+                    <img th:src="@{/images/good-shoe.png}" alt="Good Condition" width="100" height="100">
                 </label>
             </div>
-            <div class="col">
-                <label>Bad:
-                    <input type="radio" th:id="imageRadio_4" th:name="imageRadio" th:value="BAD"
-                           th:field="*{condition}">
-                    <img th:src="@{/images/ugly.png}" alt="Bad Condition" width="100" height="100">
+            <div class="col container text-center">
+                    <input type="radio" th:id="imageRadio_4" th:name="imageRadio" th:value="POOR"
+                           th:field="*{condition}" class="hidden-radio">
+                    <label th:for="imageRadio_4"  style="color: var( --color2);">Poor
+                        <br/>
+                        <img th:src="@{/images/poor-shoe.png}" alt="Poor Condition" width="100" height="100">
                 </label>
             </div>
         </div>

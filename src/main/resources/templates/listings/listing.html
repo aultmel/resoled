@@ -6,7 +6,7 @@
 </head>
 <body>
 <table>
-    <td><a th:href="'../profile/userData/' + ${listing.userEntity.displayName}" th:text="${listing.userEntity.displayName}"></a></td>
+    <td><a th:href="'../profile/userData/' + ${shoeListing.userEntity.displayName}" th:text="${shoeListing.userEntity.displayName}"></a></td>
 
     <tr>
         <th>ID</th>
@@ -18,7 +18,7 @@
     </tr>
     <tr>
         <th>Size</th>
-        <td th:text="${shoeListing.size.size}"></td>
+        <td th:text="${shoeListing.size}"></td>
     </tr>
     <tr>
         <th>Style</th>
@@ -26,7 +26,7 @@
     </tr>
     <tr>
         <th>Condition</th>
-        <td th:text="${shoeListing.condition.conditionName}"></td>
+        <td th:text="${shoeListing.condition}"></td>
     </tr>
 </table>
 </body>

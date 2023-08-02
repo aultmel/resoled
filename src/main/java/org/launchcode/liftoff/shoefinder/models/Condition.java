@@ -3,6 +3,7 @@
 //import jakarta.persistence.*;
 //
 //import java.util.ArrayList;
+//import java.util.Arrays;
 //import java.util.List;
 //
 //@Entity
@@ -11,14 +12,20 @@
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
-//    private String conditionName;
+//    /*
+//    Enum to set the level of condition for the shoes. When a condition class is created:
+//    Condition condition = new Condition();
+//    the condition can be set by:
+//    condition.setCondition(Condition.ShoeCondition.NEW);
+//    .NEW, .LIKE_NEW, etc
+//     */
 //    public enum ShoeCondition {
 //        NEW("New"),
 //        LIKE_NEW("Like New"),
 //        GOOD("Good"),
 //        FAIR("Fair"),
 //        POOR("Poor");
-//
+
 //
 //        private final String displayText;
 //
@@ -26,16 +33,10 @@
 //            this.displayText = displayText;
 //        }
 //    }
-//    public Condition() {
 //
+//    public static List<ShoeCondition> getAllConditions() {
+//        return Arrays.asList(ShoeCondition.values());
 //    }
-//    public Condition(Long id, String conditionName) {
-//        this.id = id;
-//        this.conditionName = conditionName;
-//    }
-//
-//
-//
 //    public static List<String> getAllConditionDisplayTexts() {
 //        List<String> displayTexts = new ArrayList<>();
 //        for (ShoeCondition condition : ShoeCondition.values()) {
@@ -44,17 +45,25 @@
 //        return displayTexts;
 //    }
 //
+//    private ShoeCondition shoeCondition;
+//
+//    public Condition(ShoeCondition condition) {
+//        this.shoeCondition = condition;
+//    }
 //
 //    public Long getId() {
 //        return id;
 //    }
 //
-//    public String getConditionName() {
-//        return conditionName;
+//
+//    public ShoeCondition getCondition() {
+//        return shoeCondition;
 //    }
 //
-//    public void setConditionName(String conditionName) {
-//        this.conditionName = conditionName;
+//    public void setCondition(ShoeCondition condition) {
+//        this.shoeCondition = condition;
 //    }
+//
+//
 //
 //}

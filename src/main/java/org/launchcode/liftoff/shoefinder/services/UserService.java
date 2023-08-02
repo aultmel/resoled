@@ -2,8 +2,10 @@ package org.launchcode.liftoff.shoefinder.services;
 
 
 import org.launchcode.liftoff.shoefinder.constants.MessageConstants;
+import org.launchcode.liftoff.shoefinder.data.ReportRepository;
 import org.launchcode.liftoff.shoefinder.data.RoleRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
+import org.launchcode.liftoff.shoefinder.models.Report;
 import org.launchcode.liftoff.shoefinder.models.Role;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
@@ -29,6 +31,8 @@ public class UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+
+    private ReportRepository reportRepository;
 
     public UserService() {
     }
@@ -95,5 +99,14 @@ public class UserService {
         return suggestions;
     }
 
+    public void banUser(UserEntity user){
+        ArrayList<Role> emptyList = new ArrayList<>();
+        user.setRoles(emptyList);
+//        userRepository.delete(user);
+    }
+
+    public void deleteReport(Report report){
+        reportRepository.delete(report);
+    }
 
 }

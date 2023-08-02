@@ -67,7 +67,6 @@ public class ListingController {
     public String createListing(@ModelAttribute("createListingDTO") CreateListingDTO createListingDTO, RedirectAttributes redirectAttributes) {
 //        @RequestParam("photoFile") MultipartFile photoFile
 
-
         listingService.saveListing(createListingDTO);
 
         redirectAttributes.addFlashAttribute("message", "Shoe Listing Created");

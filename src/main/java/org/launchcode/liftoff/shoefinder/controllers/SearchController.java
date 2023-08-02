@@ -3,19 +3,20 @@ package org.launchcode.liftoff.shoefinder.controllers;
 import org.launchcode.liftoff.shoefinder.data.BrandRepository;
 import org.launchcode.liftoff.shoefinder.data.StyleRepository;
 import org.launchcode.liftoff.shoefinder.models.Brand;
-;
-import org.launchcode.liftoff.shoefinder.models.Size;
+import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.Style;
+import org.launchcode.liftoff.shoefinder.models.dto.SearchListingsDTO;
+import org.launchcode.liftoff.shoefinder.services.ListingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-
+import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.CONDITION_LIST;
+import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.SIZE_LIST;
 
 @Controller
 public class SearchController {
@@ -25,8 +26,16 @@ public class SearchController {
     @Autowired
     private StyleRepository styleRepository;
 
+    private ListingService listingService;
+
+    public SearchController(ListingService listingService) {
+        this.listingService = listingService;
+    }
+
     @GetMapping("/search")
     public String search(Model model){
+        SearchListingsDTO searchListingsDTO = new SearchListingsDTO();
+        model.addAttribute("searchListingsDTO", searchListingsDTO);
 
         //Grab 5 most recurring brands from database
         List<Object[]> topBrandsData = brandRepository.findPopularBrands();
@@ -63,7 +72,7 @@ public class SearchController {
         }
 
         //Create list of shoe sizes for the model
-        List<String> shoeSizeList = Size.getAllSizes();
+        List<String> shoeSizeList = SIZE_LIST;
         model.addAttribute("shoeSizes", shoeSizeList);
 
         //Create list of conditions for the model
@@ -72,6 +81,14 @@ public class SearchController {
 
         return "search";
     }
+
+    @GetMapping("/listingsearch")
+    public String searchPostMap(@ModelAttribute("searchListingsDTO") SearchListingsDTO searchListingsDTO, Model model) {
+        List<ShoeListing> filteredListings = listingService.filterListings(searchListingsDTO);
+        model.addAttribute("allListings", filteredListings);
+        return "listings/listings";
+    }
+
 
 
 }

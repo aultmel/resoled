@@ -10,9 +10,13 @@ import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.Style;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
+import org.launchcode.liftoff.shoefinder.models.dto.SearchListingsDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -63,9 +67,25 @@ public class ListingService {
         shoeListing.setGender(createListingDTO.getGender());
         shoeListing.setCondition(createListingDTO.getCondition());
 // creates a message saying the user has created a class
-
-
         shoeListingRepository.save(shoeListing);
     }
+
+
+    public List<ShoeListing> filterListings(SearchListingsDTO searchListingsDTO) {
+        List<ShoeListing> filteredListings = new ArrayList<>();
+
+        for (String gender : searchListingsDTO.getGenders()) {
+            List<ShoeListing> genderList  = shoeListingRepository.findByGender(gender);
+            for (ShoeListing shoeListing : genderList) {
+                filteredListings.add(shoeListing);
+            }
+        }
+
+        return filteredListings;
+    }
+
+
+
+
 
 }

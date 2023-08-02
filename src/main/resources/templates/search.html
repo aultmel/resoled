@@ -4,20 +4,26 @@
 <header th:replace="fragments :: header"></header>
 <body class="m-2 gradientBg">
 <div>
-    <form method="get" action="/listings">
+    <form method="get"
+          th:action="@{/listingsearch}"
+          th:object="${searchListingsDTO}">
         <div id="searchbar">
             <label>Search:</label>
             <input type="text" name="searchTerm"></br>
         </div>
 
-        <input type="checkbox" id="male" name="gender" value="male">
+        <input type="checkbox" id="male" name="gender" th:value="M" th:field="*{genders}">
         <label for="male">M</label>
-        <input type="checkbox" id="female" name="gender" value="female">
+        <input type="checkbox" id="female" name="gender" th:value="W" th:field="*{genders}">
         <label for="female">F</label></br>
 
         <label>Brand:</label></br>
-        <th:block th:each="brand : ${topBrands}">
-            <input type="checkbox" name="brands" th:value="${brand}">
+
+        <th:block th:if="${topBrands.size() == 0 or topBrands == null}">
+            <p>No brands found. Please add brands to enable filtering.</p>
+        </th:block>
+        <th:block th:each="brand : ${topBrands}" th:if="${topBrands.size() > 0}" >
+            <input type="checkbox" name="brands" th:value="${brand}" th:field="*{brands}">
             <label>
                 <span th:text="${brand}"></span>
             </label></br>
@@ -25,31 +31,33 @@
 
         <label>Size:</label></br>
         <th:block th:each="size : ${shoeSizes}">
-            <input type="checkbox" name="sizes" th:value="${size}">
+            <input type="checkbox" name="sizes" th:value="${size}" th:field="*{sizes}">
             <label>
                 <span th:text="${size}"></span>
             </label>
         </th:block></br>
 
         <label>Style:</label></br>
-        <th:block th:each="style : ${topStyles}">
-            <input type="checkbox" name="styles" th:value="${style}">
+        <th:block th:if="${topStyles.size() == 0 or topStyles == null}">
+            <p>No styles found. Please add styles to enable filtering.</p>
+        </th:block>
+        <th:block th:each="style : ${topStyles}" th:if="${topStyles.size() > 0}">
+            <input type="checkbox" name="styles" th:value="${style}" th:field="*{styles}">
             <label>
                 <span th:text="${style}"></span>
             </label></br>
         </th:block>
 
         <label>Condition:</label></br>
+
         <th:block th:each="condition : ${conditions}">
-            <input type="checkbox" name="conditions" th:value="${condition}">
+            <input type="checkbox" name="conditions" th:value="${condition}" th:field="*{conditions}">
             <label>
                 <span th:text="${condition}"></span>
             </label></br>
         </th:block>
-
         <button type="submit">Search Listings</button>
     </form>
-
 
 </div>
 <th:block th:fragment="endingScripts">

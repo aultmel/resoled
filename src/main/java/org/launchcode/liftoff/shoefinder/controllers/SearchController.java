@@ -1,5 +1,6 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
+import org.launchcode.liftoff.shoefinder.constants.ListingConstants;
 import org.launchcode.liftoff.shoefinder.data.BrandRepository;
 import org.launchcode.liftoff.shoefinder.data.StyleRepository;
 import org.launchcode.liftoff.shoefinder.models.Brand;
@@ -27,6 +28,7 @@ public class SearchController {
     private StyleRepository styleRepository;
 
     private ListingService listingService;
+    private ListingConstants listingConstants;
 
     public SearchController(ListingService listingService) {
         this.listingService = listingService;
@@ -73,7 +75,9 @@ public class SearchController {
 
         //Create list of shoe sizes for the model
         List<String> shoeSizeList = SIZE_LIST;
-        model.addAttribute("shoeSizes", shoeSizeList);
+        model.addAttribute("allSizes", shoeSizeList);
+
+        model.addAttribute("normalSizes", listingConstants.NORMAL_SIZE_LIST);
 
         //Create list of conditions for the model
         List<String> conditionList = CONDITION_LIST;

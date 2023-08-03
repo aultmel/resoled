@@ -80,7 +80,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/userData/{displayName}")
+    @GetMapping("/{displayName}")
     public String showPage(@PathVariable("displayName") String displayName, Model model) {
 
         UserEntity otherUser = userRepository.findByDisplayName(displayName);
@@ -92,7 +92,7 @@ public class UserController {
         return "profile/userData";
     }
 
-    @PostMapping("/userData/{displayName}")
+    @PostMapping("/{displayName}")
     public String reportUser(@PathVariable("displayName") String displayName, @ModelAttribute("reportDTO")ReportDTO reportDTO, Model model) {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);

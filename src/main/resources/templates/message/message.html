@@ -12,13 +12,13 @@
                     <h5><span th:text="${userEntity.displayName}"></span> and <span>
 
         <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
-                <a th:href="'/profile/PUTUSERPROFILEHERE?displayName=' + ${messageChain.userEntityList[0].displayName}">
+                                        <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
                     <span th:text="${messageChain.userEntityList[0].displayName}"></span>
                 </a>
         </th:block>
                         <!--            todo: update link to user profile page.-->
             <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
-                <a th:href="'/profile/PUTUSERPROFILEHERE?displayName=' + ${messageChain.userEntityList[1].displayName}">
+                                        <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}">
                     <span th:text="${messageChain.userEntityList[1].displayName}"></span>
                 </a>
             </th:block>
@@ -83,6 +83,8 @@
 
      var objDiv = document.querySelector('.messagesList');
      objDiv.scrollTop = objDiv.scrollHeight;
+
+
 
 </script>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>

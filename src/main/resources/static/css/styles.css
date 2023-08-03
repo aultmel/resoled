@@ -53,8 +53,6 @@
 
 
 
-
-
 body {
     font-size: large;
     color: gray;
@@ -117,6 +115,22 @@ background-color: var( --button2Accent);
         color: var( --lightText);
     }
 }
+
+/* Navbar text color */
+.navbar-text-color a{
+    color: #f5efff;
+}
+
+.nav-bar-custom a {
+  color: var(--lightText);
+}
+
+.nav-bar-custom a:hover {
+  color: var( --color1);
+}
+/* Fills dropdown bubble with the rest of the color, white lines present otherwise */
+.navbar-nav > li > .dropdown-menu { background-color: var(--color3); }
+
 
 
 /* Gradient for most Page Backgrounds */

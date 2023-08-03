@@ -112,8 +112,7 @@ public class MessageController {
         model.addAttribute("userEntity", userEntity);
 
         // api url for suggestions for the username
-        model.addAttribute("suggestionsUrl", "http://localhost:8080/api/messageCreate");
-
+        model.addAttribute("displayNameSuggestionsUrl", "http://localhost:8080/api/messageCreate");
 
         // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
         // newest message is first on the list and the MessageChain with the latest message is at the end of the list.

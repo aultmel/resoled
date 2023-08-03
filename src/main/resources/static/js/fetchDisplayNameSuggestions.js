@@ -1,6 +1,6 @@
 
 
-// THIS IS A GENERIC SUGGESTION FETCHER  RIGHT NOW WE ARE USING CUSTOMIZED VERSIONS OF THIS
+
 // This can be recreated for different suggestion types.
 // To use this script you will need to create a hidden input field in your template
 // <input type="hidden" th:hidden="*{whatEverNameYouPick}" />
@@ -21,6 +21,7 @@ inputSearchBox.addEventListener("keyup", (event) => {
                  resultsWrapper.innerHTML = '';
             return;
         }
+        
     suggestionFetch(inputSearchBox.value);
  });
 
@@ -50,7 +51,5 @@ function selectInput(list) {
   inputSearchBox.value = list.innerHTML;
   resultsWrapper.innerHTML = "";
 }
-
-
 
 

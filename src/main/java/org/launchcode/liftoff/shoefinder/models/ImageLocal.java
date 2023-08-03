@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.LISTING_IMAGE_DIR_PATH;
+
 @Entity
 public class ImageLocal {
 
@@ -46,10 +48,8 @@ public class ImageLocal {
     public ImageLocal() {}
 
     public void saveImageLocally(MultipartFile[] imageFiles){
-        //String directoryPath= "C:\\Users\\\\OneDrive\\Documents\\LaunchCode\\LIFTOFF\\resoled\\src\\main\\resources\\images";
-//        String directoryPath="C:\\Users\\kyler\\Desktop\\JAVA-RESOLED\\resoled\\src\\main\\resources\\static\\images";
 
-        String directoryPath = "src\\main\\resources\\static\\images";
+        String directoryPath = LISTING_IMAGE_DIR_PATH;
 
         if(imageFiles!= null && imageFiles.length>0){
             try {

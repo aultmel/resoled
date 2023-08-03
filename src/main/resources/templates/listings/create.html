@@ -5,12 +5,10 @@
 <div class="container p-2">
     <h1>Create A Listing and Find Your Sole-Mate!</h1>
     <br/>
-    <form th:action="@{/image/upload}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="imageFile" accept="image/*">
-        <button type="submit" class="btn btn-primary">Add image</button>
-    </form>
+
     <br/>
     <form th:action="@{/listings/create}" th:object="${createListingDTO}" method="post" enctype="multipart/form-data">
+        <input type="file" name="imageFiles" accept="image/*">
         <br/>
         <div class="form-group">
             <label for="brand">Brand:</label>

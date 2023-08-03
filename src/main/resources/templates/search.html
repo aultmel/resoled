@@ -30,13 +30,42 @@
         </th:block>
 
         <label>Size:</label></br>
-        <th:block th:each="size : ${shoeSizes}">
-            <input type="checkbox" name="sizes" th:value="${size}" th:field="*{sizes}">
-            <label>
-                <span th:text="${size}"></span>
-            </label>
-        </th:block></br>
+        <div id="normalSizes">
+            <th:block th:each="size : ${normalSizes}">
+                <input type="checkbox" name="sizes" th:value="${size}" th:field="*{sizes}">
+                <label>
+                    <span th:text="${size}"></span>
+                </label>
+            </th:block></br>
+        </div>
 
+        <div id="allSizes" style="display: none;">
+            <th:block th:each="size : ${allSizes}">
+                <input type="checkbox" name="sizes" th:value="${size}" th:field="*{sizes}">
+                <label>
+                    <span th:text="${size}"></span>
+                </label>
+            </th:block></br>
+        </div>
+        <a href="#" id="sizesButton" onclick="toggleSizes()">View more sizes</a></br>
+
+        <script>
+            function toggleSizes() {
+                let normalSizes = document.getElementById("normalSizes");
+                let allSizes = document.getElementById("allSizes");
+                let sizesButton = document.getElementById("sizesButton");
+
+                if (normalSizes.style.display === "none") {
+                    normalSizes.style.display = "block";
+                    allSizes.style.display = "none";
+                    sizesButton.innerText = "View More Sizes";
+                } else {
+                    normalSizes.style.display = "none";
+                    allSizes.style.display = "block";
+                    sizesButton.innerText = "View Less Sizes";
+                }
+            }
+        </script>
         <label>Style:</label></br>
         <th:block th:if="${topStyles.size() == 0 or topStyles == null}">
             <p>No styles found. Please add styles to enable filtering.</p>

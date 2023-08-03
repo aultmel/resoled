@@ -1,7 +1,9 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
 
+import org.launchcode.liftoff.shoefinder.data.ImageRepository;
 import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
+import org.launchcode.liftoff.shoefinder.models.ImageLocal;
 import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
 
@@ -10,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.GENDER_LIST;
@@ -25,11 +29,12 @@ public class ListingController {
     private final ListingService listingService;
     private final ShoeListingRepository shoeListingRepository;
 
-    public ListingController (ListingService listingService, ShoeListingRepository shoeListingRepository) {
+
+    public ListingController(ListingService listingService, ShoeListingRepository shoeListingRepository) {
         this.listingService = listingService;
         this.shoeListingRepository = shoeListingRepository;
-    }
 
+    }
 
     @GetMapping
     public String displayAllListings(Model model) {
@@ -64,10 +69,11 @@ public class ListingController {
 
     //    //will need dto to transfer userEntity info along with form data to create populate Listing
     @PostMapping("create")
-    public String createListing(@ModelAttribute("createListingDTO") CreateListingDTO createListingDTO, RedirectAttributes redirectAttributes) {
-//        @RequestParam("photoFile") MultipartFile photoFile
+    public String createListing(@ModelAttribute("createListingDTO") CreateListingDTO createListingDTO, RedirectAttributes redirectAttributes
+        ,@RequestParam("imageFiles") MultipartFile[] files, Model model
+    ) {
 
-        listingService.saveListing(createListingDTO);
+        listingService.saveListing(createListingDTO, files);
 
         redirectAttributes.addFlashAttribute("message", "Shoe Listing Created");
         // Redirect to a success page

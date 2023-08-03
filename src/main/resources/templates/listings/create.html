@@ -8,7 +8,13 @@
 
     <br/>
     <form th:action="@{/listings/create}" th:object="${createListingDTO}" method="post" enctype="multipart/form-data">
-        <input type="file" name="imageFiles" accept="image/*">
+        <div class="form-group ">
+        <div class="preview" >
+            <img id="file-ip-1-preview">
+        </div>
+        <input type="file" name="imageFiles" accept="image/*" onchange="showPreview(event);">
+        </div>
+
         <br/>
         <div class="form-group">
             <label for="brand">Brand:</label>
@@ -33,10 +39,7 @@
             </select>
 
         </div>
-        <!--  <div class="form-group">-->
-        <!--    <label for="location">Location:</label>-->
-        <!--    <input type="text" id="location" th:field="*{location}" class="form-control" required>-->
-        <!--  </div>-->
+
         <br/>
 
         <br/>
@@ -89,6 +92,8 @@
     </form>
 </div>
 <!-- Include any additional HTML or scripts -->
+<script th:src="@{/js/imagePreview.js}"></script>
+
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 
 </body>

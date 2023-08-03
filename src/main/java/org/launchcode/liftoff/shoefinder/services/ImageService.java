@@ -3,11 +3,16 @@ package org.launchcode.liftoff.shoefinder.services;
 import org.launchcode.liftoff.shoefinder.Util.ImageUtils;
 //import org.launchcode.liftoff.shoefinder.data.ImageRepository;
 //import org.launchcode.liftoff.shoefinder.models.Image;
+import org.launchcode.liftoff.shoefinder.data.ImageRepository;
+import org.launchcode.liftoff.shoefinder.models.ImageLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 //DEPRECATED DUE TO STORING IMAGES LOCALLY INSTEAD OF IN A DB

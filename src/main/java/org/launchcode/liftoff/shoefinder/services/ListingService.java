@@ -1,20 +1,20 @@
 package org.launchcode.liftoff.shoefinder.services;
 
 
-import org.launchcode.liftoff.shoefinder.data.BrandRepository;
-import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
-import org.launchcode.liftoff.shoefinder.data.StyleRepository;
-import org.launchcode.liftoff.shoefinder.data.UserRepository;
-import org.launchcode.liftoff.shoefinder.models.Brand;
-import org.launchcode.liftoff.shoefinder.models.ShoeListing;
-import org.launchcode.liftoff.shoefinder.models.Style;
-import org.launchcode.liftoff.shoefinder.models.UserEntity;
+import org.launchcode.liftoff.shoefinder.data.*;
+import org.launchcode.liftoff.shoefinder.models.*;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.SearchListingsDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.imageio.ImageReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,16 +26,19 @@ public class ListingService {
     private final UserRepository userRepository;
     private final BrandRepository brandRepository;
     private final StyleRepository styleRepository;
+    private final ImageRepository imageRepository;
 
-    public ListingService(ShoeListingRepository shoeListingRepository, UserRepository userRepository, BrandRepository brandRepository, StyleRepository styleRepository) {
-        this.userRepository = userRepository;
+
+    public ListingService(ShoeListingRepository shoeListingRepository, UserRepository userRepository,
+                          BrandRepository brandRepository, StyleRepository styleRepository, ImageRepository imageRepository) {
         this.shoeListingRepository = shoeListingRepository;
+        this.userRepository = userRepository;
         this.brandRepository = brandRepository;
         this.styleRepository = styleRepository;
+        this.imageRepository = imageRepository;
     }
 
-
-    public void saveListing(CreateListingDTO createListingDTO) {
+    public void saveListing(CreateListingDTO createListingDTO, MultipartFile[] files) {
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);
@@ -66,8 +69,20 @@ public class ListingService {
         shoeListing.setSize(createListingDTO.getSize());
         shoeListing.setGender(createListingDTO.getGender());
         shoeListing.setCondition(createListingDTO.getCondition());
-// creates a message saying the user has created a class
+        // creates a message saying the user has created a class
         shoeListingRepository.save(shoeListing);
+
+            String directoryPath = "src\\main\\resources\\static\\images\\listing-images";
+
+            for(MultipartFile imageFile: files) {
+                ImageLocal imageLocal = new ImageLocal();
+                imageLocal.setImageFile(imageFile);
+                imageLocal.setListing(shoeListing);
+                imageRepository.save(imageLocal);
+                imageLocal.saveImageLocally(files);
+
+            }
+
     }
 
 

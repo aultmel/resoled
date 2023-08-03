@@ -1,15 +1,5 @@
 /* Color Theme Variable Definitions */
 
-/* dark blue red orange og color theme*//*
-:root {
-    --bgGradient: linear-gradient(to bottom, hsla(201, 100%, 8%, 1) 0%, hsla(201, 100%, 40%, 1) 100%);
-    --formGradient: linear-gradient(to right, hsla(45, 100%, 95%, 1) 0% ,hsla(51, 55%, 82%, 1) 20%, hsla(51, 55%, 82%, 1) 80%, hsla(45, 100%, 95%, 1) 100%);
-    --smallAccent: hsla(202, 49%, 10%, 1);
-    --mediumAccent: hsla(0, 69%, 50%, 1);
-    --largeAccent: hsla(33, 99%, 56%, 1);
-}
-*/
-
 /* light mode new color theme */
 :root {
 
@@ -54,7 +44,6 @@
 
 
 
-
 body {
     font-size: large;
     color: gray;
@@ -64,7 +53,7 @@ h3 {
 color: var( --darkText);
 }
 
-
+/* all links bold */
 a {
  font-weight: bold;
 }
@@ -109,6 +98,7 @@ background: var( --color4);
          color: var( --lightText);
      }
 }
+/*
 .button2 {
 background-color: var( --button2Accent);
  color: var( --lightText);
@@ -117,9 +107,9 @@ background-color: var( --button2Accent);
         color: var( --lightText);
     }
 }
+*/
 
-
-/* Gradient for most Page Backgrounds */
+/* login Background */
 .login {
     background-image: var(--loginGradient), url('../images/home/home-image-1.jpg');
     background-repeat: no-repeat;
@@ -127,7 +117,7 @@ background-color: var( --button2Accent);
     background-position: center center;
     min-height: calc(97vh - 10px);
 }
-
+/* Gradient for most Page Backgrounds */
 .gradientBg {
  background-image: var(--bgGradient);
     background-repeat: no-repeat;
@@ -152,13 +142,14 @@ background-color: var( --button2Accent);
 width: 700px;
 }
 
-/* Returning User Login Form */
+/* User Login Form */
 .loginForm {
 width: 700px;
 }
 
+/* Messages Page */
 .messagesPage {
-width: 700px;
+width: 720px;
 }
 
 /* For fetchSuggestions.js and associated suggestions code in templates */
@@ -204,12 +195,10 @@ padding: 10px 10px;
 }
 
 
-/** Image Radio Buttons **/
-
+/** Image Radio Buttons for create listing shoe condition **/
 .hidden-radio {
     display:none
 }
-
 input[type=radio]:checked + label>img {
   border: 3px solid var( --color2);
   box-shadow: 0 .5rem 1rem var( --color1);

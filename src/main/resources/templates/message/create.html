@@ -22,16 +22,16 @@
                             <div class="dropdown form-floating border border-3 rounded-4 border-secondary-subtle shadow-sm p-2"
                                  style="z-index: 5">
                                 <input th:field="*{receiverDisplayName}" class="form-control border border-0"
-                                       id="input-search-box"
+                                       id="displayName-search-box"
                                        autocomplete="off"/>
-                                <div class="results">
+                                <div class="displayName-results results">
                                 </div>
-                                <label for="input-search-box">To:</label>
+                                <label for="displayName-search-box">To:</label>
                             </div>
                             <p class="error" th:errors="*{receiverDisplayName}"></p>
                         </div>
 
-                        <input type="hidden" id="suggestionsUrl" th:value="${suggestionsUrl}"/>
+                        <input type="hidden" id="displayNameSuggestionsUrl" th:value="${displayNameSuggestionsUrl}"/>
 
                         <div class="form-group mb-2">
                             <div class="form-floating border border-3 rounded-4 border-secondary-subtle p-2">
@@ -116,7 +116,9 @@
         </div>
     </div>
 </div>
-<script th:src="@{/js/fetchSuggestions.js}"></script>
+
+<script th:src="@{/js/fetchDisplayNameSuggestions.js}"></script>
+
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 

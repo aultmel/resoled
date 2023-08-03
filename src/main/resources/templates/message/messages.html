@@ -32,13 +32,11 @@
                         <h5>Message Subject: <a th:href="'/message/message?messageChainId=' + ${messageChain.id}"
                                                 th:text="${messageChain.messageChainSubject}"></a></h5>
                         <h5>with:
-                            <!--            todo: update link to user profile page.-->
                             <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
                                 <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
                                     <span th:text="${messageChain.userEntityList[0].displayName}"></span>
                                 </a>
                             </th:block>
-                            <!--            todo: update link to user profile page.-->
                             <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
                                 <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
                                     <span th:text="${messageChain.userEntityList[1].displayName}"></span>
@@ -50,8 +48,8 @@
                         <p>Most Recent Message:
                         <div class="color5 rounded w-50 p-2">
                             <span th:text="${messageChain.messages[messageChain.messages.size() - 1].text}"></span></p>
-                            <p><span
-                                    th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.displayName}"></span>:
+                            <p> from: <span
+                                    th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.displayName}"></span>
                             </p>
                         </div>
                     </div>

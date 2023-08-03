@@ -93,8 +93,8 @@
                                 <p>Most Recent Message:
                                 <div class="color5 rounded w-50 p-2">
                                     <span th:text="${messageChain.messages[messageChain.messages.size() - 1].text}"></span></p>
-                                    <p><span
-                                            th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.displayName}"></span>:
+                                    <p> from: <span
+                                            th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.displayName}"></span>
                                     </p>
                                 </div>
                             </div>

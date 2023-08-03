@@ -12,7 +12,7 @@
         <div class="preview" >
             <img id="file-ip-1-preview">
         </div>
-        <input type="file" name="imageFiles" accept="image/*" onchange="showPreview(event);">
+        <input type="file" name="imageFiles" accept="image/*" id="image-input" onchange="showImagePreview(event);">
         </div>
 
         <br/>
@@ -91,10 +91,19 @@
         <button type="submit" class="btn btn-primary">Create Listing!</button>
     </form>
 </div>
-<!-- Include any additional HTML or scripts -->
-<script th:src="@{/js/imagePreview.js}"></script>
 
+<!-- script for showing the image preview -->
+<script>
+    function showImagePreview(event){
+        if(event.target.files.length > 0){
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById("file-ip-1-preview");
+            preview.src = src;
+            preview.style.display = "block";
+            preview.style.width = "20em";
+        }
+    }
+</script>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
-
 </body>
 </html>

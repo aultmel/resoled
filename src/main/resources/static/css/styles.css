@@ -202,8 +202,10 @@ padding: 10px 10px;
 input[type=radio]:checked + label>img {
   border: 3px solid var( --color2);
   box-shadow: 0 .5rem 1rem var( --color1);
+  background-color:white;
 }
 input[type=radio] + label>img {
+  background-color: white;
   border: 3px solid var( --grey);
   border-radius: 25px;
   box-shadow: 0 .5rem 1rem var( --grey);

@@ -18,7 +18,7 @@
     /* GREY */
     --grey: hsla(0, 0%, 79%, 1);
 
-    --bgGradient: linear-gradient(to bottom, hsla(0, 100%, 100%, 1) 0%, hsla(0, 100%, 100%, 1) 50%,  hsla(194, 85%, 62%, 1) 100%);
+    --bgGradient: linear-gradient(to bottom, hsla(276, 91%, 89%, 1) 0%, hsla(0, 100%, 100%, 1) 25%, hsla(0, 100%, 100%, 1) 50%,  hsla(194, 85%, 62%, 1) 100%);
     --formGradient: linear-gradient(hsla(0, 100%, 100%, 1), hsla(194, 90%, 98%, 1));
     --loginGradient: radial-gradient(hsla(0, 100%, 100%, .7) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(194, 85%, 62%, 0) 100%);
 
@@ -121,7 +121,7 @@ background-color: var( --button2Accent);
   color: var( --color1);
 }
 /* Fills dropdown bubble with the rest of the color, white lines present otherwise */
-.navbar-nav > li > .dropdown-menu { background-color: var(--color3); }
+.navbar-nav > li > .dropdown-menu { background-color: var(--color2); }
 
 
 /* login Background */

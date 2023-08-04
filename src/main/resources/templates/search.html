@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <header th:replace="fragments :: header"></header>
-<body class="m-2 gradientBg">
-<div>
+<body >
+<div class="gradientBg p-3 pt-4">
     <form method="get"
           th:action="@{/listingsearch}"
           th:object="${searchListingsDTO}">

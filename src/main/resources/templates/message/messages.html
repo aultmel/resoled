@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
+<header th:replace="~{fragments :: header}"></header>
 
-<body class="m-2 gradientBg">
-<br/>
-<div class="color2 container messagesPage rounded-top-5  p-2 shadow-lg mt-5">
+
+<body>
+<div class="gradientBg p-3 pt-4">
+<div class="color2 container messagesPage rounded-top-5  p-2 shadow-lg">
     <div class="color1 container rounded-5 p-3">
         <div class="gradientForm container rounded-5 shadow-lg p-4">
 
@@ -24,7 +26,7 @@
             <div th:each="messageChain : ${messageChainList}" class="p-1">
 
 
-                <div class="row container rounded-5 border border-3 border-secondary-subtle shadow p-2 mb-3">
+                <div class="row container rounded-5 border border-3 border-secondary-subtle shadow p-2 px-4 mb-3">
 
 
                     <div class="col p-2 ">
@@ -61,9 +63,7 @@
 </div>
 
 
-<script th:src="@{/js/fetchSuggestions.js}"></script>
-<th:block th:replace="~{fragments :: endingScripts}"></th:block>
-</body>
+
 
 <footer style="font-size: large" class="panel-footer">
     <div class="container color2 messagesPage p-1 rounded-bottom-5">
@@ -174,4 +174,9 @@
         </div>
     </div>
 </footer>
+
+</div>
+<script th:src="@{/js/fetchSuggestions.js}"></script>
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
+</body>
 </html>

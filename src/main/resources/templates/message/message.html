@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments :: head}"></head>
-<body class="m-2 gradientBg">
-<br/>
-<div class="color2 container w-75 rounded-5 p-2 shadow-lg mt-5">
-    <div class="color1 container rounded-5 p-3">
-        <div class="gradientForm container rounded-5 shadow p-4">
-            <div class="row">
-                <div class="container rounded-5 p-4 col mx-2">
+<header th:replace="~{fragments :: header}"></header>
+<body>
+<div class="gradientBg p-3 pt-4">
+    <div class="color2 container w-75 rounded-5 p-2 shadow-lg">
+        <div class="color1 container rounded-5 p-3">
+            <div class="gradientForm container rounded-5 shadow p-4">
+                <div class="row">
+                    <div class="container rounded-5 p-4 col mx-2">
 
-                    <h5><span th:text="${userEntity.displayName}"></span> and <span>
+                        <h5><span th:text="${userEntity.displayName}"></span> and <span>
 
         <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
                                         <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
@@ -23,53 +24,54 @@
                 </a>
             </th:block>
             </span>
-                    </h5>
-                    <div class="">
-                        <span class="fw-bold">Conversation Subject: </span><span
-                            th:text="${messageChain.messageChainSubject}"
-                            class=""></span>
-                    </div>
+                        </h5>
+                        <div class="">
+                            <span class="fw-bold">Conversation Subject: </span><span
+                                th:text="${messageChain.messageChainSubject}"
+                                class=""></span>
+                        </div>
 
 
-                    <form method="post" role="form"
-                          th:action="@{../message/message}"
-                          th:object="${addMessageDTO}">
+                        <form method="post" role="form"
+                              th:action="@{../message/message}"
+                              th:object="${addMessageDTO}">
 
-                        <span class="fw-bold">Add New Message:</span>
-                        <br/>
-                        <div class="form-group d-grid mx-auto mt-1 container">
+                            <span class="fw-bold">Add New Message:</span>
+                            <br/>
+                            <div class="form-group d-grid mx-auto mt-1 container">
                             <textarea th:field="*{text}" name="text" rows="5" cols="50"
                                       class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"></textarea>
+                            </div>
+                            <input type="hidden" name="messageChainId" th:value="${messageChain.id}"/>
+                            <input type="hidden" name="messageChainId" th:field="*{messageChainId}"
+                                   th:value="${messageChainIdFromController}"/>
+
+                            <div class="d-grid mt-1 mb-4 mx-auto w-75">
+                                <input type="submit" value="Send Message" class="btn button1 btn-lg shadow-lg"
+                                       style="color: var( --lightText);">
+                            </div>
+
+
+                        </form>
+                        <hr/>
+                        <div class="d-grid mb-2 mt-5 mx-auto w-50">
+                            <a th:href="@{/message/}" class="btn button1 btn-lg shadow-lg"
+                               style="color: var( --lightText);">
+                                All Conversations </a>
                         </div>
-                        <input type="hidden" name="messageChainId" th:value="${messageChain.id}"/>
-                        <input type="hidden" name="messageChainId" th:field="*{messageChainId}"
-                               th:value="${messageChainIdFromController}"/>
-
-                        <div class="d-grid mt-1 mb-4 mx-auto w-75">
-                            <input type="submit" value="Send Message" class="btn button1 btn-lg shadow-lg"
-                                   style="color: var( --lightText);">
-                        </div>
 
 
-                    </form>
-                    <hr/>
-                    <div class="d-grid mb-2 mt-5 mx-auto w-50">
-                        <a th:href="@{/message/}" class="btn button1 btn-lg shadow-lg"
-                           style="color: var( --lightText);">
-                            All Conversations </a>
                     </div>
 
+                    <div class="messagesList container rounded-5 p-3 col mx-2 overflow-auto shadow border border-1 border-secondary-subtle"
+                         id="messagesList"
+                         style="height: 490px;">
+                        <div th:each="message : ${messageChain.messages}" class="p-1">
+                            <div class="border border-1 rounded-5 border-secondary-subtle p-3 mb-1">
+                                <p th:text="${message.userEntity.displayName}"></p>
+                                <p th:text="${message.text}"></p>
 
-                </div>
-
-                <div class="messagesList container rounded-5 p-3 col mx-2 overflow-auto shadow-lg"
-                     id="messagesList"
-                     style="height: 490px;">
-                    <div th:each="message : ${messageChain.messages}" class="p-1">
-                        <div class="border border-1 rounded-5 border-secondary-subtle p-3 mb-1">
-                            <p th:text="${message.userEntity.displayName}"></p>
-                            <p th:text="${message.text}"></p>
-
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -78,13 +80,9 @@
     </div>
 </div>
 
-
 <script>
-
      var objDiv = document.querySelector('.messagesList');
      objDiv.scrollTop = objDiv.scrollHeight;
-
-
 
 </script>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>

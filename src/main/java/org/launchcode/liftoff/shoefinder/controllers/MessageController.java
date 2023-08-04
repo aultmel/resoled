@@ -93,7 +93,7 @@ public class MessageController {
         model.addAttribute("messageChainList", messageChainList);
 
         //Number of pages total that will be listed at once in the pagination menu.  Keep an even number for current code configuration.
-        int paginationMenuTotalVisible = 6;
+        int paginationMenuTotalVisible = 4;
         model.addAttribute("paginationMenuTotalVisible", paginationMenuTotalVisible);
         model.addAttribute("paginationMenuSplitSidesVisible", paginationMenuTotalVisible / 2);
 

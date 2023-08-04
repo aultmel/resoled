@@ -19,7 +19,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="report : ${allReports}">
+    <tr th:each="report : ${allReports}" th:if="!${#lists.isEmpty(report.userEntity.roles)}">
         <td th:text="${report.id}"></td>
         <td th:text="${report.userEntity.displayName}"></td>
         <td th:text="${report.userEntity.roles}"></td>
@@ -27,15 +27,18 @@
         <td th:text="${report.complaintDetail}"></td>
         <td>
             <form th:action="@{/admin}" method="post">
-            <input type="hidden" name="reportedDisplayName" th:value="${report.userEntity.displayName}" />
-            <button type="submit">Process</button>
+                <input type="hidden" name="reportedUserID" th:value="${report.userEntity.id}" />
+                <button class="btn button1 btn-lg" style="color: var( &#45;&#45;lightText);" type="submit">Ban User</button>
             </form>
         </td>
-<!--        <td><a th:onclick="userService.banUser(${report.userEntity})" th:href="@{/admin}" class="btn button1 btn-lg" style="color: var( &#45;&#45;lightText);">Ban User</a></td>-->
+        <td>
+            <form th:action="@{/admin}" method="post">
+                <input type="hidden" name="ignoreReport" th:value="${report.id}" />
+                <button class="btn button1 btn-lg" style="color: var( &#45;&#45;lightText);" type="submit">Ignore</button>
+            </form>
+        </td>
 
-<!--        <td><a id="reportedUser" th:href="@{/admin}" class="btn button1 btn-lg" style="color: var( &#45;&#45;lightText);">Ban User</a></td>-->
-
-        <td><a class="btn button1 btn-lg" style="color: var( --lightText);">Ignore</a></td>
+<!--        <td><a class="btn button1 btn-lg" style="color: var( &#45;&#45;lightText);">Ignore</a></td>-->
     </tr>
 
 

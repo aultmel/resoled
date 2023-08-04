@@ -102,11 +102,8 @@ public class UserService {
     public void banUser(UserEntity user){
         ArrayList<Role> emptyList = new ArrayList<>();
         user.setRoles(emptyList);
-//        userRepository.delete(user);
+
     }
 
-    public void deleteReport(Report report){
-        reportRepository.delete(report);
-    }
 
 }

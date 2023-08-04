@@ -42,8 +42,6 @@
 }
 
 
-
-
 body {
     font-size: large;
     color: gray;
@@ -109,6 +107,23 @@ background-color: var( --button2Accent);
 }
 */
 
+
+/* Navbar text color */
+.navbar-text-color a{
+    color: #f5efff;
+}
+
+.nav-bar-custom a {
+  color: var(--lightText);
+}
+
+.nav-bar-custom a:hover {
+  color: var( --color1);
+}
+/* Fills dropdown bubble with the rest of the color, white lines present otherwise */
+.navbar-nav > li > .dropdown-menu { background-color: var(--color3); }
+
+
 /* login Background */
 .login {
     background-image: var(--loginGradient), url('../images/home/home-image-1.jpg');
@@ -117,6 +132,7 @@ background-color: var( --button2Accent);
     background-position: center center;
     min-height: calc(97vh - 10px);
 }
+
 /* Gradient for most Page Backgrounds */
 .gradientBg {
  background-image: var(--bgGradient);
@@ -130,7 +146,7 @@ background-color: var( --button2Accent);
     background-image: var(--formGradient);
 }
 
-
+/* Home Page */
 .home {
     background-image: url('../images/home/home-image-1.jpg');
     background-size: cover;

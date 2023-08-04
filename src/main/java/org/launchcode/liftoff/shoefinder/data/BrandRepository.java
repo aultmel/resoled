@@ -17,4 +17,7 @@ public interface BrandRepository extends JpaRepository<Brand, Integer> {
     Boolean existsByName(String name);
 
     Brand findByName(String name);
+
+    @Query("SELECT name FROM Brand")
+    List<String> getNames();
 }

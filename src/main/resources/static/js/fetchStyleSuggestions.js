@@ -1,4 +1,5 @@
 
+
 // This can be recreated for different suggestion types.
 // To use this script you will need to create a hidden input field in your template
 // <input type="hidden" th:hidden="*{whatEverNameYouPick}" />
@@ -7,6 +8,8 @@
 const suggestionsUrlField = document.getElementById('styleSuggestionsUrl')
 const inputSearchBox = document.getElementById('style-search-box');
 const resultsWrapper = document.querySelector('.style-results');
+
+
 
 // Event Listener for the inputSearchBox keyup events.
 //This will fire everytime a user types a character in the inputSearchBox.
@@ -48,5 +51,4 @@ function selectInput(list) {
   inputSearchBox.value = list.innerHTML;
   resultsWrapper.innerHTML = "";
 }
-
 

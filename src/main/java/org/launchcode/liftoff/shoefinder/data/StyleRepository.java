@@ -18,4 +18,7 @@ public interface StyleRepository extends JpaRepository<Style, Integer> {
     Boolean existsByName(String name);
 
     Style findByName(String name);
+
+    @Query("SELECT name FROM Style")
+    List<String> getNames();
 }

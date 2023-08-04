@@ -17,20 +17,14 @@
         <br/>
 
         <div class="form-group  mb-2 ">
-            <div class="dropdown form-floating border border-3 rounded-4 border-secondary-subtle shadow-sm p-2"
-                 style="z-index: 5">
+
+            <label for="brand-search-box">Brand:</label>
                 <input class="form-control border border-0"
                        id="brand-search-box"
                        autocomplete="off"
                        th:field="*{brand}" required/>
-                <div class="brand-results results">
-                </div>
-                <label for="brand-search-box">Brand:</label>
-            </div>
 
         </div>
-        <input type="hidden" id="brandSuggestionsUrl"
-               th:value="${brandSuggestionsUrl}"/>
 
         <br/>
         <div class="form-group">
@@ -55,20 +49,13 @@
 
 
         <div class="form-group  mb-2 ">
-            <div class="dropdown form-floating border border-3 rounded-4 border-secondary-subtle shadow-sm p-2"
-                 style="z-index: 5">
-                <input class="form-control border border-0"
+            <label for="style-search-box">Style:</label>
+                <input class="form-control"
                        id="style-search-box"
                        autocomplete="off"
                        th:field="*{style}" required/>
-                <div class="style-results results">
-                </div>
-                <label for="style-search-box">Style:</label>
-            </div>
 
         </div>
-        <input type="hidden" id="styleSuggestionsUrl"
-               th:value="${styleSuggestionsUrl}"/>
 
 
         <br/>
@@ -134,8 +121,9 @@
 
 
 </script>
-
+<!--for Brand and Style Suggestions-->
 <script th:src="@{/js/fetchBrandStyleSuggestions.js}"></script>
+
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

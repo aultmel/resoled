@@ -64,6 +64,11 @@ public class ListingController {
         model.addAttribute("genderList", GENDER_LIST);
         model.addAttribute("sizeList", SIZE_LIST);
         model.addAttribute("createListingDTO", new CreateListingDTO());
+
+        //Api urls for suggestions
+        model.addAttribute("brandSuggestionsUrl", "http://localhost:8080/api/brandSuggestion");
+        model.addAttribute("styleSuggestionsUrl", "http://localhost:8080/api/styleSuggestion");
+
         return "/listings/create";
     }
 

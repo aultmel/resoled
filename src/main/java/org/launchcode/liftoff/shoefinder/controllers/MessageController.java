@@ -136,7 +136,14 @@ public class MessageController {
 
 
     @PostMapping("/create")
-    public String createMessagePostMapping(@Valid @ModelAttribute("createMessageDTO") CreateMessageDTO createMessageDTO, Errors errors, BindingResult result, Model model) {
+    public String createMessagePostMapping(@Valid @ModelAttribute("createMessageDTO") CreateMessageDTO createMessageDTO, Errors errors, BindingResult result,
+                                           @RequestParam(required = false) String receiver,  Model model) {
+
+        model.addAttribute("createMessageDTO", createMessageDTO);
+
+        if(receiver != null) {
+            createMessageDTO.setReceiverDisplayName(receiver);
+        }
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);

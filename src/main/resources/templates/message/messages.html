@@ -40,7 +40,7 @@
                                 </a>
                             </th:block>
                             <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
-                                <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
+                                <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}">
                                     <span th:text="${messageChain.userEntityList[1].displayName}"></span>
                                 </a>
                             </th:block>

@@ -7,6 +7,7 @@ import org.launchcode.liftoff.shoefinder.models.Report;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
+import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.EditProfileDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.ReportDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
@@ -88,6 +89,10 @@ public class UserController {
 
         ReportDTO reportDTO = new ReportDTO();
         model.addAttribute("reportDTO", reportDTO);
+
+
+        CreateMessageDTO createMessageDTO = new CreateMessageDTO();
+        model.addAttribute("createMessageDTO", createMessageDTO);
 
         return "profile/userData";
     }

@@ -7,7 +7,7 @@
 
 <body>
 
-<div th:object="${otherUser}">
+<div>
     <h1 th:text="'DisplayName: ' + ${otherUser.displayName}"></h1>
 
     <!-- Report Button -->
@@ -17,8 +17,10 @@
 
     <!-- Report Form -->
     <div>
-        <form th:object="${reportDTO}" th:id="reportForm" th:action="@{../userData/{displayName}(displayName=${displayName})}" method="post" th:style="'display:none'">
-            <label th:text="'Report User: ' + ${otherUser.displayName}" ></label>
+        <form th:object="${reportDTO}" th:id="reportForm"
+              th:action="@{../userData/{displayName}(displayName=${displayName})}" method="post"
+              th:style="'display:none'">
+            <label th:text="'Report User: ' + ${otherUser.displayName}"></label>
             </br>
             <label>Reason:
                 <input type="text" th:field="*{complaintDetail}"/>
@@ -34,7 +36,35 @@
             var form = document.getElementById("reportForm");
             form.style.display = "block";
         }
+
+
     </script>
+
+    <form method="post" role="form"
+          th:action="@{'../message/create?receiver=' + ${otherUser.displayName}}"
+          th:object="${createMessageDTO}">
+
+        <div class="form-group mb-2">
+            <div class="form-floating border border-3 rounded-4 border-secondary-subtle p-2">
+                <input th:field="*{messageSubject}" id="messageSubject"
+                       class="form-control border border-0">
+                <label for="messageSubject">Subject:</label>
+                <p class="error" th:errors="*{messageSubject}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <p class="error" th:errors="*{text}"></p>
+            <label>
+                <textarea th:field="*{text}" name="text" rows="5" cols="50"
+                          class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"></textarea>
+            </label>
+            <br/>
+        </div>
+        <div class="d-grid mb-2">
+            <input type="submit" value="Send Message" class="btn button1 btn-lg w-50 shadow ms-2">
+        </div>
+    </form>
+
 
 </div>
 

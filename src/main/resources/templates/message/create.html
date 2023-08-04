@@ -47,7 +47,7 @@
                                 <p class="error" th:errors="*{text}"></p>
                                 <label>
                                 <textarea th:field="*{text}" name="text" rows="5" cols="50"
-                                          class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"/>
+                                          class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"></textarea>
                                 </label>
                                 <br/>
                             </div>
@@ -116,7 +116,7 @@
         </div>
     </div>
 </div>
-<script th:src="@{/js/fetchBrandSuggestions.js}"></script>
+<script th:src="@{/js/fetchDisplayNameSuggestions.js}"></script>
 
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>

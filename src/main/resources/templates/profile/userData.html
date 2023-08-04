@@ -7,7 +7,7 @@
 
 <body>
 
-<div th:object="${otherUser}">
+<div>
     <h1 th:text="'DisplayName: ' + ${otherUser.displayName}"></h1>
 
     <!-- Report Button -->
@@ -17,8 +17,10 @@
 
     <!-- Report Form -->
     <div>
-        <form th:object="${reportDTO}" th:id="reportForm" th:action="@{../userData/{displayName}(displayName=${displayName})}" method="post" th:style="'display:none'">
-            <label th:text="'Report User: ' + ${otherUser.displayName}" ></label>
+        <form th:object="${reportDTO}" th:id="reportForm"
+              th:action="@{../userData/{displayName}(displayName=${displayName})}" method="post"
+              th:style="'display:none'">
+            <label th:text="'Report User: ' + ${otherUser.displayName}"></label>
             </br>
             <label>Reason:
                 <input type="text" th:field="*{complaintDetail}"/>
@@ -34,7 +36,9 @@
             var form = document.getElementById("reportForm");
             form.style.display = "block";
         }
+
     </script>
+
 
 </div>
 

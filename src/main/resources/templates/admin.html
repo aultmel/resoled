@@ -1,33 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments :: head}"></head>
+<header th:replace="~{fragments :: header}"></header>
+<body class="m-2 gradientBg">
 
-<h1>ADMIN TEST</h1>
+<div class="adminPage">
 
 <h3>Report List</h3>
-<table>
+<table class="reportTable">
     <thead>
     <tr>
         <th>Report ID</th>
-        <th>Display Name</th>
+        <th>Reported User</th>
         <th>Reported By</th>
         <th>Reason</th>
     </tr>
     </thead>
-    <tbody>
-    <tr th:each="report : ${allReports}">
-        <td th:text="${report.id}"></td>
-        <td th:text="${report.userEntity.displayName}"></td>
-        <td th:text="${report.submittingUser.displayName}"></td>
-        <td th:text="${report.complaintDetail}"></td>
+    <tbody >
+    <tr th:each="report : ${allReports}" th:if="!${#lists.isEmpty(report.userEntity.roles)}">
+        <td class="tableElement" th:text="${report.id}"></td>
+        <td class="tableElement"><a th:href="'../profile/' + ${report.userEntity.displayName}" th:text="${report.userEntity.displayName}"></a></td>
+        <td class="tableElement" th:text="${report.submittingUser.displayName}"></td>
+        <td class="tableElement" th:text="${report.complaintDetail}"></td>
+        <td>
+            <form th:action="@{/admin}" method="post">
+                <input type="hidden" name="reportedUserID" th:value="${report.userEntity.id}" />
+                <button class="btn button1 btn-lg" style="color: var( &#45;&#45;lightText);" type="submit">Ban User</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/admin}" method="post">
+                <input type="hidden" name="ignoreReport" th:value="${report.id}" />
+                <button class="btn button1 btn-lg" style="color: var( &#45;&#45;lightText);" type="submit">Ignore</button>
+            </form>
+        </td>
+
+
     </tr>
+
+
     </tbody>
 </table>
-
+</div>
 
 </body>
 </html>

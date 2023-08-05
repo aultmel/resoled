@@ -38,6 +38,7 @@ public class SecurityConfiguration {
                         authorize.requestMatchers("/login", "/", "/register", "/css/**", "/js/**","/images/**").permitAll()
                                 .requestMatchers("/api/**").authenticated()
                                 .requestMatchers( "/admin/**").hasAuthority("ADMIN")
+                                .requestMatchers("/profile/**","/listings/**").hasAuthority("USER")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin

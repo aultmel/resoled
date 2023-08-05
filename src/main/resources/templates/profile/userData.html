@@ -1,14 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments :: head}"></head>
+<header th:replace="~{fragments :: header}"></header>
+<body class="m-2 gradientBg">
 
-<body>
 
-<div>
-    <h1 th:text="'DisplayName: ' + ${otherUser.displayName}"></h1>
+<div th:object="${otherUser}">
+    <h1 th:text="${otherUser.displayName}"></h1>
+
+<!--form to initiate message to otherUser-->
+    <form method="post" role="form"
+          th:action="@{'../message/create?receiver=' + ${otherUser.displayName}}"
+          th:object="${createMessageDTO}">
+
+        <div class="form-group mb-2">
+            <div class="form-floating border border-3 rounded-4 border-secondary-subtle p-2">
+                <input th:field="*{messageSubject}" id="messageSubject"
+                       class="form-control border border-0">
+                <label for="messageSubject">Subject:</label>
+                <p class="error" th:errors="*{messageSubject}"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <p class="error" th:errors="*{text}"></p>
+            <label>
+            <textarea th:field="*{text}" name="text" rows="5" cols="50"
+                      class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"></textarea>
+            </label>
+            <br/>
+        </div>
+        <div class="d-grid mb-2">
+            <input type="submit" value="Send Message" class="btn button1 btn-lg w-50 shadow ms-2">
+        </div>
+    </form>
 
     <!-- Report Button -->
     <button id="reportButton" onclick="showForm()">Report User</button>
@@ -17,30 +41,37 @@
 
     <!-- Report Form -->
     <div>
-        <form th:object="${reportDTO}" th:id="reportForm"
-              th:action="@{../userData/{displayName}(displayName=${displayName})}" method="post"
-              th:style="'display:none'">
-            <label th:text="'Report User: ' + ${otherUser.displayName}"></label>
+        <form th:object="${reportDTO}" th:id="reportForm" th:action="@{../userData/{displayName}(displayName=${displayName})}" method="post" th:style="'display:none'">
+
+            <div class="form-group">
+                <label th:text="'Report User: ' + ${otherUser.displayName}" ></label>
             </br>
-            <label>Reason:
-                <input type="text" th:field="*{complaintDetail}"/>
-            </label>
+            <p>Reason:</p>
+                <textarea  th:field="*{complaintDetail}" rows="5" cols="50"
+                class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"
+                ></textarea>
             </br>
             <button type="submit">Submit Report</button>
+            </div>
         </form>
     </div>
 
-    <!-- JS for hidden form -->
+
+    <!-- JS for hidden report form -->
     <script th:inline="javascript">
         function showForm() {
-            var form = document.getElementById("reportForm");
+            let form = document.getElementById("reportForm");
             form.style.display = "block";
         }
 
     </script>
+    <th:block th:replace="~{fragments :: endingScripts}"></th:block>
+
 
 
 </div>
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 
 </body>
 </html>
+

@@ -90,7 +90,6 @@ public class UserController {
         ReportDTO reportDTO = new ReportDTO();
         model.addAttribute("reportDTO", reportDTO);
 
-
         CreateMessageDTO createMessageDTO = new CreateMessageDTO();
         model.addAttribute("createMessageDTO", createMessageDTO);
 

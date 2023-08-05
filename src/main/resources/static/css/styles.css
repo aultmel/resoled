@@ -229,3 +229,23 @@ input[type=radio] + label>img {
   height: 100px;
   transition: 500ms all;
 }
+
+/* for admin */
+.adminPage{
+    text-align: center;
+}
+.reportTable{
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+th{
+    padding: 10px;
+    text-align: center;
+    border: 3px solid;
+}
+.tableElement{
+    padding: 10px;
+    text-align: left;
+    border: 1px solid;
+}

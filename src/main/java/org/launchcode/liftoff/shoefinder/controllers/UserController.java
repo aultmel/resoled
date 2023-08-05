@@ -7,6 +7,7 @@ import org.launchcode.liftoff.shoefinder.models.Report;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
+import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.EditProfileDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.ReportDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
@@ -80,7 +81,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/userData/{displayName}")
+    @GetMapping("/{displayName}")
     public String showPage(@PathVariable("displayName") String displayName, Model model) {
 
         UserEntity otherUser = userRepository.findByDisplayName(displayName);
@@ -89,10 +90,13 @@ public class UserController {
         ReportDTO reportDTO = new ReportDTO();
         model.addAttribute("reportDTO", reportDTO);
 
+        CreateMessageDTO createMessageDTO = new CreateMessageDTO();
+        model.addAttribute("createMessageDTO", createMessageDTO);
+
         return "profile/userData";
     }
 
-    @PostMapping("/userData/{displayName}")
+    @PostMapping("/{displayName}")
     public String reportUser(@PathVariable("displayName") String displayName, @ModelAttribute("reportDTO")ReportDTO reportDTO, Model model) {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsername(username);

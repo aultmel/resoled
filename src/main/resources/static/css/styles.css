@@ -59,6 +59,7 @@ a {
  font-weight: bold;
 }
 
+
 /* unvisited link */
 a:link {
   color: var( --link);
@@ -191,4 +192,24 @@ padding: 10px 10px;
     font-weight: bold;
     background-color: var( --color3) !Important;
     border: solid 1px var( --color3) !Important;
+}
+
+/* for admin */
+.adminPage{
+    text-align: center;
+}
+.reportTable{
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+th{
+    padding: 10px;
+    text-align: center;
+    border: 3px solid;
+}
+.tableElement{
+    padding: 10px;
+    text-align: left;
+    border: 1px solid;
 }

@@ -7,7 +7,7 @@ public class Report {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "reported_user")
     private UserEntity userEntity;

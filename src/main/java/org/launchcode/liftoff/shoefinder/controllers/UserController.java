@@ -90,7 +90,6 @@ public class UserController {
         ReportDTO reportDTO = new ReportDTO();
         model.addAttribute("reportDTO", reportDTO);
 
-
         CreateMessageDTO createMessageDTO = new CreateMessageDTO();
         model.addAttribute("createMessageDTO", createMessageDTO);
 
@@ -110,7 +109,7 @@ public class UserController {
 
         reportRepository.save(report);
 
-        return"redirect:/profile/userData/{displayName}";
+        return"redirect:/profile/{displayName}";
     }
 
 }

@@ -6,7 +6,8 @@
 </head>
 <body>
 <table>
-    <td><a th:href="'../profile/userData/' + ${shoeListing.userEntity.displayName}" th:text="${shoeListing.userEntity.displayName}"></a></td>
+
+    <td><a th:href="'../profile/' + ${listing.userEntity.displayName}" th:text="${listing.userEntity.displayName}"></a></td>
 
     <tr>
         <th>ID</th>

@@ -13,7 +13,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     // UserEntity will have many Messages.  Messages will be connected to only one UserEntity and organized and gathered together by MessageChain
     @OneToMany(mappedBy = "userEntity")

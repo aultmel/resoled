@@ -2,8 +2,10 @@ package org.launchcode.liftoff.shoefinder.controllers;
 
 import org.apache.catalina.User;
 import org.launchcode.liftoff.shoefinder.data.ReportRepository;
+import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.Report;
+import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
@@ -30,7 +32,8 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private ReportRepository reportRepository;
-
+    @Autowired
+    private ShoeListingRepository shoeListingRepository;
 
     @GetMapping("")
     public String showProfile (Model model) {
@@ -105,11 +108,17 @@ public class UserController {
         UserEntity otherUser = userRepository.findByDisplayName(displayName);
         model.addAttribute("otherUser", otherUser);
 
+//        ArrayList<ShoeListing> otherUserListings = new ArrayList<>();
+//        otherUserListings.add(shoeListingRepository.findAllByID(otherUser.getId()));
+//        model.addAttribute("otherUserListings", otherUserListings);
+
         Report report = new Report(otherUser, reportDTO.getComplaintDetail(), userEntity);
+
+
 
         reportRepository.save(report);
 
-        return"redirect:/profile/userData/{displayName}";
+        return"redirect:/profile/{displayName}";
     }
 
 }

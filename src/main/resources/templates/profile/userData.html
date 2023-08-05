@@ -7,6 +7,30 @@
 
 <div th:object="${otherUser}">
     <h1 th:text="${otherUser.displayName}"></h1>
+    <h3>Listings</h3>
+    <table th:each="listing : ${otherUserListings}">
+        <tr>
+            <th>ID</th>
+            <td th:text="${listing.id}"></td>
+        </tr>
+        <tr>
+            <th>Brand</th>
+            <td th:text="${listing.brand.name}"></td>
+        </tr>
+        <tr>
+            <th>Size</th>
+            <td th:text="${listing.size}"></td>
+        </tr>
+        <tr>
+            <th>Style</th>
+            <td th:text="${listing.style.name}"></td>
+        </tr>
+        <tr>
+            <th>Condition</th>
+            <td th:text="${listing.condition}"></td>
+        </tr>
+    </table>
+
 
 <!--form to initiate message to otherUser-->
     <form method="post" role="form"
@@ -41,15 +65,15 @@
 
     <!-- Report Form -->
     <div>
-        <form th:object="${reportDTO}" th:id="reportForm" th:action="@{../userData/{displayName}(displayName=${displayName})}" method="post" th:style="'display:none'">
+        <form th:object="${reportDTO}" th:id="reportForm" th:action="@{/profile/{displayName}(displayName=${displayName})}" method="post" th:style="'display:none'">
 
             <div class="form-group">
                 <label th:text="'Report User: ' + ${otherUser.displayName}" ></label>
             </br>
             <p>Reason:</p>
-                <textarea  th:field="*{complaintDetail}" rows="5" cols="50"
+                <input th:field="*{complaintDetail}" rows="5" cols="50"
                 class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"
-                ></textarea>
+                />
             </br>
             <button type="submit">Submit Report</button>
             </div>

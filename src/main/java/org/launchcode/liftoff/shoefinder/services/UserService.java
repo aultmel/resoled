@@ -2,9 +2,11 @@ package org.launchcode.liftoff.shoefinder.services;
 
 
 import org.launchcode.liftoff.shoefinder.constants.MessageConstants;
+import org.launchcode.liftoff.shoefinder.data.LocationRepository;
 import org.launchcode.liftoff.shoefinder.data.ReportRepository;
 import org.launchcode.liftoff.shoefinder.data.RoleRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
+import org.launchcode.liftoff.shoefinder.models.Location;
 import org.launchcode.liftoff.shoefinder.models.Report;
 import org.launchcode.liftoff.shoefinder.models.Role;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
@@ -28,20 +30,18 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final LocationRepository locationRepository;
 
     private ReportRepository reportRepository;
 
-    public UserService() {
-    }
-
-    @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, LocationRepository locationRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.locationRepository = locationRepository;
     }
 
 
@@ -64,7 +64,6 @@ public class UserService {
         return true;
     }
 
-
     public void saveUser(RegisterDTO registerDTO) {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registerDTO.getUsername());
@@ -72,10 +71,20 @@ public class UserService {
         userEntity.setFirstName(registerDTO.getFirstName());
         userEntity.setLastName(registerDTO.getLastName());
         userEntity.setBirthday(registerDTO.getBirthday());
+
+        // Sets User to Role USER
         Role role = roleRepository.findByName("USER");
         userEntity.setRoles(Arrays.asList(role));
+
         userEntity.setDisplayName(registerDTO.getDisplayName());
         userEntity.setMessages(new ArrayList<>());
+
+        // Sets Location info
+        Location location = new Location();
+        location.setZipCode(registerDTO.getZipCode());
+        locationRepository.save(location);
+        userEntity.setLocation(location);
+
         userRepository.save(userEntity);
     }
 

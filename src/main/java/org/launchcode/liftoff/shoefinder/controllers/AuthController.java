@@ -59,7 +59,7 @@ public class AuthController {
 
         // checks if username is taken and if it is taken sends an error to the view
         if(userRepository.existsByUsername(registerDTO.getUsername())){
-            bindingResult.rejectValue("username", "username.unavailable", "Username is unavailable");;
+            bindingResult.rejectValue("username", "username.unavailable", "Username is unavailable");
             return "register";
         }
         // checks if displayName has blank space

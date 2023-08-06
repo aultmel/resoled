@@ -36,7 +36,7 @@ public class ListingController {
 
     }
 
-    @GetMapping
+    @GetMapping({"", "/"})
     public String displayAllListings(Model model) {
         model.addAttribute("title", "All Listings");
         model.addAttribute("allListings", shoeListingRepository.findAll());

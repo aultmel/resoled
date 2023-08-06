@@ -16,9 +16,12 @@
 <!--        This will be used to display the username and link to profile-->
         <td><a th:href="'../profile/' + ${listing.userEntity.displayName}" th:text="${listing.userEntity.displayName}"></a></td>
         <td th:text="${listing.brand.name}"></td>
-<!--        <td th:text="${listing.style.name}"></td>-->
-<!--        <td th:text="${listing.size.size}"></td>-->
-<!--        <td th:text="${listing.location.zipCode}"></td>-->
+        <td th:text="${listing.style.name}"></td>
+        <td th:text="${listing.size}"></td>
+        <td>
+<!--            <span th:if="${listing.location.zipCode != null}" th:text="${listing.location.zipCode}"></span>-->
+            <span th:if="${listing.location.zipCode == null}">N/A</span>
+        </td>
     </tr>
 </table>
 </body>

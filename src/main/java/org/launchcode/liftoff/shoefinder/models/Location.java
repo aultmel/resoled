@@ -15,13 +15,13 @@ public class Location {
     private int streetNumber;
     private String streetName;
     private String city;
-    private int zipCode;
+    private String zipCode;
     private String state;
 
     public Location() {
     }
 
-    public Location(double latitude, double longitude, int streetNumber, String streetName, String city, int zipCode, String state) {
+    public Location(double latitude, double longitude, int streetNumber, String streetName, String city, String zipCode, String state) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.streetNumber = streetNumber;
@@ -75,11 +75,11 @@ public class Location {
         this.city = city;
     }
 
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 

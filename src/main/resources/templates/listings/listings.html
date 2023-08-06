@@ -18,10 +18,7 @@
         <td th:text="${listing.brand.name}"></td>
         <td th:text="${listing.style.name}"></td>
         <td th:text="${listing.size}"></td>
-        <td>
-<!--            <span th:if="${listing.location.zipCode != null}" th:text="${listing.location.zipCode}"></span>-->
-            <span th:if="${listing.location.zipCode == null}">N/A</span>
-        </td>
+        <td th:text="${listing.userEntity.username}"></td>
     </tr>
 </table>
 </body>

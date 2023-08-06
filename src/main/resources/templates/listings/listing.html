@@ -10,26 +10,29 @@
                 <div class="text-center">
 
 
-    <a th:href="'../profile/' + ${shoeListing.userEntity.displayName}" th:text="${shoeListing.userEntity.displayName}"></a>
+                    <a th:href="'../profile/' + ${shoeListing.userEntity.displayName}" th:text="${shoeListing.userEntity.displayName}"></a>
 
 
-        <label>ID</label>
-        <p th:text="${shoeListing.id}"></p>
+                    <label>ID</label>
+                    <p th:text="${shoeListing.id}"></p>
 
-        <label>Brand</label>
-        <p th:text="${shoeListing.brand.name}"></p>
-
-
-        <label>Size</label>
-        <p th:text="${shoeListing.size}"></p>
+                    <label>Brand</label>
+                    <p th:text="${shoeListing.brand.name}"></p>
 
 
-        <label>Style</label>
-        <p th:text="${shoeListing.style.name}"></p>
+                    <label>Size</label>
+                    <p th:text="${shoeListing.size}"></p>
 
 
-        <label>Condition</label>
-        <p th:text="${shoeListing.condition}"></p>
+                    <label>Style</label>
+                    <p th:text="${shoeListing.style.name}"></p>
+
+
+                    <label>Condition</label>
+                    <p th:text="${shoeListing.condition}"></p>
+
+                    <label>Zip Code</label>
+                    <p th:text="${shoeListing.userEntity.location.zipCode}"></p>
 
 
                 </div>

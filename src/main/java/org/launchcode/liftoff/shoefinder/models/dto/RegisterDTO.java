@@ -51,7 +51,7 @@ public class RegisterDTO {
 
     @Size(min = RegistrationConstants.ZIP_CODE_LENGTH,
             max = RegistrationConstants.ZIP_CODE_LENGTH,
-            message = "Zip Code must be {min} characters")
+            message = "Zip Code must be {min} numbers")
     @NotEmpty
     private String zipCode;
 

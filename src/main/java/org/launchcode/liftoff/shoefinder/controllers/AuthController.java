@@ -83,6 +83,13 @@ public class AuthController {
             return "register";
         }
 
+        // checks if zipcode fits standards
+        if (!userService.isNumeric(registerDTO.getZipCode())){
+            bindingResult.rejectValue("zipCode", "zipCode.invalid", "Zip Code must be numbers 0 to 9");
+            return "register";
+        }
+
+
 //        //todo uncomment this once we are ready to have age restriction live.
 //
 //        // checks if old enough

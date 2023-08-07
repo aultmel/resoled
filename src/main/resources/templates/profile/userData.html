@@ -42,7 +42,7 @@
     <!-- Report Form -->
     <div>
         <form th:object="${reportDTO}" th:id="reportForm"
-              th:action="@{../userData/{displayName}(displayName=${displayName})}" method="post"
+              th:action="@{../profile/{displayName}(displayName=${displayName})}" method="post"
               th:style="'display:none'">
 
             <div class="form-group">
@@ -59,7 +59,7 @@
         </form>
     </div>
 
-
+  
     <!-- JS for hidden report form -->
     <script th:inline="javascript">
         function showForm() {

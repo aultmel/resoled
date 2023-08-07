@@ -24,6 +24,7 @@ public class ShoeListing {
     @ManyToOne
     private Style style;
 
+
     @Column(name= "`condition`")
     private String condition;
     private String size;

@@ -38,7 +38,7 @@ public class ListingController {
     }
     // Handler method to display all shoe listings.
 
-    @GetMapping
+    @GetMapping({"", "/"})
     public String displayAllListings(Model model) {
         model.addAttribute("title", "All Listings");
         model.addAttribute("allListings", shoeListingRepository.findAll());

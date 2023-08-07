@@ -1,99 +1,108 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
-<body class="p-2">
-<div class="container p-2">
-    <h1>Create A Listing and Find Your Sole-Mate!</h1>
-    <br/>
 
-    <br/>
-    <form th:action="@{/listings/create}" th:object="${createListingDTO}" method="post" enctype="multipart/form-data">
-        <div class="form-group ">
-        <div class="preview" >
-            <img id="file-ip-1-preview">
-        </div>
-        <input type="file" name="imageFiles" accept="image/*" id="image-input" onchange="showImagePreview(event);">
-        </div>
 
-        <br/>
-        <div class="form-group">
-            <label for="brand">Brand:</label>
-            <input type="text" id="brand" th:field="*{brand}" class="form-control" required>
-        </div>
-        <br/>
-        <div class="form-group">
-            <label for="size">Size:</label>
-            <select name="size" id="size" th:field="*{size}" class="form-control">
-                <th:block th:each="size : ${sizeList}" class="p-1">">
-                    <option th:value="${size}" th:text="${size}"></option>
-                </th:block>
-            </select>
-        </div>
-        <br/>
-        <div class="form-group">
-            <label for="gender">(W/M):</label>
-            <select name="gender" id="gender" th:field="*{gender}" class="form-control">
-                <th:block th:each="gender : ${genderList}" class="p-1">">
-                    <option th:value="${gender}" th:text="${gender}"></option>
-                </th:block>
-            </select>
+<body class="m-2 gradientBg">
+<div class="color1 container rounded-5 p-2 shadow-lg mt-5">
+    <div class="color2 container rounded-5 p-3">
+        <div class="color3 container rounded-5 p-1">
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
 
-        </div>
+                <h1 class="text-center">Create A Listing and Find Your Sole-Mate!</h1>
+                <br/>
 
-        <br/>
+                <br/>
+                <form th:action="@{/listings/create}" th:object="${createListingDTO}" method="post"
+                      enctype="multipart/form-data">
+                    <div class="form-group ">
+                        <div class="preview">
+                            <img id="file-ip-1-preview">
+                        </div>
+                        <input type="file" name="imageFiles" accept="image/*" id="image-input"
+                               onchange="showImagePreview(event);">
+                    </div>
 
-        <br/>
-        <div class="form-group row fw-semibold" style="width: 500px">
-            <h3>Condition:</h3>
-            <div class="col container text-center">
-                <input type="radio" th:id="imageRadio_1" th:name="imageRadio" th:value="NEW" th:field="*{condition}"
-                       class="hidden-radio">
-                <label th:for="imageRadio_1"  style="color: var( --color2);">
-                    New
                     <br/>
-                    <img th:src="@{/images/new-shoe.png}" alt="New Shoes" width="100" height="100" class="">
-                </label>
-            </div>
-
-            <div class="col container text-center">
-
-                    <input type="radio" th:id="imageRadio_2" th:name="imageRadio" th:value="GREAT"
-                           th:field="*{condition}" class="hidden-radio">
-                <label th:for="imageRadio_2"  style="color: var( --color2);">Great
+                    <div class="form-group">
+                        <label for="brand">Brand:</label>
+                        <input type="text" id="brand" th:field="*{brand}" class="form-control" required>
+                    </div>
                     <br/>
-                    <img th:src="@{/images/great-shoe.png}" alt="Great Condition" width="100" height="100">
-                </label>
-            </div>
-
-            <div class="col container text-center">
-                    <input type="radio" th:id="imageRadio_3" th:name="imageRadio" th:value="GOOD"
-                           th:field="*{condition}" class="hidden-radio">
-                <label th:for="imageRadio_3"  style="color: var( --color2);">Good
+                    <div class="form-group">
+                        <label for="size">Size:</label>
+                        <select name="size" id="size" th:field="*{size}" class="form-control">
+                            <th:block th:each="size : ${sizeList}" class="p-1">">
+                                <option th:value="${size}" th:text="${size}"></option>
+                            </th:block>
+                        </select>
+                    </div>
                     <br/>
-                    <img th:src="@{/images/good-shoe.png}" alt="Good Condition" width="100" height="100">
-                </label>
-            </div>
-            <div class="col container text-center">
-                    <input type="radio" th:id="imageRadio_4" th:name="imageRadio" th:value="POOR"
-                           th:field="*{condition}" class="hidden-radio">
-                    <label th:for="imageRadio_4"  style="color: var( --color2);">Poor
-                        <br/>
-                        <img th:src="@{/images/poor-shoe.png}" alt="Poor Condition" width="100" height="100">
-                </label>
-            </div>
-        </div>
-        <br/>
-        <div class="form-group">
-            <label for="style">Style:</label>
-            <input type="text" id="style" th:field="*{style}" class="form-control" required>
-        </div>
-        <br/>
-        <button type="submit" class="btn btn-primary">Create Listing!</button>
-    </form>
-</div>
+                    <div class="form-group">
+                        <label for="gender">(W/M):</label>
+                        <select name="gender" id="gender" th:field="*{gender}" class="form-control">
+                            <th:block th:each="gender : ${genderList}" class="p-1">">
+                                <option th:value="${gender}" th:text="${gender}"></option>
+                            </th:block>
+                        </select>
 
-<!-- script for showing the image preview -->
-<script>
+                    </div>
+
+                    <br/>
+
+                    <br/>
+                    <div class="form-group row fw-semibold" style="width: 500px">
+                        <h3>Condition:</h3>
+                        <div class="col container text-center">
+                            <input type="radio" th:id="imageRadio_1" th:name="imageRadio" th:value="NEW"
+                                   th:field="*{condition}"
+                                   class="hidden-radio">
+                            <label th:for="imageRadio_1" style="color: var( --color2);">
+                                New
+                                <br/>
+                                <img th:src="@{/images/new-shoe.png}" alt="New Shoes" width="100" height="100" class="">
+                            </label>
+                        </div>
+
+                        <div class="col container text-center">
+
+                            <input type="radio" th:id="imageRadio_2" th:name="imageRadio" th:value="GREAT"
+                                   th:field="*{condition}" class="hidden-radio">
+                            <label th:for="imageRadio_2" style="color: var( --color2);">Great
+                                <br/>
+                                <img th:src="@{/images/great-shoe.png}" alt="Great Condition" width="100" height="100">
+                            </label>
+                        </div>
+
+                        <div class="col container text-center">
+                            <input type="radio" th:id="imageRadio_3" th:name="imageRadio" th:value="GOOD"
+                                   th:field="*{condition}" class="hidden-radio">
+                            <label th:for="imageRadio_3" style="color: var( --color2);">Good
+                                <br/>
+                                <img th:src="@{/images/good-shoe.png}" alt="Good Condition" width="100" height="100">
+                            </label>
+                        </div>
+                        <div class="col container text-center">
+                            <input type="radio" th:id="imageRadio_4" th:name="imageRadio" th:value="POOR"
+                                   th:field="*{condition}" class="hidden-radio">
+                            <label th:for="imageRadio_4" style="color: var( --color2);">Poor
+                                <br/>
+                                <img th:src="@{/images/poor-shoe.png}" alt="Poor Condition" width="100" height="100">
+                            </label>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label for="style">Style:</label>
+                        <input type="text" id="style" th:field="*{style}" class="form-control" required>
+                    </div>
+                    <br/>
+                    <button type="submit" class="btn btn-primary">Create Listing!</button>
+                </form>
+            </div>
+
+            <!-- script for showing the image preview -->
+            <script>
     function showImagePreview(event){
         if(event.target.files.length > 0){
             var src = URL.createObjectURL(event.target.files[0]);
@@ -103,7 +112,11 @@
             preview.style.width = "20em";
         }
     }
-</script>
-<th:block th:replace="~{fragments :: endingScripts}"></th:block>
+
+            </script>
+            <th:block th:replace="~{fragments :: endingScripts}"></th:block>
+        </div>
+    </div>
+</div>
 </body>
 </html>

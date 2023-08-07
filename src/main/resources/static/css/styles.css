@@ -219,6 +219,22 @@ input[type=radio] + label>img {
   transition: 500ms all;
 }
 
+/** Image Checkbox Buttons for search listings shoe condition **/
+input[type=checkbox] + label>img {
+   background-color: white;
+   border: 3px solid var( --grey);
+   border-radius: 25px;
+   box-shadow: 0 .5rem 1rem var( --grey);
+   width: 100px;
+   height: 100px;
+   transition: 500ms all;
+}
+input[type=checkbox]:checked + label>img {
+  border: 3px solid var( --color2);
+  box-shadow: 0 .5rem 1rem var( --color1);
+  background-color:white;
+}
+
 /* for admin */
 .adminPage{
     text-align: center;

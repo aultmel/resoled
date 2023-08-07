@@ -14,5 +14,5 @@ public interface ShoeListingRepository  extends JpaRepository<ShoeListing, Long>
 
     List<ShoeListing> findByGender(String gender);
 
-    ShoeListing findAllByID(Long id);
+
 }

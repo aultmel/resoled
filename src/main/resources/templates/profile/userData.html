@@ -4,37 +4,26 @@
 <header th:replace="~{fragments :: header}"></header>
 <body class="m-2 gradientBg">
 
-
-<div th:object="${otherUser}">
-    <h1 th:text="${otherUser.displayName}"></h1>
-    <h3>Listings</h3>
-    <table th:each="listing : ${otherUserListings}">
-        <tr>
-            <th>ID</th>
-            <td th:text="${listing.id}"></td>
-        </tr>
-        <tr>
-            <th>Brand</th>
-            <td th:text="${listing.brand.name}"></td>
-        </tr>
-        <tr>
-            <th>Size</th>
-            <td th:text="${listing.size}"></td>
-        </tr>
-        <tr>
-            <th>Style</th>
-            <td th:text="${listing.style.name}"></td>
-        </tr>
-        <tr>
-            <th>Condition</th>
-            <td th:text="${listing.condition}"></td>
-        </tr>
-    </table>
+<H3>Listings</H3>
+<div class="listing-container">
+    <div  th:each="listing : ${userListings}" class="listing-item">
+        <div class="color1 container rounded-5 p-3">
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
+                <a th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.id}"></a>
+                <!--        This will be used to display the username and link to profile-->
+                <p th:text="${userListings.brand.name}"></p>
+                <p th:text="${userListings.style.name}"></p>
+                <p th:text="${userListings.size}"></p>
+                <p th:text="${userListings.userEntity.location.zipCode}"></p>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!--form to initiate message to otherUser-->
     <form method="post" role="form"
-          th:action="@{'../message/create?receiver=' + ${otherUser.displayName}}"
+          th:action="@{'../message/create?re   ceiver=' + ${otherUser.displayName}}"
           th:object="${createMessageDTO}">
 
         <div class="form-group mb-2">

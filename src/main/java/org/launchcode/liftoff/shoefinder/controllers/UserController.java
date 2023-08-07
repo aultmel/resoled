@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/profile")
@@ -112,9 +113,17 @@ public class UserController {
 //        otherUserListings.add(shoeListingRepository.findAllByID(otherUser.getId()));
 //        model.addAttribute("otherUserListings", otherUserListings);
 
+        ArrayList<ShoeListing> userListings = new ArrayList<>();
+
+//        userListings.add(shoeListingRepository.findByDisplayName(displayName));
+
+        if (userListings.isEmpty()) {
+            model.addAttribute("title", "No Current Listings");
+        } else {
+            model.addAttribute("userListings", userListings);
+        }
+
         Report report = new Report(otherUser, reportDTO.getComplaintDetail(), userEntity);
-
-
 
         reportRepository.save(report);
 

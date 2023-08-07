@@ -13,15 +13,15 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
     UserEntity findById(Long id);
 
-    UserEntity findByUsername(String username);
+    UserEntity findByUsernameIgnoreCase(String username);
 
-    UserEntity findByDisplayName(String displayName);
+    UserEntity findByDisplayNameIgnoreCase(String displayName);
 
-    Boolean existsByUsername(String username);
+    Boolean existsByUsernameIgnoreCase(String username);
 
-    UserEntity findFirstByUsername(String username);
+    UserEntity findFirstByUsernameIgnoreCase(String username);
 
-    Boolean existsByDisplayName(String displayName);
+    Boolean existsByDisplayNameIgnoreCase(String displayName);
 
     @Query("SELECT username FROM UserEntity")
     List<String> getUsernames();

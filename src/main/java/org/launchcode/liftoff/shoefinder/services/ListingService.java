@@ -41,7 +41,7 @@ public class ListingService {
     public void saveListing(CreateListingDTO createListingDTO, MultipartFile[] files) {
 
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
 
         ShoeListing shoeListing = new ShoeListing();
         shoeListing.setUserEntity(userEntity);

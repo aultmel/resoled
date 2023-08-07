@@ -28,22 +28,22 @@ public class SuggestionService {
         if (type.equals("displayName")) {
             // Get the list of usernames.
             List<String> names = userRepository.getDisplayNames();
-            return createSuggestionsList( names, substring);
+            return createSuggestionsList( names, substring, type);
         } else if (type.equals("brand")) {
             // Get the list of brand names
             List<String> names = brandRepository.getNames();
-            return createSuggestionsList(names, substring);
+            return createSuggestionsList(names, substring, type);
         } else if (type.equals("style")) {
             // Get the list of style names
             List<String> names = styleRepository.getNames();
-            return createSuggestionsList(names, substring);
+            return createSuggestionsList(names, substring , type);
         }
 
         return null;
 
     }
 
-    public List<String> createSuggestionsList(List<String> names, String substring) {
+    public List<String> createSuggestionsList(List<String> names, String substring, String type) {
 
         // Create a list of suggestions.
         List<String> suggestions = new ArrayList<>();
@@ -55,10 +55,31 @@ public class SuggestionService {
             }
             // Check if the username contains the substring then adds to suggestions
             if (name.toUpperCase().contains(substring.toUpperCase())) {
-                suggestions.add(name);
+
+                if(type.equals("displayName")){
+                    suggestions.add(name);
+                } else {
+                    suggestions.add(capitalizeAllFirstLetters(name));
+                }
             }
         }
         // Return the suggestions list.
         return suggestions;
     }
+
+    public String capitalizeAllFirstLetters(String aString)
+    {
+            String lowerCaseString = aString.toLowerCase();
+            char[] array = lowerCaseString.toCharArray();
+            array[0] = Character.toUpperCase(array[0]);
+            for (int i = 1; i < array.length; i++) {
+                if (Character.isWhitespace(array[i - 1])) {
+                    array[i] = Character.toUpperCase(array[i]);
+                }
+            }
+            return new String(array);
+    }
+
+
+
 }

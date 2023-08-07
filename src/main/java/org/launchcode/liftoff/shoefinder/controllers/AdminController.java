@@ -18,15 +18,23 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ReportRepository reportRepository;
+
+    private final UserRepository userRepository;
+
+    private final ReportRepository reportRepository;
+
+    private final UserService userService;
+
+    public AdminController(UserRepository userRepository, ReportRepository reportRepository, UserService userService) {
+        this.userRepository = userRepository;
+        this.reportRepository = reportRepository;
+        this.userService = userService;
+    }
 
     @GetMapping("")
     public String showAdmin (Model model) {
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
         ArrayList<Report> allReports = new ArrayList<>();
@@ -43,7 +51,7 @@ public class AdminController {
     public String reloadAdmin (@RequestParam(name ="reportedUserID", required = false) Long reportedUserID, @RequestParam(name="ignoreReport", required = false) Long ignoreReport, Model model) {
 
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
         ArrayList<Report> allReports = new ArrayList<>();
@@ -52,7 +60,6 @@ public class AdminController {
 
         UserEntity reportedUser = userRepository.findById(reportedUserID);
         Report ignoredReport = reportRepository.findById(ignoreReport);
-        UserService userService = new UserService();
 
         if (reportedUser != null) {
             userService.banUser(reportedUser);

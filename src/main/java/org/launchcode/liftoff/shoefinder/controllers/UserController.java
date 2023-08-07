@@ -38,7 +38,7 @@ public class UserController {
     @GetMapping("")
     public String showProfile (Model model) {
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
 
@@ -48,7 +48,7 @@ public class UserController {
     @GetMapping("/profileEdit")
     public String editProfile (Model model) {
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
         EditProfileDTO editProfileDTO = new EditProfileDTO();
@@ -60,7 +60,7 @@ public class UserController {
     @PostMapping("profileEdit")
     public String showProfile (@ModelAttribute("editProfileDTO")EditProfileDTO editProfileDTO, Model model) {
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
         try {
@@ -87,7 +87,7 @@ public class UserController {
     @GetMapping("/{displayName}")
     public String showPage(@PathVariable("displayName") String displayName, Model model) {
 
-        UserEntity otherUser = userRepository.findByDisplayName(displayName);
+        UserEntity otherUser = userRepository.findByDisplayNameIgnoreCase(displayName);
         model.addAttribute("otherUser", otherUser);
 
         ReportDTO reportDTO = new ReportDTO();
@@ -102,10 +102,10 @@ public class UserController {
     @PostMapping("/{displayName}")
     public String reportUser(@PathVariable("displayName") String displayName, @ModelAttribute("reportDTO")ReportDTO reportDTO, Model model) {
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
-        UserEntity otherUser = userRepository.findByDisplayName(displayName);
+        UserEntity otherUser = userRepository.findByDisplayNameIgnoreCase(displayName);
         model.addAttribute("otherUser", otherUser);
 
 //        ArrayList<ShoeListing> otherUserListings = new ArrayList<>();

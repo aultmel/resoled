@@ -1,110 +1,142 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
-<body class="p-2">
-<div class="container p-2">
-    <h1>Create A Listing and Find Your Sole-Mate!</h1>
-    <br/>
+<header th:replace="~{fragments :: header}"></header>
 
-    <br/>
-    <form th:action="@{/listings/create}" th:object="${createListingDTO}" method="post" enctype="multipart/form-data">
-        <div class="form-group ">
-            <div class="preview">
-                <img id="file-ip-1-preview">
-            </div>
-            <input type="file" name="imageFiles" accept="image/*" id="image-input" onchange="showImagePreview(event);">
-        </div>
-        <br/>
+<body>
+<div class="gradientBg p-3 pt-4">
+    <div class="color1 container rounded-5 p-2 shadow-lg">
+        <div class="color2 container rounded-5 p-3">
+            <div class="color3 container rounded-5 p-1">
+                <div class="gradientForm container rounded-5 shadow-lg p-4">
 
-        <div class="form-group  mb-2 ">
-
-            <label for="brand-search-box">Brand:</label>
-                <input class="form-control border border-0"
-                       id="brand-search-box"
-                       autocomplete="off"
-                       th:field="*{brand}" required/>
-
-        </div>
-
-        <br/>
-        <div class="form-group">
-            <label for="size">Size:</label>
-            <select name="size" id="size" th:field="*{size}" class="form-control">
-                <th:block th:each="size : ${sizeList}" class="p-1">">
-                    <option th:value="${size}" th:text="${size}"></option>
-                </th:block>
-            </select>
-        </div>
-        <br/>
-        <div class="form-group">
-            <label for="gender">(W/M):</label>
-            <select name="gender" id="gender" th:field="*{gender}" class="form-control">
-                <th:block th:each="gender : ${genderList}" class="p-1">">
-                    <option th:value="${gender}" th:text="${gender}"></option>
-                </th:block>
-            </select>
-        </div>
-
-        <br/>
-
-
-        <div class="form-group  mb-2 ">
-            <label for="style-search-box">Style:</label>
-                <input class="form-control"
-                       id="style-search-box"
-                       autocomplete="off"
-                       th:field="*{style}" required/>
-
-        </div>
-
-
-        <br/>
-        <div class="form-group row fw-semibold" style="width: 500px">
-            <h3>Condition:</h3>
-            <div class="col container text-center">
-                <input type="radio" th:id="imageRadio_1" th:name="imageRadio" th:value="NEW" th:field="*{condition}"
-                       class="hidden-radio">
-                <label th:for="imageRadio_1" style="color: var( --color2);">
-                    New
+                    <h1 class="text-center">Create A Listing and Find Your Sole-Mate!</h1>
                     <br/>
-                    <img th:src="@{/images/new-shoe.png}" alt="New Shoes" width="100" height="100" class="">
-                </label>
-            </div>
 
-            <div class="col container text-center">
+                    <form th:action="@{/listings/create}" th:object="${createListingDTO}" method="post"
+                          enctype="multipart/form-data">
 
-                <input type="radio" th:id="imageRadio_2" th:name="imageRadio" th:value="GREAT"
-                       th:field="*{condition}" class="hidden-radio">
-                <label th:for="imageRadio_2" style="color: var( --color2);">Great
-                    <br/>
-                    <img th:src="@{/images/great-shoe.png}" alt="Great Condition" width="100" height="100">
-                </label>
-            </div>
 
-            <div class="col container text-center">
-                <input type="radio" th:id="imageRadio_3" th:name="imageRadio" th:value="GOOD"
-                       th:field="*{condition}" class="hidden-radio">
-                <label th:for="imageRadio_3" style="color: var( --color2);">Good
-                    <br/>
-                    <img th:src="@{/images/good-shoe.png}" alt="Good Condition" width="100" height="100">
-                </label>
-            </div>
-            <div class="col container text-center">
-                <input type="radio" th:id="imageRadio_4" th:name="imageRadio" th:value="POOR"
-                       th:field="*{condition}" class="hidden-radio">
-                <label th:for="imageRadio_4" style="color: var( --color2);">Poor
-                    <br/>
-                    <img th:src="@{/images/poor-shoe.png}" alt="Poor Condition" width="100" height="100">
-                </label>
+                        <div class="form-group file border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+                            <div class="preview">
+                                <img id="file-ip-1-preview">
+                            </div>
+                            <input type="file" name="imageFiles" accept="image/*" id="image-input"
+                                   onchange="showImagePreview(event);">
+                            <label class="btn button1 btn-lg shadow ms-2 m-2" for="image-input">Upload Image</label>
+                        </div>
+                        <br/>
+
+                        <div class="form-group  mb-2 ">
+                            <div class="dropdown form-floating border border-3 rounded-4 border-secondary-subtle shadow-sm p-2"
+                                 style="z-index: 5">
+                                <input class="form-control border border-0"
+                                       id="brand-search-box"
+                                       autocomplete="off"
+                                       th:field="*{brand}" required/>
+                                <div class="brand-results results">
+                                </div>
+                                <label for="brand-search-box">Brand:</label>
+                            </div>
+                        </div>
+                        <input type="hidden" id="brandSuggestionsUrl"
+                               th:value="${brandSuggestionsUrl}"/>
+
+                        <br/>
+                        <div class="form-group">
+                            <label for="size">Size:</label>
+                            <select name="size" id="size" th:field="*{size}" class="form-control">
+                                <th:block th:each="size : ${sizeList}" class="p-1">">
+                                    <option th:value="${size}" th:text="${size}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label for="gender">(W/M):</label>
+                            <select name="gender" id="gender" th:field="*{gender}" class="form-control">
+                                <th:block th:each="gender : ${genderList}" class="p-1">">
+                                    <option th:value="${gender}" th:text="${gender}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group  mb-2 ">
+                            <div class="dropdown form-floating border border-3 rounded-4 border-secondary-subtle shadow-sm p-2"
+                                 style="z-index: 5">
+                                <input class="form-control border border-0"
+                                       id="style-search-box"
+                                       autocomplete="off"
+                                       th:field="*{style}" required/>
+                                <div class="style-results results">
+                                </div>
+                                <label for="style-search-box">Style:</label>
+                            </div>
+
+                        </div>
+                        <input type="hidden" id="styleSuggestionsUrl"
+                               th:value="${styleSuggestionsUrl}"/>
+
+
+                        <br/>
+                        <div class="form-group row fw-semibold" style="width: 500px">
+                            <h3>Condition:</h3>
+                            <div class="col container text-center">
+                                <input type="radio" th:id="imageRadio_1" th:name="imageRadio" th:value="NEW"
+                                       th:field="*{condition}"
+                                       class="hidden-radio">
+                                <label th:for="imageRadio_1" style="color: var( --color2);">
+                                    New
+                                    <br/>
+                                    <img th:src="@{/images/new-shoe.png}" alt="New Shoes" width="100"
+                                         height="100" class="">
+                                </label>
+                            </div>
+
+                            <div class="col container text-center">
+
+                                <input type="radio" th:id="imageRadio_2" th:name="imageRadio"
+                                       th:value="GREAT"
+                                       th:field="*{condition}" class="hidden-radio">
+                                <label th:for="imageRadio_2" style="color: var( --color2);">Great
+                                    <br/>
+                                    <img th:src="@{/images/great-shoe.png}" alt="Great Condition"
+                                         width="100" height="100">
+                                </label>
+                            </div>
+
+                            <div class="col container text-center">
+                                <input type="radio" th:id="imageRadio_3" th:name="imageRadio"
+                                       th:value="GOOD"
+                                       th:field="*{condition}" class="hidden-radio">
+                                <label th:for="imageRadio_3" style="color: var( --color2);">Good
+                                    <br/>
+                                    <img th:src="@{/images/good-shoe.png}" alt="Good Condition" width="100"
+                                         height="100">
+                                </label>
+                            </div>
+                            <div class="col container text-center">
+                                <input type="radio" th:id="imageRadio_4" th:name="imageRadio"
+                                       th:value="POOR"
+                                       th:field="*{condition}" class="hidden-radio">
+                                <label th:for="imageRadio_4" style="color: var( --color2);">Poor
+                                    <br/>
+                                    <img th:src="@{/images/poor-shoe.png}" alt="Poor Condition" width="100"
+                                         height="100">
+                                </label>
+                            </div>
+                        </div>
+                        <br/>
+
+
+                        <br/>
+                        <button type="submit" class="btn button1 btn-lg shadow ms-2">Create Listing!</button>
+                    </form>
+                </div>
             </div>
         </div>
-        <br/>
-
-
-
-        <br/>
-        <button type="submit" class="btn btn-primary">Create Listing!</button>
-    </form>
+    </div>
 </div>
 
 <!-- script for showing the image preview -->
@@ -116,11 +148,11 @@
             preview.src = src;
             preview.style.display = "block";
             preview.style.width = "20em";
+            preview.style.border = "2px solid hsla(0, 0%, 79%, 1)";
         }
     }
-
-
 </script>
+
 <!--for Brand and Style Suggestions-->
 <script th:src="@{/js/fetchBrandStyleSuggestions.js}"></script>
 

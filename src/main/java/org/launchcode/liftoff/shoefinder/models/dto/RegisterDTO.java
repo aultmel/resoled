@@ -49,6 +49,13 @@ public class RegisterDTO {
     @Email
     private String email;
 
+    @Size(min = RegistrationConstants.ZIP_CODE_LENGTH,
+            max = RegistrationConstants.ZIP_CODE_LENGTH,
+            message = "Zip Code must be {min} numbers")
+    @NotEmpty
+    private String zipCode;
+
+
     public RegisterDTO() {
     }
 
@@ -105,4 +112,8 @@ public class RegisterDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getZipCode() { return zipCode; }
+
+    public void setZipCode(String zipCode) { this.zipCode = zipCode; }
 }

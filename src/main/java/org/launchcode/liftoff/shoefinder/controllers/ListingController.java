@@ -29,20 +29,23 @@ public class ListingController {
     private final ListingService listingService;
     private final ShoeListingRepository shoeListingRepository;
 
+    // Constructor to inject ListingService and ShoeListingRepository dependencies.
 
     public ListingController(ListingService listingService, ShoeListingRepository shoeListingRepository) {
         this.listingService = listingService;
         this.shoeListingRepository = shoeListingRepository;
 
     }
+    // Handler method to display all shoe listings.
 
-    @GetMapping
+    @GetMapping({"", "/"})
     public String displayAllListings(Model model) {
         model.addAttribute("title", "All Listings");
         model.addAttribute("allListings", shoeListingRepository.findAll());
         return "/listings/listings";
 
     }
+    // Handler method to display details of a specific shoe listing.
 
     @GetMapping("details")
     public String displayListingDetails(@RequestParam Long listingId, Model model) {
@@ -57,6 +60,7 @@ public class ListingController {
         }
         return "/listings/listing";
     }
+    // Handler method to display the shoe listing creation form.
 
     @GetMapping("create")
     public String showListingForm(Model model) {
@@ -72,15 +76,16 @@ public class ListingController {
         return "/listings/create";
     }
 
-    //    //will need dto to transfer userEntity info along with form data to create populate Listing
+    // Handler method to create a new shoe listing.
+
     @PostMapping("create")
     public String createListing(@ModelAttribute("createListingDTO") CreateListingDTO createListingDTO, RedirectAttributes redirectAttributes
         ,@RequestParam("imageFiles") MultipartFile[] files, Model model
     ) {
-
+        redirectAttributes.addFlashAttribute("message", "Shoe Listing Created");
         listingService.saveListing(createListingDTO, files);
 
-        redirectAttributes.addFlashAttribute("message", "Shoe Listing Created");
+
         // Redirect to a success page
         return "redirect:../home";
     }

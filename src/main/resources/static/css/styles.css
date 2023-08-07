@@ -249,3 +249,15 @@ th{
     text-align: left;
     border: 1px solid;
 }
+.listings-container {
+    gap: 20px;
+}
+
+.listing-item {
+    width: calc(33.33%);
+    padding: 10px;
+    box-sizing: border-box;
+    margin: auto;
+
+}
+

@@ -17,7 +17,6 @@ public class Location {
 //    private int streetNumber;
 //    private String streetName;
 //    private String city;
-
 //    private String state;
 
     public Location() {}

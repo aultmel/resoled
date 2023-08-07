@@ -4,6 +4,7 @@
 <script th:src="@{/js/script.js}"defer></script>
 <body>
 <section aria-label="CarouselBase">
+  <div th:fragment="carousel-content">
   <div class="carousel" data-carousel>
     <button class="carosel-button prev" data-carousel-button>&#8592;</button>
     <button class="carosel-button next" data-carousel-button>&#8594;</button>
@@ -19,6 +20,7 @@
   <img th:src="@{/images/poor-shoe.png}" alt="PoorShoe">
 </li>
 </ul>
+  </div>
   </div>
 </section>
 </body>

@@ -28,6 +28,7 @@ public class ListingService {
     private final StyleRepository styleRepository;
     private final ImageRepository imageRepository;
 
+    // Constructor to inject the required repositories.
 
     public ListingService(ShoeListingRepository shoeListingRepository, UserRepository userRepository,
                           BrandRepository brandRepository, StyleRepository styleRepository, ImageRepository imageRepository) {
@@ -38,7 +39,9 @@ public class ListingService {
         this.imageRepository = imageRepository;
     }
 
+    // Method to save a new shoe listing along with associated image files.
     public void saveListing(CreateListingDTO createListingDTO, MultipartFile[] files) {
+        // Get the current user's entity from the UserRepository using the session user's username.
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
@@ -71,8 +74,9 @@ public class ListingService {
         shoeListing.setCondition(createListingDTO.getCondition());
         // creates a message saying the user has created a class
         shoeListingRepository.save(shoeListing);
-
+        // Save associated images to the specified directory and store their information in the ImageRepository.
             String directoryPath = "src\\main\\resources\\static\\images\\listing-images";
+
 
             for(MultipartFile imageFile: files) {
                 ImageLocal imageLocal = new ImageLocal();
@@ -85,9 +89,11 @@ public class ListingService {
 
     }
 
+    // Method to filter shoe listings based on search criteria.
 
     public List<ShoeListing> filterListings(SearchListingsDTO searchListingsDTO) {
         List<ShoeListing> filteredListings = new ArrayList<>();
+        // Find shoe listings for the given gender and add them to the filtered list.
 
         for (String gender : searchListingsDTO.getGenders()) {
             List<ShoeListing> genderList  = shoeListingRepository.findByGender(gender);

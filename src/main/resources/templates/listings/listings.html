@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="~{fragments :: head}"></head>
+<header th:replace="fragments :: header"></header>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th>Listings</th>
-    </tr>
-    </thead>
-    <tr th:each="listing : ${allListings}">
-        <td><a th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.id}"></a></td>
-<!--        This will be used to display the username and link to profile-->
-        <td><a th:href="'../profile/' + ${listing.userEntity.displayName}" th:text="${listing.userEntity.displayName}"></a></td>
-        <td th:text="${listing.brand.name}"></td>
-<!--        <td th:text="${listing.style.name}"></td>-->
-<!--        <td th:text="${listing.size.size}"></td>-->
-<!--        <td th:text="${listing.location.zipCode}"></td>-->
-    </tr>
-</table>
+<div class="gradientBg p-3 pt-4">
+    <div class="color2 container listingsPage rounded-top-5 p-2 shadow-lg">
+        <div class="color1 container rounded-5 p-3">
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
+                <div class="text-center">
+
+                    <p>Listings</p>
+
+                    <div class="listing-container">
+                        <div  th:each="listing : ${allListings}" class="listing-item">
+                            <div class="color1 container rounded-5 p-3">
+                                <div class="gradientForm container rounded-5 shadow-lg p-4">
+                            <a th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.id}"></a>
+                            <!--        This will be used to display the username and link to profile-->
+                            <p><a th:href="'../profile/' + ${listing.userEntity.displayName}" th:text="${listing.userEntity.displayName}"></a></p>
+                            <p th:text="${listing.brand.name}"></p>
+                            <p th:text="${listing.style.name}"></p>
+                            <p th:text="${listing.size}"></p>
+                            <p th:text="${listing.userEntity.location.zipCode}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

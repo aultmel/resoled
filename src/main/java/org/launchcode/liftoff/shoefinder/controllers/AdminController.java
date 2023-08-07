@@ -34,7 +34,7 @@ public class AdminController {
     @GetMapping("")
     public String showAdmin (Model model) {
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
         ArrayList<Report> allReports = new ArrayList<>();
@@ -51,7 +51,7 @@ public class AdminController {
     public String reloadAdmin (@RequestParam(name ="reportedUserID", required = false) Long reportedUserID, @RequestParam(name="ignoreReport", required = false) Long ignoreReport, Model model) {
 
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
         ArrayList<Report> allReports = new ArrayList<>();

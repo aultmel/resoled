@@ -97,17 +97,6 @@ background: var( --color4);
          color: var( --lightText);
      }
 }
-/*
-.button2 {
-background-color: var( --button2Accent);
- color: var( --lightText);
-&:hover {
-        background-color: var( --button2Hover);
-        color: var( --lightText);
-    }
-}
-*/
-
 
 /* Navbar text color */
 .navbar-text-color a{
@@ -249,3 +238,79 @@ th{
     text-align: left;
     border: 1px solid;
 }
+
+/* for home page carousel */
+.carousel {
+width:30vw;
+height:30vh;
+position:relative;
+}
+.carousel > ul {
+margin: 0;
+padding: 0;
+list-style: none;
+}
+.slide {
+position:absolute;
+inset: 0;
+opacity:0;
+ transition: 200ms opacity ease-in-out;
+  transition-delay: 200ms;
+}
+.slide > img{
+display:block;
+width: 30%;
+height: 30%;
+object-fit: cover;
+object-position: center;
+}
+.slide[data-active]{
+opacity:1;
+  z-index: 1;
+  transition-delay: 0ms;
+}
+.carousel-button {
+position:absolute;
+z-index:2;
+background:none;
+border:none;
+size: 2rem;
+top: 50%;
+transform: translateY(-50%);
+color: rgba(255,255,255,.5);
+cursor: pointer;
+border-radius: .25rem;
+padding: 0 .5rem;
+background-color: rgba(0,0,0,.1);
+}
+.carousel-button:hover,
+.carousel-button:focus{
+color:white;
+background-color:rgba(0,0,0,.2);
+}
+.carousel-button prev {
+left: 1rem;
+}
+.carousel-button next{
+right: 1rem;
+}
+
+
+/* for file upload button */
+input[type="file"] {
+  position: absolute;
+  display: none;
+}
+
+
+/* for listings styling */
+.listings-container {
+    gap: 20px;
+}
+.listing-item {
+    width: calc(33.33%);
+    padding: 10px;
+    box-sizing: border-box;
+    margin: auto;
+}
+

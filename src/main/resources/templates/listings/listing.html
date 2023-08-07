@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="~{fragments :: head}"></head>
+<header th:replace="fragments :: header"></header>
 <body>
-<table>
+<div class="gradientBg p-3 pt-4">
+    <div class="color2 container listingPage rounded-top-5 p-2 shadow-lg">
+        <div class="color1 container rounded-5 p-3">
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
+                <div class="text-center">
 
-    <td><a th:href="'../profile/' + ${listing.userEntity.displayName}" th:text="${listing.userEntity.displayName}"></a></td>
 
-    <tr>
-        <th>ID</th>
-        <td th:text="${shoeListing.id}"></td>
-    </tr>
-    <tr>
-        <th>Brand</th>
-        <td th:text="${shoeListing.brand.name}"></td>
-    </tr>
-    <tr>
-        <th>Size</th>
-        <td th:text="${shoeListing.size}"></td>
-    </tr>
-    <tr>
-        <th>Style</th>
-        <td th:text="${shoeListing.style.name}"></td>
-    </tr>
-    <tr>
-        <th>Condition</th>
-        <td th:text="${shoeListing.condition}"></td>
-    </tr>
-</table>
+                    <a th:href="'../profile/' + ${shoeListing.userEntity.displayName}" th:text="${shoeListing.userEntity.displayName}"></a>
+
+
+                    <label>ID</label>
+                    <p th:text="${shoeListing.id}"></p>
+
+                    <label>Brand</label>
+                    <p th:text="${shoeListing.brand.name}"></p>
+
+
+                    <label>Size</label>
+                    <p th:text="${shoeListing.size}"></p>
+
+
+                    <label>Style</label>
+                    <p th:text="${shoeListing.style.name}"></p>
+
+
+                    <label>Condition</label>
+                    <p th:text="${shoeListing.condition}"></p>
+
+                    <label>Zip Code</label>
+<!--                    <p th:text="${shoeListing.userEntity.location.zipCode}"></p>-->
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

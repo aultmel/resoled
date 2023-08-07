@@ -58,8 +58,8 @@ public class AuthController {
         }
 
         // checks if username is taken and if it is taken sends an error to the view
-        if(userRepository.existsByUsername(registerDTO.getUsername())){
-            bindingResult.rejectValue("username", "username.unavailable", "Username is unavailable");;
+        if(userRepository.existsByUsernameIgnoreCase(registerDTO.getUsername())){
+            bindingResult.rejectValue("username", "username.unavailable", "Username is unavailable");
             return "register";
         }
         // checks if displayName has blank space
@@ -69,7 +69,7 @@ public class AuthController {
         }
 
         // checks if displayName is taken and if it is taken sends an error to the view
-        if(userRepository.existsByDisplayName(registerDTO.getDisplayName())){
+        if(userRepository.existsByDisplayNameIgnoreCase(registerDTO.getDisplayName())){
             bindingResult.rejectValue("displayName", "displayName.unavailable", "Display name is unavailable");;
             return "register";
         }
@@ -82,6 +82,13 @@ public class AuthController {
             bindingResult.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             return "register";
         }
+
+        // checks if zipcode fits standards
+        if (!userService.isNumeric(registerDTO.getZipCode())){
+            bindingResult.rejectValue("zipCode", "zipCode.invalid", "Zip Code must be numbers 0 to 9");
+            return "register";
+        }
+
 
 //        //todo uncomment this once we are ready to have age restriction live.
 //

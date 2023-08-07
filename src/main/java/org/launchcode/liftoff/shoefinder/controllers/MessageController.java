@@ -61,7 +61,7 @@ public class MessageController {
 
 
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
         List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
@@ -108,7 +108,7 @@ public class MessageController {
         model.addAttribute("createMessageDTO", createMessageDTO);
 
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
         // api url for suggestions for the username
@@ -146,10 +146,10 @@ public class MessageController {
         }
 
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
 
 //         checks if receiver username exists and if it does not, sends an error to the view
-        if (!userRepository.existsByDisplayName(createMessageDTO.getReceiverDisplayName())) {
+        if (!userRepository.existsByDisplayNameIgnoreCase(createMessageDTO.getReceiverDisplayName())) {
             errors.rejectValue("receiverDisplayName", "displayName.notValid", "That user does not exist.");
             return "message/create";
         }
@@ -162,7 +162,7 @@ public class MessageController {
             return "message/create";
         }
 
-        createMessageDTO.setReceiverUserEntity(userRepository.findByDisplayName(createMessageDTO.getReceiverDisplayName()));
+        createMessageDTO.setReceiverUserEntity(userRepository.findByDisplayNameIgnoreCase(createMessageDTO.getReceiverDisplayName()));
         createMessageDTO.setSenderUserEntity(userEntity);
 
         //using createMessageDTO to create the MessageChain and first Message of the MessageChain
@@ -196,7 +196,7 @@ public class MessageController {
         }
 
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
 
         List<MessageChain> userMessageChains = userEntity.getMessageChains();
 
@@ -240,7 +240,7 @@ public class MessageController {
                                      Errors errors, BindingResult result, Model model) {
 
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
 
         Optional<MessageChain> requestMessageChain = messageChainRepository.findById(addMessageDTO.getMessageChainId());
 

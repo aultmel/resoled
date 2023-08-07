@@ -27,7 +27,7 @@ public class HomeController {
 
         // sample of how to bring in user from the spring security.
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
 
@@ -41,7 +41,7 @@ public class HomeController {
 
         // sample of how to bring in user from the spring security.
         String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
         return "home";

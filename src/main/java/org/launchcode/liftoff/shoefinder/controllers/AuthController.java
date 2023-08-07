@@ -58,7 +58,7 @@ public class AuthController {
         }
 
         // checks if username is taken and if it is taken sends an error to the view
-        if(userRepository.existsByUsername(registerDTO.getUsername())){
+        if(userRepository.existsByUsernameIgnoreCase(registerDTO.getUsername())){
             bindingResult.rejectValue("username", "username.unavailable", "Username is unavailable");
             return "register";
         }
@@ -69,7 +69,7 @@ public class AuthController {
         }
 
         // checks if displayName is taken and if it is taken sends an error to the view
-        if(userRepository.existsByDisplayName(registerDTO.getDisplayName())){
+        if(userRepository.existsByDisplayNameIgnoreCase(registerDTO.getDisplayName())){
             bindingResult.rejectValue("displayName", "displayName.unavailable", "Display name is unavailable");;
             return "register";
         }

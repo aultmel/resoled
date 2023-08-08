@@ -22,7 +22,7 @@
                     <div class="login-form">
 
                         <form method="post" role="form" th:action="@{/login}">
-                            <div class="form-group form-floating mb-3 mx-4">
+                            <div class="form-group form-floating mb-3 mx-4 rounded-4 border border-3 border-secondary-subtle">
 
                                 <input
                                         id="username"
@@ -30,10 +30,10 @@
                                         class="form-control"
                                         placeholder="Username"
                                         name="username">
-                                <label for="username">Username</label>
+                                <label for="username" style="background-color: transparent !important;">Username</label>
                             </div>
 
-                            <div class="form-group form-floating mb-3 mx-4">
+                            <div class="form-group form-floating mb-3 mx-4 rounded-4 border border-3 border-secondary-subtle">
 
                                 <input
                                         id="password"

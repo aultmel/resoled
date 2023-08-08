@@ -25,6 +25,9 @@
         --formGradient: linear-gradient(hsla(0, 100%, 100%, 1), hsla(194, 90%, 98%, 1));
         --loginGradient: radial-gradient(hsla(0, 100%, 100%, .7) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(194, 85%, 62%, 0) 100%);
 
+        --bgImage1: url('../images/home/two-shoe--bg-light.jpg');
+
+
         --h: hsla(276, 91%, 38%, 1);
 
         --button1Accent: hsla(276, 91%, 38%, 1);
@@ -59,13 +62,17 @@
         /* GREY */
         --grey: hsla(0, 0%, 79%, 1);
 
-        --fontColor: hsla(80, 100%, 95%, 1);
+        --fontColor: hsla(100, 100%, 100%, 1);
 
         --bgGradient: linear-gradient(to bottom, hsla(258, 86%, 10%, 1) 0%, hsla(258, 86%, 10%, 1) 25%, hsla(258, 86%, 10%, 1) 40%,  hsla(258, 86%, 34%, 1) 90%);
         --formGradient: linear-gradient(hsla(258, 86%, 10%, 1), hsla(258, 86%, 5%, 1));
         --loginGradient: radial-gradient(hsla(0, 100%, 100%, .7) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(194, 85%, 62%, 0) 100%);
 
-        --h: hsla(80, 100%, 95%, 1);
+        --bgImage1: url('../images/home/two-shoe--bg-dark.jpg');
+
+        --h: hsla(100, 100%, 100%, 1);
+
+        --inputBoxBg: hsla(258, 86%, 20%, 1);
 
         --button1Accent: hsla(258, 86%, 34%, 1);
         --button1Hover: hsla(258, 86%, 24%, 1);
@@ -125,6 +132,7 @@ a:active {
   color: var( --linkActive);
 }
 
+/* below are custom classes */
 
 .color1 {
 background: var( --color1);
@@ -149,6 +157,7 @@ background: var( --color4);
      }
 }
 
+
 /* Navbar text color */
 .navbar-text-color a{
     color: #f5efff;
@@ -167,7 +176,7 @@ background: var( --color4);
 
 /* login Background */
 .login {
-    background-image: var(--loginGradient), url('../images/home/home-image-1.jpg');
+    background-image: var(--loginGradient),  var( --bgImage1);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -184,12 +193,12 @@ background: var( --color4);
 
 /* Gradient for Login and Registration Form */
 .gradientForm {
-    background-image: var(--formGradient);
+    background-image: var( --formGradient);
 }
 
 /* Home Page */
 .home {
-    background-image: url('../images/home/home-image-1.jpg');
+    background-image: var( --bgImage1);
     background-size: cover;
 }
 
@@ -370,31 +379,3 @@ input[type="file"] {
     margin: auto;
 }
 
-
-/* for dark mode button */
-/*
-.darkMode {
-width:50px;
-height:20px;
-position:relative;
-display: block;
-background: #ebebeb;
-border-radius: 20px;
-box-shadow: inset 0px 5px 15px rgba(0,0,0,0.4), inset 0px -5px 15px rgba(255,255,255,0.4);
-cursor: pointer;
-
-}
-
-.darkMode:after {
-
-content: "";
-width:18px;
-height:18px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: linear-gradient(180deg, #ffcc89, #d8860b);
-    border-radius: 18px;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
-}
-*/

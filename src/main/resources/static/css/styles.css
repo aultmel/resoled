@@ -19,7 +19,7 @@
         /* GREY */
         --grey: hsla(0, 0%, 79%, 1);
 
-        --fontColor: hsla(0, 0%, 79%, 1);
+        --fontColor: hsla(0, 0%, 50%, 1);
 
         --bgGradient: linear-gradient(to bottom, hsla(276, 91%, 89%, 1) 0%, hsla(0, 100%, 100%, 1) 25%, hsla(0, 100%, 100%, 1) 40%,  hsla(194, 85%, 62%, 1) 90%);
         --formGradient: linear-gradient(hsla(0, 100%, 100%, 1), hsla(194, 90%, 98%, 1));
@@ -35,7 +35,7 @@
         --button2Accent: hsla(258, 86%, 34%, 1);
         --button2Hover: hsla(258, 86%, 24%, 1);
 
-        --lightText: hsla(51, 100%, 95%, 1);
+        --lightText: hsla(100, 100%, 95%, 1);
         --darkText: hsla(201, 100%, 20%, 1);
 
         --link: hsla(258, 86%, 34%, 1);
@@ -50,6 +50,7 @@
         --shadowGrey: hsla(0, 0%, 79%, 1);
 
         -customDropdownHover: hsla(194, 85%, 62%, 1);
+        --customDropdownBackground: hsla(0, 0%, 95%, 1);
 
         --paginationHoverFocus: hsla(0, 0%, 79%, 1);
 
@@ -162,7 +163,7 @@ a:active {
 }
 
 label {
-    color: var( --fontColor) !important;
+    color: var( --fontColor);
 }
 
 
@@ -411,6 +412,9 @@ input[type="file"] {
   display: none;
 }
 
+.file-upload-custom-button {
+    color: var( --lightText) !Important;
+}
 
 /* for listings styling */
 .listings-container {

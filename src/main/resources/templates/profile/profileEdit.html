@@ -8,7 +8,16 @@
 
 
 <form th:object="${userEntity}" th:action="@{../profile/profileEdit}" method="post">
-    <p>
+
+    <div class="form-group file border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+        <div class="preview">
+            <img id="file-ip-1-preview">
+        </div>
+        <input type="file" th:field="*{userImage}" accept="image/*" id="image-input"
+               onchange="showImagePreview(event);">
+        <label class="btn button1 btn-lg shadow ms-2 m-2" for="image-input">Upload Image</label>
+    </div>
+
         <label>Edit Display Name:
             <input type="text" th:field="*{displayName}" />
         </label>
@@ -25,7 +34,6 @@
             <input type="text" th:field="*{email}" />
         </label>
         <br/>
-    </p>
     <button type="submit">Save</button>
     <a th:href="@{'../profile'}">Back to profile</a>
 </form>

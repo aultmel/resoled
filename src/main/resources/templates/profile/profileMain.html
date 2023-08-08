@@ -13,8 +13,6 @@
     <p th:text="'First Name: ' + ${userEntity.firstName}"></p>
     <p th:text="'Last Name: ' + ${userEntity.lastName}"></p>
 
-    <p th:text="'Roles: ' + ${userEntity.roles[0].getName}"></p>
-
     <a th:href="@{'profile/profileEdit'}">Edit</a>
     <a th:href="@{'home'}">Home</a>
     </br>
@@ -22,6 +20,20 @@
 
     <p th:if="${userEntity.roles[0].getName() == 'ADMIN'}"> <a th:href="@{'admin'}">Admin Menu</a></p>
 
+    <H3>Listings</H3>
+    <div class="listing-container">
+        <div  th:each="listing : ${userListings}" class="listing-item">
+            <div class="color1 container rounded-5 p-3">
+                <div class="gradientForm container rounded-5 shadow-lg p-4">
+                    <a th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.id}"></a>
+                    <p th:text="${listing.brand.name}"></p>
+                    <p th:text="${listing.style.name}"></p>
+                    <p th:text="${listing.size}"></p>
+                    <p th:text="${listing.userEntity.location.zipCode}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </div>

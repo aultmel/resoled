@@ -42,6 +42,7 @@ public class UserController {
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
 
+        model.addAttribute("userListings", userEntity.getShoeListings());
 
         return "profile/profileMain";
     }
@@ -97,6 +98,8 @@ public class UserController {
         CreateMessageDTO createMessageDTO = new CreateMessageDTO();
         model.addAttribute("createMessageDTO", createMessageDTO);
 
+        model.addAttribute("userListings", otherUser.getShoeListings());
+
         return "profile/userData";
     }
 
@@ -108,20 +111,6 @@ public class UserController {
 
         UserEntity otherUser = userRepository.findByDisplayNameIgnoreCase(displayName);
         model.addAttribute("otherUser", otherUser);
-
-//        ArrayList<ShoeListing> otherUserListings = new ArrayList<>();
-//        otherUserListings.add(shoeListingRepository.findAllByID(otherUser.getId()));
-//        model.addAttribute("otherUserListings", otherUserListings);
-
-        ArrayList<ShoeListing> userListings = new ArrayList<>();
-
-//        userListings.add(shoeListingRepository.findByDisplayName(displayName));
-
-        if (userListings.isEmpty()) {
-            model.addAttribute("title", "No Current Listings");
-        } else {
-            model.addAttribute("userListings", userListings);
-        }
 
         Report report = new Report(otherUser, reportDTO.getComplaintDetail(), userEntity);
 

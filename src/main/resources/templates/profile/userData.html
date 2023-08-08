@@ -11,10 +11,10 @@
             <div class="gradientForm container rounded-5 shadow-lg p-4">
                 <a th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.id}"></a>
                 <!--        This will be used to display the username and link to profile-->
-                <p th:text="${userListings.brand.name}"></p>
-                <p th:text="${userListings.style.name}"></p>
-                <p th:text="${userListings.size}"></p>
-                <p th:text="${userListings.userEntity.location.zipCode}"></p>
+                <p th:text="${listing.brand.name}"></p>
+                <p th:text="${listing.style.name}"></p>
+                <p th:text="${listing.size}"></p>
+                <p th:text="${listing.userEntity.location.zipCode}"></p>
             </div>
         </div>
     </div>

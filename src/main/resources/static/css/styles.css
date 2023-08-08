@@ -239,7 +239,6 @@ th{
     border: 1px solid;
 }
 
-
 /* for home page carousel */
 .carousel {
 width:30vw;
@@ -297,13 +296,21 @@ right: 1rem;
 }
 
 
-/* for file upload */
-
+/* for file upload button */
 input[type="file"] {
   position: absolute;
-  z-index: -1;
-  top: 10px;
-  left: 8px;
-  font-size: 17px;
-  color: #b8b8b8;
+  display: none;
 }
+
+
+/* for listings styling */
+.listings-container {
+    gap: 20px;
+}
+.listing-item {
+    width: calc(33.33%);
+    padding: 10px;
+    box-sizing: border-box;
+    margin: auto;
+}
+

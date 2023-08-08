@@ -157,7 +157,6 @@ public class UserEntity {
         this.displayName = displayName;
     }
 
-
     public Location getLocation() { return location; }
 
     public void setLocation(Location location) { this.location = location; }
@@ -165,4 +164,5 @@ public class UserEntity {
     public List<ShoeListing> getShoeListings() { return shoeListings; }
 
     public void setShoeListings(List<ShoeListing> shoeListings) { this.shoeListings = shoeListings; }
+
 }

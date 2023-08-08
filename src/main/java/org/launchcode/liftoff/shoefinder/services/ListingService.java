@@ -177,9 +177,4 @@ public class ListingService {
         filteredListings.removeAll(itemsToRemove);
         return filteredListings;
     }
-
-
-
-
-
 }

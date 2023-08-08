@@ -56,7 +56,6 @@
         --paginationText: hsla(258, 86%, 65%, 1);
         --paginationActive: hsla(258, 86%, 34%, 1);
 
-
         }
 
         :root.dark {
@@ -76,8 +75,6 @@
 
         /* GREY */
         --grey: hsla(0, 0%, 79%, 1);
-
-
 
         --fontColor: hsla(100, 100%, 95%, 1);
 
@@ -112,7 +109,7 @@
         --customDropdownBackground: hsla(0, 0%, 15%, 1);
 
         --paginationHoverFocus: hsla(0, 0%, 79%, 1);
-        --paginationText: hsla(258, 86%, 80%, 1);
+        --paginationText: hsla(0, 0%, 95%, 1);
         --paginationActive: hsla(258, 86%, 34%, 1);
 
         }
@@ -307,6 +304,9 @@ padding: 10px 10px;
     font-weight: bold;
     background-color: var( --paginationActive) !Important;
     border: solid 1px var( --paginationActive) !Important;
+}
+.page-link {
+    color: var(--paginationText) !Important;
 }
 
 /** Image Radio Buttons for create listing shoe condition **/

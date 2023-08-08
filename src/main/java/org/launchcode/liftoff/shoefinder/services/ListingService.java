@@ -92,15 +92,43 @@ public class ListingService {
     // Method to filter shoe listings based on search criteria.
 
     public List<ShoeListing> filterListings(SearchListingsDTO searchListingsDTO) {
-        List<ShoeListing> filteredListings = new ArrayList<>();
+        List<ShoeListing> filteredListings = shoeListingRepository.findAll();
+        List<ShoeListing> genderList = new ArrayList<>();
+        List<ShoeListing> brandList = new ArrayList<>();
+        List<ShoeListing> sizeList = new ArrayList<>();
+        List<ShoeListing> styleList = new ArrayList<>();
+        List<ShoeListing> conditionList = new ArrayList<>();
         // Find shoe listings for the given gender and add them to the filtered list.
 
         for (String gender : searchListingsDTO.getGenders()) {
-            List<ShoeListing> genderList  = shoeListingRepository.findByGender(gender);
-            for (ShoeListing shoeListing : genderList) {
-                filteredListings.add(shoeListing);
+            genderList.addAll(shoeListingRepository.findByGender(gender));
+        }
+        for (String brand : searchListingsDTO.getBrands()) {
+
+            brandList.addAll(shoeListingRepository.findByBrand(brandRepository.findByName(brand)));
+        }
+        for (String size : searchListingsDTO.getSizes()) {
+            sizeList.addAll(shoeListingRepository.findBySize(size));
+        }
+        for (String style : searchListingsDTO.getStyles()) {
+            styleList.addAll(shoeListingRepository.findByStyle(styleRepository.findByName(style)));
+        }
+        for (String condition : searchListingsDTO.getConditions()) {
+            conditionList.addAll(shoeListingRepository.findByCondition(condition));
+        }
+
+        List<ShoeListing> itemsToRemove = new ArrayList<>();
+
+        for (ShoeListing listing : filteredListings) {
+            if (!genderList.contains(listing) ||
+                    !brandList.contains(listing) ||
+                    !sizeList.contains(listing) ||
+                    !styleList.contains(listing) ||
+                    !conditionList.contains(listing)) {
+                itemsToRemove.add(listing);
             }
         }
+        filteredListings.removeAll(itemsToRemove);
 
         return filteredListings;
     }

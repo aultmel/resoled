@@ -20,7 +20,6 @@
                     <input type="text"
                            class="form-control"
                            id="firstName"
-                           placeholder="First Name"
                             th:field="*{firstName}">
                     <label for="firstName">First Name</label>
                     <p class="error" th:errors="*{firstName}">
@@ -31,7 +30,6 @@
                             type="text"
                             class="form-control"
                             id="lastName"
-                            placeholder="Last Name"
                             th:field="*{lastName}">
                     <label for="lastName">Last Name</label>
                     <p class="error" th:errors="*{lastName}"></p>
@@ -41,7 +39,6 @@
                                 type="text"
                                 class="form-control"
                                 id="displayName"
-                                placeholder="Display Name"
                                 th:field="*{displayName}"/>
                     <label for="displayName">Display Name</label>
                     <p class="error" th:errors="*{displayName}"></p>
@@ -53,7 +50,6 @@
                             type="text"
                             class="form-control"
                             id="email"
-                            placeholder="Email"
                             th:field="*{email}"/>
                     <label for="email">Email</label>
                     <p class="error" th:errors="*{email}"></p>
@@ -65,7 +61,6 @@
                             inputmode="numeric"
                             class="form-control"
                             id="zipCode"
-                            placeholder="Zip Code"
                             th:field="*{zipCode}">
                     <label  for="zipCode">Zip Code</label>
                     <p class="error" th:errors="*{zipCode}"></p>
@@ -76,7 +71,6 @@
                     <input
                             type="date"
                             class="form-control"
-                            placeholder="Date of Birth"
                             th:field="*{birthday}">
                     </label>
                     <p class="error" th:errors="*{birthday}"></p>
@@ -87,7 +81,6 @@
                             type="text"
                             class="form-control"
                             id="username"
-                            placeholder="Username"
                             th:field="*{username}">
                     <label for="username">Username</label>
                     <p class="error" th:errors="*{username}"></p>
@@ -98,7 +91,6 @@
                             type="password"
                             class="form-control"
                             id="password"
-                            placeholder="Password"
                             th:field="*{password}">
                     <label for="password">Password</label>
                     <p class="error" th:errors="*{password}"></p>
@@ -110,7 +102,6 @@
                             type="password"
                             class="form-control"
                             id="passwordCheck"
-                            placeholder="Confirm Password"
                             th:field="*{passwordCheck}">
                     <label for="passwordCheck">Confirm Password</label>
                     <p th:text="${passwordCheckFail}" class="text-danger"></p>

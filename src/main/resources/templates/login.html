@@ -3,7 +3,7 @@
 <head th:replace="~{fragments :: head}"></head>
 
 
-<body class="m-3 text-dark login">
+<body class="m-3 text-dark login" >
 <div class="container loginForm px-5">
     <div class="color2 container rounded-5 p-2 shadow-lg mt-5">
         <div class="color1 container rounded-5 p-3">
@@ -22,24 +22,23 @@
                     <div class="login-form">
 
                         <form method="post" role="form" th:action="@{/login}">
-                            <div class="form-group form-floating mb-3 mx-4">
+                            <div class="form-group mb-3 mx-4 form-floating">
+                                    <input
+                                            id="username"
+                                            type="text"
+                                            class="form-control border border-3 rounded-4 border-secondary-subtle"
 
-                                <input
-                                        id="username"
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Username"
-                                        name="username">
-                                <label for="username">Username</label>
+                                    name="username"/>
+                                    <label for="username">Username</label>
                             </div>
 
-                            <div class="form-group form-floating mb-3 mx-4">
 
+                            <div class="form-group form-floating mb-3 mx-4">
                                 <input
                                         id="password"
                                         type="password"
-                                        class="form-control"
-                                        placeholder="Password"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+
                                         name="password">
                                 <label for="password">Password</label>
                             </div>

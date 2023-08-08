@@ -6,7 +6,15 @@
 <!--<link rel="stylesheet" th:href="@{/path/to/carousel.css}" />-->
 <!--<script th:src="@{/js/carousel.js}" defer="defer"></script>-->
 
-<body class="home">
+<body class="home" data-bs-theme="dark">
+
+<button data-bs-theme-value="dark">Dark Mode</button>
+<button data-bs-theme-value="light">Light Mode</button>
+
+
+
+
+
 
 TEST HOME
 <br/>
@@ -48,7 +56,6 @@ TEST HOME
 
     <div th:replace="carousel :: carousel-content"></div>
 </div>
-
 
 
 

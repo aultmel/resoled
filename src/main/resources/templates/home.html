@@ -8,6 +8,16 @@
 
 <body class="home">
 
+<div class="toggle-container">
+    <button class="theme-btn light" onclick="setTheme('light')" title="Light mode">
+       LIGHTMODE
+    </button>
+    <button class="theme-btn dark" onclick="setTheme('dark')" title="Dark mode">
+        DARKMODE
+    </button>
+</div>
+
+
 TEST HOME
 <br/>
 <th:block th:if="${param.success}" class="alert alert-success">

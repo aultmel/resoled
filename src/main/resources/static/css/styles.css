@@ -158,6 +158,11 @@ width: 700px;
 width: 720px;
 }
 
+/* Create Listing Page */
+.createListing {
+width: 700px;
+}
+
 /* For fetchSuggestions.js and associated suggestions code in templates */
 .results ul{
 padding: 10px 10px;

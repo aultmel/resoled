@@ -28,9 +28,9 @@
                     <br/>
 
                     <div class="form-group  mb-2 ">
-                        <div class="dropdown form-floating border border-3 rounded-4 border-secondary-subtle shadow-sm p-2"
+                        <div class="dropdown form-floating  shadow-sm"
                              style="z-index: 5">
-                            <input class="form-control border border-0"
+                            <input class="form-control border border-3 rounded-4 border-secondary-subtle"
                                    id="brand-search-box"
                                    autocomplete="off"
                                    th:field="*{brand}" required/>
@@ -68,9 +68,9 @@
                     </div>
 
                     <div class="form-group mb-2 ">
-                        <div class="dropdown form-floating border border-3 rounded-4 border-secondary-subtle shadow-sm p-2"
-                             style="z-index: 5">
-                            <input class="form-control border border-0"
+                        <div class="dropdown form-floating shadow-sm"
+                             style="z-index: 4">
+                            <input class="form-control border border-3 rounded-4 border-secondary-subtle"
                                    id="style-search-box"
                                    autocomplete="off"
                                    th:field="*{style}" required/>
@@ -91,7 +91,7 @@
                             <input type="radio" th:id="imageRadio_1" th:name="imageRadio" th:value="NEW"
                                    th:field="*{condition}"
                                    class="hidden-radio">
-                            <label th:for="imageRadio_1" style="color: var( --color2);">
+                            <label th:for="imageRadio_1" style="color: var( --imageRadioText);">
                                 New
                                 <br/>
                                 <img th:src="@{/images/new-shoe.png}" alt="New Shoes" width="100"
@@ -104,7 +104,7 @@
                             <input type="radio" th:id="imageRadio_2" th:name="imageRadio"
                                    th:value="GREAT"
                                    th:field="*{condition}" class="hidden-radio">
-                            <label th:for="imageRadio_2" style="color: var( --color2);">Great
+                            <label th:for="imageRadio_2" style="color: var( --imageRadioText);">Great
                                 <br/>
                                 <img th:src="@{/images/great-shoe.png}" alt="Great Condition"
                                      width="100" height="100">
@@ -115,7 +115,7 @@
                             <input type="radio" th:id="imageRadio_3" th:name="imageRadio"
                                    th:value="GOOD"
                                    th:field="*{condition}" class="hidden-radio">
-                            <label th:for="imageRadio_3" style="color: var( --color2);">Good
+                            <label th:for="imageRadio_3" style="color: var( --imageRadioText);">Good
                                 <br/>
                                 <img th:src="@{/images/good-shoe.png}" alt="Good Condition" width="100"
                                      height="100">
@@ -125,7 +125,7 @@
                             <input type="radio" th:id="imageRadio_4" th:name="imageRadio"
                                    th:value="POOR"
                                    th:field="*{condition}" class="hidden-radio">
-                            <label th:for="imageRadio_4" style="color: var( --color2);">Poor
+                            <label th:for="imageRadio_4" style="color: var( --imageRadioText);">Poor
                                 <br/>
                                 <img th:src="@{/images/poor-shoe.png}" alt="Poor Condition" width="100"
                                      height="100">

@@ -42,6 +42,21 @@
         --linkVisited: hsla(258, 86%, 34%, 1);
         --linkHover: hsla(333, 93%, 56%, 1);
         --linkActive: hsla(333, 93%, 56%, 1);
+
+        --imageRadioText: hsla(276, 91%, 38%, 1);
+
+        --shadowSelectColor: hsla(333, 93%, 56%, 1);
+        --shadowSelectBorderColor:  hsla(276, 91%, 38%, 1);
+        --shadowGrey: hsla(0, 0%, 79%, 1);
+
+        -customDropdownHover: hsla(194, 85%, 62%, 1);
+
+        --paginationHoverFocus: hsla(0, 0%, 79%, 1);
+
+        --paginationText: hsla(258, 86%, 65%, 1);
+        --paginationActive: hsla(258, 86%, 34%, 1);
+
+
         }
 
         :root.dark {
@@ -54,15 +69,17 @@
         --color2: hsla(258, 86%, 20%, 1);
 
        /* PURPLE */
-       --color3: hsla(276, 91%, 38%, 1);
+       --color3: hsla(258, 86%, 55%, 1);
 
-        /* LIGHT GREEN */
-        --color4: hsla(80, 100%, 70%, 1);
+        /* LIGHT PURPLE */
+        --color4: hsla(258, 86%, 70%, 1);
 
         /* GREY */
         --grey: hsla(0, 0%, 79%, 1);
 
-        --fontColor: hsla(100, 100%, 100%, 1);
+
+
+        --fontColor: hsla(100, 100%, 95%, 1);
 
         --bgGradient: linear-gradient(to bottom, hsla(258, 86%, 10%, 1) 0%, hsla(258, 86%, 10%, 1) 25%, hsla(258, 86%, 10%, 1) 40%,  hsla(258, 86%, 34%, 1) 90%);
         --formGradient: linear-gradient(hsla(258, 86%, 10%, 1), hsla(258, 86%, 5%, 1));
@@ -70,9 +87,7 @@
 
         --bgImage1: url('../images/home/two-shoe--bg-dark.jpg');
 
-        --h: hsla(100, 100%, 100%, 1);
-
-        --inputBoxBg: hsla(258, 86%, 20%, 1);
+        --h: hsla(100, 100%, 95%, 1);
 
         --button1Accent: hsla(258, 86%, 34%, 1);
         --button1Hover: hsla(258, 86%, 24%, 1);
@@ -82,10 +97,23 @@
         --lightText: hsla(51, 100%, 95%, 1);
         --darkText: hsla(201, 100%, 20%, 1);
 
-        --link: hsla(276, 91%, 38%, 1);
-        --linkVisited: hsla(276, 91%, 38%, 1);
-        --linkHover: hsla(80, 100%, 70%, 1);
-        --linkActive: hsla(80, 100%, 70%, 1);
+        --link: hsla(258, 86%, 55%, 1);
+        --linkVisited: hsla(258, 86%, 55%, 1);
+        --linkHover: hsla(258, 86%, 60%, 1);
+        --linkActive: hsla(258, 86%, 60%, 1);
+
+        --imageRadioText: hsla(0, 0%, 79%, 1);
+
+        --shadowSelectColor: hsla(258, 86%, 55%, 1);
+        --shadowSelectBorderColor:  hsla(258, 86%, 55%, 1);
+        --shadowGrey: hsla(0, 0%, 20%, 1);
+
+        --customDropdownHover: hsla(258, 86%, 20%, 1);
+        --customDropdownBackground: hsla(0, 0%, 15%, 1);
+
+        --paginationHoverFocus: hsla(0, 0%, 79%, 1);
+        --paginationText: hsla(258, 86%, 80%, 1);
+        --paginationActive: hsla(258, 86%, 34%, 1);
 
         }
 
@@ -93,6 +121,10 @@
 
 body {
     font-size: large;
+    color: var( --fontColor);
+}
+
+p {
     color: var( --fontColor);
 }
 
@@ -131,6 +163,12 @@ a:hover {
 a:active {
   color: var( --linkActive);
 }
+
+label {
+    color: var( --fontColor) !important;
+}
+
+
 
 /* below are custom classes */
 
@@ -236,33 +274,39 @@ padding: 10px 10px;
 }
 .results {
     position:absolute;
-    background-color:#f9f9f9;
+    background-color: var( --customDropdownBackground);
     max-height: 280px;
 }
 .results ul li:hover {
-    background:#e9f3ff;
+    background: var( --customDropdownHover);
 }
 
 
 /* Pagination menu */
+
+.pagination {
+    color: var( --paginationText); !Important;
+
+}
+
 .pagination > li > a:focus,
 .pagination > li > a:hover,
 .pagination > li > span:focus,
 .pagination > li > span:hover {
-    color: var( --color3);
-    background-color: white !Important;
-    border: solid 1px var( --color3) !Important;
+    color: var( --paginationText); !Important;
+    background-color: var( --paginationHoverFocus) !Important
+    border: solid 1px var( --paginationActive) !Important;
 }
 .pagination > .active > a {
-    color: white;
-    background-color: var( --color3) !Important;
-    border: solid 1px var( --color3) !Important;
+    color: var( --paginationText) !Important;
+    background-color: var( --paginationActive) !Important;
+    border: solid 1px var( --paginationActive) !Important;
 }
 .pagination > .active > a:hover {
-    color: white;
+    color: var( --paginationText) !Important;
     font-weight: bold;
-    background-color: var( --color3) !Important;
-    border: solid 1px var( --color3) !Important;
+    background-color: var( --paginationActive) !Important;
+    border: solid 1px var( --paginationActive) !Important;
 }
 
 /** Image Radio Buttons for create listing shoe condition **/
@@ -270,15 +314,15 @@ padding: 10px 10px;
     display:none
 }
 input[type=radio]:checked + label>img {
-  border: 3px solid var( --color2);
-  box-shadow: 0 .5rem 1rem var( --color1);
+  border: 3px solid var( --shadowSelectBorderColor);
+  box-shadow: 0 .5rem 1rem var( --shadowSelectColor);
   background-color:white;
 }
 input[type=radio] + label>img {
   background-color: white;
-  border: 3px solid var( --grey);
+  border: 3px solid var( --shadowGrey);
   border-radius: 25px;
-  box-shadow: 0 .5rem 1rem var( --grey);
+  box-shadow: 0 .5rem 1rem var( --shadowGrey);
   width: 100px;
   height: 100px;
   transition: 500ms all;

@@ -72,6 +72,8 @@ public class UserService {
         userEntity.setFirstName(registerDTO.getFirstName());
         userEntity.setLastName(registerDTO.getLastName());
         userEntity.setBirthday(registerDTO.getBirthday());
+        userEntity.setEmail(registerDTO.getEmail());
+
 
         // Sets User to Role USER
         Role role = roleRepository.findByName("USER");

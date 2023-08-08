@@ -1,9 +1,7 @@
 package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-
-
+//import lombok.Builder;
 
 //DEPRECATED DUE TO STORING IMAGES LOCALLY INSTEAD OF IN A DB
 /*

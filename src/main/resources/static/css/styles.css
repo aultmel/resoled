@@ -59,13 +59,13 @@
         /* GREY */
         --grey: hsla(0, 0%, 79%, 1);
 
-        --fontColor: hsla(80, 100%, 70%, 1);
+        --fontColor: hsla(80, 100%, 95%, 1);
 
         --bgGradient: linear-gradient(to bottom, hsla(258, 86%, 10%, 1) 0%, hsla(258, 86%, 10%, 1) 25%, hsla(258, 86%, 10%, 1) 40%,  hsla(258, 86%, 34%, 1) 90%);
         --formGradient: linear-gradient(hsla(258, 86%, 10%, 1), hsla(258, 86%, 5%, 1));
         --loginGradient: radial-gradient(hsla(0, 100%, 100%, .7) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(194, 85%, 62%, 0) 100%);
 
-        --h: hsla(80, 100%, 70%, 1);
+        --h: hsla(80, 100%, 95%, 1);
 
         --button1Accent: hsla(258, 86%, 34%, 1);
         --button1Hover: hsla(258, 86%, 24%, 1);

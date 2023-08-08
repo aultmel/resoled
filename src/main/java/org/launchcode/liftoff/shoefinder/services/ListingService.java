@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -93,43 +94,87 @@ public class ListingService {
 
     public List<ShoeListing> filterListings(SearchListingsDTO searchListingsDTO) {
         List<ShoeListing> filteredListings = shoeListingRepository.findAll();
-        List<ShoeListing> genderList = new ArrayList<>();
-        List<ShoeListing> brandList = new ArrayList<>();
-        List<ShoeListing> sizeList = new ArrayList<>();
-        List<ShoeListing> styleList = new ArrayList<>();
-        List<ShoeListing> conditionList = new ArrayList<>();
-        // Find shoe listings for the given gender and add them to the filtered list.
-
-        for (String gender : searchListingsDTO.getGenders()) {
-            genderList.addAll(shoeListingRepository.findByGender(gender));
-        }
-        for (String brand : searchListingsDTO.getBrands()) {
-
-            brandList.addAll(shoeListingRepository.findByBrand(brandRepository.findByName(brand)));
-        }
-        for (String size : searchListingsDTO.getSizes()) {
-            sizeList.addAll(shoeListingRepository.findBySize(size));
-        }
-        for (String style : searchListingsDTO.getStyles()) {
-            styleList.addAll(shoeListingRepository.findByStyle(styleRepository.findByName(style)));
-        }
-        for (String condition : searchListingsDTO.getConditions()) {
-            conditionList.addAll(shoeListingRepository.findByCondition(condition));
-        }
-
+        List<List<ShoeListing>> activeFilters = new ArrayList<>();
         List<ShoeListing> itemsToRemove = new ArrayList<>();
 
+        // if user included gender filters
+        if (!searchListingsDTO.getGenders().isEmpty()) {
+            List<ShoeListing> genderList = new ArrayList<>();
+            //for each gender user selected
+            for (String gender : searchListingsDTO.getGenders()) {
+                //find all listings with that gender and add to genderList
+                genderList.addAll(shoeListingRepository.findByGender(gender));
+            }
+            // if no matching listings
+            if (genderList.isEmpty()) {
+                return Collections.emptyList();
+            }
+            activeFilters.add(genderList);
+        }
+
+        if (!searchListingsDTO.getBrands().isEmpty()) {
+            List<ShoeListing> brandList = new ArrayList<>();
+            for (String brand : searchListingsDTO.getBrands()) {
+                brandList.addAll(shoeListingRepository.findByBrand(brandRepository.findByName(brand)));
+            }
+            if (brandList.isEmpty()) {
+                return Collections.emptyList();
+            }
+            activeFilters.add(brandList);
+        }
+
+        if (!searchListingsDTO.getSizes().isEmpty()) {
+            List<ShoeListing> sizeList = new ArrayList<>();
+            for (String size : searchListingsDTO.getSizes()) {
+                sizeList.addAll(shoeListingRepository.findBySize(size));
+            }
+            if (sizeList.isEmpty()) {
+                return Collections.emptyList();
+            }
+            activeFilters.add(sizeList);
+        }
+
+        if (!searchListingsDTO.getStyles().isEmpty()) {
+            List<ShoeListing> styleList = new ArrayList<>();
+            for (String style : searchListingsDTO.getStyles()) {
+                styleList.addAll(shoeListingRepository.findByStyle(styleRepository.findByName(style)));
+            }
+            if (styleList.isEmpty()) {
+                return Collections.emptyList();
+            }
+            activeFilters.add(styleList);
+        }
+
+        if (!searchListingsDTO.getConditions().isEmpty()) {
+            List<ShoeListing> conditionList = new ArrayList<>();
+            for (String condition : searchListingsDTO.getConditions()) {
+                conditionList.addAll(shoeListingRepository.findByCondition(condition));
+            }
+            if (conditionList.isEmpty()) {
+                return Collections.emptyList();
+            }
+            activeFilters.add(conditionList);
+        }
+        //for every listing in the database
         for (ShoeListing listing : filteredListings) {
-            if (!genderList.contains(listing) ||
-                    !brandList.contains(listing) ||
-                    !sizeList.contains(listing) ||
-                    !styleList.contains(listing) ||
-                    !conditionList.contains(listing)) {
+            boolean shouldRemove = false;
+            //for every filterList (brandList, genderList, etc)
+            for (List<ShoeListing> filterList : activeFilters) {
+                //if the doesn't have that listing
+                if (!filterList.contains(listing)) {
+                    // set removal boolean to true
+                    shouldRemove = true;
+                    break;
+                }
+            }
+            //if the listing should be removed
+            if (shouldRemove) {
+                //add it to remove list
                 itemsToRemove.add(listing);
             }
         }
+        //remove all non-matching listings
         filteredListings.removeAll(itemsToRemove);
-
         return filteredListings;
     }
 

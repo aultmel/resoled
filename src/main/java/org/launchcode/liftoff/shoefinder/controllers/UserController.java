@@ -1,11 +1,8 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
-import org.apache.catalina.User;
 import org.launchcode.liftoff.shoefinder.data.ReportRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.Report;
-import org.launchcode.liftoff.shoefinder.models.UserEntity;
-import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.EditProfileDTO;
@@ -14,13 +11,10 @@ import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/profile")
@@ -37,7 +31,6 @@ public class UserController {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
-
 
         return "profile/profileMain";
     }

@@ -39,6 +39,10 @@ public class SearchController {
         SearchListingsDTO searchListingsDTO = new SearchListingsDTO();
         model.addAttribute("searchListingsDTO", searchListingsDTO);
 
+        //Api urls for suggestions
+        model.addAttribute("brandSuggestionsUrl", "http://localhost:8080/api/brandSuggestion");
+        model.addAttribute("styleSuggestionsUrl", "http://localhost:8080/api/styleSuggestion");
+
         //Grab 5 most recurring brands from database
         List<Object[]> topBrandsData = brandRepository.findPopularBrands();
         List<String> topBrands = new ArrayList<>();

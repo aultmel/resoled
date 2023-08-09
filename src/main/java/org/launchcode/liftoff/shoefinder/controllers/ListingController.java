@@ -1,21 +1,18 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
 
-import org.launchcode.liftoff.shoefinder.data.ImageRepository;
+import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
-import org.launchcode.liftoff.shoefinder.models.ImageLocal;
 import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
-
 import org.launchcode.liftoff.shoefinder.services.ListingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.GENDER_LIST;
@@ -79,9 +76,34 @@ public class ListingController {
     // Handler method to create a new shoe listing.
 
     @PostMapping("create")
-    public String createListing(@ModelAttribute("createListingDTO") CreateListingDTO createListingDTO, RedirectAttributes redirectAttributes
-        ,@RequestParam("imageFiles") MultipartFile[] files, Model model
-    ) {
+    public String createListing(@Valid @ModelAttribute("createListingDTO") CreateListingDTO createListingDTO, BindingResult bindingResult, Model model,
+                                RedirectAttributes redirectAttributes,
+                                @RequestParam("imageFiles") MultipartFile[] files) {
+
+        model.addAttribute("genderList", GENDER_LIST);
+        model.addAttribute("sizeList", SIZE_LIST);
+        model.addAttribute("createListingDTO", createListingDTO);
+
+        //Api urls for suggestions
+        model.addAttribute("brandSuggestionsUrl", "http://localhost:8080/api/brandSuggestion");
+        model.addAttribute("styleSuggestionsUrl", "http://localhost:8080/api/styleSuggestion");
+
+        if(bindingResult.hasErrors()){
+            return "/listings/create";
+        }
+
+        if (createListingDTO.getSize().equals("")){
+            bindingResult.rejectValue("size", "size.invalid", "Size is required");;
+            return "/listings/create";
+        }
+        if (createListingDTO.getGender().equals("")){
+            bindingResult.rejectValue("gender", "gender.invalid", "Size is required");;
+            return "/listings/create";
+        }
+
+
+
+
         redirectAttributes.addFlashAttribute("message", "Shoe Listing Created");
         listingService.saveListing(createListingDTO, files);
 

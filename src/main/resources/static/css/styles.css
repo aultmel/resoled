@@ -25,7 +25,7 @@
         --formGradient: linear-gradient(hsla(0, 100%, 100%, 1), hsla(194, 90%, 98%, 1));
         --loginGradient: radial-gradient(hsla(0, 100%, 100%, .7) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(194, 85%, 62%, 0) 100%);
 
-        --bgImage1: url('../images/home/two-shoe--bg-light.jpg');
+        --bgImage1: url('../images/home/two-shoe-bg-light.jpg');
 
 
         --h: hsla(276, 91%, 38%, 1);
@@ -59,6 +59,12 @@
         --paginationText: hsla(258, 86%, 65%, 1);
         --paginationActive: hsla(258, 86%, 34%, 1);
 
+        /* might not need these were for a carousel test */
+        --cImage1: url('../images/new-shoe.png');
+        --cImage2: url('../images/great-shoe.png');
+        --cImage3: url('../images/good-shoe.png');
+        --cImage4 : url('../images/poor-shoe.png');
+
         }
 
         :root.dark {
@@ -83,9 +89,9 @@
 
         --bgGradient: linear-gradient(to bottom, hsla(258, 86%, 10%, 1) 0%, hsla(258, 86%, 10%, 1) 25%, hsla(258, 86%, 10%, 1) 40%,  hsla(258, 86%, 34%, 1) 90%);
         --formGradient: linear-gradient(hsla(258, 86%, 10%, 1), hsla(258, 86%, 5%, 1));
-        --loginGradient: radial-gradient(hsla(0, 100%, 100%, .7) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(194, 85%, 62%, 0) 100%);
+        --loginGradient: radial-gradient(hsla(0, 0%, 0%, .2) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(0, 85%, 62%, 0) 100%);
 
-        --bgImage1: url('../images/home/two-shoe--bg-dark.jpg');
+        --bgImage1: url('../images/home/two-shoe-bg-dark.jpg');
 
         --h: hsla(100, 100%, 95%, 1);
 
@@ -116,6 +122,13 @@
         --paginationHoverFocus: hsla(0, 0%, 79%, 1);
         --paginationText: hsla(0, 0%, 95%, 1);
         --paginationActive: hsla(258, 86%, 34%, 1);
+
+
+  /* might not need these were for a carousel test */
+        --cImage1: url('../images/new-shoe.png');
+        --cImage2: url('../images/great-shoe.png');
+        --cImage3: url('../images/good-shoe.png');
+        --cImage4 : url('../images/poor-shoe.png');
 
         }
 
@@ -259,6 +272,11 @@ width: 720px;
 
 /* Create Listing Page */
 .createListing {
+width: 700px;
+}
+
+/* Search Listing Page */
+.searchPage {
 width: 700px;
 }
 

@@ -8,13 +8,6 @@ import org.launchcode.liftoff.shoefinder.models.dto.SearchListingsDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.imageio.ImageReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -73,7 +66,8 @@ public class ListingService {
         shoeListing.setSize(createListingDTO.getSize());
         shoeListing.setGender(createListingDTO.getGender());
         shoeListing.setCondition(createListingDTO.getCondition());
-        // creates a message saying the user has created a class
+        shoeListing.setTitle(createListingDTO.getTitle());
+
         shoeListingRepository.save(shoeListing);
         // Save associated images to the specified directory and store their information in the ImageRepository.
             String directoryPath = "src\\main\\resources\\static\\images\\listing-images";
@@ -144,11 +138,11 @@ public class ListingService {
             activeFilters.add(styleList);
         }
 
-        if (!searchListingsDTO.getConditions().isEmpty()) {
+        if (searchListingsDTO.getCondition() != null) {
             List<ShoeListing> conditionList = new ArrayList<>();
-            for (String condition : searchListingsDTO.getConditions()) {
-                conditionList.addAll(shoeListingRepository.findByCondition(condition));
-            }
+
+            conditionList.addAll(shoeListingRepository.findByCondition(searchListingsDTO.getCondition()));
+
             if (conditionList.isEmpty()) {
                 return Collections.emptyList();
             }
@@ -172,6 +166,11 @@ public class ListingService {
                 itemsToRemove.add(listing);
             }
         }
+
+//        if (!searchListingsDTO.getZipCode().isEmpty()) {
+//
+//        }
+
         //remove all non-matching listings
         filteredListings.removeAll(itemsToRemove);
         return filteredListings;

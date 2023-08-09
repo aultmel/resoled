@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
-<header th:replace="fragments :: header"></header>
+<header th:replace="~{fragments :: header}"></header>
 <body>
 
 <div class="gradientBg p-3 pt-4">
@@ -10,30 +10,34 @@
             <div class="gradientForm container rounded-5 shadow-lg p-4">
                 <div class="text-center">
 
+                    <h2 th:text="${shoeListing.title}"></h2>
 
-                    <a th:href="'../profile/' + ${shoeListing.userEntity.displayName}" th:text="${shoeListing.userEntity.displayName}"></a>
+                    <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+                        <h4>Brand:</h4>
+                        <p th:text="${shoeListing.brand.name}"></p>
+                    </div>
 
+                    <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+                        <h4>Size:</h4>
+                        <p th:text="${shoeListing.size}"></p>
+                    </div>
 
-                    <label>ID</label>
-                    <p th:text="${shoeListing.id}"></p>
+                    <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+                        <h4>Style:</h4>
+                        <p th:text="${shoeListing.style.name}"></p>
+                    </div>
 
-                    <label>Brand</label>
-                    <p th:text="${shoeListing.brand.name}"></p>
+                    <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+                        <h4>Condition:</h4>
+                        <p th:text="${shoeListing.condition}"></p>
+                    </div>
 
+                    <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+                        <h4>Zip Code:</h4>
+                        <p th:text="${shoeListing.userEntity.location.zipCode}"></p>
+                    </div>
 
-                    <label>Size</label>
-                    <p th:text="${shoeListing.size}"></p>
-
-
-                    <label>Style</label>
-                    <p th:text="${shoeListing.style.name}"></p>
-
-
-                    <label>Condition</label>
-                    <p th:text="${shoeListing.condition}"></p>
-
-                    <label>Zip Code</label>
-<!--                    <p th:text="${shoeListing.userEntity.location.zipCode}"></p>-->
+                    <a style="color: white;" class="btn button1 btn-lg shadow ms-2" th:href="'../profile/' + ${shoeListing.userEntity.displayName}" th:text="'Message User: ' + ${shoeListing.userEntity.displayName}"></a>
 
 
                 </div>

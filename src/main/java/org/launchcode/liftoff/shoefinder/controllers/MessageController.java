@@ -113,21 +113,11 @@ public class MessageController {
 
         // api url for suggestions for the username
         model.addAttribute("displayNameSuggestionsUrl", "http://localhost:8080/api/userDisplayNameSuggestion");
-
         // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
         // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
-        // number of items on page is set by the size parameter of the PageRequest.of()
+        // number of items on page is set by the maxDisplayed parameter
         List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
-
-
-        List<MessageChain> messageChainList = new ArrayList<>();
-        if(userEntityMessageChains.size() > MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE) {
-            for (int i = 0; i < MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE; i++) {
-                messageChainList.add(userEntityMessageChains.get(i));
-            }
-        } else {
-           messageChainList = userEntityMessageChains;
-        }
+        List<MessageChain> messageChainList = messageService.shortenMessageChainList(userEntityMessageChains, MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE);
 
         model.addAttribute("messageChainList", messageChainList);
 
@@ -139,14 +129,24 @@ public class MessageController {
     public String createMessagePostMapping(@Valid @ModelAttribute("createMessageDTO") CreateMessageDTO createMessageDTO, Errors errors, BindingResult result,
                                            @RequestParam(required = false) String receiver,  Model model) {
 
-        model.addAttribute("createMessageDTO", createMessageDTO);
-
         if(receiver != null) {
             createMessageDTO.setReceiverDisplayName(receiver);
         }
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+
+        model.addAttribute("createMessageDTO", createMessageDTO);
+        model.addAttribute("userEntity", userEntity);
+        // api url for suggestions for the username
+        model.addAttribute("displayNameSuggestionsUrl", "http://localhost:8080/api/userDisplayNameSuggestion");
+        // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
+        // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
+        // number of items on page is set by the maxDisplayed parameter
+        List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
+        List<MessageChain> messageChainList = messageService.shortenMessageChainList(userEntityMessageChains, MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE);
+        model.addAttribute("messageChainList", messageChainList);
+
 
 //         checks if receiver username exists and if it does not, sends an error to the view
         if (!userRepository.existsByDisplayNameIgnoreCase(createMessageDTO.getReceiverDisplayName())) {

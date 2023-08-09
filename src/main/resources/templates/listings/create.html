@@ -16,6 +16,14 @@
                 <form th:action="@{/listings/create}" th:object="${createListingDTO}" method="post"
                       enctype="multipart/form-data">
 
+                    <div class="form-group mb-2 ">
+                        <div class="dropdown form-floating shadow-sm">
+                            <input th:field="*{title}" id="title"
+                                   class="form-control border border-3 rounded-4 border-secondary-subtle">
+                            <label for="title">Title:</label>
+                            <p class="error" th:errors="*{title}"></p>
+                        </div>
+                    </div>
 
                     <div class="form-group file border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
                         <div class="preview">
@@ -33,11 +41,12 @@
                             <input class="form-control border border-3 rounded-4 border-secondary-subtle"
                                    id="brand-search-box"
                                    autocomplete="off"
-                                   th:field="*{brand}" required/>
+                                   th:field="*{brand}"/>
                             <div class="brand-results results">
                             </div>
                             <label for="brand-search-box">Brand:</label>
                         </div>
+                        <p class="error" th:errors="*{brand}"></p>
                     </div>
                     <input type="hidden" id="brandSuggestionsUrl"
                            th:value="${brandSuggestionsUrl}"/>
@@ -47,11 +56,11 @@
                         <div class="form-group col">
                             <label for="size">Size:</label>
                             <select name="size" id="size" th:field="*{size}"
-                                    class="form-control border border-3 rounded-4 border-secondary-subtle shadow-sm">
-                                <th:block th:each="size : ${sizeList}" class="p-1">">
-                                    <option th:value="${size}" th:text="${size}"></option>
-                                </th:block>
+                                    class="form-control border border-3 rounded-4 border-secondary-subtle shadow-sm"
+                                    style="z-index: 4">
+                                <option th:each="aSize : ${sizeList}" th:value="${aSize}" th:text="${aSize}"></option>
                             </select>
+                            <p class="error" th:errors="*{size}"></p>
                         </div>
                         <br/>
 
@@ -59,24 +68,27 @@
                         <div class="form-group col">
                             <label for="gender">(W/M):</label>
                             <select name="gender" id="gender" th:field="*{gender}"
-                                    class="form-control border border-3 rounded-4 border-secondary-subtle shadow-sm">
-                                <th:block th:each="gender : ${genderList}">">
-                                    <option th:value="${gender}" th:text="${gender}"></option>
-                                </th:block>
+                                    class="form-control border border-3 rounded-4 border-secondary-subtle shadow-sm"
+                                    style="z-index: 4">
+                                <option th:each="aGender : ${genderList}" th:value="${aGender}"
+                                        th:text="${aGender}"></option>
                             </select>
+                            <p class="error" th:errors="*{gender}"></p>
+
                         </div>
                     </div>
 
                     <div class="form-group mb-2 ">
                         <div class="dropdown form-floating shadow-sm"
-                             style="z-index: 4">
+                             style="z-index: 3">
                             <input class="form-control border border-3 rounded-4 border-secondary-subtle"
                                    id="style-search-box"
                                    autocomplete="off"
-                                   th:field="*{style}" required/>
+                                   th:field="*{style}"/>
                             <div class="style-results results">
                             </div>
                             <label for="style-search-box">Style:</label>
+                            <p class="error" th:errors="*{style}"></p>
                         </div>
 
                     </div>
@@ -131,6 +143,7 @@
                                      height="100">
                             </label>
                         </div>
+                        <p class="error" th:errors="*{condition}"></p>
                     </div>
                     <br/>
                     <div class="form-group d-grid mb-4 mt-2 mx-auto w-75">
@@ -155,7 +168,6 @@
             preview.style.border = "2px solid hsla(0, 0%, 79%, 1)";
         }
     }
-
 
 </script>
 

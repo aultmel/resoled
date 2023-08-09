@@ -16,44 +16,122 @@
             <input type="text" name="searchTerm"></br>
         </div>
 
-        <input type="checkbox" id="male" name="gender" th:value="M" th:field="*{genders}">
-        <label for="male">M</label>
-        <input type="checkbox" id="female" name="gender" th:value="W" th:field="*{genders}">
-        <label for="female">F</label></br>
+<!--        <label>Zip Code:</label>-->
+<!--        <input type="number" size="10" th:field=*{zipCode} name="zipCode"></br>-->
 
-        <label>Brand:</label></br>
-
-        <th:block th:if="${topBrands.size() == 0 or topBrands == null}">
-            <p>No brands found. Please add brands to enable filtering.</p>
-        </th:block>
-        <th:block th:each="brand : ${topBrands}" th:if="${topBrands.size() > 0}" >
-            <input type="checkbox" name="brands" th:value="${brand}" th:field="*{brands}">
-            <label>
-                <span th:text="${brand}"></span>
-            </label></br>
-        </th:block>
-
-        <label>Size:</label></br>
-        <div id="normalSizes">
-            <th:block th:each="size : ${normalSizes}">
-                <input type="checkbox" name="sizes" th:value="${size}" th:field="*{sizes}">
-                <label>
-                    <span th:text="${size}"></span>
-                </label>
-            </th:block></br>
+<!--        <label>Miles from Zip:</label>-->
+<!--        <label>5</label>-->
+<!--        <input type="checkbox" name="distance" th:value="5" th:field="*{sizes}">-->
+<!--        <label>10</label>-->
+<!--        <input type="checkbox" name="distance" th:value="5" th:field="*{sizes}">-->
+<!--        <label></label>-->
+<!--        <input type="number" maxlength="3" size="3" name="distance" th:value="${size}" th:field="*{sizes}"></br>-->
+        <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+            <input type="checkbox" id="male" name="gender" th:value="M" th:field="*{genders}">
+            <label for="male">M</label>
+            <input type="checkbox" id="female" name="gender" th:value="W" th:field="*{genders}">
+            <label for="female">F</label></br>
         </div>
 
-        <div id="allSizes" style="display: none;">
-            <th:block th:each="size : ${allSizes}">
-                <input type="checkbox" name="sizes" th:value="${size}" th:field="*{sizes}">
-                <label>
-                    <span th:text="${size}"></span>
-                </label>
-            </th:block></br>
-        </div>
-        <button class="button1 btn btn-sm" type="button" id="sizesButton" onclick="toggleSizes()">View more sizes</button></br>
+        <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
 
-        <script>
+            <label>Brand:</label></br>
+
+            <th:block th:if="${topBrands.size() == 0 or topBrands == null}">
+                <p>No brands found. Please add brands to enable filtering.</p>
+            </th:block>
+            <input type="text" name="brands" th:value="${brand}" th:field="*{brands}">
+            </th:block>
+        </div>
+
+        <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+                <label>Size:</label></br>
+                <div id="normalSizes">
+                    <th:block th:each="size : ${normalSizes}">
+                        <input type="checkbox" name="sizes" th:value="${size}" th:field="*{sizes}">
+                            <label>
+                                <span th:text="${size}"></span>
+                            </label>
+                    </th:block>
+                </div>
+
+                <div id="allSizes" style="display: none;">
+                    <th:block th:each="size : ${allSizes}">
+                        <input type="checkbox" name="sizes" th:value="${size}" th:field="*{sizes}">
+                            <label>
+                                <span th:text="${size}"></span>
+                            </label>
+                    </th:block>
+                 </div>
+                <button class="button1 btn btn-sm" type="button" id="sizesButton" onclick="toggleSizes()">View more sizes</button></br>
+            </div>
+
+        <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+            <label>Style:</label></br>
+            <th:block th:if="${topStyles.size() == 0 or topStyles == null}">
+                <p>No styles found. Please add styles to enable filtering.</p>
+            </th:block>
+            <input type="text" name="styles" th:value="${style}" th:field="*{styles}">
+        </div>
+
+        <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+            <label>Condition:</label>
+            <div class="form-group row fw-semibold" style="width: 500px">
+            <div class="col container text-center">
+                <input type="radio" th:id="imageRadio_1" th:name="imageRadio" th:value="NEW"
+                       th:field="*{condition}"
+                       class="hidden-radio">
+                <label th:for="imageRadio_1" style="color: var( --color2);">
+                    New
+                    <br/>
+                    <img th:src="@{/images/new-shoe.png}" alt="New Shoes" width="100"
+                         height="100" class="">
+                </label>
+            </div>
+
+            <div class="col container text-center">
+
+                <input type="radio" th:id="imageRadio_2" th:name="imageRadio"
+                       th:value="GREAT"
+                       th:field="*{condition}" class="hidden-radio">
+                <label th:for="imageRadio_2" style="color: var( --color2);">Great
+                    <br/>
+                    <img th:src="@{/images/great-shoe.png}" alt="Great Condition"
+                         width="100" height="100">
+                </label>
+            </div>
+
+            <div class="col container text-center">
+                <input type="radio" th:id="imageRadio_3" th:name="imageRadio"
+                       th:value="GOOD"
+                       th:field="*{condition}" class="hidden-radio">
+                <label th:for="imageRadio_3" style="color: var( --color2);">Good
+                    <br/>
+                    <img th:src="@{/images/good-shoe.png}" alt="Good Condition" width="100"
+                         height="100">
+                </label>
+            </div>
+            <div class="col container text-center">
+                <input type="radio" th:id="imageRadio_4" th:name="imageRadio"
+                       th:value="POOR"
+                       th:field="*{condition}" class="hidden-radio">
+                <label th:for="imageRadio_4" style="color: var( --color2);">Poor
+                    <br/>
+                    <img th:src="@{/images/poor-shoe.png}" alt="Poor Condition" width="100"
+                         height="100">
+                </label>
+                </div>
+            </div>
+        </div>
+        <button class="button1 btn btn-lg" type="submit">Search Listings</button>
+    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
             function toggleSizes() {
                 let normalSizes = document.getElementById("normalSizes");
                 let allSizes = document.getElementById("allSizes");
@@ -70,36 +148,6 @@
                 }
             }
         </script>
-        <label>Style:</label></br>
-        <th:block th:if="${topStyles.size() == 0 or topStyles == null}">
-            <p>No styles found. Please add styles to enable filtering.</p>
-        </th:block>
-        <th:block th:each="style : ${topStyles}" th:if="${topStyles.size() > 0}">
-            <input type="checkbox" name="styles" th:value="${style}" th:field="*{styles}">
-            <label>
-                <span th:text="${style}"></span>
-            </label></br>
-        </th:block>
-
-        <label>Condition:</label></br>
-
-        <th:block th:each="condition : ${conditions}">
-            <input type="checkbox" name="conditions" th:value="${condition}" th:field="*{conditions}">
-            <label>
-                <span th:text="${condition}"></span>
-            </label></br>
-        </th:block>
-        </br>
-        <button class="button1 btn btn-lg" type="submit">Search Listings</button>
-    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<th:block th:fragment="endingScripts">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-</th:block>
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

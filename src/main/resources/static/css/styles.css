@@ -275,6 +275,11 @@ width: 720px;
 width: 700px;
 }
 
+/* Search Listing Page */
+.searchPage {
+width: 700px;
+}
+
 /* For fetchSuggestions.js and associated suggestions code in templates */
 .results ul{
 padding: 10px 10px;

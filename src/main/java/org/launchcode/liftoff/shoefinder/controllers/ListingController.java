@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.Optional;
 
 import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.GENDER_LIST;
@@ -75,7 +77,7 @@ public class ListingController {
 
     @PostMapping("create")
     public String createListing(@Valid @ModelAttribute("createListingDTO") CreateListingDTO createListingDTO, BindingResult bindingResult, Model model,
-//                                RedirectAttributes redirectAttributes,
+                                RedirectAttributes redirectAttributes,
                                 @RequestParam("imageFiles") MultipartFile[] files) {
 
         model.addAttribute("genderList", GENDER_LIST);
@@ -102,7 +104,7 @@ public class ListingController {
 
 
 
-//        redirectAttributes.addFlashAttribute("message", "Shoe Listing Created");
+        redirectAttributes.addFlashAttribute("message", "Shoe Listing Created");
         listingService.saveListing(createListingDTO, files);
 
 

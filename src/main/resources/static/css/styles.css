@@ -43,6 +43,8 @@
         --linkHover: hsla(333, 93%, 56%, 1);
         --linkActive: hsla(333, 93%, 56%, 1);
 
+        --navBarHover: hsla(333, 93%, 56%, 1);
+
         --imageRadioText: hsla(276, 91%, 38%, 1);
 
         --shadowSelectColor: hsla(333, 93%, 56%, 1);
@@ -99,6 +101,8 @@
         --linkVisited: hsla(258, 86%, 55%, 1);
         --linkHover: hsla(258, 86%, 60%, 1);
         --linkActive: hsla(258, 86%, 60%, 1);
+
+        --navBarHover: hsla(258, 86%, 65%, 1);
 
         --imageRadioText: hsla(0, 0%, 79%, 1);
 
@@ -196,7 +200,7 @@ background: var( --color4);
 
 /* Navbar text color */
 .navbar-text-color a{
-    color: #f5efff;
+  color: var(--lightText);
 }
 
 .nav-bar-custom a {
@@ -204,7 +208,7 @@ background: var( --color4);
 }
 
 .nav-bar-custom a:hover {
-  color: var( --color1);
+  color: var( --navBarHover);
 }
 /* Fills dropdown bubble with the rest of the color, white lines present otherwise */
 .navbar-nav > li > .dropdown-menu { background-color: var(--color2); }
@@ -281,12 +285,9 @@ padding: 10px 10px;
 
 
 /* Pagination menu */
-
 .pagination {
     color: var( --paginationText); !Important;
-
 }
-
 .pagination > li > a:focus,
 .pagination > li > a:hover,
 .pagination > li > span:focus,
@@ -427,3 +428,11 @@ input[type="file"] {
     margin: auto;
 }
 
+/* report user link */
+.report-user-link {
+    color: var( --link);
+}
+.report-user-link:hover {
+    color: var( --linkHover);
+    cursor: pointer;
+}

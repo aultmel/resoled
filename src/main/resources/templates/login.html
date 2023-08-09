@@ -12,13 +12,14 @@
                 <div class=" container rounded-5">
                     <h2 class="text-center fst-italic">ReSoled Login</h2>
                     <br/>
-
-                    <th:block th:if="${param.error}" class="alert alert-success">
-                        invalid username and password
+                    <div class="container">
+                    <th:block th:if="${param.error}">
+                        <h4 class="text-center mb-3">invalid login credentials.</h4>
                     </th:block>
-                    <th:block th:if="${param.logout}" class="alert alert-success">
-                        You have been logged out.
+                    <th:block th:if="${param.logout}">
+                        <h4 class="text-center mb-3">You have been logged out.</h4>
                     </th:block>
+                    </div>
                     <div class="login-form">
 
                         <form method="post" role="form" th:action="@{/login}">

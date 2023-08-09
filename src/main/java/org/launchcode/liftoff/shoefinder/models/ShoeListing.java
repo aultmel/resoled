@@ -20,10 +20,8 @@ public class ShoeListing {
     @ManyToOne
     private Brand brand;
 
-
     @ManyToOne
     private Style style;
-
 
     @Column(name= "`condition`")
     private String condition;

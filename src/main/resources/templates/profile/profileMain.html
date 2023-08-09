@@ -2,28 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments :: head}"></head>
 <header th:replace="~{fragments :: header}"></header>
-<body class="m-2 gradientBg">
+<body>
+<div class="gradientBg p-3 pt-4">
+    <div class="color2 container rounded-5  p-2 shadow-lg">
+        <div class="color1 container rounded-5 p-3">
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
+                <h1>User Profile</h1>
 
-<h1>User Profile</h1>
+                <div th:object="${userEntity}">
+                    <p th:text="'DisplayName: ' + ${userEntity.displayName}"></p>
+                    <p th:text="'Username: ' + ${userEntity.username}"></p>
+                    <p th:text="'Email: ' + ${userEntity.email}"></p>
+                    <p th:text="'First Name: ' + ${userEntity.firstName}"></p>
+                    <p th:text="'Last Name: ' + ${userEntity.lastName}"></p>
 
-<div th:object="${userEntity}">
-    <p th:text="'DisplayName: ' + ${userEntity.displayName}"></p>
-    <p th:text="'Username: ' + ${userEntity.username}"></p>
-    <p th:text="'Email: ' + ${userEntity.email}"></p>
-    <p th:text="'First Name: ' + ${userEntity.firstName}"></p>
-    <p th:text="'Last Name: ' + ${userEntity.lastName}"></p>
+                    <p th:text="'Roles: ' + ${userEntity.roles[0].getName}"></p>
 
-    <p th:text="'Roles: ' + ${userEntity.roles[0].getName}"></p>
+                    <a th:href="@{'profile/profileEdit'}">Edit</a>
+                    <a th:href="@{'home'}">Home</a>
+                    </br>
+                    </br>
 
-    <a th:href="@{'profile/profileEdit'}">Edit</a>
-    <a th:href="@{'home'}">Home</a>
-    </br>
-    </br>
-
-    <p th:if="${userEntity.roles[0].getName() == 'ADMIN'}"> <a th:href="@{'admin'}">Admin Menu</a></p>
+                    <p th:if="${userEntity.roles[0].getName() == 'ADMIN'}"><a th:href="@{'admin'}">Admin Menu</a></p>
 
 
-
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

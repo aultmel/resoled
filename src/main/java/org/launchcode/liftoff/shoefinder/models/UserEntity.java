@@ -30,6 +30,8 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
 
+//    @OneToOne
+//    private ProfileImage profileImage;
     private String username;
     private String displayName;
     private String password;
@@ -68,6 +70,14 @@ public class UserEntity {
     public long getId() {
         return id;
     }
+
+//    public ProfileImage getProfileImage() {
+//        return profileImage;
+//    }
+//
+//    public void setProfileImage(ProfileImage profileImage) {
+//        this.profileImage = profileImage;
+//    }
 
     public String getUsername() {
         return username;

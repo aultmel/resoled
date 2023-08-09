@@ -1,21 +1,17 @@
 package org.launchcode.liftoff.shoefinder.services;
 
 
+import jakarta.transaction.Transactional;
 import org.launchcode.liftoff.shoefinder.constants.MessageConstants;
-import org.launchcode.liftoff.shoefinder.data.LocationRepository;
-import org.launchcode.liftoff.shoefinder.data.ReportRepository;
-import org.launchcode.liftoff.shoefinder.data.RoleRepository;
-import org.launchcode.liftoff.shoefinder.data.UserRepository;
-import org.launchcode.liftoff.shoefinder.models.Location;
-import org.launchcode.liftoff.shoefinder.models.Report;
-import org.launchcode.liftoff.shoefinder.models.Role;
-import org.launchcode.liftoff.shoefinder.models.UserEntity;
+import org.launchcode.liftoff.shoefinder.data.*;
+import org.launchcode.liftoff.shoefinder.models.*;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -35,14 +31,17 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final LocationRepository locationRepository;
+    private final ReportRepository reportRepository;
+    private final ProfileImageRepository profileImageRepository;
 
-    private ReportRepository reportRepository;
-
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, LocationRepository locationRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, LocationRepository locationRepository, ReportRepository reportRepository, ProfileImageRepository profileImageRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.locationRepository = locationRepository;
+        this.reportRepository = reportRepository;
+        this.profileImageRepository = profileImageRepository;
+
     }
 
 
@@ -120,5 +119,27 @@ public class UserService {
     public static boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("[0-9]+");
         return pattern.matcher(str).matches();
+    }
+
+    public void saveProfileImage(MultipartFile[] files) {
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+
+        String directoryPath = "src\\main\\resources\\static\\images\\profile-images";
+
+        ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
+
+        if (profileImage != null && profileImage.getProfileImage() != null){
+                profileImage.setProfileImage(files[0]);
+                profileImageRepository.save(profileImage);
+        }else{
+            for (MultipartFile imageFile : files) {
+                profileImage.setProfileImage(imageFile);
+                profileImage.setUserEntity(userEntity);
+                profileImageRepository.save(profileImage);
+            }
+        }
+
+        profileImage.saveImageLocally(files);
     }
 }

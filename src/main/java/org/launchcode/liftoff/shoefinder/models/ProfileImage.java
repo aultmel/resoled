@@ -9,47 +9,45 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.LISTING_IMAGE_DIR_PATH;
+import static org.launchcode.liftoff.shoefinder.constants.RegistrationConstants.PROFILE_IMAGE_DIR_PATH;
 
 @Entity
-public class ImageLocal {
+public class ProfileImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Transient
-    private MultipartFile imageFile;
+    private MultipartFile profileImage;
 
-
-    @ManyToOne
-    private ShoeListing listing;
+    @OneToOne
+    private UserEntity userEntity;
 
     public Long getId() {
         return id;
     }
 
-    public MultipartFile getImageFile() {
-        return imageFile;
+    public MultipartFile getProfileImage() {
+        return profileImage;
     }
 
-    public void setImageFile(MultipartFile imageFile) {
-        this.imageFile = imageFile;
+    public void setProfileImage(MultipartFile imageFile) {
+        this.profileImage = profileImage;
     }
 
 
-    public ShoeListing getListing() {
-        return listing;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
-    public void setListing(ShoeListing listing) {
-        this.listing = listing;
-    }
+    public void setUserEntity(UserEntity userEntity) { this.userEntity = userEntity; }
 
-    public ImageLocal() {}
+    public ProfileImage() {}
 
     public void saveImageLocally(MultipartFile[] imageFiles){
 
-//        String directoryPath = LISTING_IMAGE;
+        String directoryPath = PROFILE_IMAGE_DIR_PATH;
 
         if(imageFiles!= null && imageFiles.length>0){
             try {
@@ -58,7 +56,7 @@ public class ImageLocal {
                 //create file path for image
                 Path filePath = Paths.get(directoryPath + "\\" + fileName);
                 // Save the file to the images directory within resources
-                Files.write(filePath, imageFile.getBytes());
+                Files.write(filePath, imageFiles[0].getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
                 // Handle the exception if needed

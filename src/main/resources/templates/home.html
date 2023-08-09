@@ -13,9 +13,6 @@
 
 
 
-
-
-
 TEST HOME
 <br/>
 <th:block th:if="${param.success}" class="alert alert-success">
@@ -47,16 +44,12 @@ TEST HOME
 <br/>
 <a href="/message/create">Create New Message Chain "Conversations" page</a>
 <br/>
-<a href="/image/display">Image display Page</a>
-<br/>
-<a href="/image/upload">Image upload placeholder Page</a></br>
 <a href="/search">Search Page</a>
 
 <div class="carousel-container">
 
     <div th:replace="carousel :: carousel-content"></div>
 </div>
-
 
 
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>

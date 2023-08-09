@@ -3,7 +3,9 @@ package org.launchcode.liftoff.shoefinder.controllers;
 import jakarta.validation.Valid;
 
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
+import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.RegisterDTO;
+import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,15 +27,27 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String loginGetMapping(Model model){
-        System.out.println("dummy line");
+    public String loginGetMapping(Model model) {
+
+        //  if the user is logged in redirects to profile
+        String username = SecurityUtility.getSessionUser();
+        if (username != null) {
+            return "redirect:/profile";
+        }
+
         return "login";
     }
-    //testing a postmap login
 
 
     @GetMapping("/register")
     public String registerGetMapping(Model model) {
+
+        //  if the user is logged in redirects to profile
+        String username = SecurityUtility.getSessionUser();
+        if (username != null){
+            return "redirect:/profile";
+        }
+
         RegisterDTO registerDTO = new RegisterDTO();
         model.addAttribute("registerDTO", registerDTO);
         return "register";

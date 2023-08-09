@@ -145,11 +145,11 @@ public class ListingService {
             activeFilters.add(styleList);
         }
 
-        if (!searchListingsDTO.getConditions().isEmpty()) {
+        if (searchListingsDTO.getCondition() != null) {
             List<ShoeListing> conditionList = new ArrayList<>();
-            for (String condition : searchListingsDTO.getConditions()) {
-                conditionList.addAll(shoeListingRepository.findByCondition(condition));
-            }
+
+            conditionList.addAll(shoeListingRepository.findByCondition(searchListingsDTO.getCondition()));
+
             if (conditionList.isEmpty()) {
                 return Collections.emptyList();
             }
@@ -173,6 +173,11 @@ public class ListingService {
                 itemsToRemove.add(listing);
             }
         }
+
+//        if (!searchListingsDTO.getZipCode().isEmpty()) {
+//
+//        }
+
         //remove all non-matching listings
         filteredListings.removeAll(itemsToRemove);
         return filteredListings;

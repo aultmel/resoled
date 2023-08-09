@@ -12,9 +12,13 @@ package org.launchcode.liftoff.shoefinder.models.dto;
 
         private List<String> styles;
 
-        private List<String> conditions;
+        private String condition;
 
         private List<String> genders;
+
+//        private String zipCode;
+//
+//        private String distance;
 
         public SearchListingsDTO() {
 
@@ -52,12 +56,12 @@ package org.launchcode.liftoff.shoefinder.models.dto;
             this.styles = styles;
         }
 
-        public List<String> getConditions() {
-            return conditions;
+        public String getCondition() {
+            return condition;
         }
 
-        public void setConditions(List<String> conditions) {
-            this.conditions = conditions;
+        public void setCondition(String condition) {
+            this.condition = condition;
         }
 
         public List<String> getGenders() {
@@ -68,6 +72,21 @@ package org.launchcode.liftoff.shoefinder.models.dto;
             this.genders = genders;
         }
 
+//        public String getZipCode() {
+//            return zipCode;
+//        }
+//
+//        public void setZipCode(String zipCode) {
+//            this.zipCode = zipCode;
+//        }
+//
+//        public String getDistance() {
+//            return distance;
+//        }
+//
+//        public void setDistance(String distance) {
+//            this.distance = distance;
+//        }
     }
 
 

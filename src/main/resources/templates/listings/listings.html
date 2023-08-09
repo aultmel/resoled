@@ -9,20 +9,21 @@
             <div class="gradientForm container rounded-5 shadow-lg p-4">
                 <div class="text-center">
 
-                    <p>Listings</p>
+                    <h2>Listings</h2>
 
                     <div class="listing-container">
                         <div  th:each="listing : ${allListings}" class="listing-item">
-                            <div class="color1 container rounded-5 p-3">
-                                <div class="gradientForm container rounded-5 shadow-lg p-4">
-                            <a th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.id}"></a>
+                            <div class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3">
+
+                            <a th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.title}"></a>
                             <!--        This will be used to display the username and link to profile-->
                             <p><a th:href="'../profile/' + ${listing.userEntity.displayName}" th:text="${listing.userEntity.displayName}"></a></p>
                             <p th:text="${listing.brand.name}"></p>
                             <p th:text="${listing.style.name}"></p>
                             <p th:text="${listing.size}"></p>
+                                <p th:text="${listing.condition}"></p>
                             <p th:text="${listing.userEntity.location.zipCode}"></p>
-                                </div>
+
                             </div>
                         </div>
                     </div>

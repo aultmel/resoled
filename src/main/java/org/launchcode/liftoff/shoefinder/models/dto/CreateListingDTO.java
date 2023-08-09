@@ -1,34 +1,32 @@
 package org.launchcode.liftoff.shoefinder.models.dto;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
 
 public class CreateListingDTO {
 
-    @NotEmpty
+    @NotEmpty(message = "Brand is required")
     private String brand;
-    @NotEmpty
 
+    @NotEmpty(message = "Size is required")
     private String size;
-    @NotEmpty
+
+    @NotEmpty(message = "Style is required")
     private String style;
-    @NotEmpty
+
+    @NotEmpty(message = "Condition is required")
     private String condition;
 
-    @NotEmpty
+    @NotEmpty(message = "Size is required")
     private String gender;
 
+    @NotEmpty(message = "Title is required")
+    private String title;
 
-    public CreateListingDTO() {
-
-
-    }
-
+    public CreateListingDTO() {}
 
     public String getBrand() {
         return brand;
     }
-
     public void setBrand(String brand) {
         this.brand = brand;
     }
@@ -36,7 +34,6 @@ public class CreateListingDTO {
     public String getStyle() {
         return style;
     }
-
     public void setStyle(String style) {
         this.style = style;
     }
@@ -44,7 +41,6 @@ public class CreateListingDTO {
     public String getSize() {
         return size;
     }
-
     public void setSize(String size) {
         this.size = size;
     }
@@ -52,7 +48,6 @@ public class CreateListingDTO {
     public String getCondition() {
         return condition;
     }
-
     public void setCondition(String condition) {
         this.condition = condition;
     }
@@ -60,8 +55,11 @@ public class CreateListingDTO {
     public String getGender() {
         return gender;
     }
-
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
 }

@@ -27,6 +27,7 @@ public class ShoeListing {
     private String condition;
     private String size;
     private String gender;
+    private String title;
 
     @OneToMany(mappedBy = "listing")
     private List<ImageLocal> images = new ArrayList<>();
@@ -58,11 +59,10 @@ public class ShoeListing {
     public void setCondition(String condition) {this.condition = condition;}
 
     //returns list of image byte[] data
-    public List<ImageLocal> getImages() {
-        return images;
-    }
-    public void setImages(List<ImageLocal> images) {
-        this.images = images;
-    }
+    public List<ImageLocal> getImages() { return images; }
+    public void setImages(List<ImageLocal> images) { this.images = images; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
 }

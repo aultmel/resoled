@@ -11,6 +11,7 @@ import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -78,11 +79,6 @@ public class MessageService {
 
     public List<MessageChain> sortMessageChainsByRecentMessage(UserEntity userEntity){
         List<MessageChain> userEntityMessageChains = userEntity.getMessageChains();
-//        Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
-//            Message latestMessage1 = messageChain1.getMessages().get(messageChain1.getMessages().size() - 1);
-//            Message latestMessage2 = messageChain2.getMessages().get(messageChain2.getMessages().size() - 1);
-//            return latestMessage2.getLocalDateTime().compareTo(latestMessage1.getLocalDateTime());
-//        });
         Collections.sort(userEntityMessageChains, (messageChain1, messageChain2) -> {
             return messageChain2.getLocalDateTime().compareTo(messageChain1.getLocalDateTime());
         });
@@ -97,6 +93,20 @@ public class MessageService {
             return message2.getLocalDateTime().compareTo(message1.getLocalDateTime());
         });
         return messageChainMessages;
+    }
+
+    public List<MessageChain> shortenMessageChainList(List<MessageChain> messageChains, int maxDisplayed){
+        List<MessageChain> messageChainList = new ArrayList<>();
+
+        if(messageChains.size() > maxDisplayed) {
+            for (int i = 0; i < maxDisplayed; i++) {
+                messageChainList.add(messageChains.get(i));
+            }
+        } else {
+            messageChainList = messageChains;
+        }
+
+        return messageChainList;
     }
 
 

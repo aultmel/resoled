@@ -85,7 +85,6 @@ public class ListingService {
                 imageLocal.setListing(shoeListing);
                 imageRepository.save(imageLocal);
                 imageLocal.saveImageLocally(files);
-
             }
 
     }

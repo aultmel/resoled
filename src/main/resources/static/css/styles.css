@@ -148,7 +148,6 @@ a {
  font-weight: bold;
 }
 
-
 /* unvisited link */
 a:link {
   color: var( --link);

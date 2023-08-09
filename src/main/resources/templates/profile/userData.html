@@ -8,79 +8,86 @@
         <div class="color1 container rounded-5 p-3">
             <div class="gradientForm container rounded-5 shadow-lg p-4">
 
-                <div th:object="${otherUser}">
-                    <h1 th:text="${otherUser.displayName}"></h1>
-
-                    <th:block th:if="${otherUser.">
-                    <div class="border border-3 rounded-4 border-secondary-subtle">
-
-                    </div>
-                    </th:block>
-                    <hr/>
-                    <div class="row">
-                        <div class="col">
-                            <!--form to initiate message to otherUser-->
-                            <form method="post" role="form"
-                                  th:action="@{'../message/create?receiver=' + ${otherUser.displayName}}"
-                                  th:object="${createMessageDTO}">
-
-                                <div class="form-group mb-2">
-                                    <div class="form-floating border border-3 rounded-4 border-secondary-subtle p-2">
-                                        <input th:field="*{messageSubject}" id="messageSubject"
-                                               class="form-control border border-0">
-                                        <label for="messageSubject">Subject:</label>
-                                        <p class="error" th:errors="*{messageSubject}"></p>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <p class="error" th:errors="*{text}"></p>
-                                    <label>
-                                    <textarea th:field="*{text}" name="text" rows="5" cols="50"
-                                              class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"></textarea>
-                                    </label>
-                                    <br/>
-                                </div>
-                                <div class="d-grid mb-2">
-                                    <input type="submit" value="Send Message"
-                                           class="btn button1 btn-lg w-50 shadow ms-2">
-                                </div>
-                            </form>
-
-                            <hr/>
-                            <!-- Report Button -->
-                            <span id="reportButton" class="report-user-link" onclick="updateForm()">Report User</span>
-                            </br>
-                            </br>
-
-                            <!-- Report Form -->
-                            <div>
-                                <form th:object="${reportDTO}" th:id="reportForm"
-                                      th:action="@{../profile/{displayName}(displayName=${displayName})}" method="post"
-                                      th:style="'display:none'">
-
-                                    <div class="form-group">
-                                        <label th:text="'Report User: ' + ${otherUser.displayName}"></label>
-
-                                        </br>
-                                        <p>Reason:</p>
-                                        <textarea th:field="*{complaintDetail}" rows="5" cols="50"
-                                                  class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"
-                                        ></textarea>
-                                        </br>
-                                        <button type="submit" class="btn button1 shadow">Submit Report</button>
-                                    </div>
-                                </form>
+                <H3>Listings</H3>
+                <div class="listing-container">
+                    <div th:each="listing : ${userListings}" class="listing-item">
+                        <div class="color1 container rounded-5 p-3">
+                            <div class="gradientForm container rounded-5 shadow-lg p-4">
+                                <a th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.id}"></a>
+                                <!--        This will be used to display the username and link to profile-->
+                                <p th:text="${listing.brand.name}"></p>
+                                <p th:text="${listing.style.name}"></p>
+                                <p th:text="${listing.size}"></p>
+                                <p th:text="${listing.userEntity.location.zipCode}"></p>
                             </div>
-
-                        </div>
-                        <div class="col">
-                            ADD LISTINGS OR OTHER STUFF HERE?
                         </div>
                     </div>
                 </div>
+
+
+                <!--form to initiate message to otherUser-->
+                <form method="post" role="form"
+                      th:action="@{'../message/create?re   ceiver=' + ${otherUser.displayName}}"
+                      th:object="${createMessageDTO}">
+
+
+                    <div class="form-group mb-2">
+                        <div class="form-floating border border-3 rounded-4 border-secondary-subtle p-2">
+                            <input th:field="*{messageSubject}" id="messageSubject"
+                                   class="form-control border border-0">
+                            <label for="messageSubject">Subject:</label>
+                            <p class="error" th:errors="*{messageSubject}"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p class="error" th:errors="*{text}"></p>
+                        <label>
+                                    <textarea th:field="*{text}" name="text" rows="5" cols="50"
+                                              class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"></textarea>
+                        </label>
+                        <br/>
+                    </div>
+                    <div class="d-grid mb-2">
+                        <input type="submit" value="Send Message"
+                               class="btn button1 btn-lg w-50 shadow ms-2">
+                    </div>
+                </form>
+
+                <hr/>
+                <!-- Report Button -->
+                <span id="reportButton" class="report-user-link" onclick="updateForm()">Report User</span>
+                </br>
+                </br>
+
+                <!-- Report Form -->
+                <div>
+                    <form th:object="${reportDTO}" th:id="reportForm"
+                          th:action="@{../profile/{displayName}(displayName=${displayName})}" method="post"
+                          th:style="'display:none'">
+
+                        <div class="form-group">
+                            <label th:text="'Report User: ' + ${otherUser.displayName}"></label>
+
+                            </br>
+                            <p>Reason:</p>
+                            <textarea th:field="*{complaintDetail}" rows="5" cols="50"
+                                      class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"
+                            ></textarea>
+                            </br>
+                            <button type="submit" class="btn button1 shadow">Submit Report</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="col">
+                ADD LISTINGS OR OTHER STUFF HERE?
             </div>
         </div>
     </div>
+</div>
+</div>
+</div>
 </div>
 
 <!-- JS for hidden report form -->
@@ -98,11 +105,7 @@
             }
         }
 
-
-
-
 </script>
-
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

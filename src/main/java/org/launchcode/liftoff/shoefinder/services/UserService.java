@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -121,7 +122,7 @@ public class UserService {
         return pattern.matcher(str).matches();
     }
 
-    public void saveProfileImage(MultipartFile[] files) {
+    public void saveProfileImage(MultipartFile[] files) throws IOException {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
 
@@ -129,12 +130,12 @@ public class UserService {
 
         ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
 
-        if (profileImage != null && profileImage.getProfileImage() != null){
+        if (profileImage != null){
                 profileImage.setProfileImage(files[0]);
                 profileImageRepository.save(profileImage);
         }else{
             for (MultipartFile imageFile : files) {
-                profileImage.setProfileImage(imageFile);
+                profileImage.setImageData(imageFile);
                 profileImage.setUserEntity(userEntity);
                 profileImageRepository.save(profileImage);
             }

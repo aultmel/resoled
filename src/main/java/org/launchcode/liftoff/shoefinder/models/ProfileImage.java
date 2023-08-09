@@ -21,8 +21,11 @@ public class ProfileImage {
     @Transient
     private MultipartFile profileImage;
 
+    private byte[] imageData;
     @OneToOne
     private UserEntity userEntity;
+
+    public ProfileImage() {}
 
     public Long getId() {
         return id;
@@ -43,7 +46,18 @@ public class ProfileImage {
 
     public void setUserEntity(UserEntity userEntity) { this.userEntity = userEntity; }
 
-    public ProfileImage() {}
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(MultipartFile imageFile){
+        try {
+            this.imageData = imageFile.getBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public void saveImageLocally(MultipartFile[] imageFiles){
 

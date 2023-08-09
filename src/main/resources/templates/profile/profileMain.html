@@ -7,6 +7,12 @@
 <h1>User Profile</h1>
 
 <div th:object="${userEntity}">
+    <div th:if="${imageData}">
+        <img th:src="'data:image/jpeg;base64,' + ${imageData}" alt="Profile Image" class="profile-pic"/>
+    </div>
+    <div th:unless="${imageData}">
+        <img th:src="@{../images/TEST-PROFILE-PIC-NOT-LICENSED.png}" alt="Example Image" class="profile-pic"/>
+    </div>
     <p th:text="'DisplayName: ' + ${userEntity.displayName}"></p>
     <p th:text="'Username: ' + ${userEntity.username}"></p>
     <p th:text="'Email: ' + ${userEntity.email}"></p>

@@ -1,14 +1,10 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
-import org.apache.catalina.User;
-import org.launchcode.liftoff.shoefinder.data.ReportRepository;
-import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
-import org.launchcode.liftoff.shoefinder.data.UserRepository;
+import org.launchcode.liftoff.shoefinder.data.*;
+import org.launchcode.liftoff.shoefinder.models.ProfileImage;
 import org.launchcode.liftoff.shoefinder.models.Report;
-import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
-import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.EditProfileDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.ReportDTO;
@@ -17,15 +13,14 @@ import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.Base64;
 
 @Controller
 @RequestMapping("/profile")
@@ -38,12 +33,14 @@ public class UserController {
     @Autowired
     private final ShoeListingRepository shoeListingRepository;
     private final UserService userService;
+    private final ProfileImageRepository profileImageRepository;
 
-    public UserController(UserRepository userRepository, ReportRepository reportRepository, ShoeListingRepository shoeListingRepository, UserService userService) {
+    public UserController(UserRepository userRepository, ReportRepository reportRepository, ShoeListingRepository shoeListingRepository, UserService userService, ProfileImageRepository profileImageRepository) {
         this.userRepository = userRepository;
         this.reportRepository = reportRepository;
         this.shoeListingRepository = shoeListingRepository;
         this.userService = userService;
+        this.profileImageRepository = profileImageRepository;
     }
 
     @GetMapping("")
@@ -53,6 +50,13 @@ public class UserController {
         model.addAttribute("userEntity", userEntity);
 
         model.addAttribute("userListings", userEntity.getShoeListings());
+
+        ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
+        if (profileImage != null) {
+            byte[] profileImageData = profileImage.getImageData();
+            String base64Image = Base64.getEncoder().encodeToString(profileImageData);
+            model.addAttribute("imageData", base64Image);
+        }
 
         return "profile/profileMain";
     }
@@ -101,6 +105,8 @@ public class UserController {
             model.addAttribute("error", blankField.getMessage());
             return "profile/profileEdit";
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

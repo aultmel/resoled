@@ -105,11 +105,11 @@ public class ListingService {
             activeFilters.add(genderList);
         }
 
-        if (!searchListingsDTO.getBrands().isEmpty()) {
+        if (searchListingsDTO.getBrand() != null) {
             List<ShoeListing> brandList = new ArrayList<>();
-            for (String brand : searchListingsDTO.getBrands()) {
-                brandList.addAll(shoeListingRepository.findByBrand(brandRepository.findByName(brand)));
-            }
+
+            brandList.addAll(shoeListingRepository.findByBrand(brandRepository.findByName(searchListingsDTO.getBrand())));
+
             if (brandList.isEmpty()) {
                 return Collections.emptyList();
             }
@@ -127,11 +127,11 @@ public class ListingService {
             activeFilters.add(sizeList);
         }
 
-        if (!searchListingsDTO.getStyles().isEmpty()) {
+        if (searchListingsDTO.getStyle() != null) {
             List<ShoeListing> styleList = new ArrayList<>();
-            for (String style : searchListingsDTO.getStyles()) {
-                styleList.addAll(shoeListingRepository.findByStyle(styleRepository.findByName(style)));
-            }
+
+            styleList.addAll(shoeListingRepository.findByStyle(styleRepository.findByName(searchListingsDTO.getStyle())));
+
             if (styleList.isEmpty()) {
                 return Collections.emptyList();
             }

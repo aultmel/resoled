@@ -6,11 +6,11 @@ package org.launchcode.liftoff.shoefinder.models.dto;
 
         private String searchTerm;
 
-        private List<String> brands;
+        private String brand;
 
         private List<String> sizes;
 
-        private List<String> styles;
+        private String style;
 
         private String condition;
 
@@ -32,28 +32,12 @@ package org.launchcode.liftoff.shoefinder.models.dto;
             this.searchTerm = searchTerm;
         }
 
-        public List<String> getBrands() {
-            return brands;
-        }
-
-        public void setBrands(List<String> brands) {
-            this.brands = brands;
-        }
-
         public List<String> getSizes() {
             return sizes;
         }
 
         public void setSizes(List<String> sizes) {
             this.sizes = sizes;
-        }
-
-        public List<String> getStyles() {
-            return styles;
-        }
-
-        public void setStyles(List<String> styles) {
-            this.styles = styles;
         }
 
         public String getCondition() {
@@ -72,7 +56,23 @@ package org.launchcode.liftoff.shoefinder.models.dto;
             this.genders = genders;
         }
 
-//        public String getZipCode() {
+        public String getBrand() {
+            return brand;
+        }
+
+        public void setBrand(String brand) {
+            this.brand = brand;
+        }
+
+        public String getStyle() {
+            return style;
+        }
+
+        public void setStyle(String style) {
+            this.style = style;
+        }
+
+        //        public String getZipCode() {
 //            return zipCode;
 //        }
 //

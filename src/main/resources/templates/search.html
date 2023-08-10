@@ -22,20 +22,6 @@
                         </div>
                     </div>
 
-
-                    <!--        <label>Zip Code:</label>-->
-                    <!--        <input type="number" size="10" th:field=*{zipCode} name="zipCode"></br>-->
-
-                    <!--        <label>Miles from Zip:</label>-->
-                    <!--        <label>5</label>-->
-                    <!--        <input type="checkbox" name="distance" th:value="5" th:field="*{sizes}">-->
-                    <!--        <label>10</label>-->
-                    <!--        <input type="checkbox" name="distance" th:value="5" th:field="*{sizes}">-->
-                    <!--        <label></label>-->
-                    <!--        <input type="number" maxlength="3" size="3" name="distance" th:value="${size}" th:field="*{sizes}"></br>-->
-
-
-
                     <!--THIS CODE IS FOR USING SUGGESTIONS LIST WITH BRAND        -->
                     <!--        NEEDS TO HAVE th:field added-->
 
@@ -44,8 +30,9 @@
                              style="z-index: 5">
                             <input class="form-control border border-3 rounded-4 border-secondary-subtle"
                                    id="brand-search-box"
-                                   autocomplete="off"/>
-                            <!--                       th:field="*{brand}"-->
+                                   autocomplete="off"
+                                   th:field="*{brand}"/>
+
                             <div class="brand-results results">
                             </div>
                             <label for="brand-search-box">Brand:</label>
@@ -119,8 +106,9 @@
                              style="z-index: 3">
                             <input class="form-control border border-3 rounded-4 border-secondary-subtle"
                                    id="style-search-box"
-                                   autocomplete="off"/>
-                            <!--                       th:field="*{style}"-->
+                                   autocomplete="off"
+                            th:field="*{style}"/>
+
                             <div class="style-results results">
                             </div>
                             <label for="style-search-box">Style:</label>

@@ -42,6 +42,9 @@ public class UserEntity {
     private int age;
 
     @OneToOne
+    private ProfileImage profileImage;
+
+    @OneToOne
     private Location location;
 
     @OneToMany(mappedBy = "userEntity")
@@ -67,13 +70,13 @@ public class UserEntity {
         return id;
     }
 
-//    public ProfileImage getProfileImage() {
-//        return profileImage;
-//    }
-//
-//    public void setProfileImage(ProfileImage profileImage) {
-//        this.profileImage = profileImage;
-//    }
+    public ProfileImage getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(ProfileImage profileImage) {
+        this.profileImage = profileImage;
+    }
 
     public String getUsername() {
         return username;

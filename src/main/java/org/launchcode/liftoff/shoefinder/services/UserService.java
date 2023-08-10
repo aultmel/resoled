@@ -122,21 +122,25 @@ public class UserService {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
 
-        String directoryPath = "src\\main\\resources\\static\\images\\profile-images";
+        String directoryPath = "src\\main\\resources\\static\\images\\profile_images";
 
         ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
 
         if (profileImage != null){
                 profileImage.setProfileImage(files[0]);
                 profileImageRepository.save(profileImage);
+                profileImage.saveImageLocally(files);
         }else{
             for (MultipartFile imageFile : files) {
-                profileImage.setImageData(imageFile);
-                profileImage.setUserEntity(userEntity);
-                profileImageRepository.save(profileImage);
+                ProfileImage firstProfileImage = new ProfileImage();
+                firstProfileImage.setProfileImage(files[0]);
+                firstProfileImage.setUserEntity(userEntity);
+                profileImageRepository.save(firstProfileImage);
+                profileImage.saveImageLocally(files);
             }
         }
+//        profileImage.setProfileImageURL(directoryPath + "/image_" + profileImage.getId() + ".jpg");
+//        profileImageRepository.save(profileImage);
 
-        profileImage.saveImageLocally(files);
     }
 }

@@ -17,19 +17,24 @@ public class ProfileImage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Transient
     private MultipartFile profileImage;
-
-    private byte[] imageData;
-    @OneToOne
     private UserEntity userEntity;
+    private String profileImageURL;
 
     public ProfileImage() {}
 
     public Long getId() {
         return id;
     }
+
+//    public String getProfileImageURL() {
+//        return profileImageURL;
+//    }
+//
+//    public void setProfileImageURL(String profileImageURL) {
+//        this.profileImageURL = profileImageURL;
+//    }
 
     public MultipartFile getProfileImage() {
         return profileImage;
@@ -46,18 +51,18 @@ public class ProfileImage {
 
     public void setUserEntity(UserEntity userEntity) { this.userEntity = userEntity; }
 
-    public byte[] getImageData() {
-        return imageData;
-    }
-
-    public void setImageData(MultipartFile imageFile){
-        try {
-            this.imageData = imageFile.getBytes();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
+//    public byte[] getImageData() {
+//        return imageData;
+//    }
+//
+//    public void setImageData(MultipartFile imageFile){
+//        try {
+//            this.imageData = imageFile.getBytes();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     public void saveImageLocally(MultipartFile[] imageFiles){
 
@@ -71,6 +76,8 @@ public class ProfileImage {
                 Path filePath = Paths.get(directoryPath + "\\" + fileName);
                 // Save the file to the images directory within resources
                 Files.write(filePath, imageFiles[0].getBytes());
+//                        profileImage.setProfileImageURL(directoryPath + "/image_" + profileImage.getId() + ".jpg");
+//        profileImageRepository.save(profileImage);
             } catch (IOException e) {
                 e.printStackTrace();
                 // Handle the exception if needed

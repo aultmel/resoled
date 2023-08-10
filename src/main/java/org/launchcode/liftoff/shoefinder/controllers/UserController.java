@@ -50,11 +50,9 @@ public class UserController {
         model.addAttribute("userEntity", userEntity);
         model.addAttribute("userListings", userEntity.getShoeListings());
 
-        ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
+        ProfileImage profileImage = userEntity.getProfileImage();
         if (profileImage != null) {
-            byte[] profileImageData = profileImage.getImageData();
-            String base64Image = Base64.getEncoder().encodeToString(profileImageData);
-            model.addAttribute("imageData", base64Image);
+           model.addAttribute("profileImage", profileImage);
         }
         return "profile/profileMain";
     }
@@ -75,8 +73,6 @@ public class UserController {
     public String showProfile (@ModelAttribute("editProfileDTO")EditProfileDTO editProfileDTO, @RequestParam(name="imageFiles", required = false) MultipartFile[] files, Model model) {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
-
-
         model.addAttribute("userEntity", userEntity);
 
         try {

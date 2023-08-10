@@ -10,10 +10,10 @@
                 <h1>User Profile</h1>
 
                 <div th:object="${userEntity}">
-                    <div th:if="${imageData}">
-                        <img th:src="'data:image/jpeg;base64,' + ${imageData}" alt="Profile Image" class="profile-pic"/>
+                    <div th:if="${profileImage}">
+                        <img th:src= "'../images/profile_images/image_' + ${profileImage.id} + '.jpg'" alt="Profile Image" class="profile-pic"/>
                     </div>
-                    <div th:unless="${imageData}">
+                    <div th:unless="${profileImage}">
                         <img th:src="@{../images/TEST-PROFILE-PIC-NOT-LICENSED.png}" alt="Example Image"
                              class="profile-pic"/>
                     </div>

@@ -7,30 +7,21 @@
 <!--<script th:src="@{/js/carousel.js}" defer="defer"></script>-->
 
 <body class="home" data-bs-theme="dark">
-
+<div class="container">
 <button data-bs-theme-value="dark">Dark Mode</button>
 <button data-bs-theme-value="light">Light Mode</button>
+</div>
 
 
-
-TEST HOME
-<br/>
-<th:block th:if="${param.success}" class="alert alert-success">
-    REGISTRATION SUCCESSFUL!!  SHOE TIME
-</th:block>
-
-<th:block th:if="${param.success}" class="alert alert-success">
-    LOGIN SUCCESSFUL!!  SHOE TIME
-</th:block>
-
-<!--pulling information related to the user into template-->
-<th:block th:if="${userEntity}" class="alert alert-success">
-    Welcome <span th:text="${userEntity.username}"></span>
-</th:block>
-
+<div class="container">
+    <!--pulling information related to the user into template-->
+    <th:block th:if="${userEntity}" class="alert alert-success">
+        Welcome <span th:text="${userEntity.username}"></span>
+    </th:block>
+</div>
 <br/>
 <br/>
-
+<div class="container">
 <a href="/register">Register Page</a>
 <br/>
 <a href="/login">Login Page</a>
@@ -43,26 +34,16 @@ TEST HOME
 <a href="/message/messages">MessageChain "Conversations" page</a>
 <br/>
 <a href="/message/create">Create New Message Chain "Conversations" page</a>
+
+</div>
+
 <br/>
 <a href="/search">Search Page</a>
 
 <div class="carousel-container">
 
-<!--    <div th:replace="~{carousel :: carousel-content}"></div>-->
+    <!--    <div th:replace="~{carousel :: carousel-content}"></div>-->
 </div>
-
-
-<!--            TEST-->
-<!--<div id="imageContainer" class="container"></div>-->
-<!--<div id="imageDiv" style="background-image:  url('../images/new-shoe.png'); width: 200px; height: 200px; background-size: cover;">-->
-<!--</div>-->
-<!--</div>-->
-<!--<button id="prevButton" >Prev</button>-->
-<!--<button id="nextButton" >Next</button>-->
-
-<!--<script th:src="@{/js/test.js}"></script>-->
-<!--            TEST-->
-
 
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>

@@ -2,6 +2,7 @@ package org.launchcode.liftoff.shoefinder.controllers;
 
 import org.launchcode.liftoff.shoefinder.data.ReportRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
+import org.launchcode.liftoff.shoefinder.models.MessageChain;
 import org.launchcode.liftoff.shoefinder.models.Report;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.data.*;
@@ -10,6 +11,7 @@ import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.EditProfileDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.ReportDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
+import org.launchcode.liftoff.shoefinder.services.MessageService;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,26 +23,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
+
+import static org.launchcode.liftoff.shoefinder.constants.MessageConstants.MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE;
 
 @Controller
 @RequestMapping("/profile")
 public class UserController {
 
-    @Autowired
     private final UserRepository userRepository;
-    @Autowired
     private final ReportRepository reportRepository;
-    @Autowired
     private final ShoeListingRepository shoeListingRepository;
     private final UserService userService;
     private final ProfileImageRepository profileImageRepository;
+    private final MessageService messageService;
 
-    public UserController(UserRepository userRepository, ReportRepository reportRepository, ShoeListingRepository shoeListingRepository, UserService userService, ProfileImageRepository profileImageRepository) {
+
+    @Autowired
+    public UserController(MessageService messageService, UserRepository userRepository, ReportRepository reportRepository, ShoeListingRepository shoeListingRepository, UserService userService, ProfileImageRepository profileImageRepository) {
         this.userRepository = userRepository;
         this.reportRepository = reportRepository;
         this.shoeListingRepository = shoeListingRepository;
         this.userService = userService;
         this.profileImageRepository = profileImageRepository;
+        this.messageService = messageService;
+
     }
 
     @GetMapping("")
@@ -49,6 +56,15 @@ public class UserController {
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
         model.addAttribute("userListings", userEntity.getShoeListings());
+
+        // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
+        // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
+        // number of items on page is set by the maxDisplayed parameter
+        List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
+        List<MessageChain> messageChainList = messageService.shortenMessageChainList(userEntityMessageChains, MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE);
+        model.addAttribute("messageChainList", messageChainList);
+
+
 
         ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
         if (profileImage != null) {

@@ -3,34 +3,101 @@
 <head th:replace="~{fragments :: head}"></head>
 <header th:replace="~{fragments :: header}"></header>
 <body>
+
 <div class="gradientBg p-3 pt-4">
-    <div class="color2 container rounded-5  p-2 shadow-lg">
+    <div class="color2 container w-75 rounded-5 p-2 shadow-lg ">
         <div class="color1 container rounded-5 p-3">
             <div class="gradientForm container rounded-5 shadow-lg p-4">
-                <h1>User Profile</h1>
 
-                <div th:object="${userEntity}">
-                    <div th:if="${imageData}">
-                        <img th:src="'data:image/jpeg;base64,' + ${imageData}" alt="Profile Image" class="profile-pic"/>
+                <div class="row mb-3">
+
+                    <div class="container rounded-5 px-4 pt-2 col mx-1">
+                        <h1>Your Profile</h1>
+
+                        <div th:object="${userEntity}">
+                            <div th:if="${imageData}">
+                                <img th:src="'data:image/jpeg;base64,' + ${imageData}" alt="Profile Image"
+                                     class="profile-pic"/>
+                            </div>
+                            <div th:unless="${imageData}">
+                                <img th:src="@{../images/TEST-PROFILE-PIC-NOT-LICENSED.png}" alt="Example Image"
+                                     class="profile-pic"/>
+                            </div>
+                            <p th:text="'DisplayName: ' + ${userEntity.displayName}"></p>
+                            <p th:text="'Username: ' + ${userEntity.username}"></p>
+                            <p th:text="'Email: ' + ${userEntity.email}"></p>
+                            <p th:text="'First Name: ' + ${userEntity.firstName}"></p>
+                            <p th:text="'Last Name: ' + ${userEntity.lastName}"></p>
+
+                            <a th:href="@{'profile/profileEdit'}">Edit</a>
+                            <a th:href="@{'home'}">Home</a>
+                            </br>
+                            </br>
+
+                            <p th:if="${userEntity.roles[0].getName() == 'ADMIN'}"><a th:href="@{'admin'}">Admin
+                                Menu</a>
+                            </p>
+                        </div>
+
                     </div>
-                    <div th:unless="${imageData}">
-                        <img th:src="@{../images/TEST-PROFILE-PIC-NOT-LICENSED.png}" alt="Example Image"
-                             class="profile-pic"/>
+                    <div class="color7 container rounded px-4 pt-2 col mx-1">
+
+                        <h4 class="text-center">Recent Conversations</h4>
+
+                        <hr class="mx-3"/>
+                        <p class="fst-italic">Click on the Message Subject to continue the conversation</p>
+
+                        <div th:each="messageChain : ${messageChainList}" class="p-1">
+
+
+                            <div class="row container rounded-5 border border-3 border-secondary-subtle shadow p-2 mb-3">
+
+
+                                <div class="col p-2 ">
+
+                                    <h5>Message Subject: <a
+                                            th:href="@{'/message/message?messageChainId=' + ${messageChain.id}}"
+                                            th:text="${messageChain.messageChainSubject}"></a></h5>
+                                    <h5>with:
+                                        <th:block
+                                                th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
+                                            <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
+                                                <span th:text="${messageChain.userEntityList[0].displayName}"></span>
+                                            </a>
+                                        </th:block>
+                                        <th:block
+                                                th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
+                                            <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}">
+                                                <span th:text="${messageChain.userEntityList[1].displayName}"></span>
+                                            </a>
+                                        </th:block>
+                                    </h5>
+                                </div>
+                                <div class="col p-2">
+                                    <p>Most Recent Message:
+                                    <div class="color5 rounded w-50 p-2">
+                                        <span th:text="${messageChain.messages[messageChain.messages.size() - 1].text}"></span></p>
+                                        <p> from: <span
+                                                th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.displayName}"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="d-grid mb-2 mx-auto w-50 shadow-lg">
+                            <a th:href="@{/message/}" class="btn button1 btn-lg" style="color: var( --lightText);">
+                                More Conversations </a>
+                        </div>
+
+
                     </div>
-                    <p th:text="'DisplayName: ' + ${userEntity.displayName}"></p>
-                    <p th:text="'Username: ' + ${userEntity.username}"></p>
-                    <p th:text="'Email: ' + ${userEntity.email}"></p>
-                    <p th:text="'First Name: ' + ${userEntity.firstName}"></p>
-                    <p th:text="'Last Name: ' + ${userEntity.lastName}"></p>
-
-                    <a th:href="@{'profile/profileEdit'}">Edit</a>
-                    <a th:href="@{'home'}">Home</a>
-                    </br>
-                    </br>
-
-                    <p th:if="${userEntity.roles[0].getName() == 'ADMIN'}"><a th:href="@{'admin'}">Admin Menu</a></p>
-
-                    <H3>Listings</H3>
+                </div>
+                <div class="row">
+                    <hr/>
+                    <H3>Your Listings</H3>
                     <div class="listing-container">
                         <div th:each="listing : ${userListings}" class="listing-item">
                             <div class="color1 container rounded-5 p-3">
@@ -50,6 +117,7 @@
         </div>
     </div>
 </div>
+
 
 
 </body>

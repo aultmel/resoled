@@ -1,6 +1,7 @@
 package org.launchcode.liftoff.shoefinder.services;
 
 
+import com.mysql.cj.util.StringUtils;
 import org.launchcode.liftoff.shoefinder.data.*;
 import org.launchcode.liftoff.shoefinder.models.*;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
@@ -105,7 +106,7 @@ public class ListingService {
             activeFilters.add(genderList);
         }
 
-        if (searchListingsDTO.getBrand() != null) {
+        if (!StringUtils.isNullOrEmpty(searchListingsDTO.getBrand())) {
             List<ShoeListing> brandList = new ArrayList<>();
 
             brandList.addAll(shoeListingRepository.findByBrand(brandRepository.findByName(searchListingsDTO.getBrand())));
@@ -127,7 +128,7 @@ public class ListingService {
             activeFilters.add(sizeList);
         }
 
-        if (searchListingsDTO.getStyle() != null) {
+        if (!StringUtils.isNullOrEmpty(searchListingsDTO.getStyle())) {
             List<ShoeListing> styleList = new ArrayList<>();
 
             styleList.addAll(shoeListingRepository.findByStyle(styleRepository.findByName(searchListingsDTO.getStyle())));
@@ -138,7 +139,7 @@ public class ListingService {
             activeFilters.add(styleList);
         }
 
-        if (searchListingsDTO.getCondition() != null) {
+        if (!StringUtils.isNullOrEmpty(searchListingsDTO.getCondition())) {
             List<ShoeListing> conditionList = new ArrayList<>();
 
             conditionList.addAll(shoeListingRepository.findByCondition(searchListingsDTO.getCondition()));
@@ -166,10 +167,6 @@ public class ListingService {
                 itemsToRemove.add(listing);
             }
         }
-
-//        if (!searchListingsDTO.getZipCode().isEmpty()) {
-//
-//        }
 
         //remove all non-matching listings
         filteredListings.removeAll(itemsToRemove);

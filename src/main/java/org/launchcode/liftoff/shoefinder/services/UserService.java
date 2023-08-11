@@ -107,7 +107,7 @@ public class UserService {
         return suggestions;
     }
 
-    public void banUser(UserEntity user){
+    public void banUser(UserEntity user) {
         ArrayList<Role> emptyList = new ArrayList<>();
         user.setRoles(emptyList);
 
@@ -124,23 +124,30 @@ public class UserService {
 
         String directoryPath = "src\\main\\resources\\static\\images\\profile_images";
 
-        ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
+        ProfileImage profileImage = userEntity.getProfileImage();
 
-        if (profileImage != null){
-                profileImage.setProfileImage(files[0]);
-                profileImageRepository.save(profileImage);
-                profileImage.saveImageLocally(files);
-        }else{
+        if (profileImage != null) {
+            profileImage.setProfileImage(files[0]);
+            userRepository.save(userEntity);
+            profileImage.saveImageLocally(files, userEntity);
+
+        } else {
             for (MultipartFile imageFile : files) {
                 ProfileImage firstProfileImage = new ProfileImage();
                 firstProfileImage.setProfileImage(files[0]);
-                firstProfileImage.setUserEntity(userEntity);
+                userEntity.setProfileImage(firstProfileImage);
                 profileImageRepository.save(firstProfileImage);
-                profileImage.saveImageLocally(files);
+                userRepository.save(userEntity);
+                firstProfileImage.saveImageLocally(files, userEntity);
             }
-        }
+
+            //the code is trying to save PROFILEIMAGE rather than FIRSTPROFILE IMAGE even when it is null through the saveimagelocally method
+            //need to look at possibly if else statement for local code. might have to bring the save image locally to the userservice and put
+            //one side on each null and not null
+
 //        profileImage.setProfileImageURL(directoryPath + "/image_" + profileImage.getId() + ".jpg");
 //        profileImageRepository.save(profileImage);
 
+        }
     }
 }

@@ -54,6 +54,7 @@ public class UserController {
         if (profileImage != null) {
            model.addAttribute("profileImage", profileImage);
         }
+
         return "profile/profileMain";
     }
 

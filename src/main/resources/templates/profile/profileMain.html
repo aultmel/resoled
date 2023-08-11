@@ -11,7 +11,7 @@
 
                 <div th:object="${userEntity}">
                     <div th:if="${profileImage}">
-                        <img th:src= "'../images/profile_images/image_' + ${profileImage.id} + '.jpg'" alt="Profile Image" class="profile-pic"/>
+                        <img th:src= "'../images/profile_images/image_' + ${profileImage.id} + '.jpg'" alt="Profile Image" />
                     </div>
                     <div th:unless="${profileImage}">
                         <img th:src="@{../images/TEST-PROFILE-PIC-NOT-LICENSED.png}" alt="Example Image"

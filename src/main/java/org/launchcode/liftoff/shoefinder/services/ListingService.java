@@ -1,6 +1,7 @@
 package org.launchcode.liftoff.shoefinder.services;
 
 
+import com.mysql.cj.util.StringUtils;
 import org.launchcode.liftoff.shoefinder.data.*;
 import org.launchcode.liftoff.shoefinder.models.*;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
@@ -105,11 +106,11 @@ public class ListingService {
             activeFilters.add(genderList);
         }
 
-        if (!searchListingsDTO.getBrands().isEmpty()) {
+        if (!StringUtils.isNullOrEmpty(searchListingsDTO.getBrand())) {
             List<ShoeListing> brandList = new ArrayList<>();
-            for (String brand : searchListingsDTO.getBrands()) {
-                brandList.addAll(shoeListingRepository.findByBrand(brandRepository.findByName(brand)));
-            }
+
+            brandList.addAll(shoeListingRepository.findByBrand(brandRepository.findByName(searchListingsDTO.getBrand())));
+
             if (brandList.isEmpty()) {
                 return Collections.emptyList();
             }
@@ -127,18 +128,18 @@ public class ListingService {
             activeFilters.add(sizeList);
         }
 
-        if (!searchListingsDTO.getStyles().isEmpty()) {
+        if (!StringUtils.isNullOrEmpty(searchListingsDTO.getStyle())) {
             List<ShoeListing> styleList = new ArrayList<>();
-            for (String style : searchListingsDTO.getStyles()) {
-                styleList.addAll(shoeListingRepository.findByStyle(styleRepository.findByName(style)));
-            }
+
+            styleList.addAll(shoeListingRepository.findByStyle(styleRepository.findByName(searchListingsDTO.getStyle())));
+
             if (styleList.isEmpty()) {
                 return Collections.emptyList();
             }
             activeFilters.add(styleList);
         }
 
-        if (searchListingsDTO.getCondition() != null) {
+        if (!StringUtils.isNullOrEmpty(searchListingsDTO.getCondition())) {
             List<ShoeListing> conditionList = new ArrayList<>();
 
             conditionList.addAll(shoeListingRepository.findByCondition(searchListingsDTO.getCondition()));
@@ -166,10 +167,6 @@ public class ListingService {
                 itemsToRemove.add(listing);
             }
         }
-
-//        if (!searchListingsDTO.getZipCode().isEmpty()) {
-//
-//        }
 
         //remove all non-matching listings
         filteredListings.removeAll(itemsToRemove);

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-public class ImageLocal {
+public class ImageInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,8 +15,8 @@ public class ImageLocal {
     private String url;
 
 
-    public ImageLocal() {
-    }
+    public ImageInfo() {  }
+    public ImageInfo(String filename, String url) {  }
 
 
     public Long getId() {
@@ -38,4 +38,3 @@ public class ImageLocal {
     }
 
 }
-

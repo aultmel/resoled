@@ -9,37 +9,82 @@
             <div class="gradientForm container rounded-5 shadow-lg p-4">
 
 
-                <form th:object="${userEntity}" th:action="@{../profile/profileEdit}" method="post"
-                      enctype="multipart/form-data">
+                <div class="container" style="max-width: 500px">
+
+                    <form   id="uploadForm" method="post"  th:action="@{../profile/upload}" enctype="multipart/form-data">
 
                     <div class="form-group file border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
                         <div class="preview">
                             <img id="file-ip-1-preview">
                         </div>
-                        <input type="file" name="imageFiles" accept="image/*" id="image-input"
+                        <input type="file" accept="image/*" id="input-file" name="file"
                                onchange="showImagePreview(event);">
-                        <label class="btn button1 btn-lg shadow ms-2 m-2" for="image-input">Upload Image</label>
+                        <label class="file-upload-custom-button btn button1 btn-lg shadow ms-2 m-2" for="input-file">Select Image</label>
+                    </div>
+                        <br/>
+
+                        <div class="form-group d-grid mb-4 mx-auto w-75">
+                            <button type="submit" value="Log in"
+                                    class="btn button1 btn-lg shadow-lg">
+                                Upload
+                            </button>
+                        </div>
+                    </form>
+                    <div
+                            th:if="${message != null}"
+                            class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+                            role="alert">
+                        [[${message}]]
+                        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <hr/>
+
+                    <div class="form-group d-grid mb-4 mx-auto mt-5 w-75">
+                        <a th:href="@{/profile}"  value="Return to Profile"
+                           class="btn button1 btn-lg shadow-lg" style="color: var( --lightText);">
+                            Return to Profile
+                        </a>
                     </div>
 
-                    <label>Edit Display Name:
-                        <input type="text" th:field="*{displayName}"/>
-                    </label>
-                    <br/>
-                    <label>Edit First Name:
-                        <input type="text" th:field="*{firstName}"/>
-                    </label>
-                    <br/>
-                    <label>Edit Last Name:
-                        <input type="text" th:field="*{lastName}"/>
-                    </label>
-                    <br/>
-                    <label>Edit Email:
-                        <input type="text" th:field="*{email}"/>
-                    </label>
-                    <br/>
-                    <button type="submit">Save</button>
-                    <a th:href="@{'../profile'}">Back to profile</a>
-                </form>
+                </div>
+
+
+
+
+
+<!--                <form th:object="${userEntity}" th:action="@{../profile/profileEdit}" method="post"-->
+<!--                      enctype="multipart/form-data">-->
+
+<!--                    <div class="form-group file border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">-->
+<!--                        <div class="preview">-->
+<!--                            <img id="file-ip-1-preview">-->
+<!--                        </div>-->
+<!--                        <input type="file" name="imageFiles" accept="image/*" id="image-input"-->
+<!--                               onchange="showImagePreview(event);">-->
+<!--                        <label class="btn button1 btn-lg shadow ms-2 m-2" for="image-input">Upload Image</label>-->
+<!--                    </div>-->
+
+<!--                    <label>Edit Display Name:-->
+<!--                        <input type="text" th:field="*{displayName}"/>-->
+<!--                    </label>-->
+<!--                    <br/>-->
+<!--                    <label>Edit First Name:-->
+<!--                        <input type="text" th:field="*{firstName}"/>-->
+<!--                    </label>-->
+<!--                    <br/>-->
+<!--                    <label>Edit Last Name:-->
+<!--                        <input type="text" th:field="*{lastName}"/>-->
+<!--                    </label>-->
+<!--                    <br/>-->
+<!--                    <label>Edit Email:-->
+<!--                        <input type="text" th:field="*{email}"/>-->
+<!--                    </label>-->
+<!--                    <br/>-->
+<!--                    <button type="submit">Save</button>-->
+<!--                    <a th:href="@{'../profile'}">Back to profile</a>-->
+<!--                </form>-->
 
                 <!--<form method="post" role="form"-->
                 <!--      th:action="@{..profileEdit}"-->

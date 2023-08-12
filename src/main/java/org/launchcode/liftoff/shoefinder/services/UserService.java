@@ -29,15 +29,13 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final LocationRepository locationRepository;
     private final ReportRepository reportRepository;
-    private final ProfileImageRepository profileImageRepository;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, LocationRepository locationRepository, ReportRepository reportRepository, ProfileImageRepository profileImageRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, LocationRepository locationRepository, ReportRepository reportRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.locationRepository = locationRepository;
         this.reportRepository = reportRepository;
-        this.profileImageRepository = profileImageRepository;
 
     }
 
@@ -118,25 +116,5 @@ public class UserService {
         return pattern.matcher(str).matches();
     }
 
-    public void saveProfileImage(MultipartFile[] files) throws IOException {
-        String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
 
-        String directoryPath = "src\\main\\resources\\static\\images\\profile-images";
-
-        ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
-
-        if (profileImage != null){
-                profileImage.setProfileImage(files[0]);
-                profileImageRepository.save(profileImage);
-        }else{
-            for (MultipartFile imageFile : files) {
-                profileImage.setImageData(imageFile);
-                profileImage.setUserEntity(userEntity);
-                profileImageRepository.save(profileImage);
-            }
-        }
-
-        profileImage.saveImageLocally(files);
-    }
 }

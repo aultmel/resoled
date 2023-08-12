@@ -39,7 +39,7 @@ public class ImageController {
         String message = "";
 
         try {
-            storageService.save(file);
+            storageService.saveUserImage(file);
 
             message = "Uploaded the image successfully: " + file.getOriginalFilename();
             model.addAttribute("message", message);

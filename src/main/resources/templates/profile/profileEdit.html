@@ -10,8 +10,6 @@
 
 
                 <div class="container" style="max-width: 500px">
-                    <h3 class="mb-3">Spring Boot Image Upload example</h3>
-
 
                     <form   id="uploadForm" method="post"  th:action="@{../profile/upload}" enctype="multipart/form-data">
 
@@ -21,15 +19,17 @@
                         </div>
                         <input type="file" accept="image/*" id="input-file" name="file"
                                onchange="showImagePreview(event);">
-                        <label class="file-upload-custom-button btn button1 btn-lg shadow ms-2 m-2" for="input-file">Upload Image</label>
+                        <label class="file-upload-custom-button btn button1 btn-lg shadow ms-2 m-2" for="input-file">Select Image</label>
                     </div>
+                        <br/>
 
-
-                        <button class="btn btn-sm btn-outline-success float-right" type="submit">
-                            Upload
-                        </button>
+                        <div class="form-group d-grid mb-4 mx-auto w-75">
+                            <button type="submit" value="Log in"
+                                    class="btn button1 btn-lg shadow-lg">
+                                Upload
+                            </button>
+                        </div>
                     </form>
-
                     <div
                             th:if="${message != null}"
                             class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
@@ -39,6 +39,15 @@
                             <span aria-hidden="true"></span>
                         </button>
                     </div>
+                    <hr/>
+
+                    <div class="form-group d-grid mb-4 mx-auto mt-5 w-75">
+                        <a th:href="@{/profile}"  value="Return to Profile"
+                           class="btn button1 btn-lg shadow-lg" style="color: var( --lightText);">
+                            Return to Profile
+                        </a>
+                    </div>
+
                 </div>
 
 

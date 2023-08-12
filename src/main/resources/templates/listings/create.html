@@ -13,14 +13,15 @@
                 <h2 class="text-center fst-italic">Create A Listing... Find Your Sole-Mate!</h2>
                 <br/>
 
-                <form th:action="@{/listings/create}" th:object="${createListingDTO}" method="post"
+
+                <form th:action="@{../listings/create}" th:object="${createListingDTO}" method="post"
                       enctype="multipart/form-data">
 
                     <div class="form-group mb-2 ">
                         <div class="form-floating shadow-sm">
                             <input th:field="*{title}" id="title"
                                    class="form-control border border-3 rounded-4 border-secondary-subtle">
-                            <label for="title">Title:</label>
+                            <label for="title">Description:</label>
                             <p class="error" th:errors="*{title}"></p>
                         </div>
                     </div>
@@ -29,10 +30,15 @@
                         <div class="preview">
                             <img id="file-ip-1-preview">
                         </div>
-                        <input type="file" name="imageFiles" accept="image/*" id="image-input"
+                        <input type="file" name="file" accept="image/*" id="input-file"
                                onchange="showImagePreview(event);">
-                        <label class="file-upload-custom-button btn button1 btn-lg shadow ms-2 m-2" for="image-input">Upload Image</label>
+                        <label class="file-upload-custom-button btn button1 btn-lg shadow ms-2 m-2" for="input-file">Upload Image</label>
                     </div>
+
+
+
+
+
                     <br/>
 
                     <div class="form-group  mb-2 ">
@@ -137,11 +143,10 @@
                             <input type="radio" th:id="imageRadio_4" th:name="imageRadio"
                                    th:value="POOR"
                                    th:field="*{condition}" class="hidden-radio">
-                            <label th:for="imageRadio_4" style="color: var( --imageRadioText);">Poor
+                            <label th:for="imageRadio_4" style="color: var( --imageRadioText);">Good
                                 <br/>
-                                <div style="  --bgImage1: url('../images/home/two-shoe-bg-light.jpg');
-" alt="Poor Condition" width="100"
-                                     height="100"></div>
+                                <img th:src="@{/images/poor-shoe.png}" alt="Poor Condition" width="100"
+                                     height="100">
                             </label>
                         </div>
                         <p class="error" th:errors="*{condition}"></p>

@@ -47,7 +47,6 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity")
     private List<ShoeListing> shoeListings;
 
-
     @OneToOne(cascade = CascadeType.ALL)
     private ImageInfo imageInfo;
 
@@ -67,14 +66,6 @@ public class UserEntity {
     public void setImageInfo(ImageInfo imageInfo) {
         this.imageInfo = imageInfo;
     }
-
-    //    public ProfileImage getProfileImage() {
-//        return profileImage;
-//    }
-//
-//    public void setProfileImage(ProfileImage profileImage) {
-//        this.profileImage = profileImage;
-//    }
 
     public String getUsername() {
         return username;

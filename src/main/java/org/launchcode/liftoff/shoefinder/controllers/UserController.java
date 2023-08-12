@@ -6,7 +6,6 @@ import org.launchcode.liftoff.shoefinder.models.MessageChain;
 import org.launchcode.liftoff.shoefinder.models.Report;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.data.*;
-import org.launchcode.liftoff.shoefinder.models.ProfileImage;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.EditProfileDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.ReportDTO;
@@ -14,16 +13,12 @@ import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
 import org.launchcode.liftoff.shoefinder.services.StorageService;
 import org.launchcode.liftoff.shoefinder.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
-import java.util.Base64;
+
 import java.util.List;
 
 import static org.launchcode.liftoff.shoefinder.constants.MessageConstants.MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE;
@@ -36,16 +31,14 @@ public class UserController {
     private final ReportRepository reportRepository;
     private final ShoeListingRepository shoeListingRepository;
     private final UserService userService;
-    private final ProfileImageRepository profileImageRepository;
     private final MessageService messageService;
     private final StorageService storageService;
 
-    public UserController(UserRepository userRepository, ReportRepository reportRepository, ShoeListingRepository shoeListingRepository, UserService userService, ProfileImageRepository profileImageRepository, MessageService messageService, StorageService storageService) {
+    public UserController(UserRepository userRepository, ReportRepository reportRepository, ShoeListingRepository shoeListingRepository, UserService userService, MessageService messageService, StorageService storageService) {
         this.userRepository = userRepository;
         this.reportRepository = reportRepository;
         this.shoeListingRepository = shoeListingRepository;
         this.userService = userService;
-        this.profileImageRepository = profileImageRepository;
         this.messageService = messageService;
         this.storageService = storageService;
     }
@@ -64,6 +57,11 @@ public class UserController {
         List<MessageChain> messageChainList = messageService.shortenMessageChainList(userEntityMessageChains, MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE);
         model.addAttribute("messageChainList", messageChainList);
 
+        if(userEntity.getImageInfo() == null){
+            model.addAttribute("userImageBoolean" , false);
+        } else {
+            model.addAttribute( "userImageBoolean", true);
+        }
 
 
 //        ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
@@ -107,9 +105,7 @@ public class UserController {
         userEntity.setEmail(editProfileDTO.getEmail());
         userRepository.save(userEntity);
 
-            if (files != null) {
-                userService.saveProfileImage(files);
-            }
+
 
         return "redirect:/profile";
 
@@ -117,8 +113,8 @@ public class UserController {
             model.addAttribute("error", blankField.getMessage());
             return "profile/profileEdit";
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
         }
     }
 
@@ -128,7 +124,7 @@ public class UserController {
         String message = "";
 
         try {
-            storageService.save(file);
+            storageService.saveUserImage(file);
             message = "Uploaded the image successfully: " + file.getOriginalFilename();
             model.addAttribute("message", message);
         } catch (Exception e) {

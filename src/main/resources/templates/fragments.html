@@ -52,7 +52,7 @@
                 </ul>
             </div>
         </div>
-        <div class="container-fluid">
+        <div class="mx-3">
             <ul class="navbar-nav color2">
                 <li class="nav-item">
                     <!--                    <form class="d-flex" th:action="@{/search}" method="get" style="margin: auto;">-->
@@ -78,7 +78,7 @@
                     <!--                        </div>-->
                     <!-- Column for switch -->
                     <!--                        <div class="col"> -->
-                    <div class="col">
+                    <div class="col mx-3">
                         <span class="fs-6">Light/Dark</span>
                             <div class="form-group d-grid mb-4 mx-auto w-50">
                                 <label class="light-dark-switch">
@@ -114,18 +114,18 @@
         <!--            </ul>-->
         <!--        </div>-->
         <div class="ml-auto ">
-            <ul class="navbar-nav profile-drop mx-5">
+            <ul class="navbar-nav profile-drop me-5">
                 <li class="nav-item dropdown ">
                     <a class="nav-link dropdown-toggle p-3" href="#" id="profileDropdownMenuLink" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
 
                         <th:block th:if="${userEntity}">
-                            <th:block th:if="${userEntity.imageInfo.url}">
+                            <th:block th:if="${userEntity.imageInfo}">
                                 <img th:src="@{${userEntity.imageInfo.url}}" alt="Profile Image" height="50"
                                      class=" rounded-3"/>
                             </th:block>
 
-                            <th:block th:unless="${userEntity.imageInfo.url}">
+                            <th:block th:unless="${userEntity.imageInfo}">
                                 <img th:src="@{/images/profile-icon.png}" alt="Profile Image"
                                      class="profile-pic rounded-3"/>
                             </th:block>

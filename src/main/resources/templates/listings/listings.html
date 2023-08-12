@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
-<header th:replace="fragments :: header"></header>
+<header th:replace="~{fragments :: header}"></header>
 <body>
 <div class="gradientBg p-3 pt-4">
     <div class="color2 container listingsPage rounded-top-5 p-2 shadow-lg">
@@ -52,8 +52,7 @@
                                    th:href="'/listings/details?listingId=' + ${listing.id}">Go to listing!</a></br>
 
 
-                                <p></p>
-                                <hr class="w-75 mt-0 p-0 mx-auto"/>
+                                <hr class="w-75 mt-0 mb-4 p-0 mx-auto"/>
                                 <div class="row mx-4">
                                     <div class="col">
                                         <a th:href="'/profile/' + ${listing.userEntity.displayName}">
@@ -96,5 +95,8 @@
         </div>
     </div>
 </div>
+
+
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

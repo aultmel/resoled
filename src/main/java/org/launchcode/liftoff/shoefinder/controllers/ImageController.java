@@ -1,7 +1,6 @@
 
 package org.launchcode.liftoff.shoefinder.controllers;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 

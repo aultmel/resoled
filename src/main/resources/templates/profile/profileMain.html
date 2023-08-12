@@ -14,6 +14,11 @@
                     <div class="container rounded-5 px-4 pt-2 col mx-1">
                         <h1>Your Profile</h1>
 
+                        <img th:src="@{${userEntity.imageInfo.url}}" th:alt="${userEntity.imageInfo.name}" width="200px"/>
+
+
+
+
                         <div th:object="${userEntity}">
                             <div th:if="${imageData}">
                                 <img th:src="'data:image/jpeg;base64,' + ${imageData}" alt="Profile Image"
@@ -119,6 +124,6 @@
 </div>
 
 
-
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

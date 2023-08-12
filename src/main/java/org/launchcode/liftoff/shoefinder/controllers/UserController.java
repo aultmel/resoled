@@ -12,6 +12,7 @@ import org.launchcode.liftoff.shoefinder.models.dto.EditProfileDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.ReportDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
+import org.launchcode.liftoff.shoefinder.services.StorageService;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,17 +38,16 @@ public class UserController {
     private final UserService userService;
     private final ProfileImageRepository profileImageRepository;
     private final MessageService messageService;
+    private final StorageService storageService;
 
-
-    @Autowired
-    public UserController(MessageService messageService, UserRepository userRepository, ReportRepository reportRepository, ShoeListingRepository shoeListingRepository, UserService userService, ProfileImageRepository profileImageRepository) {
+    public UserController(UserRepository userRepository, ReportRepository reportRepository, ShoeListingRepository shoeListingRepository, UserService userService, ProfileImageRepository profileImageRepository, MessageService messageService, StorageService storageService) {
         this.userRepository = userRepository;
         this.reportRepository = reportRepository;
         this.shoeListingRepository = shoeListingRepository;
         this.userService = userService;
         this.profileImageRepository = profileImageRepository;
         this.messageService = messageService;
-
+        this.storageService = storageService;
     }
 
     @GetMapping("")
@@ -66,12 +66,12 @@ public class UserController {
 
 
 
-        ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
-        if (profileImage != null) {
-            byte[] profileImageData = profileImage.getImageData();
-            String base64Image = Base64.getEncoder().encodeToString(profileImageData);
-            model.addAttribute("imageData", base64Image);
-        }
+//        ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
+//        if (profileImage != null) {
+//            byte[] profileImageData = profileImage.getImageData();
+//            String base64Image = Base64.getEncoder().encodeToString(profileImageData);
+//            model.addAttribute("imageData", base64Image);
+//        }
         return "profile/profileMain";
     }
 
@@ -120,6 +120,23 @@ public class UserController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    @PostMapping("/upload")
+    public String uploadImage(Model model, @RequestParam("file") MultipartFile file) {
+        String message = "";
+
+        try {
+            storageService.save(file);
+            message = "Uploaded the image successfully: " + file.getOriginalFilename();
+            model.addAttribute("message", message);
+        } catch (Exception e) {
+            message = "Could not upload the image: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
+            model.addAttribute("message", message);
+        }
+
+        return "profile/profileEdit";
     }
 
     @GetMapping("/{displayName}")

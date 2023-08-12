@@ -9,26 +9,40 @@
             <div class="gradientForm container rounded-5 shadow-lg p-4">
 
 
-                <form
-                        id="uploadForm"
-                        method="post"
-                        th:action="@{/images/upload}"
-                        enctype="multipart/form-data">
-                    <input id="input-file" type="file" name="file" accept="image/png, image/jpeg" />
-                    <button class="btn btn-sm btn-outline-success float-right" type="submit">
-                        Upload
-                    </button>
-                </form>
+                <div class="container" style="max-width: 500px">
+                    <h3 class="mb-3">Spring Boot Image Upload example</h3>
 
-                <div
-                        th:if="${message != null}"
-                        class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
-                        role="alert">
-                    [[${message}]]
-                    <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+
+                    <form   id="uploadForm" method="post"  th:action="@{../profile/upload}" enctype="multipart/form-data">
+
+                    <div class="form-group file border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+                        <div class="preview">
+                            <img id="file-ip-1-preview">
+                        </div>
+                        <input type="file" accept="image/*" id="input-file" name="file"
+                               onchange="showImagePreview(event);">
+                        <label class="file-upload-custom-button btn button1 btn-lg shadow ms-2 m-2" for="input-file">Upload Image</label>
+                    </div>
+
+
+                        <button class="btn btn-sm btn-outline-success float-right" type="submit">
+                            Upload
+                        </button>
+                    </form>
+
+                    <div
+                            th:if="${message != null}"
+                            class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+                            role="alert">
+                        [[${message}]]
+                        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
                 </div>
+
+
+
 
 
 <!--                <form th:object="${userEntity}" th:action="@{../profile/profileEdit}" method="post"-->

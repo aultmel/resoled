@@ -1,17 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
-    <title>Spring Boot Image Upload example</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-</head>
-
+<head th:replace="~{fragments :: head}"></head>
+<header th:replace="~{fragments :: header}"></header>
 <body>
-<!--<div th:replace="fragments/header :: header"></div>-->
+
 
 <div class="container" style="max-width: 500px">
     <h3 class="mb-3">Spring Boot Image Upload example</h3>
@@ -38,7 +30,7 @@
     </div>
 </div>
 
-<!--<div th:replace="fragments/footer :: footer"></div>-->
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 
 </html>

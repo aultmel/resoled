@@ -7,17 +7,9 @@
 <!--<script th:src="@{/js/carousel.js}" defer="defer"></script>-->
 
 <body class="home" data-bs-theme="dark">
-<div class="container">
-<button data-bs-theme-value="dark">Dark Mode</button>
-<button data-bs-theme-value="light">Light Mode</button>
-</div>
 
 
 <div class="container">
-    <!--pulling information related to the user into template-->
-    <th:block th:if="${userEntity}" class="alert alert-success">
-        Welcome <span th:text="${userEntity.username}"></span>
-    </th:block>
 </div>
 <br/>
 <br/>
@@ -37,8 +29,6 @@
 
 </div>
 
-<br/>
-<a href="/search">Search Page</a>
 
 <div class="carousel-container">
 

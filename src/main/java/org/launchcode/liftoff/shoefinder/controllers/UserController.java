@@ -123,6 +123,11 @@ public class UserController {
     public String uploadImage(Model model, @RequestParam("file") MultipartFile file) {
         String message = "";
 
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
+
         try {
             storageService.saveUserImage(file);
             message = "Uploaded the image successfully: " + file.getOriginalFilename();
@@ -148,6 +153,11 @@ public class UserController {
         model.addAttribute("createMessageDTO", createMessageDTO);
 
         model.addAttribute("userListings", otherUser.getShoeListings());
+
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
 
         return "profile/userData";
     }

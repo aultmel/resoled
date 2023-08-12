@@ -3,8 +3,11 @@ package org.launchcode.liftoff.shoefinder.controllers;
 
 import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
+import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.ShoeListing;
+import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
+import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.ListingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,20 +28,27 @@ public class ListingController {
 
     private final ListingService listingService;
     private final ShoeListingRepository shoeListingRepository;
+    private final UserRepository userRepository;
 
     // Constructor to inject ListingService and ShoeListingRepository dependencies.
 
-    public ListingController(ListingService listingService, ShoeListingRepository shoeListingRepository) {
+    public ListingController(ListingService listingService, ShoeListingRepository shoeListingRepository, UserRepository userRepository) {
         this.listingService = listingService;
         this.shoeListingRepository = shoeListingRepository;
-
+        this.userRepository = userRepository;
     }
+
+
     // Handler method to display all shoe listings.
 
     @GetMapping({"", "/"})
     public String displayAllListings(Model model) {
         model.addAttribute("title", "All Listings");
         model.addAttribute("allListings", shoeListingRepository.findAll());
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
+
         return "/listings/listings";
 
     }
@@ -47,6 +57,9 @@ public class ListingController {
     @GetMapping("details")
     public String displayListingDetails(@RequestParam Long listingId, Model model) {
         Optional<ShoeListing> result = shoeListingRepository.findById(listingId);
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
 
         if (result.isEmpty()) {
             model.addAttribute("title", "Invalid ShoeListing ID: " + listingId);
@@ -61,6 +74,9 @@ public class ListingController {
 
     @GetMapping("create")
     public String showListingForm(Model model) {
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
 
         model.addAttribute("genderList", GENDER_LIST);
         model.addAttribute("sizeList", SIZE_LIST);
@@ -83,6 +99,9 @@ public class ListingController {
         model.addAttribute("genderList", GENDER_LIST);
         model.addAttribute("sizeList", SIZE_LIST);
         model.addAttribute("createListingDTO", createListingDTO);
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
 
         //Api urls for suggestions
         model.addAttribute("brandSuggestionsUrl", "http://localhost:8080/api/brandSuggestion");

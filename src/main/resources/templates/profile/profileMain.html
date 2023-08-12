@@ -21,7 +21,7 @@
                                 <img th:src="@{${userEntity.imageInfo.url}}" alt="Profile Image" width="200"/>
                             </th:block>
                             <th:block th:unless="${userImageBoolean}">
-                                <img th:src="@{/images/test-profile-pic-not-licensed.png}" alt="Profile Image"
+                                <img th:src="@{/images/profile-icon.png}" alt="Profile Image"
                                      width="150" height="150">
                             </th:block>
                             <p th:text="'DisplayName: ' + ${userEntity.displayName}"></p>
@@ -46,7 +46,7 @@
                         <h4 class="text-center">Recent Conversations</h4>
 
                         <hr class="mx-3"/>
-                        <p class="fst-italic">Click on the Message Subject to continue the conversation</p>
+                        <p class="fst-italic text-center">Click on the Message Subject to continue the conversation</p>
 
                         <div th:each="messageChain : ${messageChainList}" class="p-1">
 

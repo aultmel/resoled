@@ -3,11 +3,8 @@ package org.launchcode.liftoff.shoefinder.controllers;
 import org.launchcode.liftoff.shoefinder.data.ReportRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.Report;
-import org.launchcode.liftoff.shoefinder.models.Role;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
-import org.launchcode.liftoff.shoefinder.models.dto.ReportDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +17,7 @@ import java.util.ArrayList;
 public class AdminController {
 
     private final UserRepository userRepository;
-
     private final ReportRepository reportRepository;
-
     private final UserService userService;
 
     public AdminController(UserRepository userRepository, ReportRepository reportRepository, UserService userService) {
@@ -41,9 +36,7 @@ public class AdminController {
         allReports.addAll(reportRepository.findAll());
         model.addAttribute("allReports", allReports);
 
-
         return "admin";
-
 
     }
 

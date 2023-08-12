@@ -45,12 +45,34 @@ public class StorageService {
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
 
 
+        // Checks file size
+        final long MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB
+        if (file.getSize() > MAX_FILE_SIZE) {
+//            throw new Exception("File size is too large.");
+//                return "File size is too large.";
+        }
+
         ImageInfo imageInfo = new ImageInfo();
 
 //        imageInfo.setUrl();
 //        imageInfo.setName();
 
 
+        // Checks file extension type
+        String fileName = file.getOriginalFilename();
+        String fileExtension = FilenameUtils.getExtension(fileName);
+
+        if (fileExtension != null &&
+                (fileExtension.equals("png")
+                        || fileExtension.equals("jpg")
+                        || fileExtension.equals("jpeg")
+                        || fileExtension.equals("gif"))) {
+            //FILE GOOD
+        } else {
+//            throw new Exception("File must be png, jpg, jpeg, or gif");
+
+//           return "File must be png, jpg, jpeg, or gif";
+        }
 
 
         try {

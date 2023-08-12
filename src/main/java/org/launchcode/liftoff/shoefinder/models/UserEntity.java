@@ -47,27 +47,27 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity")
     private List<ShoeListing> shoeListings;
 
+    @OneToOne
+    private ImageInfo imageInfo;
 
 
     public UserEntity() {
     }
 
-    public UserEntity(String username, String password, List<Role> roles, String firstName,
-                      String lastName, LocalDate birthday, String displayName) {
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthday = birthday;
-        this.displayName = displayName;
-    }
 
     public long getId() {
         return id;
     }
 
-//    public ProfileImage getProfileImage() {
+    public ImageInfo getImageInfo() {
+        return imageInfo;
+    }
+
+    public void setImageInfo(ImageInfo imageInfo) {
+        this.imageInfo = imageInfo;
+    }
+
+    //    public ProfileImage getProfileImage() {
 //        return profileImage;
 //    }
 //

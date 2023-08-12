@@ -1,11 +1,14 @@
 package org.launchcode.liftoff.shoefinder.services;
 
+import org.launchcode.liftoff.shoefinder.data.UserRepository;
+import org.launchcode.liftoff.shoefinder.models.ImageInfo;
+import org.launchcode.liftoff.shoefinder.models.UserEntity;
+import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.FileAlreadyExistsException;
@@ -20,6 +23,12 @@ public class StorageService {
 
     private final Path root = Paths.get("./uploads");
 
+    private final UserRepository userRepository;
+
+
+    public StorageService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public void init() {
         try {
@@ -31,6 +40,19 @@ public class StorageService {
 
 
     public void save(MultipartFile file) {
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+
+
+        ImageInfo imageInfo = new ImageInfo();
+
+//        imageInfo.setUrl();
+//        imageInfo.setName();
+
+
+
+
         try {
             Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
         } catch (Exception e) {

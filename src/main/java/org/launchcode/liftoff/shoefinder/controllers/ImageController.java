@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+// NOT BEING USED BUT HERE FOR REFERENCE IN CASE WE ADDED DELETE IMAGE FUNCTION
+
 @Controller
 public class ImageController {
 

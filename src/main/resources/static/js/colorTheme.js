@@ -69,14 +69,20 @@
   window.addEventListener('DOMContentLoaded', () => {
     showActiveTheme(getPreferredTheme())
 
-    document.querySelectorAll('[data-bs-theme-value]')
-      .forEach(toggle => {
-        toggle.addEventListener('click', () => {
-          const theme = toggle.getAttribute('data-bs-theme-value')
-          setStoredTheme(theme)
-          setTheme(theme)
-          showActiveTheme(theme, true)
-        })
-      })
+    const darkModeToggle = document.getElementById("dark-mode-toggle");
+
+    if (getPreferredTheme() === "dark") {
+      darkModeToggle.checked = true;
+    }
+
+    darkModeToggle.addEventListener("change", () => {
+      const theme = darkModeToggle.checked ? "dark" : "light";
+      setStoredTheme(theme);
+      setTheme(theme);
+      showActiveTheme(theme, true);
+    });
+
+
+
   })
 })()

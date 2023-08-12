@@ -67,9 +67,23 @@
                          id="messagesList"
                          style="height: 490px;">
                         <div th:each="message : ${messageChain.messages}" class="p-1">
-                            <div class="border border-1 rounded-5 border-secondary-subtle p-3 mb-1">
-                                <p th:text="${message.userEntity.displayName}"></p>
-                                <p th:text="${message.text}"></p>
+                            <div class="border border-1 rounded-5 border-secondary-subtle px-4 py-2 mb-1">
+
+                                    <th:block th:if="${message.userEntity.imageInfo}">
+                                        <img th:src="@{${message.userEntity.imageInfo.url}}"
+                                             class="rounded-3 border border-2 border-secondary-subtle mt-2 mb-2 mx-1"
+                                             alt="Profile Image"
+                                             height="40"/>
+                                    </th:block>
+                                    <th:block th:unless="${message.userEntity.imageInfo}">
+                                        <img th:src="@{/images/profile-icon.png}"
+                                             class="rounded-3 border border-2 mt-2 mb-2 mx-1"
+                                             alt="Profile Image"
+                                             height="40">
+                                    </th:block>
+                                <span th:text="${message.userEntity.displayName}"></span><span>:</span>
+
+                                <p th:text="${message.text}" class="mx-5 mb-2"></p>
 
                             </div>
                         </div>

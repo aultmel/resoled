@@ -66,7 +66,7 @@ public class ImageController {
 
         List<ImageInfo> imageInfoList = imageInfoRepository.findAll();
 
-       ImageInfo anImageInfo = imageInfoList.get(0);
+       ImageInfo anImageInfo = imageInfoList.get(imageInfoList.size()-1);
 
        String fileName = anImageInfo.getName();
 
@@ -74,11 +74,11 @@ public class ImageController {
 //            return null;
 //        }
 
-        String url = MvcUriComponentsBuilder
-                .fromMethodName(ImageController.class, "getImage", fileName).build().toString();
-
-        anImageInfo.setUrl(url);
-        imageInfoRepository.save(anImageInfo);
+//        String url = MvcUriComponentsBuilder
+//                .fromMethodName(ImageController.class, "getImage", fileName).build().toString();
+//
+//        anImageInfo.setUrl(url);
+//        imageInfoRepository.save(anImageInfo);
 
         model.addAttribute("anImage", anImageInfo);
 

@@ -455,3 +455,108 @@ input[type="file"] {
     color: var( --linkHover);
     cursor: pointer;
 }
+
+
+
+/* Navbar profile pic */
+.profile-pic {
+    height: 50px;
+    width: 50px;
+}
+
+/* Navbar profile icon padding */
+.profile-drop {
+    margin-right: 0px;
+}
+/* Positions login button */
+.login-margin {
+    margin-left: 0px;
+}
+
+/* Navbar text color */
+.navbar-text-color a{
+  color: var(--lightText);
+}
+
+.nav-bar-custom a {
+  color: var(--lightText);
+}
+
+.nav-bar-custom a:hover {
+  color: var( --navBarHover);
+}
+/* Fills dropdown bubble with the rest of the color, white lines present otherwise */
+.navbar-nav > li > .dropdown-menu { background-color: var(--color2); }
+
+/* FOLLOWING SECTIONS FOR LIGHT/DARK MODE TOGGLE */
+/* Box for light/dark mode slider */
+.light-dark-switch {
+  position: relative;
+  display: inline-block;
+
+  width: 40px;
+  height: 22px;
+}
+
+/*top: 50%;
+  bottom: 50%;
+
+  transform: translate(-50%, -50%);
+*/
+
+/* Hide default HTML checkbox */
+.light-dark-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom:2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 22px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+/* END LIGHT/DARK TOGGLE */
+

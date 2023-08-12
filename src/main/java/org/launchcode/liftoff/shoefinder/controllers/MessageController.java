@@ -198,6 +198,7 @@ public class MessageController {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
 
+
         List<MessageChain> userMessageChains = userEntity.getMessageChains();
 
         Optional<MessageChain> requestMessageChain = messageChainRepository.findById(messageChainIdLong);
@@ -241,6 +242,7 @@ public class MessageController {
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
 
         Optional<MessageChain> requestMessageChain = messageChainRepository.findById(addMessageDTO.getMessageChainId());
 

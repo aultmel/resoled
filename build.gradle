@@ -17,6 +17,7 @@ repositories {
 
 dependencies {
 
+	implementation 'org.apache.tika:tika-core:2.6.0'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'jakarta.validation:jakarta.validation-api'
 	implementation 'mysql:mysql-connector-java:8.0.32'

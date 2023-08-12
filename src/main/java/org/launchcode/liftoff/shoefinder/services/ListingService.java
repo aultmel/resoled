@@ -21,21 +21,21 @@ public class ListingService {
     private final UserRepository userRepository;
     private final BrandRepository brandRepository;
     private final StyleRepository styleRepository;
-    private final ImageRepository imageRepository;
+    private final StorageService storageService;
 
     // Constructor to inject the required repositories.
 
-    public ListingService(ShoeListingRepository shoeListingRepository, UserRepository userRepository,
-                          BrandRepository brandRepository, StyleRepository styleRepository, ImageRepository imageRepository) {
+
+    public ListingService(ShoeListingRepository shoeListingRepository, UserRepository userRepository, BrandRepository brandRepository, StyleRepository styleRepository, StorageService storageService) {
         this.shoeListingRepository = shoeListingRepository;
         this.userRepository = userRepository;
         this.brandRepository = brandRepository;
         this.styleRepository = styleRepository;
-        this.imageRepository = imageRepository;
+        this.storageService = storageService;
     }
 
     // Method to save a new shoe listing along with associated image files.
-    public void saveListing(CreateListingDTO createListingDTO, MultipartFile[] files) {
+    public void saveListing(CreateListingDTO createListingDTO, MultipartFile file) {
         // Get the current user's entity from the UserRepository using the session user's username.
 
         String username = SecurityUtility.getSessionUser();
@@ -73,14 +73,13 @@ public class ListingService {
         // Save associated images to the specified directory and store their information in the ImageRepository.
             String directoryPath = "src\\main\\resources\\static\\images\\listing-images";
 
+        try {
+            storageService.saveListingImage(file , shoeListing);
 
-            for(MultipartFile imageFile: files) {
-                ImageLocal imageLocal = new ImageLocal();
-                imageLocal.setImageFile(imageFile);
-                imageLocal.setListing(shoeListing);
-                imageRepository.save(imageLocal);
-                imageLocal.saveImageLocally(files);
-            }
+        } catch (Exception e) {
+//            message = "Could not upload the image: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
+//            model.addAttribute("message", message);
+        }
 
     }
 

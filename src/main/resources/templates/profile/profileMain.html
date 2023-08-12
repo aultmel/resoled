@@ -11,18 +11,19 @@
 
                 <div class="row mb-3">
 
+
                     <div class="container rounded-5 px-4 pt-2 col mx-1">
                         <h1>Your Profile</h1>
 
-                        <div th:object="${userEntity}">
-                            <div th:if="${imageData}">
-                                <img th:src="'data:image/jpeg;base64,' + ${imageData}" alt="Profile Image"
-                                     class="profile-pic"/>
-                            </div>
-                            <div th:unless="${imageData}">
-                                <img th:src="@{../images/TEST-PROFILE-PIC-NOT-LICENSED.png}" alt="Example Image"
-                                     class="profile-pic"/>
-                            </div>
+
+                        <div>
+                            <th:block th:if="${userImageBoolean}">
+                                <img th:src="@{${userEntity.imageInfo.url}}" alt="Profile Image" width="200"/>
+                            </th:block>
+                            <th:block th:unless="${userImageBoolean}">
+                                <img th:src="@{/images/test-profile-pic-not-licensed.png}" alt="Profile Image"
+                                     width="150" height="150">
+                            </th:block>
                             <p th:text="'DisplayName: ' + ${userEntity.displayName}"></p>
                             <p th:text="'Username: ' + ${userEntity.username}"></p>
                             <p th:text="'Email: ' + ${userEntity.email}"></p>
@@ -119,6 +120,6 @@
 </div>
 
 
-
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

@@ -78,7 +78,7 @@ public class ListingController {
     @PostMapping("create")
     public String createListing(@Valid @ModelAttribute("createListingDTO") CreateListingDTO createListingDTO, BindingResult bindingResult, Model model,
                                 RedirectAttributes redirectAttributes,
-                                @RequestParam("imageFiles") MultipartFile[] files) {
+                                @RequestParam("file") MultipartFile file) {
 
         model.addAttribute("genderList", GENDER_LIST);
         model.addAttribute("sizeList", SIZE_LIST);
@@ -102,10 +102,8 @@ public class ListingController {
         }
 
 
-
-
         redirectAttributes.addFlashAttribute("message", "Shoe Listing Created");
-        listingService.saveListing(createListingDTO, files);
+        listingService.saveListing(createListingDTO, file);
 
 
         // Redirect to a success page

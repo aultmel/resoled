@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -43,16 +42,19 @@ public class SecurityConfiguration {
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/home")
+                        .defaultSuccessUrl("/home", true)
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true").permitAll()
                 ).logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
                 );
-
+        // Make sure that the jQuery library is loaded after the Spring Security login process has completed
         return http.build();
     }
+
+
+
 
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());

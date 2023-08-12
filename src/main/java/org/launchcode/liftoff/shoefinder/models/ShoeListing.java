@@ -3,8 +3,6 @@ package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "listing")
@@ -29,8 +27,8 @@ public class ShoeListing {
     private String gender;
     private String title;
 
-    @OneToMany(mappedBy = "listing")
-    private List<ImageLocal> images = new ArrayList<>();
+    @OneToOne( cascade = CascadeType.ALL)
+    private ImageLocal imageLocal;
 
     //Empty Constructor
     public ShoeListing() {}
@@ -61,9 +59,7 @@ public class ShoeListing {
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
 
-    //returns list of image byte[] data
-    public List<ImageLocal> getImages() { return images; }
-    public void setImages(List<ImageLocal> images) { this.images = images; }
-
+    public ImageLocal getImageLocal() { return imageLocal;  }
+    public void setImageLocal(ImageLocal imageLocal) { this.imageLocal = imageLocal; }
 
 }

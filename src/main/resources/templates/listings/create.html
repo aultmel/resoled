@@ -139,8 +139,9 @@
                                    th:field="*{condition}" class="hidden-radio">
                             <label th:for="imageRadio_4" style="color: var( --imageRadioText);">Poor
                                 <br/>
-                                <img th:src="@{/images/poor-shoe.png}" alt="Poor Condition" width="100"
-                                     height="100">
+                                <div style="  --bgImage1: url('../images/home/two-shoe-bg-light.jpg');
+" alt="Poor Condition" width="100"
+                                     height="100"></div>
                             </label>
                         </div>
                         <p class="error" th:errors="*{condition}"></p>

@@ -347,6 +347,8 @@ input[type=radio] + label>img {
   transition: 500ms all;
 }
 
+
+
 /* for admin */
 .adminPage{
     text-align: center;

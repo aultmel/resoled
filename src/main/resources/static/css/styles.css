@@ -455,3 +455,11 @@ input[type="file"] {
     color: var( --linkHover);
     cursor: pointer;
 }
+
+/* for styling listings on profiles */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+
+}

@@ -113,8 +113,6 @@ public class UserController {
             model.addAttribute("error", blankField.getMessage());
             return "profile/profileEdit";
 
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
         }
     }
 
@@ -148,6 +146,12 @@ public class UserController {
         model.addAttribute("createMessageDTO", createMessageDTO);
 
         model.addAttribute("userListings", otherUser.getShoeListings());
+
+        if(otherUser.getImageInfo() == null){
+            model.addAttribute("userImageBoolean" , false);
+        } else {
+            model.addAttribute( "userImageBoolean", true);
+        }
 
         return "profile/userData";
     }

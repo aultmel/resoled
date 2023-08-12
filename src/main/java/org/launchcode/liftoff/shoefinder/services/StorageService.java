@@ -1,5 +1,6 @@
 package org.launchcode.liftoff.shoefinder.services;
 
+import org.apache.commons.io.FilenameUtils;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.ImageInfo;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
@@ -57,6 +58,7 @@ public class StorageService {
 //        imageInfo.setUrl();
 //        imageInfo.setName();
 
+      //WORKING HERE
 
         // Checks file extension type
         String fileName = file.getOriginalFilename();
@@ -73,6 +75,7 @@ public class StorageService {
 
 //           return "File must be png, jpg, jpeg, or gif";
         }
+
 
 
         try {

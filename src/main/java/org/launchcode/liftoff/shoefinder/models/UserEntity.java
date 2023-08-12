@@ -47,7 +47,8 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity")
     private List<ShoeListing> shoeListings;
 
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     private ImageInfo imageInfo;
 
 

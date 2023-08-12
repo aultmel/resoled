@@ -11,7 +11,6 @@
           integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 
 <body>
@@ -47,6 +46,13 @@
     <div th:unless="${images.size() > 0}">
         <span>No files found!</span>
     </div>
+
+    <div>
+        <td><img th:src="@{${anImage.url}}" alt="${anImage.name}" width="100px" /></td>
+
+
+    </div>
+
 </div>
 
 <div class="modal fade text-center" id="confirmModal">

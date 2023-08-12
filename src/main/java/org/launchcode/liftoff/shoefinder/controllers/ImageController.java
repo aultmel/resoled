@@ -1,8 +1,11 @@
 
 package org.launchcode.liftoff.shoefinder.controllers;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.launchcode.liftoff.shoefinder.data.ImageInfoRepository;
 import org.launchcode.liftoff.shoefinder.models.ImageInfo;
 import org.launchcode.liftoff.shoefinder.services.StorageService;
 import org.springframework.core.io.Resource;
@@ -21,9 +24,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ImageController {
 
     private final StorageService storageService;
+    private final ImageInfoRepository imageInfoRepository;
 
-    public ImageController(StorageService storageService) {
+    public ImageController(StorageService storageService, ImageInfoRepository imageInfoRepository) {
         this.storageService = storageService;
+        this.imageInfoRepository = imageInfoRepository;
     }
 
     @GetMapping("/images/new")
@@ -59,6 +64,24 @@ public class ImageController {
         }).collect(Collectors.toList());
 
         model.addAttribute("images", imageInfos);
+
+        List<ImageInfo> imageInfoList = imageInfoRepository.findAll();
+
+       ImageInfo anImageInfo = imageInfoList.get(0);
+
+       String fileName = anImageInfo.getName();
+
+//        if (path == null) {
+//            return null;
+//        }
+
+        String url = MvcUriComponentsBuilder
+                .fromMethodName(ImageController.class, "getImage", fileName).build().toString();
+
+        anImageInfo.setUrl(url);
+        imageInfoRepository.save(anImageInfo);
+
+        model.addAttribute("anImage", anImageInfo);
 
         return "images";
     }

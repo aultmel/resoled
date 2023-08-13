@@ -4,6 +4,7 @@ package org.launchcode.liftoff.shoefinder.controllers;
 import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
+import org.launchcode.liftoff.shoefinder.models.CurrentSearch;
 import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
@@ -187,6 +188,39 @@ public class ListingController {
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
         model.addAttribute("searchListingsDTO", searchListingsDTO);
+
+        CurrentSearch currentSearch = new CurrentSearch();
+//        currentSearch.setSearchTerm(searchListingsDTO.getSearchTerm());
+//        currentSearch.setCondition(searchListingsDTO.getCondition());
+//        currentSearch.setBrand(searchListingsDTO.getBrand());
+//
+//        List<String> gendersList = searchListingsDTO.getGenders();
+//        StringBuilder genderBuilder = new StringBuilder();
+//
+//        for( String size : gendersList) {
+//            genderBuilder.append(size).append(",");
+//        }
+//        genderBuilder.deleteCharAt(genderBuilder.length() - 1 );
+//        String gendersString = genderBuilder.toString();
+//
+//        currentSearch.setSizes(gendersString);
+
+        List<String> sizesList = searchListingsDTO.getSizes();
+
+        StringBuilder sizeBuilder = new StringBuilder();
+
+        for( String size : sizesList) {
+            sizeBuilder.append(size).append(",");
+        }
+        sizeBuilder.deleteCharAt(sizeBuilder.length() - 1 );
+        String sizesString = sizeBuilder.toString();
+
+//        currentSearch.setSizes(sizesString);
+//
+//        currentSearch.setStyle(searchListingsDTO.getStyle());
+//        userEntity.setCurrentSearch(currentSearch);
+
+        userRepository.save(userEntity);
 
         List<ShoeListing> allShoeListings = listingService.filterListings(searchListingsDTO);
 

@@ -1,6 +1,8 @@
 package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.persistence.*;
+import org.launchcode.liftoff.shoefinder.models.dto.SearchListingsDTO;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +32,6 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
 
-//    @OneToOne
-//    private ProfileImage profileImage;
     private String username;
     private String displayName;
     private String password;
@@ -50,6 +50,9 @@ public class UserEntity {
     @OneToOne(cascade = CascadeType.ALL)
     private ImageInfo imageInfo;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    //use this to keep search active for pagination?
+    private CurrentSearch currentSearch;
 
     public UserEntity() {
     }
@@ -163,4 +166,11 @@ public class UserEntity {
 
     public void setShoeListings(List<ShoeListing> shoeListings) { this.shoeListings = shoeListings; }
 
+    public CurrentSearch getCurrentSearch() {
+        return currentSearch;
+    }
+
+    public void setCurrentSearch(CurrentSearch currentSearch) {
+        this.currentSearch = currentSearch;
+    }
 }

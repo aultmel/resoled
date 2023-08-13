@@ -9,6 +9,11 @@ import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.ListingService;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.GENDER_LIST;
@@ -23,7 +29,7 @@ import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.SIZE_
 
 
 @Controller
-@RequestMapping("listings")
+@RequestMapping("/listings")
 public class ListingController {
 
     private final ListingService listingService;
@@ -42,16 +48,10 @@ public class ListingController {
     // Handler method to display all shoe listings.
 
     @GetMapping({"", "/"})
-    public String displayAllListings(Model model) {
-        model.addAttribute("title", "All Listings");
-        model.addAttribute("allListings", shoeListingRepository.findAll());
-        String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
-        model.addAttribute("userEntity", userEntity);
+    public String displayAllListings(Model model) { return getOneListingsPage(model, 1); }
 
-        return "/listings/listings";
-
-    }
+    @GetMapping("/listings")
+    public String messagesGetMapping(Model model) {  return getOneListingsPage(model, 1); }
     // Handler method to display details of a specific shoe listing.
 
     @GetMapping("details")
@@ -128,4 +128,51 @@ public class ListingController {
         // Redirect to a success page
         return "redirect:../home";
     }
+
+
+    // pagenation testing for all listings
+    @GetMapping("listings/page/{pageNumber}")
+    public String getOneListingsPage(Model model, @PathVariable("pageNumber") int currentPage){
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
+
+        List<ShoeListing> allShoeListings = shoeListingRepository.findAll();
+
+        PagedListHolder<ShoeListing> pagedListHolder = new PagedListHolder<>(allShoeListings);
+        pagedListHolder.setPage(currentPage - 1);
+        pagedListHolder.setPageSize(6);
+
+        List<ShoeListing> pageSlice = pagedListHolder.getPageList();
+        Pageable pageable = PageRequest.of( currentPage - 1, 6);
+
+        Page<ShoeListing> pageShoeListings= new PageImpl<>(pageSlice, pageable, allShoeListings.size() );
+
+        // Creating a pageable framework from a list of Listings
+        // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
+        // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
+        // number of items on page is set by the size parameter of the PageRequest.of()
+
+        int totalPages = pageShoeListings.getTotalPages();
+        long totalItems = pageShoeListings.getTotalElements();
+
+        //Get content of the list it will be the size set by the Pageable
+        List<ShoeListing> shoeListingList = pageShoeListings.getContent();
+
+        model.addAttribute("pageShoeListings", pageShoeListings);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("shoeListingList", shoeListingList);
+
+        //Number of pages total that will be listed at once in the pagination menu.  Keep an even number for current code configuration.
+        int paginationMenuTotalVisible = 4;
+        model.addAttribute("paginationMenuTotalVisible", paginationMenuTotalVisible);
+        model.addAttribute("paginationMenuSplitSidesVisible", paginationMenuTotalVisible / 2);
+
+        return "/listings/listings";
+    }
+
+
 }

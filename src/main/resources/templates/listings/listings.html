@@ -12,7 +12,7 @@
                     <h2>Listings</h2>
 
                     <div class="listing-container d-flex flex-wrap ">
-                        <div th:each="listing : ${allListings}" class="listing-item ">
+                        <div th:each="listing : ${shoeListingList}" class="listing-item ">
                             <div class="border border-3 rounded-5 border-secondary-subtle shadow-sm p-2 mb-4">
                                 <h4 th:text="${listing.title}"></h4>
 
@@ -56,18 +56,18 @@
                                 <div class="row mx-4">
                                     <div class="col">
                                         <a th:href="'/profile/' + ${listing.userEntity.displayName}">
-                                        <th:block th:if="${listing.userEntity.imageInfo}">
-                                            <img th:src="@{${listing.userEntity.imageInfo.url}}"
-                                                 class="rounded-3 border border-2 border-secondary-subtle"
-                                                 alt="Profile Image"
-                                                 height="80"/>
-                                        </th:block>
-                                        <th:block th:unless="${listing.userEntity.imageInfo}">
-                                            <img th:src="@{/images/profile-icon.png}"
-                                                 class="rounded-3 border border-2 border-secondary-subtle"
-                                                 alt="Profile Image"
-                                                 height="80">
-                                        </th:block>
+                                            <th:block th:if="${listing.userEntity.imageInfo}">
+                                                <img th:src="@{${listing.userEntity.imageInfo.url}}"
+                                                     class="rounded-3 border border-2 border-secondary-subtle"
+                                                     alt="Profile Image"
+                                                     height="80"/>
+                                            </th:block>
+                                            <th:block th:unless="${listing.userEntity.imageInfo}">
+                                                <img th:src="@{/images/profile-icon.png}"
+                                                     class="rounded-3 border border-2 border-secondary-subtle"
+                                                     alt="Profile Image"
+                                                     height="80">
+                                            </th:block>
                                         </a>
 
                                     </div>
@@ -94,8 +94,124 @@
             </div>
         </div>
     </div>
-</div>
 
+
+    <!--PAGINATION BELOW-->
+    <footer style="font-size: large" class="panel-footer">
+        <div class="container color2 p-1 rounded-bottom-5">
+            <div class="color2 rounded-bottom-5 p-1">
+                <!--    sets the pagination menu / control-->
+                <nav aria-label="Conversations Page Navigation Menu">
+                    <ul class="pagination pagination-lg justify-content-center">
+
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/listings/listings/page/1'}">First</a>
+                        </li>
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/listings/listings/page/' + ${currentPage - 1}}">Previous</a>
+                        </li>
+
+
+                        <!--            if total number of pages is less than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages <= paginationMenuTotalVisible}">
+                            <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
+
+                                <!--            Sets active status for the current page-->
+                                <th:block th:if="${currentPage == i}">
+                                    <li class="page-item active">
+                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <th:block th:unless="${currentPage == i}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+
+                        <!--            if total number of pages is more than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages > paginationMenuTotalVisible}">
+
+                            <!--                If the currentPage is within paginationMenuSplitSidesVisible from the beginning or paginationMenuSplitSidesVisible from the end-->
+                            <th:block
+                                    th:if="${currentPage <= paginationMenuSplitSidesVisible || currentPage >= totalPages - (paginationMenuSplitSidesVisible - 1)}">
+
+                                <th:block th:each="i: ${#numbers.sequence(1, paginationMenuSplitSidesVisible)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+
+                                </th:block>
+
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{'/listings/listings/page/' + ${paginationMenuSplitSidesVisible + 1}}">...</a>
+                                </li>
+
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(totalPages - (paginationMenuSplitSidesVisible - 1), totalPages)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+
+                            <!--                If current page is more than paginationMenuSplitSidesVisible from the beginning or end-->
+                            <th:block
+                                    th:if="${currentPage > paginationMenuSplitSidesVisible && currentPage < totalPages - (paginationMenuSplitSidesVisible - 1)}">
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage - paginationMenuSplitSidesVisible, currentPage - 1)}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <li class="page-item active">
+                                    <a class="page-link" th:href="@{'/listings/listings/page/' + ${currentPage}}">
+                                        <span th:text="${currentPage}"></span>
+                                    </a>
+                                </li>
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage + 1, currentPage + paginationMenuSplitSidesVisible)}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                          th:href="@{'/listings/listings/page/' + ${currentPage + 1}}">Next</a>
+                        </li>
+                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                          th:href="@{'/listings/listings/page/' + ${totalPages}}">Last</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+</div>
 
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>

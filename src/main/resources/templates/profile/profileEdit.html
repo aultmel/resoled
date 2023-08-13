@@ -8,11 +8,10 @@
         <div class="color1 container rounded-5 p-3">
             <div class="gradientForm container rounded-5 shadow-lg p-4">
 
-
                 <div class="container" style="max-width: 500px">
 
+                    <!--Form to update user profile photo-->
                     <form   id="uploadForm" method="post"  th:action="@{../profile/upload}" enctype="multipart/form-data">
-
                     <div class="form-group file border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
                         <div class="preview">
                             <img id="file-ip-1-preview">
@@ -22,7 +21,6 @@
                         <label class="file-upload-custom-button btn button1 btn-lg shadow ms-2 m-2" for="input-file">Select Image</label>
                     </div>
                         <br/>
-
                         <div class="form-group d-grid mb-4 mx-auto w-75">
                             <button type="submit" value="Log in"
                                     class="btn button1 btn-lg shadow-lg">
@@ -30,6 +28,30 @@
                             </button>
                         </div>
                     </form>
+
+                    <!--Form to update user data-->
+                    <form th:object="${userEntity}" th:action="@{../profile/profileEdit}" method="post"-->
+
+                        <label>Edit Display Name:
+                            <input type="text" th:field="*{displayName}"/>
+                        </label>
+                        <br/>
+                        <label>Edit First Name:
+                            <input type="text" th:field="*{firstName}"/>
+                        </label>
+                        <br/>
+                        <label>Edit Last Name:
+                            <input type="text" th:field="*{lastName}"/>
+                        </label>
+                        <br/>
+                        <label>Edit Email:
+                            <input type="text" th:field="*{email}"/>
+                        </label>
+                        <br/>
+                        <button type="submit" class="btn button1 btn-lg shadow-lg">Save</button>
+                    </form>
+
+
                     <div
                             th:if="${message != null}"
                             class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
@@ -41,70 +63,19 @@
                     </div>
                     <hr/>
 
+                    <!--Return to Profile Button-->
                     <div class="form-group d-grid mb-4 mx-auto mt-5 w-75">
                         <a th:href="@{/profile}"  value="Return to Profile"
                            class="btn button1 btn-lg shadow-lg" style="color: var( --lightText);">
                             Return to Profile
                         </a>
                     </div>
-
                 </div>
-
-
-
-
-
-<!--                <form th:object="${userEntity}" th:action="@{../profile/profileEdit}" method="post"-->
-<!--                      enctype="multipart/form-data">-->
-
-<!--                    <div class="form-group file border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">-->
-<!--                        <div class="preview">-->
-<!--                            <img id="file-ip-1-preview">-->
-<!--                        </div>-->
-<!--                        <input type="file" name="imageFiles" accept="image/*" id="image-input"-->
-<!--                               onchange="showImagePreview(event);">-->
-<!--                        <label class="btn button1 btn-lg shadow ms-2 m-2" for="image-input">Upload Image</label>-->
-<!--                    </div>-->
-
-<!--                    <label>Edit Display Name:-->
-<!--                        <input type="text" th:field="*{displayName}"/>-->
-<!--                    </label>-->
-<!--                    <br/>-->
-<!--                    <label>Edit First Name:-->
-<!--                        <input type="text" th:field="*{firstName}"/>-->
-<!--                    </label>-->
-<!--                    <br/>-->
-<!--                    <label>Edit Last Name:-->
-<!--                        <input type="text" th:field="*{lastName}"/>-->
-<!--                    </label>-->
-<!--                    <br/>-->
-<!--                    <label>Edit Email:-->
-<!--                        <input type="text" th:field="*{email}"/>-->
-<!--                    </label>-->
-<!--                    <br/>-->
-<!--                    <button type="submit">Save</button>-->
-<!--                    <a th:href="@{'../profile'}">Back to profile</a>-->
-<!--                </form>-->
-
-                <!--<form method="post" role="form"-->
-                <!--      th:action="@{..profileEdit}"-->
-                <!--      th:object="${editProfileDTO}">-->
-                <!--    <div class="form-control">-->
-                <!--        <label>Edit Username:-->
-                <!--            <input th:field="*{username}" class="form-control" >-->
-                <!--        </label>-->
-                <!--        <label>Edit Password:-->
-                <!--            <input th:field="*{password}" class="form-control" >-->
-                <!--        </label>-->
-                <!--    </div>-->
-                <!--    <input type="submit" value="Finished Editing" class="btn btn-primary">-->
-                <!--</form>-->
-
-
             </div>
         </div>
     </div>
 </div>
+<!--Shows preview of selected photo before submission-->
 <script>
     function showImagePreview(event){
         if(event.target.files.length > 0){
@@ -116,7 +87,6 @@
             preview.style.border = "2px solid hsla(0, 0%, 79%, 1)";
         }
     }
-
 </script>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>

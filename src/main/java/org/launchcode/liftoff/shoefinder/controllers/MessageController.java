@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
 import org.launchcode.liftoff.shoefinder.data.MessageRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
-import org.launchcode.liftoff.shoefinder.models.Message;
 import org.launchcode.liftoff.shoefinder.models.MessageChain;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
@@ -51,14 +50,11 @@ public class MessageController {
         return getOneMessageChainPage(model, 1);
     }
 
-        @GetMapping("/messages")
-        public String messagesGetMapping(Model model) {
-                return getOneMessageChainPage(model, 1);
-        }
+    @GetMapping("/messages")
+    public String messagesGetMapping(Model model) {  return getOneMessageChainPage(model, 1); }
 
     @GetMapping("messages/page/{pageNumber}")
     public String getOneMessageChainPage(Model model, @PathVariable("pageNumber") int currentPage){
-
 
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);

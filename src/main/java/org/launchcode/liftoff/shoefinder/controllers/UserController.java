@@ -113,8 +113,6 @@ public class UserController {
             model.addAttribute("error", blankField.getMessage());
             return "profile/profileEdit";
 
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
         }
     }
 
@@ -155,9 +153,16 @@ public class UserController {
         model.addAttribute("userListings", otherUser.getShoeListings());
 
 
+
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
+
+        if(otherUser.getImageInfo() == null){
+            model.addAttribute("userImageBoolean" , false);
+        } else {
+            model.addAttribute( "userImageBoolean", true);
+        }
 
         return "profile/userData";
     }

@@ -8,11 +8,17 @@
         <div class="color1 container rounded-5 p-3">
             <div class="gradientForm container rounded-5 shadow-lg p-4">
 
+                <th:block th:if="${userImageBoolean}">
+                    <img th:src="@{${otherUser.imageInfo.url}}" alt="Profile Image" width="200"/>
+                </th:block>
+                <th:block th:unless="${userImageBoolean}">
+                    <img th:src="@{/images/test-profile-pic-not-licensed.png}" alt="Profile Image"
+                         width="150" height="150">
+
                 <h3 th:text="${otherUser.displayName}"></h3>
 
                 <div class="row mb-3">
                     <div class="col">
-                        User Info and picture etc
 
                         <hr/>
                         <!-- Report Button -->
@@ -24,9 +30,9 @@
                         <div>
                             <form th:object="${reportDTO}" th:id="reportForm"
                                   th:action="@{../profile/{displayName}(displayName=${displayName})}" method="post"
-                                  th:style="'display:none'">
+                                  th:style="'display:none'" >
 
-                                <div class="form-group">
+                                <div class="form-group d-grid mb-4 mx-auto mt-5 w-75">
                                     <label th:text="'Report User: ' + ${otherUser.displayName}"></label>
 
                                     </br>
@@ -35,7 +41,7 @@
                                               class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"
                                     ></textarea>
                                     </br>
-                                    <button type="submit" class="btn button1 shadow">Submit Report</button>
+                                    <button type="submit" class="btn button1 btn-lg shadow-lg">Submit Report</button>
                                 </div>
                             </form>
                         </div>
@@ -43,6 +49,7 @@
                     </div>
 
                     <div class="col text-center">
+
                         <!--form to initiate message to otherUser-->
                         <h5 >Start a Conversation with <th:block th:text="${otherUser.displayName}"></th:block></h5>
                         <form method="post" role="form"
@@ -77,20 +84,24 @@
                     </div>
 
                 </div>
+
+<!--                    Listings-->
                 <div class="row">
                     <hr/>
                     <H3>Listings</H3>
-                    <div class="listing-container">
-                        <div th:each="listing : ${userListings}" class="listing-item">
+                    <div class="grid-container">
+                        <div th:each="listing : ${userListings}" >
                             <div class="color1 container rounded-5 p-3">
                                 <div class="gradientForm container rounded-5 shadow-lg p-4">
-                                    <a th:href="'/listings/details?listingId=' + ${listing.id}"
-                                       th:text="${listing.id}"></a>
-                                    <!--        This will be used to display the username and link to profile-->
-                                    <p th:text="${listing.brand.name}"></p>
-                                    <p th:text="${listing.style.name}"></p>
-                                    <p th:text="${listing.size}"></p>
-                                    <p th:text="${listing.userEntity.location.zipCode}"></p>
+                                    <a class="h2" th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.title}"></a>
+                                    <br/>
+                                    <th:block th:if="${imageLocal}">
+                                        <img th th:src="@{${listing.imageLocal.url}}">
+                                    </th:block>
+                                    <p th:text="'Brand: ' + ${listing.brand.name}"></p>
+                                    <p th:text="'Style: ' + ${listing.style.name}"></p>
+                                    <p th:text="'Size: ' + ${listing.size}"></p>
+                                    <p th:text="'Location: ' + ${listing.userEntity.location.zipCode}"></p>
                                 </div>
                             </div>
                         </div>

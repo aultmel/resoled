@@ -88,6 +88,12 @@ public class AuthController {
             return "register";
         }
 
+        // checks if displayName is taken and if it is taken sends an error to the view
+        if(userRepository.existsByEmailIgnoreCase(registerDTO.getEmail())){
+            bindingResult.rejectValue("email", "email.unavailable", "Email is unavailable");;
+            return "register";
+        }
+
 
         // checks if passwords match for registration and if they don't match sends an error to the view
         String password = registerDTO.getPassword();

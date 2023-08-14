@@ -4,16 +4,16 @@
 <header th:replace="~{fragments :: header}"></header>
 <body>
 <div class="gradientBg p-3 pt-4">
-    <div class="color2 container listingsPage rounded-top-5 p-2 shadow-lg">
+    <div class="listings color2 container rounded-top-5 p-2 shadow-lg">
         <div class="color1 container rounded-5 p-3">
             <div class="gradientForm container rounded-5 shadow-lg p-4">
                 <div class="text-center">
 
                     <h2>Listings</h2>
 
-                    <div class="listing-container d-flex flex-wrap ">
+                    <div class="listing-container  d-flex flex-wrap ">
                         <div th:each="listing : ${shoeListingList}" class="listing-item ">
-                            <div class="border border-3 rounded-5 border-secondary-subtle shadow-sm p-2 mb-4">
+                            <div class="aListing border border-3 rounded-5 border-secondary-subtle shadow-sm p-2 mb-4">
                                 <h4 th:text="${listing.title}"></h4>
 
                                 <th:block th:if="${listing.imageLocal}">
@@ -96,9 +96,9 @@
     </div>
 
 
-<!--    PAGINATION BELOW-->
+    <!--    PAGINATION BELOW-->
     <footer style="font-size: large" class="panel-footer">
-        <div class="container color2 p-1 rounded-bottom-5">
+        <div class="listings container color2 p-1 rounded-bottom-5">
             <div class="color2 rounded-bottom-5 p-1">
                 <!--    sets the pagination menu / control-->
                 <nav aria-label="Conversations Page Navigation Menu">
@@ -123,9 +123,11 @@
                                     </li>
                                 </th:block>
                                 <th:block th:unless="${currentPage == i}">
-                                    <li class="page-item">
-                                        <a class="page-link" th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
-                                    </li>
+                                    <th:block th:unless="${i == 0}">
+                                        <li class="page-item">
+                                            <a class="page-link" th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
                                 </th:block>
                             </th:block>
                         </th:block>
@@ -199,12 +201,16 @@
                                 </th:block>
                             </th:block>
                         </th:block>
-                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/listings/listingSearch/page/' + ${currentPage + 1}}">Next</a>
-                        </li>
-                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/listings/listingSearch/page/' + ${totalPages}}">Last</a>
-                        </li>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/listings/listingSearch/page/' + ${currentPage + 1}}">Next</a>
+                            </li>
+                        </th:block>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/listings/listingSearch/page/' + ${totalPages}}">Last</a>
+                            </li>
+                        </th:block>
                     </ul>
                 </nav>
             </div>

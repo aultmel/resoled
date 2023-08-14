@@ -24,7 +24,7 @@ public class CurrentSearch {
 
     private String searchCondition;
 
-    private String searchGender;
+    private String searchGenders;
 
     public CurrentSearch() {  }
 
@@ -72,11 +72,11 @@ public class CurrentSearch {
         this.searchCondition = searchCondition;
     }
 
-    public String getSearchGender() {
-        return searchGender;
+    public String getSearchGenders() {
+        return searchGenders;
     }
 
-    public void setSearchGender(String searchGender) {
-        this.searchGender = searchGender;
+    public void setSearchGenders(String searchGenders) {
+        this.searchGenders = searchGenders;
     }
 }

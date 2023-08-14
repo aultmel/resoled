@@ -4,7 +4,7 @@
 <header th:replace="~{fragments :: header}"></header>
 <body>
 <div class="gradientBg p-3 pt-4">
-    <div class="color2 container rounded-5  p-2 shadow-lg">
+    <div class="color2 container rounded-top-5  p-2 shadow-lg">
         <div class="color1 container rounded-5 p-3">
             <div class="gradientForm container rounded-5 shadow-lg p-4">
 
@@ -14,7 +14,7 @@
                 <th:block th:unless="${userImageBoolean}">
                     <img th:src="@{/images/test-profile-pic-not-licensed.png}" alt="Profile Image"
                          width="150" height="150">
-
+                </th:block>
                 <h3 th:text="${otherUser.displayName}"></h3>
 
                 <div class="row mb-3">
@@ -90,7 +90,7 @@
                     <hr/>
                     <H3>Listings</H3>
                     <div class="grid-container">
-                        <div th:each="listing : ${userListings}" >
+                        <div th:each="listing : ${shoeListingList}" >
                             <div class="color1 container rounded-5 p-3">
                                 <div class="gradientForm container rounded-5 shadow-lg p-4">
                                     <a class="h2" th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.title}"></a>
@@ -110,6 +110,125 @@
             </div>
         </div>
     </div>
+
+    <!--PAGINATION BELOW-->
+    <footer style="font-size: large" class="panel-footer">
+        <div class="container color2 p-1 rounded-bottom-5">
+            <div class="color2 rounded-bottom-5 p-1">
+                <!--    sets the pagination menu / control-->
+                <nav aria-label="Conversations Page Navigation Menu">
+                    <ul class="pagination pagination-lg justify-content-center">
+
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/profile/' + ${otherUser.displayName} + '/page/1'}">First</a>
+                        </li>
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${currentPage - 1}}">Previous</a>
+                        </li>
+
+
+                        <!--            if total number of pages is less than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages <= paginationMenuTotalVisible}">
+                            <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
+
+                                <!--            Sets active status for the current page-->
+                                <th:block th:if="${currentPage == i}">
+                                    <li class="page-item active">
+                                        <a class="page-link" th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <th:block th:unless="${currentPage == i}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+
+                        <!--            if total number of pages is more than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages > paginationMenuTotalVisible}">
+
+                            <!--                If the currentPage is within paginationMenuSplitSidesVisible from the beginning or paginationMenuSplitSidesVisible from the end-->
+                            <th:block
+                                    th:if="${currentPage <= paginationMenuSplitSidesVisible || currentPage >= totalPages - (paginationMenuSplitSidesVisible - 1)}">
+
+                                <th:block th:each="i: ${#numbers.sequence(1, paginationMenuSplitSidesVisible)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/' + ${otherUser.displayName}' + /page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+
+                                </th:block>
+
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{'/profile/' + ${otherUser.displayName}' + /page/' + ${paginationMenuSplitSidesVisible + 1}}">...</a>
+                                </li>
+
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(totalPages - (paginationMenuSplitSidesVisible - 1), totalPages)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/' + ${otherUser.displayName}' + /page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/' + ${otherUser.displayName}' + /page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+
+                            <!--                If current page is more than paginationMenuSplitSidesVisible from the beginning or end-->
+                            <th:block
+                                    th:if="${currentPage > paginationMenuSplitSidesVisible && currentPage < totalPages - (paginationMenuSplitSidesVisible - 1)}">
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage - paginationMenuSplitSidesVisible, currentPage - 1)}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <li class="page-item active">
+                                    <a class="page-link" th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${currentPage}}">
+                                        <span th:text="${currentPage}"></span>
+                                    </a>
+                                </li>
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage + 1, currentPage + paginationMenuSplitSidesVisible)}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/profile/' + ${otherUser.displayName}+ '/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                          th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${currentPage + 1}}">Next</a>
+                        </li>
+                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                          th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${totalPages}}">Last</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+
+
+
 </div>
 
 

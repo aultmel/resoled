@@ -143,7 +143,7 @@ public class ListingController {
     }
 
 
-    // pagenation testing for all listings
+    // pagenation for all listings
     @GetMapping("/listings/page/{pageNumber}")
     public String getOneListingsPage(Model model, @PathVariable("pageNumber") int currentPage) {
 
@@ -163,8 +163,6 @@ public class ListingController {
         Page<ShoeListing> pageShoeListings = new PageImpl<>(pageSlice, pageable, allShoeListings.size());
 
         // Creating a pageable framework from a list of Listings
-        // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
-        // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
         // number of items on page is set by the size parameter of the PageRequest.of()
 
         int totalPages = pageShoeListings.getTotalPages();

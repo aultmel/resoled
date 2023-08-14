@@ -10,7 +10,7 @@ event.preventDefault();
  });
 
 nextButton.addEventListener("click", (event) => {
-        src = "../images/poor-shoe.png"
+        src = "../images/active-running-shoe.png"
         imageDiv.style.backgroundImage = `url("${src}")`;
        event.preventDefault();
 

@@ -457,7 +457,6 @@ input[type="file"] {
 }
 
 
-
 /* Navbar profile pic */
 .profile-pic {
     height: 50px;
@@ -559,4 +558,13 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 /* END LIGHT/DARK TOGGLE */
+
+
+/* for styling listings on profiles */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+
+}
 

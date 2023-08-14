@@ -72,21 +72,7 @@ package org.launchcode.liftoff.shoefinder.models.dto;
             this.style = style;
         }
 
-        //        public String getZipCode() {
-//            return zipCode;
-//        }
-//
-//        public void setZipCode(String zipCode) {
-//            this.zipCode = zipCode;
-//        }
-//
-//        public String getDistance() {
-//            return distance;
-//        }
-//
-//        public void setDistance(String distance) {
-//            this.distance = distance;
-//        }
+
     }
 
 

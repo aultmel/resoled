@@ -5,7 +5,6 @@ import com.mysql.cj.util.StringUtils;
 import org.launchcode.liftoff.shoefinder.data.*;
 import org.launchcode.liftoff.shoefinder.models.*;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
-import org.launchcode.liftoff.shoefinder.models.dto.SearchListingsDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -85,16 +84,30 @@ public class ListingService {
 
     // Method to filter shoe listings based on search criteria.
 
-    public List<ShoeListing> filterListings(SearchListingsDTO searchListingsDTO) {
+    public List<ShoeListing> filterListings() {
         List<ShoeListing> filteredListings = shoeListingRepository.findAll();
         List<List<ShoeListing>> activeFilters = new ArrayList<>();
         List<ShoeListing> itemsToRemove = new ArrayList<>();
 
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+
+
+        CurrentSearch currentSearch = userEntity.getCurrentSearch();
+
         // if user included gender filters
-        if (!searchListingsDTO.getGenders().isEmpty()) {
+        ArrayList<String> genderArrayList = new ArrayList<>();
+        if(currentSearch.getSearchGenders() != null) {
+            String gendersString = currentSearch.getSearchGenders();
+            String[] gendersArray = gendersString.split(",");
+            for (String gender : gendersArray) {
+                genderArrayList.add(gender);
+            }
+        }
+        if (!genderArrayList.isEmpty()) {
             List<ShoeListing> genderList = new ArrayList<>();
             //for each gender user selected
-            for (String gender : searchListingsDTO.getGenders()) {
+            for (String gender : genderArrayList) {
                 //find all listings with that gender and add to genderList
                 genderList.addAll(shoeListingRepository.findByGender(gender));
             }
@@ -105,10 +118,11 @@ public class ListingService {
             activeFilters.add(genderList);
         }
 
-        if (!StringUtils.isNullOrEmpty(searchListingsDTO.getBrand())) {
+        String brand = currentSearch.getSearchBrand();
+        if (!StringUtils.isNullOrEmpty(brand)) {
             List<ShoeListing> brandList = new ArrayList<>();
 
-            brandList.addAll(shoeListingRepository.findByBrand(brandRepository.findByName(searchListingsDTO.getBrand())));
+            brandList.addAll(shoeListingRepository.findByBrand(brandRepository.findByName(brand)));
 
             if (brandList.isEmpty()) {
                 return Collections.emptyList();
@@ -116,9 +130,18 @@ public class ListingService {
             activeFilters.add(brandList);
         }
 
-        if (!searchListingsDTO.getSizes().isEmpty()) {
+
+        ArrayList<String> sizeArrayList = new ArrayList<>();
+        if(currentSearch.getSearchSizes() != null) {
+            String sizesString = currentSearch.getSearchSizes();
+            String[] sizesArray = sizesString.split(",");
+            for (String size : sizesArray) {
+                sizeArrayList.add(size);
+            }
+        }
+        if (!sizeArrayList.isEmpty()) {
             List<ShoeListing> sizeList = new ArrayList<>();
-            for (String size : searchListingsDTO.getSizes()) {
+            for (String size : sizeArrayList) {
                 sizeList.addAll(shoeListingRepository.findBySize(size));
             }
             if (sizeList.isEmpty()) {
@@ -127,10 +150,12 @@ public class ListingService {
             activeFilters.add(sizeList);
         }
 
-        if (!StringUtils.isNullOrEmpty(searchListingsDTO.getStyle())) {
+
+
+        if (!StringUtils.isNullOrEmpty(currentSearch.getSearchStyle())) {
             List<ShoeListing> styleList = new ArrayList<>();
 
-            styleList.addAll(shoeListingRepository.findByStyle(styleRepository.findByName(searchListingsDTO.getStyle())));
+            styleList.addAll(shoeListingRepository.findByStyle(styleRepository.findByName(currentSearch.getSearchStyle())));
 
             if (styleList.isEmpty()) {
                 return Collections.emptyList();
@@ -138,10 +163,10 @@ public class ListingService {
             activeFilters.add(styleList);
         }
 
-        if (!StringUtils.isNullOrEmpty(searchListingsDTO.getCondition())) {
+        if (!StringUtils.isNullOrEmpty(currentSearch.getSearchCondition())) {
             List<ShoeListing> conditionList = new ArrayList<>();
 
-            conditionList.addAll(shoeListingRepository.findByCondition(searchListingsDTO.getCondition()));
+            conditionList.addAll(shoeListingRepository.findByCondition(currentSearch.getSearchCondition()));
 
             if (conditionList.isEmpty()) {
                 return Collections.emptyList();

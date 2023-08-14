@@ -5,7 +5,7 @@
 <body>
 
 <div class="gradientBg p-3 pt-4">
-    <div class="color2 container w-75 rounded-5 p-2 shadow-lg ">
+    <div class="color2 container w-75 rounded-top-5 p-2 shadow-lg ">
         <div class="color1 container rounded-5 p-3">
             <div class="gradientForm container rounded-5 shadow-lg p-4">
 
@@ -24,22 +24,25 @@
                                 <img th:src="@{/images/profile-icon.png}" alt="Profile Image"
                                      width="150" height="150">
                             </th:block>
+                            <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
                             <p th:text="'DisplayName: ' + ${userEntity.displayName}"></p>
                             <p th:text="'Username: ' + ${userEntity.username}"></p>
                             <p th:text="'Email: ' + ${userEntity.email}"></p>
                             <p th:text="'First Name: ' + ${userEntity.firstName}"></p>
                             <p th:text="'Last Name: ' + ${userEntity.lastName}"></p>
-
-                            <a th:href="@{'profile/profileEdit'}">Edit</a>
-                            <a th:href="@{'home'}">Home</a>
+                            </div>
+                            <a class="btn button1 btn-lg shadow-lg" style="color: var( --lightText);" th:href="@{'/profile/profileEdit'}">Edit</a>
+                            <a class="btn button1 btn-lg shadow-lg" style="color: var( --lightText);" th:href="@{'home'}">Home</a>
                             </br>
                             </br>
 
-                            <p th:if="${userEntity.roles[0].getName() == 'ADMIN'}"><a th:href="@{'admin'}">Admin
+                            <p><a th:if="${userEntity.roles.contains('ADMIN')}"  class="btn button1 btn-lg shadow-lg" style="color: var( --lightText);" th:href="@{'admin'}">Admin
                                 Menu</a>
                             </p>
+                            </th:block>
                         </div>
 
+                    <!--Shows recent messages-->
                     </div>
                     <div class="color7 container rounded px-4 pt-2 col mx-1">
 
@@ -49,30 +52,64 @@
                         <p class="fst-italic text-center">Click on the Message Subject to continue the conversation</p>
 
                         <div th:each="messageChain : ${messageChainList}" class="p-1">
-
-
                             <div class="row container rounded-5 border border-3 border-secondary-subtle shadow p-2 mb-3">
-
-
                                 <div class="col p-2 ">
-
-                                    <h5>Message Subject: <a
+                                    <h5>Message Subject:
+                                        <br/>
+                                        <a
                                             th:href="@{'/message/message?messageChainId=' + ${messageChain.id}}"
                                             th:text="${messageChain.messageChainSubject}"></a></h5>
-                                    <h5>with:
-                                        <th:block
-                                                th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
+                                    <div>
+
+                                        <span class="mb-0">with:</span>
+
+                                        <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}">
+                                            <span th:text="${messageChain.userEntityList[1].displayName}"></span>
+                                        </a>
+                                        <br/>
+                                        <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
+                                            <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
+
+                                                <th:block th:if="${messageChain.userEntityList[0].imageInfo}">
+                                                    <img th:src="@{${messageChain.userEntityList[0].imageInfo.url}}"
+                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         alt="Profile Image"
+                                                         height="80"/>
+                                                </th:block>
+                                                <th:block th:unless="${messageChain.userEntityList[0].imageInfo}">
+                                                    <img th:src="@{/images/profile-icon.png}"
+                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         alt="Profile Image"
+                                                         height="80">
+                                                </th:block>
+
+                                            </a>
                                             <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
                                                 <span th:text="${messageChain.userEntityList[0].displayName}"></span>
                                             </a>
                                         </th:block>
-                                        <th:block
-                                                th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
+                                        <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
                                             <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}">
-                                                <span th:text="${messageChain.userEntityList[1].displayName}"></span>
+
+
+                                                <th:block th:if="${messageChain.userEntityList[1].imageInfo}">
+                                                    <img th:src="@{${messageChain.userEntityList[1].imageInfo.url}}"
+                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         alt="Profile Image"
+                                                         height="80"/>
+                                                </th:block>
+                                                <th:block th:unless="${messageChain.userEntityList[1].imageInfo}">
+                                                    <img th:src="@{/images/profile-icon.png}"
+                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         alt="Profile Image"
+                                                         height="80">
+                                                </th:block>
+
                                             </a>
+
                                         </th:block>
-                                    </h5>
+
+                                    </div>
                                 </div>
                                 <div class="col p-2">
                                     <p>Most Recent Message:
@@ -96,19 +133,24 @@
 
                     </div>
                 </div>
+
+<!--                Listings  shown-->
                 <div class="row">
                     <hr/>
                     <H3>Your Listings</H3>
-                    <div class="listing-container">
-                        <div th:each="listing : ${userListings}" class="listing-item">
+                    <div class="grid-container">
+                        <div th:each="listing : ${shoeListingList}" >
                             <div class="color1 container rounded-5 p-3">
                                 <div class="gradientForm container rounded-5 shadow-lg p-4">
-                                    <a th:href="'/listings/details?listingId=' + ${listing.id}"
-                                       th:text="${listing.id}"></a>
-                                    <p th:text="${listing.brand.name}"></p>
-                                    <p th:text="${listing.style.name}"></p>
-                                    <p th:text="${listing.size}"></p>
-                                    <p th:text="${listing.userEntity.location.zipCode}"></p>
+                                    <a class="h2" th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.title}"></a>
+                                    <br/>
+                                    <th:block th:if="${imageLocal}">
+                                        <img th th:src="@{${listing.imageLocal.url}}">
+                                    </th:block>
+                                    <p th:text="'Brand: ' + ${listing.brand.name}"></p>
+                                    <p th:text="'Style: ' + ${listing.style.name}"></p>
+                                    <p th:text="'Size: ' + ${listing.size}"></p>
+                                    <p th:text="'Location: ' + ${listing.userEntity.location.zipCode}"></p>
                                 </div>
                             </div>
                         </div>
@@ -117,6 +159,124 @@
             </div>
         </div>
     </div>
+
+    <!--PAGINATION BELOW-->
+    <footer style="font-size: large" class="panel-footer">
+        <div class="container w-75 color2 p-1 rounded-bottom-5">
+            <div class="color2 rounded-bottom-5 p-1">
+                <!--    sets the pagination menu / control-->
+                <nav aria-label="Conversations Page Navigation Menu">
+                    <ul class="pagination pagination-lg justify-content-center">
+
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/profile/page/1'}">First</a>
+                        </li>
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/profile/page/' + ${currentPage - 1}}">Previous</a>
+                        </li>
+
+
+                        <!--            if total number of pages is less than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages <= paginationMenuTotalVisible}">
+                            <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
+
+                                <!--            Sets active status for the current page-->
+                                <th:block th:if="${currentPage == i}">
+                                    <li class="page-item active">
+                                        <a class="page-link" th:href="@{'/profile/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <th:block th:unless="${currentPage == i}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/profile/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+
+                        <!--            if total number of pages is more than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages > paginationMenuTotalVisible}">
+
+                            <!--                If the currentPage is within paginationMenuSplitSidesVisible from the beginning or paginationMenuSplitSidesVisible from the end-->
+                            <th:block
+                                    th:if="${currentPage <= paginationMenuSplitSidesVisible || currentPage >= totalPages - (paginationMenuSplitSidesVisible - 1)}">
+
+                                <th:block th:each="i: ${#numbers.sequence(1, paginationMenuSplitSidesVisible)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+
+                                </th:block>
+
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{'/profile/page/' + ${paginationMenuSplitSidesVisible + 1}}">...</a>
+                                </li>
+
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(totalPages - (paginationMenuSplitSidesVisible - 1), totalPages)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+
+                            <!--                If current page is more than paginationMenuSplitSidesVisible from the beginning or end-->
+                            <th:block
+                                    th:if="${currentPage > paginationMenuSplitSidesVisible && currentPage < totalPages - (paginationMenuSplitSidesVisible - 1)}">
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage - paginationMenuSplitSidesVisible, currentPage - 1)}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/profile/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <li class="page-item active">
+                                    <a class="page-link" th:href="@{'/profile/page/' + ${currentPage}}">
+                                        <span th:text="${currentPage}"></span>
+                                    </a>
+                                </li>
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage + 1, currentPage + paginationMenuSplitSidesVisible)}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/profile/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                          th:href="@{'/profile/page/' + ${currentPage + 1}}">Next</a>
+                        </li>
+                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                          th:href="@{'/profile/page/' + ${totalPages}}">Last</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+
+
 </div>
 
 

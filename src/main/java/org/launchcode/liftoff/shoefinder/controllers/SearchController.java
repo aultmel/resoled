@@ -1,11 +1,9 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
-import org.launchcode.liftoff.shoefinder.constants.ListingConstants;
 import org.launchcode.liftoff.shoefinder.data.BrandRepository;
 import org.launchcode.liftoff.shoefinder.data.StyleRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.Brand;
-import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.Style;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.SearchListingsDTO;
@@ -14,7 +12,6 @@ import org.launchcode.liftoff.shoefinder.services.ListingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,17 +92,17 @@ public class SearchController {
         return "search";
     }
 
-    @GetMapping("/listingsearch")
-    public String searchPostMap(@ModelAttribute("searchListingsDTO") SearchListingsDTO searchListingsDTO, Model model) {
-        List<ShoeListing> filteredListings = listingService.filterListings(searchListingsDTO);
-        model.addAttribute("allListings", filteredListings);
-
-        String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
-        model.addAttribute("userEntity", userEntity);
-
-        return "listings/listings";
-    }
+//    @GetMapping("/listingsearch")
+//    public String searchPostMap(@ModelAttribute("searchListingsDTO") SearchListingsDTO searchListingsDTO, Model model) {
+//        List<ShoeListing> filteredListings = listingService.filterListings(searchListingsDTO);
+//        model.addAttribute("allListings", filteredListings);
+//
+//        String username = SecurityUtility.getSessionUser();
+//        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+//        model.addAttribute("userEntity", userEntity);
+//
+//        return "listings/listings";
+//    }
 
 
 

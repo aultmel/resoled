@@ -96,7 +96,7 @@
     </div>
 
 
-    <!--PAGINATION BELOW-->
+<!--    PAGINATION BELOW-->
     <footer style="font-size: large" class="panel-footer">
         <div class="container color2 p-1 rounded-bottom-5">
             <div class="color2 rounded-bottom-5 p-1">
@@ -105,10 +105,10 @@
                     <ul class="pagination pagination-lg justify-content-center">
 
                         <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
-                                                                                 th:href="@{'/listings/listings/page/1'}">First</a>
+                                                                                 th:href="@{'/listings/listingSearch/page/1'}">First</a>
                         </li>
                         <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
-                                                                                 th:href="@{'/listings/listings/page/' + ${currentPage - 1}}">Previous</a>
+                                                                                 th:href="@{'/listings/listingSearch/page/' + ${currentPage - 1}}">Previous</a>
                         </li>
 
 
@@ -119,12 +119,12 @@
                                 <!--            Sets active status for the current page-->
                                 <th:block th:if="${currentPage == i}">
                                     <li class="page-item active">
-                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        <a class="page-link" th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
                                     </li>
                                 </th:block>
                                 <th:block th:unless="${currentPage == i}">
                                     <li class="page-item">
-                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        <a class="page-link" th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
                                     </li>
                                 </th:block>
                             </th:block>
@@ -142,13 +142,13 @@
                                     <th:block th:if="${currentPage == i}">
                                         <li class="page-item active">
                                             <a class="page-link"
-                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                               th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
                                         </li>
                                     </th:block>
                                     <th:block th:unless="${currentPage == i}">
                                         <li class="page-item">
                                             <a class="page-link"
-                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                               th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
                                         </li>
                                     </th:block>
 
@@ -156,7 +156,7 @@
 
                                 <li class="page-item">
                                     <a class="page-link"
-                                       th:href="@{'/listings/listings/page/' + ${paginationMenuSplitSidesVisible + 1}}">...</a>
+                                       th:href="@{'/listings/listingSearch/page/' + ${paginationMenuSplitSidesVisible + 1}}">...</a>
                                 </li>
 
                                 <th:block
@@ -165,13 +165,13 @@
                                     <th:block th:if="${currentPage == i}">
                                         <li class="page-item active">
                                             <a class="page-link"
-                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                               th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
                                         </li>
                                     </th:block>
                                     <th:block th:unless="${currentPage == i}">
                                         <li class="page-item">
                                             <a class="page-link"
-                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                               th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
                                         </li>
                                     </th:block>
                                 </th:block>
@@ -183,27 +183,27 @@
                                 <th:block
                                         th:each="i: ${#numbers.sequence(currentPage - paginationMenuSplitSidesVisible, currentPage - 1)}">
                                     <li class="page-item">
-                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        <a class="page-link" th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
                                     </li>
                                 </th:block>
                                 <li class="page-item active">
-                                    <a class="page-link" th:href="@{'/listings/listings/page/' + ${currentPage}}">
+                                    <a class="page-link" th:href="@{'/listings/listingSearch/page/' + ${currentPage}}">
                                         <span th:text="${currentPage}"></span>
                                     </a>
                                 </li>
                                 <th:block
                                         th:each="i: ${#numbers.sequence(currentPage + 1, currentPage + paginationMenuSplitSidesVisible)}">
                                     <li class="page-item">
-                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        <a class="page-link" th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
                                     </li>
                                 </th:block>
                             </th:block>
                         </th:block>
                         <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/listings/listings/page/' + ${currentPage + 1}}">Next</a>
+                                                                                          th:href="@{'/listings/listingSearch/page/' + ${currentPage + 1}}">Next</a>
                         </li>
                         <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/listings/listings/page/' + ${totalPages}}">Last</a>
+                                                                                          th:href="@{'/listings/listingSearch/page/' + ${totalPages}}">Last</a>
                         </li>
                     </ul>
                 </nav>

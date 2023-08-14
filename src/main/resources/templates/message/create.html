@@ -76,23 +76,62 @@
 
                                 <div class="col p-2 ">
 
-                                    <h5>Message Subject: <a
+                                    <h5>Message Subject:
+                                        <br/>
+                                        <a
                                             th:href="@{'/message/message?messageChainId=' + ${messageChain.id}}"
                                             th:text="${messageChain.messageChainSubject}"></a></h5>
-                                    <h5>with:
-                                        <th:block
-                                                th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
+                                    <div>
+
+                                        <span class="mb-0">with:</span>
+
+                                        <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}">
+                                            <span th:text="${messageChain.userEntityList[1].displayName}"></span>
+                                        </a>
+                                        <br/>
+                                        <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
+                                            <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
+
+                                                <th:block th:if="${messageChain.userEntityList[0].imageInfo}">
+                                                    <img th:src="@{${messageChain.userEntityList[0].imageInfo.url}}"
+                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         alt="Profile Image"
+                                                         height="80"/>
+                                                </th:block>
+                                                <th:block th:unless="${messageChain.userEntityList[0].imageInfo}">
+                                                    <img th:src="@{/images/profile-icon.png}"
+                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         alt="Profile Image"
+                                                         height="80">
+                                                </th:block>
+
+                                            </a>
                                             <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
                                                 <span th:text="${messageChain.userEntityList[0].displayName}"></span>
                                             </a>
                                         </th:block>
-                                        <th:block
-                                                th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
+                                        <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
                                             <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}">
-                                                <span th:text="${messageChain.userEntityList[1].displayName}"></span>
+
+
+                                                <th:block th:if="${messageChain.userEntityList[1].imageInfo}">
+                                                    <img th:src="@{${messageChain.userEntityList[1].imageInfo.url}}"
+                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         alt="Profile Image"
+                                                         height="80"/>
+                                                </th:block>
+                                                <th:block th:unless="${messageChain.userEntityList[1].imageInfo}">
+                                                    <img th:src="@{/images/profile-icon.png}"
+                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         alt="Profile Image"
+                                                         height="80">
+                                                </th:block>
+
                                             </a>
+
                                         </th:block>
-                                    </h5>
+
+                                    </div>
                                 </div>
                                 <div class="col p-2">
                                     <p>Most Recent Message:

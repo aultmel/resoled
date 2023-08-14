@@ -4,11 +4,18 @@ package org.launchcode.liftoff.shoefinder.controllers;
 import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
+import org.launchcode.liftoff.shoefinder.models.CurrentSearch;
 import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
+import org.launchcode.liftoff.shoefinder.models.dto.SearchListingsDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.ListingService;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.GENDER_LIST;
@@ -23,7 +31,7 @@ import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.SIZE_
 
 
 @Controller
-@RequestMapping("listings")
+@RequestMapping("/listings")
 public class ListingController {
 
     private final ListingService listingService;
@@ -41,20 +49,23 @@ public class ListingController {
 
     // Handler method to display all shoe listings.
 
-    @GetMapping({"", "/"})
+    @GetMapping("/")
     public String displayAllListings(Model model) {
-        model.addAttribute("title", "All Listings");
-        model.addAttribute("allListings", shoeListingRepository.findAll());
-        String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
-        model.addAttribute("userEntity", userEntity);
-
-        return "/listings/listings";
-
+        return getOneListingsPage(model, 1);
     }
-    // Handler method to display details of a specific shoe listing.
 
-    @GetMapping("details")
+    @GetMapping("/listings")
+    public String messagesGetMapping(Model model) {
+        return getOneListingsPage(model, 1);
+    }
+
+    @GetMapping("/listingSearch")
+    public String listingSearchMapping(Model model) {
+        return getOneListingSearchPage(model, 1);
+    }
+
+    // Handler method to display details of a specific shoe listing.
+    @GetMapping("/details")
     public String displayListingDetails(@RequestParam Long listingId, Model model) {
         Optional<ShoeListing> result = shoeListingRepository.findById(listingId);
         String username = SecurityUtility.getSessionUser();
@@ -68,11 +79,11 @@ public class ListingController {
             model.addAttribute("title", shoeListing.getId());
             model.addAttribute("shoeListing", shoeListing);
         }
-        return "/listings/listing";
+        return "listings/listing";
     }
     // Handler method to display the shoe listing creation form.
 
-    @GetMapping("create")
+    @GetMapping("/create")
     public String showListingForm(Model model) {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
@@ -86,12 +97,12 @@ public class ListingController {
         model.addAttribute("brandSuggestionsUrl", "http://localhost:8080/api/brandSuggestion");
         model.addAttribute("styleSuggestionsUrl", "http://localhost:8080/api/styleSuggestion");
 
-        return "/listings/create";
+        return "listings/create";
     }
 
     // Handler method to create a new shoe listing.
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public String createListing(@Valid @ModelAttribute("createListingDTO") CreateListingDTO createListingDTO, BindingResult bindingResult, Model model,
                                 RedirectAttributes redirectAttributes,
                                 @RequestParam("file") MultipartFile file) {
@@ -107,17 +118,19 @@ public class ListingController {
         model.addAttribute("brandSuggestionsUrl", "http://localhost:8080/api/brandSuggestion");
         model.addAttribute("styleSuggestionsUrl", "http://localhost:8080/api/styleSuggestion");
 
-        if(bindingResult.hasErrors()){
-            return "/listings/create";
+        if (bindingResult.hasErrors()) {
+            return "listings/create";
         }
 
-        if (createListingDTO.getSize().equals("")){
-            bindingResult.rejectValue("size", "size.invalid", "Size is required");;
-            return "/listings/create";
+        if (createListingDTO.getSize().equals("")) {
+            bindingResult.rejectValue("size", "size.invalid", "Size is required");
+            ;
+            return "listings/create";
         }
-        if (createListingDTO.getGender().equals("")){
-            bindingResult.rejectValue("gender", "gender.invalid", "Size is required");;
-            return "/listings/create";
+        if (createListingDTO.getGender().equals("")) {
+            bindingResult.rejectValue("gender", "gender.invalid", "Size is required");
+            ;
+            return "listings/create";
         }
 
 
@@ -128,4 +141,140 @@ public class ListingController {
         // Redirect to a success page
         return "redirect:../home";
     }
+
+
+    // pagenation for all listings
+    @GetMapping("/listings/page/{pageNumber}")
+    public String getOneListingsPage(Model model, @PathVariable("pageNumber") int currentPage) {
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
+
+        List<ShoeListing> allShoeListings = shoeListingRepository.findAll();
+
+        PagedListHolder<ShoeListing> pagedListHolder = new PagedListHolder<>(allShoeListings);
+        pagedListHolder.setPage(currentPage - 1);
+        pagedListHolder.setPageSize(6);
+
+        List<ShoeListing> pageSlice = pagedListHolder.getPageList();
+        Pageable pageable = PageRequest.of(currentPage - 1, 6);
+
+        Page<ShoeListing> pageShoeListings = new PageImpl<>(pageSlice, pageable, allShoeListings.size());
+
+        // Creating a pageable framework from a list of Listings
+        // number of items on page is set by the size parameter of the PageRequest.of()
+
+        int totalPages = pageShoeListings.getTotalPages();
+        long totalItems = pageShoeListings.getTotalElements();
+
+        //Get content of the list it will be the size set by the Pageable
+        List<ShoeListing> shoeListingList = pageShoeListings.getContent();
+
+        model.addAttribute("pageShoeListings", pageShoeListings);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("shoeListingList", shoeListingList);
+
+        //Number of pages total that will be listed at once in the pagination menu.  Keep an even number for current code configuration.
+        int paginationMenuTotalVisible = 4;
+        model.addAttribute("paginationMenuTotalVisible", paginationMenuTotalVisible);
+        model.addAttribute("paginationMenuSplitSidesVisible", paginationMenuTotalVisible / 2);
+
+        return "listings/listings";
+    }
+
+
+    @PostMapping("/listingSearch")
+    public String getOneListingSearchPage(@ModelAttribute("searchListingsDTO") SearchListingsDTO searchListingsDTO, Model model) {
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
+        model.addAttribute("searchListingsDTO", searchListingsDTO);
+
+        // setting search to user to keep search terms
+
+        CurrentSearch currentSearch = new CurrentSearch();
+        currentSearch.setSearchTerm(searchListingsDTO.getSearchTerm());
+        currentSearch.setSearchCondition(searchListingsDTO.getCondition());
+        currentSearch.setSearchBrand(searchListingsDTO.getBrand());
+        currentSearch.setSearchStyle(searchListingsDTO.getStyle());
+
+        // saving gender list as a comma separated string
+        if (!searchListingsDTO.getGenders().isEmpty()) {
+            List<String> gendersList = searchListingsDTO.getGenders();
+            StringBuilder genderBuilder = new StringBuilder();
+            for (String size : gendersList) {
+                genderBuilder.append(size).append(",");
+            }
+            genderBuilder.deleteCharAt(genderBuilder.length() - 1);
+            String gendersString = genderBuilder.toString();
+            currentSearch.setSearchGenders(gendersString);
+        }
+
+        // saving size list as a comma separated string
+        if (!searchListingsDTO.getSizes().isEmpty()) {
+
+            List<String> sizesList = searchListingsDTO.getSizes();
+            StringBuilder sizeBuilder = new StringBuilder();
+            for (String size : sizesList) {
+                sizeBuilder.append(size).append(",");
+            }
+            sizeBuilder.deleteCharAt(sizeBuilder.length() - 1);
+            String sizesString = sizeBuilder.toString();
+            currentSearch.setSearchSizes(sizesString);
+
+        }
+
+        userEntity.setCurrentSearch(currentSearch);
+        userRepository.save(userEntity);
+
+        return "redirect:../listings/listingSearch/page/1";
+    }
+
+
+    @GetMapping("/listingSearch/page/{pageNumber}")
+    public String getOneListingSearchPage(Model model, @PathVariable("pageNumber") int currentPage) {
+
+
+        List<ShoeListing> allShoeListings = listingService.filterListings();
+
+        PagedListHolder<ShoeListing> pagedListHolder = new PagedListHolder<>(allShoeListings);
+        pagedListHolder.setPage(currentPage - 1);
+        pagedListHolder.setPageSize(6);
+
+        List<ShoeListing> pageSlice = pagedListHolder.getPageList();
+        Pageable pageable = PageRequest.of(currentPage - 1, 6);
+
+        Page<ShoeListing> pageShoeListings = new PageImpl<>(pageSlice, pageable, allShoeListings.size());
+
+        // Creating a pageable framework from a list of Listings
+        // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
+        // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
+        // number of items on page is set by the size parameter of the PageRequest.of()
+
+        int totalPages = pageShoeListings.getTotalPages();
+        long totalItems = pageShoeListings.getTotalElements();
+
+        //Get content of the list it will be the size set by the Pageable
+        List<ShoeListing> shoeListingList = pageShoeListings.getContent();
+
+        model.addAttribute("pageShoeListings", pageShoeListings);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("shoeListingList", shoeListingList);
+
+        //Number of pages total that will be listed at once in the pagination menu.  Keep an even number for current code configuration.
+        int paginationMenuTotalVisible = 4;
+        model.addAttribute("paginationMenuTotalVisible", paginationMenuTotalVisible);
+        model.addAttribute("paginationMenuSplitSidesVisible", paginationMenuTotalVisible / 2);
+
+        return "listings/listingSearch";
+
+    }
+
+
 }

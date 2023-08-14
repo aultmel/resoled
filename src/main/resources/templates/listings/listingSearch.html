@@ -96,7 +96,7 @@
     </div>
 
 
-<!--    PAGINATION BELOW-->
+    <!--    PAGINATION BELOW-->
     <footer style="font-size: large" class="panel-footer">
         <div class="listings container color2 p-1 rounded-bottom-5">
             <div class="color2 rounded-bottom-5 p-1">
@@ -123,9 +123,11 @@
                                     </li>
                                 </th:block>
                                 <th:block th:unless="${currentPage == i}">
-                                    <li class="page-item">
-                                        <a class="page-link" th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
-                                    </li>
+                                    <th:block th:unless="${i == 0}">
+                                        <li class="page-item">
+                                            <a class="page-link" th:href="@{'/listings/listingSearch/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
                                 </th:block>
                             </th:block>
                         </th:block>
@@ -199,12 +201,16 @@
                                 </th:block>
                             </th:block>
                         </th:block>
-                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/listings/listingSearch/page/' + ${currentPage + 1}}">Next</a>
-                        </li>
-                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/listings/listingSearch/page/' + ${totalPages}}">Last</a>
-                        </li>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/listings/listingSearch/page/' + ${currentPage + 1}}">Next</a>
+                            </li>
+                        </th:block>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/listings/listingSearch/page/' + ${totalPages}}">Last</a>
+                            </li>
+                        </th:block>
                     </ul>
                 </nav>
             </div>

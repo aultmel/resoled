@@ -123,9 +123,11 @@
                                     </li>
                                 </th:block>
                                 <th:block th:unless="${currentPage == i}">
+                                    <th:block th:unless="${i == 0}">
                                     <li class="page-item">
                                         <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
                                     </li>
+                                    </th:block>
                                 </th:block>
                             </th:block>
                         </th:block>

@@ -30,7 +30,7 @@
                         <div>
                             <form th:object="${reportDTO}" th:id="reportForm"
                                   th:action="@{../profile/{displayName}(displayName=${displayName})}" method="post"
-                                  th:style="'display:none'" >
+                                  th:style="'display:none'">
 
                                 <div class="form-group d-grid mb-4 mx-auto mt-5 w-75">
                                     <label th:text="'Report User: ' + ${otherUser.displayName}"></label>
@@ -51,7 +51,9 @@
                     <div class="col text-center">
 
                         <!--form to initiate message to otherUser-->
-                        <h5 >Start a Conversation with <th:block th:text="${otherUser.displayName}"></th:block></h5>
+                        <h5>Start a Conversation with
+                            <th:block th:text="${otherUser.displayName}"></th:block>
+                        </h5>
                         <form method="post" role="form"
                               th:action="@{'../message/create?receiver=' + ${otherUser.displayName}}"
                               th:object="${createMessageDTO}">
@@ -76,7 +78,7 @@
 
                             <div class="form-group d-grid mb-2 mx-auto w-75">
                                 <input type="submit" value="Send Message"
-                                        class="btn button1 btn-lg shadow-lg"/>
+                                       class="btn button1 btn-lg shadow-lg"/>
                             </div>
                         </form>
 
@@ -85,15 +87,16 @@
 
                 </div>
 
-<!--                    Listings-->
+                <!--                    Listings-->
                 <div class="row">
                     <hr/>
                     <H3>Listings</H3>
                     <div class="grid-container">
-                        <div th:each="listing : ${shoeListingList}" >
+                        <div th:each="listing : ${shoeListingList}">
                             <div class="color1 container rounded-5 p-3">
                                 <div class="gradientForm container rounded-5 shadow-lg p-4">
-                                    <a class="h2" th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.title}"></a>
+                                    <a class="h2" th:href="'/listings/details?listingId=' + ${listing.id}"
+                                       th:text="${listing.title}"></a>
                                     <br/>
                                     <th:block th:if="${imageLocal}">
                                         <img th th:src="@{${listing.imageLocal.url}}">
@@ -134,13 +137,17 @@
                                 <!--            Sets active status for the current page-->
                                 <th:block th:if="${currentPage == i}">
                                     <li class="page-item active">
-                                        <a class="page-link" th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
+                                        <a class="page-link"
+                                           th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
                                     </li>
                                 </th:block>
                                 <th:block th:unless="${currentPage == i}">
-                                    <li class="page-item">
-                                        <a class="page-link" th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
-                                    </li>
+                                    <th:block th:unless="${i == 0}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
                                 </th:block>
                             </th:block>
                         </th:block>
@@ -198,35 +205,42 @@
                                 <th:block
                                         th:each="i: ${#numbers.sequence(currentPage - paginationMenuSplitSidesVisible, currentPage - 1)}">
                                     <li class="page-item">
-                                        <a class="page-link" th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
+                                        <a class="page-link"
+                                           th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
                                     </li>
                                 </th:block>
                                 <li class="page-item active">
-                                    <a class="page-link" th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${currentPage}}">
+                                    <a class="page-link"
+                                       th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${currentPage}}">
                                         <span th:text="${currentPage}"></span>
                                     </a>
                                 </li>
                                 <th:block
                                         th:each="i: ${#numbers.sequence(currentPage + 1, currentPage + paginationMenuSplitSidesVisible)}">
                                     <li class="page-item">
-                                        <a class="page-link" th:href="@{'/profile/' + ${otherUser.displayName}+ '/page/' + ${i}}">[[${i}]]</a>
+                                        <a class="page-link"
+                                           th:href="@{'/profile/' + ${otherUser.displayName}+ '/page/' + ${i}}">[[${i}]]</a>
                                     </li>
                                 </th:block>
                             </th:block>
                         </th:block>
-                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${currentPage + 1}}">Next</a>
-                        </li>
-                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${totalPages}}">Last</a>
-                        </li>
+                        <th:block th:unless="${totalPages < 2}">
+
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${currentPage + 1}}">Next</a>
+                            </li>
+                        </th:block>
+                        <th:block th:unless="${totalPages < 2}">
+
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${totalPages}}">Last</a>
+                            </li>
+                        </th:block>
                     </ul>
                 </nav>
             </div>
         </div>
     </footer>
-
-
 
 
 </div>
@@ -246,6 +260,8 @@
             formDisplayed = false;
             }
         }
+
+
 
 
 

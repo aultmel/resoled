@@ -87,7 +87,7 @@
                                 </th:block>
 
                             </div>
-                            
+
                         </div>
                         <div class="col p-2">
                             <p>Most Recent Message:
@@ -132,9 +132,12 @@
                                     </li>
                                 </th:block>
                                 <th:block th:unless="${currentPage == i}">
-                                    <li class="page-item">
-                                        <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
-                                    </li>
+                                    <th:block th:unless="${i == 0}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
                                 </th:block>
                             </th:block>
                         </th:block>
@@ -208,12 +211,16 @@
                                 </th:block>
                             </th:block>
                         </th:block>
-                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/message/messages/page/' + ${currentPage + 1}}">Next</a>
-                        </li>
-                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/message/messages/page/' + ${totalPages}}">Last</a>
-                        </li>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/message/messages/page/' + ${currentPage + 1}}">Next</a>
+                            </li>
+                        </th:block>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/message/messages/page/' + ${totalPages}}">Last</a>
+                            </li>
+                        </th:block>
                     </ul>
                 </nav>
             </div>

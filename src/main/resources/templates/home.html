@@ -6,63 +6,58 @@
 <!--<link rel="stylesheet" th:href="@{/path/to/carousel.css}" />-->
 <!--<script th:src="@{/js/carousel.js}" defer="defer"></script>-->
 
-<body class="home" data-bs-theme="dark">
+<body data-bs-theme="dark">
+<div class="gradientBg p-3 pt-4">
+
+    <!--<div class="container">-->
+    <!--<a href="/register">Register Page</a>-->
+    <!--<br/>-->
+    <!--<a href="/login">Login Page</a>-->
+    <!--<br/>-->
+
+    <!--<a href="/listings/create">Create A Listing</a>-->
+    <!--<br/>-->
+    <!--<a href="/profile">Profile Page</a>-->
+    <!--<br/>-->
+    <!--<a href="/message/messages">MessageChain "Conversations" page</a>-->
+    <!--<br/>-->
+    <!--<a href="/message/create">Create New Message Chain "Conversations" page</a>-->
+
+    <!--</div>-->
 
 
-<div class="container">
+    <div class="container text-center">
+        <h2 class="mb-3 fst-italic">Welcome to ReSoled!</h2>
+        <!--        <div class="d-grid mt-5 mb-2 mx-auto shadow-lg" width="500">-->
+        <div class="mb-3">
+            <div class="slide">
+                <img alt="" src="../images/colorful-shoes-in-a-row-square.png" width-="500" height="500"
+                     class="mx-auto border rounded-4 border-secondary-subtle border-3 shadow-lg">
+            </div>
+            <div class="slide">
+                <img alt="" src="../images/active-running-shoe.png" width="500" height="500"
+                     class=" border rounded-4 border-secondary-subtle border-3 shadow-lg">
+            </div>
+            <div class="slide">
+                <img alt="" src="../images/purple-green-sneakers.png" width="500" height="500"
+                     class=" border rounded-4 border-secondary-subtle border-3 shadow-lg">
+            </div>
+
+            <div class="slide">
+                <img alt="" src="../images/two-colorful-hightops.png" width="500" height="500"
+                     class=" border rounded-4 border-secondary-subtle border-3 shadow-lg">
+            </div>
+        </div>
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn">Next</button>
+    </div>
+
 </div>
-<br/>
-<br/>
-<div class="container">
-<a href="/register">Register Page</a>
-<br/>
-<a href="/login">Login Page</a>
-<br/>
-
-<a href="/listings/create">Create A Listing</a>
-<br/>
-<a href="/profile">Profile Page</a>
-<br/>
-<a href="/message/messages">MessageChain "Conversations" page</a>
-<br/>
-<a href="/message/create">Create New Message Chain "Conversations" page</a>
-
-</div>
-
-
-
-
-<div class="carousel-container">
-    <div class="slide">
-        <img alt="" src="../images/colorful-shoes-in-a-row.jpg">
-    </div>
-    <div class="slide">
-        <img alt="" src="../images/three people passing a shoe.jpg">
-    </div>
-    <div class="slide">
-        <img alt="" src="../images/purple-green-sneakers.png">
-    </div>
-    <div class="slide">
-        <img alt="" src="../images/active-running-shoe.png">
-    </div>
-</div>
-
-<button id="prevBtn">Previous</button>
-<button id="nextBtn">Next</button>
-
 
 <script th:src="@{/js/test.js}"></script>
 
 <!--&lt;!&ndash;            TEST&ndash;&gt;-->
 <!--<div class="carousel-container">-->
-
-
-
-
-   
-
-
-
 
 
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>

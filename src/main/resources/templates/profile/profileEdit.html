@@ -4,7 +4,7 @@
 <header th:replace="~{fragments :: header}"></header>
 <body>
 <div class="gradientBg p-3 pt-4">
-    <div class="color2 container rounded-5  p-2 shadow-lg">
+    <div class="profileEdit color2 container rounded-5  p-2 shadow-lg">
         <div class="color1 container rounded-5 p-3">
             <div class="gradientForm container rounded-5 shadow-lg p-4">
 
@@ -28,57 +28,6 @@
                             </button>
                         </div>
                     </form>
-                    <hr class="mt-2 mb-4"/>
-                    <!--Form to update user data-->
-
-                    <h4 class="text-center mb-2">Edit Profile Details</h4>
-
-                    <form th:object="${userEntity}" th:action="@{/profile/profileEdit}" method="post">
-
-                        <div class="mb-4 container">
-
-                            <div class="form-floating mb-3 mx-4">
-                                <input
-                                        type="text"
-                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
-                                        id="displayName"
-                                        th:field="*{displayName}"
-                                >
-                                <label for="displayName"> Display Name:</label>
-                                                                <p class="error" th:errors="*{displayName}"></p>
-                            </div>
-                            <div class="form-floating mb-3 mx-4">
-                                <input
-                                        type="text"
-                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
-                                        id="firstName"
-                                        th:field="*{firstName}">
-                                <label for="firstName">First Name:</label>
-                                                                <p class="error" th:errors="*{firstName}"></p>
-                            </div>
-                            <div class="form-floating mb-3 mx-4">
-                                <input
-                                        type="text"
-                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
-                                        id="lastName"
-                                        th:field="*{lastName}">
-                                <label for="lastName">Last Name:</label>
-                                                                <p class="error" th:errors="*{lastName}"></p>
-                            </div>
-                            <div class="form-floating mb-3 mx-4">
-                                <input
-                                        type="email"
-                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
-                                        id="email"
-                                        th:field="*{email}">
-                                <label for="email">Email:</label>
-                                <p class="error" th:errors="*{email}"></p>
-                            </div>
-                            <button type="submit" class="btn button1 btn-lg shadow-lg ms-5">Save</button>
-                        </div>
-
-                    </form>
-
 
                     <div
                             th:if="${message != null}"
@@ -89,6 +38,67 @@
                             <span aria-hidden="true"></span>
                         </button>
                     </div>
+
+                    <hr class="mt-2 mb-4"/>
+                    <!--Form to update user data-->
+
+                    <h4 class="text-center mb-3">Edit Profile Details</h4>
+
+                    <form th:object="${editProfileDTO}" th:action="@{/profile/profileEdit}" method="post">
+
+                        <div class="mb-4 container">
+
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="text"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="displayName"
+                                        name="displayName"
+                                        th:value="${userEntity.displayName}">
+
+                                <label for="displayName"> Display Name:</label>
+<!--                                <p class="error" th:errors="*{displayName}"></p>-->
+                            </div>
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="text"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="firstName"
+                                        name="firstName"
+                                        th:value="${userEntity.firstName}">
+
+                                <label for="firstName">First Name:</label>
+
+                            </div>
+                            <p th:errors="*{firstName}"></p>
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="text"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="lastName"
+                                        name="lastName"
+                                        th:value="${userEntity.lastName}">
+                                <label for="lastName">Last Name:</label>
+                                <p class="error" th:errors="*{lastName}"></p>
+                            </div>
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="email"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="email"
+                                        name="email"
+                                        th:value="${userEntity.email}"
+                                >
+                                <label for="email">Email:</label>
+                                <p class="error" th:errors="*{email}"></p>
+                            </div>
+                            <button type="submit" class="btn button1 btn-lg shadow-lg ms-5">Save</button>
+                        </div>
+
+                    </form>
+
+
+
                     <hr/>
 
                     <!--Return to Profile Button-->

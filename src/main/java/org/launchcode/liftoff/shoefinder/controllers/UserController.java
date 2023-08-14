@@ -123,6 +123,11 @@ public class UserController {
 
     @PostMapping("/profileEdit")
     public String showProfile (@ModelAttribute("editProfileDTO")EditProfileDTO editProfileDTO, BindingResult bindingResult, @RequestParam(name="imageFiles", required = false) MultipartFile[] files, Model model) {
+
+        if(bindingResult.hasErrors()){
+            return "profile/profileEdit";
+        }
+
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
@@ -140,15 +145,19 @@ public class UserController {
         }
 
         // checks if displayName is taken and if it is taken sends an error to the view
-        if(userRepository.existsByDisplayNameIgnoreCase(editProfileDTO.getDisplayName())){
+        if(userEntity.getDisplayName().equals(editProfileDTO.getDisplayName())){
+
+        } else if (userRepository.existsByDisplayNameIgnoreCase(editProfileDTO.getDisplayName())){
             bindingResult.rejectValue("displayName", "displayName.unavailable", "Display name is unavailable");;
             return "profile/profileEdit";
         }
 
 
-
         // checks if displayName is taken and if it is taken sends an error to the view
-        if(userRepository.existsByEmailIgnoreCase(editProfileDTO.getEmail())){
+
+        if(userEntity.getEmail().equals(editProfileDTO.getEmail())) {
+
+        } else if (userRepository.existsByEmailIgnoreCase(editProfileDTO.getEmail())){
             bindingResult.rejectValue("email", "email.unavailable", "Email is unavailable");;
             return "profile/profileEdit";
         }
@@ -185,6 +194,9 @@ public class UserController {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
+
+        EditProfileDTO editProfileDTO = new EditProfileDTO();
+        model.addAttribute("editProfileDTO", editProfileDTO);
 
         try {
             storageService.saveUserImage(file);

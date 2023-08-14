@@ -4,6 +4,7 @@ import org.launchcode.liftoff.shoefinder.data.ReportRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.MessageChain;
 import org.launchcode.liftoff.shoefinder.models.Report;
+import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.data.*;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
@@ -13,6 +14,11 @@ import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
 import org.launchcode.liftoff.shoefinder.services.StorageService;
 import org.launchcode.liftoff.shoefinder.services.UserService;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,33 +51,61 @@ public class UserController {
 
     @GetMapping("")
     public String showProfile (Model model) {
+        return getOneListingsPage(model, 1);
+    }
+
+
+
+    @GetMapping("/page/{pageNumber}")
+    public String getOneListingsPage(Model model, @PathVariable("pageNumber") int currentPage) {
+
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
-        model.addAttribute("userListings", userEntity.getShoeListings());
+
+        List<ShoeListing> allShoeListings = userEntity.getShoeListings();
+
+        PagedListHolder<ShoeListing> pagedListHolder = new PagedListHolder<>(allShoeListings);
+        pagedListHolder.setPage(currentPage - 1);
+        pagedListHolder.setPageSize(6);
+
+        List<ShoeListing> pageSlice = pagedListHolder.getPageList();
+        Pageable pageable = PageRequest.of(currentPage - 1, 6);
+
+        Page<ShoeListing> pageShoeListings = new PageImpl<>(pageSlice, pageable, allShoeListings.size());
+
+        // Creating a pageable framework from a list of Listings
+        // number of items on page is set by the size parameter of the PageRequest.of()
+
+        int totalPages = pageShoeListings.getTotalPages();
+        long totalItems = pageShoeListings.getTotalElements();
+
+        //Get content of the list it will be the size set by the Pageable
+        List<ShoeListing> shoeListingList = pageShoeListings.getContent();
+
+        model.addAttribute("pageShoeListings", pageShoeListings);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("shoeListingList", shoeListingList);
+
+        //Number of pages total that will be listed at once in the pagination menu.  Keep an even number for current code configuration.
+        int paginationMenuTotalVisible = 4;
+        model.addAttribute("paginationMenuTotalVisible", paginationMenuTotalVisible);
+        model.addAttribute("paginationMenuSplitSidesVisible", paginationMenuTotalVisible / 2);
+
 
         // Sorting so that list of MessageChains userEntityMessageChains is in order of the MessageChain with the
         // newest message is first on the list and the MessageChain with the latest message is at the end of the list.
         // number of items on page is set by the maxDisplayed parameter
         List<MessageChain> userEntityMessageChains = messageService.sortMessageChainsByRecentMessage(userEntity);
         List<MessageChain> messageChainList = messageService.shortenMessageChainList(userEntityMessageChains, MAX_CONVERSATIONS_DISPLAYED_ON_CREATE_MESSAGE);
+
         model.addAttribute("messageChainList", messageChainList);
 
-        if(userEntity.getImageInfo() == null){
-            model.addAttribute("userImageBoolean" , false);
-        } else {
-            model.addAttribute( "userImageBoolean", true);
-        }
-
-
-//        ProfileImage profileImage = profileImageRepository.findByUserEntity(userEntity);
-//        if (profileImage != null) {
-//            byte[] profileImageData = profileImage.getImageData();
-//            String base64Image = Base64.getEncoder().encodeToString(profileImageData);
-//            model.addAttribute("imageData", base64Image);
-//        }
-        return "profile/profileMain";
+          return "profile/profileMain";
     }
+
 
     @GetMapping("/profileEdit")
     public String editProfile (Model model) {
@@ -85,7 +119,7 @@ public class UserController {
         return "profile/profileEdit";
     }
 
-    @PostMapping("profileEdit")
+    @PostMapping("/profileEdit")
     public String showProfile (@ModelAttribute("editProfileDTO")EditProfileDTO editProfileDTO, @RequestParam(name="imageFiles", required = false) MultipartFile[] files, Model model) {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
@@ -104,8 +138,6 @@ public class UserController {
         userEntity.setLastName(editProfileDTO.getLastName());
         userEntity.setEmail(editProfileDTO.getEmail());
         userRepository.save(userEntity);
-
-
 
         return "redirect:/profile";
 
@@ -138,7 +170,6 @@ public class UserController {
         return "profile/profileEdit";
     }
 
-    @GetMapping("/{displayName}")
     public String showPage(@PathVariable("displayName") String displayName, Model model) {
 
         UserEntity otherUser = userRepository.findByDisplayNameIgnoreCase(displayName);
@@ -166,6 +197,51 @@ public class UserController {
 
         return "profile/userData";
     }
+
+    @GetMapping("/{displayName}/page/{pageNumber}")
+    public String getOneListingsPageUserData(@PathVariable("displayName") String displayName, @PathVariable("pageNumber") int currentPage, Model model) {
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
+
+        List<ShoeListing> allShoeListings = userEntity.getShoeListings();
+
+        PagedListHolder<ShoeListing> pagedListHolder = new PagedListHolder<>(allShoeListings);
+        pagedListHolder.setPage(currentPage - 1);
+        pagedListHolder.setPageSize(6);
+
+        List<ShoeListing> pageSlice = pagedListHolder.getPageList();
+        Pageable pageable = PageRequest.of(currentPage - 1, 6);
+
+        Page<ShoeListing> pageShoeListings = new PageImpl<>(pageSlice, pageable, allShoeListings.size());
+
+        // Creating a pageable framework from a list of Listings
+        // number of items on page is set by the size parameter of the PageRequest.of()
+
+        int totalPages = pageShoeListings.getTotalPages();
+        long totalItems = pageShoeListings.getTotalElements();
+
+        //Get content of the list it will be the size set by the Pageable
+        List<ShoeListing> shoeListingList = pageShoeListings.getContent();
+
+        model.addAttribute("pageShoeListings", pageShoeListings);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("shoeListingList", shoeListingList);
+
+        //Number of pages total that will be listed at once in the pagination menu.  Keep an even number for current code configuration.
+        int paginationMenuTotalVisible = 4;
+        model.addAttribute("paginationMenuTotalVisible", paginationMenuTotalVisible);
+        model.addAttribute("paginationMenuSplitSidesVisible", paginationMenuTotalVisible / 2);
+
+        return "profile/userData";
+    }
+
+
+
+
 
     @PostMapping("/{displayName}")
     public String reportUser(@PathVariable("displayName") String displayName, @ModelAttribute("reportDTO")ReportDTO reportDTO, Model model) {

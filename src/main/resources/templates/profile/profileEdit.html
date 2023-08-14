@@ -9,7 +9,7 @@
             <div class="gradientForm container rounded-5 shadow-lg p-4">
 
                 <div class="container" style="max-width: 500px">
-
+                    <h4 class="text-center">Select a New Profile Image</h4>
                     <!--Form to update user profile photo-->
                     <form   id="uploadForm" method="post"  th:action="@{../profile/upload}" enctype="multipart/form-data">
                     <div class="form-group file border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
@@ -28,27 +28,55 @@
                             </button>
                         </div>
                     </form>
-
+                    <hr class="mt-2 mb-4"/>
                     <!--Form to update user data-->
-                    <form th:object="${userEntity}" th:action="@{../profile/profileEdit}" method="post"-->
 
-                        <label>Edit Display Name:
-                            <input type="text" th:field="*{displayName}"/>
-                        </label>
-                        <br/>
-                        <label>Edit First Name:
-                            <input type="text" th:field="*{firstName}"/>
-                        </label>
-                        <br/>
-                        <label>Edit Last Name:
-                            <input type="text" th:field="*{lastName}"/>
-                        </label>
-                        <br/>
-                        <label>Edit Email:
-                            <input type="text" th:field="*{email}"/>
-                        </label>
-                        <br/>
-                        <button type="submit" class="btn button1 btn-lg shadow-lg">Save</button>
+                    <h4 class="text-center mb-2">Edit Profile Details</h4>
+
+                    <form th:object="${userEntity}" th:action="@{/profile/profileEdit}" method="post">
+
+                        <div class="mb-4 container">
+
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="text"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="displayName"
+                                        th:field="*{displayName}"
+                                >
+                                <label for="displayName"> Display Name:</label>
+                                                                <p class="error" th:errors="*{displayName}"></p>
+                            </div>
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="text"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="firstName"
+                                        th:field="*{firstName}">
+                                <label for="firstName">First Name:</label>
+                                                                <p class="error" th:errors="*{firstName}"></p>
+                            </div>
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="text"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="lastName"
+                                        th:field="*{lastName}">
+                                <label for="lastName">Last Name:</label>
+                                                                <p class="error" th:errors="*{lastName}"></p>
+                            </div>
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="email"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="email"
+                                        th:field="*{email}">
+                                <label for="email">Email:</label>
+                                <p class="error" th:errors="*{email}"></p>
+                            </div>
+                            <button type="submit" class="btn button1 btn-lg shadow-lg ms-5">Save</button>
+                        </div>
+
                     </form>
 
 

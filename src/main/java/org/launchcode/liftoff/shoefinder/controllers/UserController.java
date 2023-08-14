@@ -22,6 +22,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -121,18 +122,44 @@ public class UserController {
     }
 
     @PostMapping("/profileEdit")
-    public String showProfile (@ModelAttribute("editProfileDTO")EditProfileDTO editProfileDTO, @RequestParam(name="imageFiles", required = false) MultipartFile[] files, Model model) {
+    public String showProfile (@ModelAttribute("editProfileDTO")EditProfileDTO editProfileDTO, BindingResult bindingResult, @RequestParam(name="imageFiles", required = false) MultipartFile[] files, Model model) {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
-
-
         model.addAttribute("userEntity", userEntity);
+
+        // trim off any spaces before or after
+        editProfileDTO.setFirstName(editProfileDTO.getFirstName().trim());
+        editProfileDTO.setLastName(editProfileDTO.getLastName().trim());
+        editProfileDTO.setDisplayName(editProfileDTO.getDisplayName().trim());
+
+
+        // checks if displayName has blank space
+        if (editProfileDTO.getDisplayName().contains(" ")){
+            bindingResult.rejectValue("displayName", "displayName.invalid", "Display name can not have empty space");
+            return "profile/profileEdit";
+        }
+
+        // checks if displayName is taken and if it is taken sends an error to the view
+        if(userRepository.existsByDisplayNameIgnoreCase(editProfileDTO.getDisplayName())){
+            bindingResult.rejectValue("displayName", "displayName.unavailable", "Display name is unavailable");;
+            return "profile/profileEdit";
+        }
+
+
+
+        // checks if displayName is taken and if it is taken sends an error to the view
+        if(userRepository.existsByEmailIgnoreCase(editProfileDTO.getEmail())){
+            bindingResult.rejectValue("email", "email.unavailable", "Email is unavailable");;
+            return "profile/profileEdit";
+        }
+
 
         try {
             if (editProfileDTO.getDisplayName().isEmpty() || editProfileDTO.getFirstName().isEmpty() || editProfileDTO.getLastName().isEmpty() || editProfileDTO.getEmail().isEmpty()) {
                 Error blankField = new Error ("Field cannot be left blank.");
                 throw blankField;
             }
+
 
         userEntity.setDisplayName(editProfileDTO.getDisplayName());
         userEntity.setFirstName(editProfileDTO.getFirstName());

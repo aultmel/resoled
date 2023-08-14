@@ -15,6 +15,7 @@ import org.launchcode.liftoff.shoefinder.services.MessageService;
 import org.launchcode.liftoff.shoefinder.services.StorageService;
 import org.launchcode.liftoff.shoefinder.services.UserService;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -170,7 +171,19 @@ public class UserController {
         return "profile/profileEdit";
     }
 
-    public String showPage(@PathVariable("displayName") String displayName, Model model) {
+
+
+    @GetMapping("/{displayName}")
+    public String displayNameGetMapping(@PathVariable("displayName")String displayName, Model model) {
+        return getOneListingsPageUserData(displayName, 1, model);
+    }
+
+    @GetMapping("/{displayName}/page/{pageNumber}")
+    public String getOneListingsPageUserData(@PathVariable("displayName") String displayName, @PathVariable("pageNumber") int currentPage, Model model) {
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
 
         UserEntity otherUser = userRepository.findByDisplayNameIgnoreCase(displayName);
         model.addAttribute("otherUser", otherUser);
@@ -181,31 +194,13 @@ public class UserController {
         CreateMessageDTO createMessageDTO = new CreateMessageDTO();
         model.addAttribute("createMessageDTO", createMessageDTO);
 
-        model.addAttribute("userListings", otherUser.getShoeListings());
-
-
-
-        String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
-        model.addAttribute("userEntity", userEntity);
-
         if(otherUser.getImageInfo() == null){
             model.addAttribute("userImageBoolean" , false);
         } else {
             model.addAttribute( "userImageBoolean", true);
         }
 
-        return "profile/userData";
-    }
-
-    @GetMapping("/{displayName}/page/{pageNumber}")
-    public String getOneListingsPageUserData(@PathVariable("displayName") String displayName, @PathVariable("pageNumber") int currentPage, Model model) {
-
-        String username = SecurityUtility.getSessionUser();
-        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
-        model.addAttribute("userEntity", userEntity);
-
-        List<ShoeListing> allShoeListings = userEntity.getShoeListings();
+        List<ShoeListing> allShoeListings = otherUser.getShoeListings();
 
         PagedListHolder<ShoeListing> pagedListHolder = new PagedListHolder<>(allShoeListings);
         pagedListHolder.setPage(currentPage - 1);

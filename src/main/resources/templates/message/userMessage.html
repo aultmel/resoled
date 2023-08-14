@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments :: head}"></head>
+<header th:replace="~{fragments :: header}"></header>
+<body>
+<div class="gradientBg p-3 pt-4">
+    <div class="userMessage color2 container rounded-top-5  p-2 shadow-lg">
+        <div class="color1 container rounded-5 p-3">
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
+
+
+                <div class="text-center">
+
+                    <!--form to initiate message to otherUser-->
+                    <h4>Start a Conversation with
+                        <th:block th:text="${otherUser.displayName}"></th:block>
+                    </h4>
+                    <form method="post" role="form"
+                          th:action="@{'/message/create?receiver=' + ${otherUser.displayName}}"
+                          th:object="${createMessageDTO}">
+
+
+                        <div class="form-group mb-2 w-75 mx-auto ">
+                            <div class="dropdown form-floating shadow-sm">
+                                <input th:field="*{messageSubject}" id="messageSubject"
+                                       class="form-control border border-3 rounded-4 border-secondary-subtle">
+                                <label for="messageSubject">Subject:</label>
+                                <p class="error" th:errors="*{messageSubject}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="error" th:errors="*{text}"></p>
+                            <label>
+                                    <textarea th:field="*{text}" name="text" rows="5" cols="50"
+                                              class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"></textarea>
+                            </label>
+                            <br/>
+                        </div>
+
+                        <div class="form-group d-grid mb-2 mx-auto w-75">
+                            <input type="submit" value="Send Message"
+                                   class="btn button1 btn-lg shadow-lg"/>
+                        </div>
+                    </form>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
+</body>
+</html>
+

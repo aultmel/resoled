@@ -280,6 +280,52 @@ width: 700px;
 width: 700px;
 }
 
+/* Listings Page */
+.listings {
+width: 1300px;
+}
+
+/* User Message Page */
+.userMessage {
+width: 700px;
+}
+
+/* Profile Main Page */
+.profileMain {
+width: 1220px;
+}
+
+/* User Data Page */
+.userData {
+width: 1220px;
+}
+
+/* Profile Edit page */
+.profileEdit {
+width: 720px;
+}
+
+
+/* Listing Page */
+.listingPage {
+min-width: 720px;
+width: 720px;
+}
+
+/* width of a listing on a Listing Page */
+.listingPageListing {
+min-width: 520px;
+width: 520px;
+}
+
+
+/* width of a listing in a list */
+.aListing {
+min-width: 360px;
+width: 360px;
+}
+
+
 /* For fetchSuggestions.js and associated suggestions code in templates */
 .results ul{
 padding: 10px 10px;

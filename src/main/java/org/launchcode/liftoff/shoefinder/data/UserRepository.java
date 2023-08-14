@@ -29,5 +29,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     @Query("SELECT displayName FROM UserEntity")
     List<String> getDisplayNames();
 
+    Boolean existsByEmailIgnoreCase(String email);
 
 }

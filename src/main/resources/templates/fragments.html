@@ -147,10 +147,10 @@
                             <a href="/message/messages" class="nav-link">Inbox</a>
                         </li>
                         <th:block th:unless="${userEntity}">
-                            <a class="nav-link mx-3" href="../login">Login</a>
+                            <a class="nav-link mx-3" href="/login">Login</a>
                         </th:block>
                         <th:block th:if="${userEntity}">
-                            <a class="nav-link mx-3" href="../logout">Logout</a>
+                            <a class="nav-link mx-3" href="/logout">Logout</a>
                         </th:block>
                     </ul>
 

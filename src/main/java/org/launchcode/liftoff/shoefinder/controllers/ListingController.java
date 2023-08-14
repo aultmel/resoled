@@ -77,7 +77,7 @@ public class ListingController {
         } else {
             ShoeListing shoeListing = result.get();
             model.addAttribute("title", shoeListing.getId());
-            model.addAttribute("shoeListing", shoeListing);
+            model.addAttribute("listing", shoeListing);
         }
         return "listings/listing";
     }

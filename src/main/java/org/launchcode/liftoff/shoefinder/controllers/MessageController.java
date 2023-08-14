@@ -7,9 +7,11 @@ import org.launchcode.liftoff.shoefinder.data.MessageChainRepository;
 import org.launchcode.liftoff.shoefinder.data.MessageRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
 import org.launchcode.liftoff.shoefinder.models.MessageChain;
+import org.launchcode.liftoff.shoefinder.models.ShoeListing;
 import org.launchcode.liftoff.shoefinder.models.UserEntity;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateMessageDTO;
 import org.launchcode.liftoff.shoefinder.models.dto.AddMessageDTO;
+import org.launchcode.liftoff.shoefinder.models.dto.ReportDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.launchcode.liftoff.shoefinder.services.MessageService;
 import org.launchcode.liftoff.shoefinder.services.UserService;
@@ -271,5 +273,26 @@ public class MessageController {
         return "redirect:../message/messages";
 
     }
+
+
+    @GetMapping("/userMessage/{displayName}")
+    public String getOneListingsPageUserData(@PathVariable("displayName") String displayName, Model model) {
+
+        String username = SecurityUtility.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
+        model.addAttribute("userEntity", userEntity);
+
+        UserEntity otherUser = userRepository.findByDisplayNameIgnoreCase(displayName);
+        model.addAttribute("otherUser", otherUser);
+
+        CreateMessageDTO createMessageDTO = new CreateMessageDTO();
+        model.addAttribute("createMessageDTO", createMessageDTO);
+
+
+
+        return "message/userMessage";
+    }
+
+
 
 }

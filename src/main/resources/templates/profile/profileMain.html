@@ -68,54 +68,56 @@
                                                 th:text="${messageChain.messageChainSubject}"></a></h5>
                                     <div>
 
-                                        <span class="mb-0">with:</span>
+                                        <span class="mb-0 ms-1">with:</span>
 
-                                        <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}">
-                                            <span th:text="${messageChain.userEntityList[1].displayName}"></span>
-                                        </a>
-                                        <br/>
                                         <th:block
                                                 th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
-                                            <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
 
+                                            <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}" class="ms-1">
+                                                <span th:text="${messageChain.userEntityList[0].displayName}"></span>
+                                            </a>
+                                            <br/>
+
+                                            <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
                                                 <th:block th:if="${messageChain.userEntityList[0].imageInfo}">
                                                     <img th:src="@{${messageChain.userEntityList[0].imageInfo.url}}"
-                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         class="rounded-3 border border-2 border-secondary-subtle ms-4 mt-1"
                                                          alt="Profile Image"
                                                          height="80"/>
                                                 </th:block>
                                                 <th:block th:unless="${messageChain.userEntityList[0].imageInfo}">
                                                     <img th:src="@{/images/profile-icon.png}"
-                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         class="rounded-3 border border-2 border-secondary-subtle ms-4 mt-1"
                                                          alt="Profile Image"
                                                          height="80">
                                                 </th:block>
 
                                             </a>
-                                            <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
-                                                <span th:text="${messageChain.userEntityList[0].displayName}"></span>
-                                            </a>
+
                                         </th:block>
                                         <th:block
                                                 th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
+
+                                            <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}" class="ms-1">
+                                                <span th:text="${messageChain.userEntityList[1].displayName}"></span>
+                                            </a>
+
+                                            <br/>
+
                                             <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}">
-
-
                                                 <th:block th:if="${messageChain.userEntityList[1].imageInfo}">
                                                     <img th:src="@{${messageChain.userEntityList[1].imageInfo.url}}"
-                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         class="rounded-3 border border-2 border-secondary-subtle ms-4 mt-1"
                                                          alt="Profile Image"
                                                          height="80"/>
                                                 </th:block>
                                                 <th:block th:unless="${messageChain.userEntityList[1].imageInfo}">
                                                     <img th:src="@{/images/profile-icon.png}"
-                                                         class="rounded-3 border border-2 border-secondary-subtle"
+                                                         class="rounded-3 border border-2 border-secondary-subtle ms-4 mt-1"
                                                          alt="Profile Image"
                                                          height="80">
                                                 </th:block>
-
                                             </a>
-
                                         </th:block>
 
                                     </div>
@@ -299,14 +301,14 @@
                             </th:block>
                         </th:block>
                         <th:block th:unless="${totalPages < 2}">
-                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/profile/page/' + ${currentPage + 1}}">Next</a>
-                        </li>
-                        <th:block th:unless="${totalPages < 2}">
                             <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                              th:href="@{'/profile/page/' + ${totalPages}}">Last</a>
+                                                                                              th:href="@{'/profile/page/' + ${currentPage + 1}}">Next</a>
                             </li>
-                        </th:block>
+                            <th:block th:unless="${totalPages < 2}">
+                                <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                                  th:href="@{'/profile/page/' + ${totalPages}}">Last</a>
+                                </li>
+                            </th:block>
                     </ul>
                 </nav>
             </div>

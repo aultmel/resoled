@@ -295,10 +295,16 @@ width: 700px;
 width: 1220px;
 }
 
+/* User Data Page */
+.userData {
+width: 1220px;
+}
+
 /* Profile Edit page */
 .profileEdit {
 width: 720px;
 }
+
 
 /* Listing Page */
 .listingPage {

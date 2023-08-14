@@ -8,23 +8,26 @@
         <div class="color1 container rounded-5 p-3">
             <div class="gradientForm container rounded-5 shadow-lg p-4">
 
-                <th:block th:if="${userImageBoolean}">
-                    <img th:src="@{${otherUser.imageInfo.url}}" alt="Profile Image" width="200"/>
-                </th:block>
-                <th:block th:unless="${userImageBoolean}">
-                    <img th:src="@{/images/test-profile-pic-not-licensed.png}" alt="Profile Image"
-                         width="150" height="150">
-                </th:block>
-                <h3 th:text="${otherUser.displayName}"></h3>
 
                 <div class="row mb-3">
                     <div class="col">
+                        <h2 class="text-center mb-3"><span th:text="${otherUser.displayName}"></span>'s Profile</h2>
+                            <div class="text-center mb-5">
+                                <th:block th:if="${otherUser.imageInfo}">
+                                    <img th:src="@{${otherUser.imageInfo.url}}" alt="Profile Image" width="200"
+                                         class=" border border-2 rounded-4 border-secondary-subtle"/>
+                                </th:block>
+                                <th:block th:unless="${otherUser.imageInfo}">
+                                    <img th:src="@{/images/profile-icon.png}" alt="Profile Image"
+                                         width="200" height="200"
+                                         class="border border-2 rounded-4 border-secondary-subtle">
+                                </th:block>
+                            </div>
 
-                        <hr/>
+
+                        <hr class="w-50 mx-auto mb-4"/>
                         <!-- Report Button -->
                         <span id="reportButton" class="report-user-link" onclick="updateForm()">Report User</span>
-                        </br>
-                        </br>
 
                         <!-- Report Form -->
                         <div>
@@ -33,15 +36,21 @@
                                   th:style="'display:none'">
 
                                 <div class="form-group d-grid mb-4 mx-auto mt-5 w-75">
-                                    <label th:text="'Report User: ' + ${otherUser.displayName}"></label>
+                                    <h4 th:text="'Report User ' + ${otherUser.displayName}" class="mb-2 ms-3"></h4>
+                                    <h5 class="mb-2 ms-3">Please describe the issue:</h5>
 
-                                    </br>
-                                    <p>Reason:</p>
                                     <textarea th:field="*{complaintDetail}" rows="5" cols="50"
-                                              class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"
+                                              class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-3 p-3"
                                     ></textarea>
-                                    </br>
-                                    <button type="submit" class="btn button1 btn-lg shadow-lg">Submit Report</button>
+
+
+                                    <div class="form-group d-grid mb-4 mx-auto w-75">
+                                        <button type="submit" value="Log in"
+                                                class="btn button1 btn-lg shadow-lg">
+                                            Submit Report
+                                        </button>
+                                    </div>
+
                                 </div>
                             </form>
                         </div>
@@ -88,24 +97,48 @@
                 </div>
 
                 <!--                    Listings-->
-                <div class="row">
-                    <hr/>
-                    <H3>Listings</H3>
-                    <div class="grid-container">
-                        <div th:each="listing : ${shoeListingList}">
-                            <div class="color1 container rounded-5 p-3">
-                                <div class="gradientForm container rounded-5 shadow-lg p-4">
-                                    <a class="h2" th:href="'/listings/details?listingId=' + ${listing.id}"
-                                       th:text="${listing.title}"></a>
-                                    <br/>
-                                    <th:block th:if="${imageLocal}">
-                                        <img th th:src="@{${listing.imageLocal.url}}">
-                                    </th:block>
-                                    <p th:text="'Brand: ' + ${listing.brand.name}"></p>
-                                    <p th:text="'Style: ' + ${listing.style.name}"></p>
-                                    <p th:text="'Size: ' + ${listing.size}"></p>
-                                    <p th:text="'Location: ' + ${listing.userEntity.location.zipCode}"></p>
+                <!--                Listings  shown-->
+                <div class="row text-center">
+                    <hr class="profileMain mt-0 p-0 mx-auto"/>
+                    <H3 class="mt-3 mb-2"><span th:text="${otherUser.displayName}"></span>'s Listings</H3>
+
+                    <div class="listing-container d-flex flex-wrap">
+                        <div th:each="listing : ${shoeListingList}" class="listing-item ">
+                            <div class="aListing border border-3 rounded-5 border-secondary-subtle shadow-sm p-2 mb-4">
+                                <h4 th:text="${listing.title}"></h4>
+
+                                <th:block th:if="${listing.imageLocal}">
+                                    <img th:src="@{${listing.imageLocal.url}}" width="150"
+                                         class="rounded-4 border border-2 border-secondary-subtle mb-4">
+                                </th:block>
+                                <div class="row">
+                                    <div class="col">
+                                        <p th:text="'Brand: ' +  ${listing.brand.name}"></p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text="'Style: ' +  ${listing.style.name}"></p>
+                                    </div>
                                 </div>
+                                <hr class="w-75 mt-0 p-0 mx-auto"/>
+                                <div class="row">
+                                    <div class="col">
+                                        <p th:text="'Size: ' +  ${listing.size}"></p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text="'Size: ' +  ${listing.gender}"></p>
+                                    </div>
+                                </div>
+                                <hr class="w-75 mt-0 p-0 mx-auto"/>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <p th:text="'Condition: ' +  ${listing.condition}"></p>
+                                    </div>
+                                </div>
+
+                                <a style="color: white" class="button1 btn btn mb-3"
+                                   th:href="'/listings/details?listingId=' + ${listing.id}">See Listing</a></br>
+
                             </div>
                         </div>
                     </div>
@@ -113,6 +146,7 @@
             </div>
         </div>
     </div>
+
 
     <!--PAGINATION BELOW-->
     <footer style="font-size: large" class="panel-footer">
@@ -260,6 +294,8 @@
             formDisplayed = false;
             }
         }
+
+
 
 
 

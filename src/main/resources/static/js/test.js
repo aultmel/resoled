@@ -1,19 +1,26 @@
-const imageDiv = document.getElementById('imageDiv');
-const prevButton = document.getElementById('prevButton');
-const nextButton = document.getElementById('nextButton');
+var slide = document.querySelectorAll('.slide');
+var currentIndex = 0;
 
-prevButton.addEventListener("click", (event) => {
-        src = "../images/great-shoe.png"
-       imageDiv.style.backgroundImage = `url("${src}")`;
-event.preventDefault();
+function showSlide(index) {
+  slide.forEach(item => {
+    item.style.display = 'none';
+  });
 
- });
+  slide[index].style.display = 'block';
+}
 
-nextButton.addEventListener("click", (event) => {
-        src = "../images/active-running-shoe.png"
-        imageDiv.style.backgroundImage = `url("${src}")`;
-       event.preventDefault();
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % slide.length;
+  showSlide(currentIndex);
+}
 
- });
+function previousSlide() {
+  currentIndex = (currentIndex - 1 + slide.length) % slide.length;
+  showSlide(currentIndex);
+}
 
+document.getElementById('nextBtn').addEventListener('click', nextSlide);
+document.getElementById('prevBtn').addEventListener('click', previousSlide);
 
+// Show the first slide initially
+showSlide(currentIndex);

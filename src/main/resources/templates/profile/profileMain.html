@@ -11,10 +11,8 @@
 
                 <div class="row mb-4">
 
-
                     <div class="container rounded-5 px-4 pt-2 col mx-1">
                         <h2 class="text-center mb-3">Your Profile</h2>
-
 
                         <div>
                             <div class="text-center mb-3">
@@ -42,10 +40,12 @@
                             <a class="btn button1 btn-lg shadow-lg ms-4" style="color: var( --lightText);"
                                th:href="@{'/profile/profileEdit'}">Edit</a>
 
-                            <a th:if="${userEntity.roles.contains('ADMIN')}" class="btn button1 btn-lg shadow-lg ms-2"
-                               style="color: var( --lightText);" th:href="@{'admin'}">Admin
-                                Menu</a>
 
+                            <th:block th:if="${userEntity.roles.size() == 2}">
+                                <th:block th:if="${userEntity.roles[1].getName() == 'ADMIN'}" >
+                                    <a class="btn button1 btn-lg shadow-lg ms-2"
+                                       style="color: var( --lightText);" th:href="@{'admin'}">Admin Menu</a>
+                                </th:block>
                             </th:block>
                         </div>
 
@@ -73,7 +73,8 @@
                                         <th:block
                                                 th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
 
-                                            <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}" class="ms-1">
+                                            <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}"
+                                               class="ms-1">
                                                 <span th:text="${messageChain.userEntityList[0].displayName}"></span>
                                             </a>
                                             <br/>
@@ -98,7 +99,8 @@
                                         <th:block
                                                 th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
 
-                                            <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}" class="ms-1">
+                                            <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}"
+                                               class="ms-1">
                                                 <span th:text="${messageChain.userEntityList[1].displayName}"></span>
                                             </a>
 

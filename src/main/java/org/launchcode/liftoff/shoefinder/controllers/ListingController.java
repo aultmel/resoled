@@ -1,6 +1,7 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
 
+import com.google.maps.errors.ApiException;
 import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +62,7 @@ public class ListingController {
     }
 
     @GetMapping("/listingSearch")
-    public String listingSearchMapping(Model model) {
+    public String listingSearchMapping(Model model) throws IOException, InterruptedException, ApiException {
         return getOneListingSearchPage(model, 1);
     }
 
@@ -201,6 +203,7 @@ public class ListingController {
         currentSearch.setSearchCondition(searchListingsDTO.getCondition());
         currentSearch.setSearchBrand(searchListingsDTO.getBrand());
         currentSearch.setSearchStyle(searchListingsDTO.getStyle());
+        currentSearch.setSearchZipCode(searchListingsDTO.getZipCode());
 
         // saving gender list as a comma separated string
         if (!searchListingsDTO.getGenders().isEmpty()) {
@@ -236,7 +239,7 @@ public class ListingController {
 
 
     @GetMapping("/listingSearch/page/{pageNumber}")
-    public String getOneListingSearchPage(Model model, @PathVariable("pageNumber") int currentPage) {
+    public String getOneListingSearchPage(Model model, @PathVariable("pageNumber") int currentPage) throws IOException, InterruptedException, ApiException {
 
 
         List<ShoeListing> allShoeListings = listingService.filterListings();

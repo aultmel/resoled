@@ -21,6 +21,14 @@
                             <!--                                <p class="error" th:errors="*{searchTerm}"></p>-->
                         </div>
                     </div>
+                    <div class="form-group mb-2" id="zip">
+                        <div class="form-floating shadow-sm">
+                            <input th:field="*{zipCode}" type="text" id="zipCode" name="zipCode"
+                                   class="form-control border border-3 rounded-4 border-secondary-subtle">
+                            <label for="zipCode">ZipCode:</label>
+                            <!--                                <p class="error" th:errors="*{searchTerm}"></p>-->
+                        </div>
+                    </div>
 
                     <!--THIS CODE IS FOR USING SUGGESTIONS LIST WITH BRAND        -->
                     <!--        NEEDS TO HAVE th:field added-->
@@ -41,19 +49,6 @@
                     </div>
                     <input type="hidden" id="brandSuggestionsUrl"
                            th:value="${brandSuggestionsUrl}"/>
-
-
-<!--                    <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">-->
-
-<!--                        <label>Brand:</label></br>-->
-
-<!--                        <th:block th:if="${topBrands.size() == 0 or topBrands == null}">-->
-<!--                            <p>No brands found. Please add brands to enable filtering.</p>-->
-<!--                        </th:block>-->
-<!--                        <input type="text" name="brands" th:value="${brand}" th:field="*{brands}">-->
-<!--                        </th:block>-->
-<!--                    </div>-->
-
 
                     <div class="row mb-2 mx-1 ">
                         <div class="col-9 border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
@@ -89,15 +84,6 @@
                         </div>
 
                     </div>
-
-<!--                    <div class="border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">-->
-<!--                        <label>Style:</label></br>-->
-<!--                        <th:block th:if="${topStyles.size() == 0 or topStyles == null}">-->
-<!--                            <p>No styles found. Please add styles to enable filtering.</p>-->
-<!--                        </th:block>-->
-<!--                        <input type="text" name="styles" th:value="${style}" th:field="*{styles}">-->
-<!--                    </div>-->
-
 
                     <!--        THIS CODE IS FOR USING SEARCH SUGGESTIONS FOR STYLE-->
                     <!--        NEEDS TO HAVE th:field added-->

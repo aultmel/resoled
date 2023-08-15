@@ -1,15 +1,24 @@
 package org.launchcode.liftoff.shoefinder.services;
 
 
+import com.google.maps.DistanceMatrixApiRequest;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.*;
 import com.mysql.cj.util.StringUtils;
 import org.launchcode.liftoff.shoefinder.data.*;
 import org.launchcode.liftoff.shoefinder.models.*;
 import org.launchcode.liftoff.shoefinder.models.dto.CreateListingDTO;
+import org.launchcode.liftoff.shoefinder.models.dto.ShoeListingDistanceDTO;
 import org.launchcode.liftoff.shoefinder.security.SecurityUtility;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -84,7 +93,7 @@ public class ListingService {
 
     // Method to filter shoe listings based on search criteria.
 
-    public List<ShoeListing> filterListings() {
+    public List<ShoeListing> filterListings() throws IOException, InterruptedException, ApiException {
         List<ShoeListing> filteredListings = shoeListingRepository.findAll();
         List<List<ShoeListing>> activeFilters = new ArrayList<>();
         List<ShoeListing> itemsToRemove = new ArrayList<>();
@@ -194,6 +203,62 @@ public class ListingService {
 
         //remove all non-matching listings
         filteredListings.removeAll(itemsToRemove);
-        return filteredListings;
+        List<ShoeListing> sortedListings = new ArrayList<>();
+
+
+        if (currentSearch != null && currentSearch.getSearchZipCode() != null && !currentSearch.getSearchZipCode().isEmpty()) {
+            LatLng searchLatLng = new LatLng();
+            LatLng listingLatLng = new LatLng();
+
+            GeoApiContext ctx = new GeoApiContext.Builder()
+                    .apiKey(System.getenv("GOOGLE_API_KEY"))
+                    .build();
+
+            GeocodingResult[] results = GeocodingApi.geocode(ctx, currentSearch.getSearchZipCode()).await();
+            if (results.length > 0) {
+                searchLatLng = results[0].geometry.location;
+            }
+
+            List<ShoeListingDistanceDTO> locationFiltered = new ArrayList<>();
+            for (ShoeListing listing : filteredListings) {
+                ShoeListingDistanceDTO tempListing = new ShoeListingDistanceDTO();
+                tempListing.setShoeListing(listing);
+                String listingZip = listing.getUserEntity().getLocation().getZipCode();
+                GeocodingResult[] listingResults = GeocodingApi.geocode(ctx, listingZip).await();
+                if (listingResults.length > 0) {
+                    listingLatLng = listingResults[0].geometry.location;
+                }
+
+                DistanceMatrix distanceResults = new DistanceMatrixApiRequest(ctx)
+                        .origins(searchLatLng)
+                        .destinations(listingLatLng)
+                        .mode(TravelMode.DRIVING)
+                        .await();
+
+
+                DistanceMatrixElement element = distanceResults.rows[0].elements[0];
+                System.out.println(element);
+                if (element.status == DistanceMatrixElementStatus.OK) {
+                    Distance distance = element.distance;
+                    tempListing.setDistance(distance);
+                    locationFiltered.add(tempListing);
+
+                }
+
+            }
+            Collections.sort(locationFiltered, Comparator.comparingDouble(dto -> dto.getDistance().inMeters));
+            for (ShoeListingDistanceDTO dto : locationFiltered) {
+                sortedListings.add(dto.getShoeListing());
+            }
+
+        } else {
+            for (ShoeListing listing : filteredListings) {
+                sortedListings.add(listing);
+            }
+        }
+
+
+        return sortedListings;
     }
+
 }

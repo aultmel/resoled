@@ -25,7 +25,10 @@ public class CurrentSearch {
     private String searchCondition;
 
     private String searchGenders;
+
     private String searchZipCode;
+
+    private String searchDistance;
 
     public CurrentSearch() {  }
 
@@ -87,5 +90,13 @@ public class CurrentSearch {
 
     public void setSearchZipCode(String searchZipCode) {
         this.searchZipCode = searchZipCode;
+    }
+
+    public String getSearchDistance() {
+        return searchDistance;
+    }
+
+    public void setSearchDistance(String searchDistance) {
+        this.searchDistance = searchDistance;
     }
 }

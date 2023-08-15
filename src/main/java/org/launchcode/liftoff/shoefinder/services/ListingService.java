@@ -248,8 +248,17 @@ public class ListingService {
             }
             Collections.sort(locationFiltered, Comparator.comparingDouble(dto -> dto.getDistance().inMeters));
             for (ShoeListingDistanceDTO dto : locationFiltered) {
-                sortedListings.add(dto.getShoeListing());
+                if (!currentSearch.getSearchDistance().isEmpty() && !currentSearch.getSearchDistance().equals("0")) {
+                    Integer distance = Integer.parseInt(currentSearch.getSearchDistance());
+                    if (dto.getDistance().inMeters * 0.00062137 < distance) {
+                        sortedListings.add(dto.getShoeListing());
+                    }
+                } else {
+                    sortedListings.add(dto.getShoeListing());
+                }
             }
+
+
 
         } else {
             for (ShoeListing listing : filteredListings) {

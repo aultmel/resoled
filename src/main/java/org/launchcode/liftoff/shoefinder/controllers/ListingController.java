@@ -204,6 +204,7 @@ public class ListingController {
         currentSearch.setSearchBrand(searchListingsDTO.getBrand());
         currentSearch.setSearchStyle(searchListingsDTO.getStyle());
         currentSearch.setSearchZipCode(searchListingsDTO.getZipCode());
+        currentSearch.setSearchDistance(searchListingsDTO.getDistance());
 
         // saving gender list as a comma separated string
         if (!searchListingsDTO.getGenders().isEmpty()) {

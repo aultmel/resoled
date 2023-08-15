@@ -29,6 +29,23 @@
                             <!--                                <p class="error" th:errors="*{searchTerm}"></p>-->
                         </div>
                     </div>
+                    <div class="form-group mb-2" id="distance">
+                        <div class="form-floating shadow-sm">
+                            <select th:field="*{distance}" id="distanceSelect" class="form-select border border-3 rounded-4 border-secondary-subtle">
+                                <option value="0">None</option>
+                                <option value="5">5 mi</option>
+                                <option value="10">10 mi</option>
+                                <option value="15">15 mi</option>
+                                <option value="25">25 mi</option>
+                                <option value="50">50 mi</option>
+                                <option value="100">100 mi</option>
+                            </select>
+                            <label for="distanceSelect">Max Distance:</label>
+                        </div>
+                    </div>
+
+
+
 
                     <!--THIS CODE IS FOR USING SUGGESTIONS LIST WITH BRAND        -->
                     <!--        NEEDS TO HAVE th:field added-->

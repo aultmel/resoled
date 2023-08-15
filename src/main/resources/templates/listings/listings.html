@@ -80,7 +80,7 @@
 
                                     <div class="form-group d-grid mb-4 mt-3 mx-auto w-75">
                                         <a class="button1 btn btn" style="color: white;"
-                                           th:href="'/message/userMessage/' + ${listing.userEntity.displayName}")
+                                           th:href="'/message/userMessage/' + ${listing.userEntity.displayName}" )
                                            th:text="'Message: ' + ${listing.userEntity.displayName}">
                                         </a>
                                     </div>
@@ -124,9 +124,10 @@
                                 </th:block>
                                 <th:block th:unless="${currentPage == i}">
                                     <th:block th:unless="${i == 0}">
-                                    <li class="page-item">
-                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
-                                    </li>
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
                                     </th:block>
                                 </th:block>
                             </th:block>
@@ -201,12 +202,16 @@
                                 </th:block>
                             </th:block>
                         </th:block>
-                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/listings/listings/page/' + ${currentPage + 1}}">Next</a>
-                        </li>
-                        <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
-                                                                                          th:href="@{'/listings/listings/page/' + ${totalPages}}">Last</a>
-                        </li>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/listings/listings/page/' + ${currentPage + 1}}">Next</a>
+                            </li>
+                        </th:block>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/listings/listings/page/' + ${totalPages}}">Last</a>
+                            </li>
+                        </th:block>
                     </ul>
                 </nav>
             </div>

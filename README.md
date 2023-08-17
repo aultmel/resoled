@@ -31,7 +31,7 @@ ReSoled is a platform designed to make the process of finding and listing shoes 
 
 Before you start, make sure you have the following installed:
 
-- Java
+- Java 17
 - Spring Boot
 - MySQL
 - Google Maps API Key

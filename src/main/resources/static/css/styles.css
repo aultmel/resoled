@@ -604,6 +604,10 @@ input:checked + .slider:before {
 
 }
 .custom-distance {
+<<<<<<< HEAD
     width: 80px; /* Adjust the width to your preference */
+=======
+    width: 80px;
+>>>>>>> update
 }
 

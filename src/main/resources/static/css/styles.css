@@ -318,6 +318,8 @@ min-width: 520px;
 width: 520px;
 }
 
+
+
 /* For fetchSuggestions.js and associated suggestions code in templates */
 .results ul{
 padding: 10px 10px;
@@ -598,6 +600,10 @@ input:checked + .slider:before {
 
 }
 .custom-distance {
+<<<<<<< HEAD
+    width: 80px; /* Adjust the width to your preference */
+=======
     width: 80px;
+>>>>>>> update
 }
 

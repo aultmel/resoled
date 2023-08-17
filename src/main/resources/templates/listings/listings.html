@@ -3,7 +3,7 @@
 <head th:replace="~{fragments :: head}"></head>
 <header th:replace="~{fragments :: header}"></header>
 <body>
-<div class="gradientBg p-3 pt-4">
+<div class="gradientBg p-3 pt-4" width="100%">
     <div class="listings color2 container listingsPage rounded-top-5 p-2 shadow-lg">
         <div class="color1 container rounded-5 p-3">
             <div class="gradientForm container rounded-5 shadow-lg p-4">
@@ -17,7 +17,7 @@
                                 <h4 th:text="${listing.title}"></h4>
 
                                 <th:block th:if="${listing.imageLocal}">
-                                    <img th:src="@{${listing.imageLocal.url}}" width="150"
+                                    <img th:src="@{${listing.imageLocal.url}}" width="50%"
                                          class="rounded-4 border border-2 border-secondary-subtle mb-4">
                                 </th:block>
                                 <div class="row">

@@ -1,6 +1,6 @@
 # ReSoled
 
-ShoeFinder is a web application that helps users find and list shoe listings from various brands, styles, sizes, and conditions. Users can filter listings based on their preferences and even sort them by location using distance calculations.
+ReSoled is a web application that helps users find and list shoe listings from various brands, styles, sizes, and conditions. Users can filter listings based on their preferences and even sort them by location using distance calculations.
 
 ## Table of Contents
 

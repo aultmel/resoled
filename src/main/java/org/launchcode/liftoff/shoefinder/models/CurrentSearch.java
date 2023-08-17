@@ -26,6 +26,10 @@ public class CurrentSearch {
 
     private String searchGenders;
 
+    private String searchZipCode;
+
+    private String searchDistance;
+
     public CurrentSearch() {  }
 
     public Long getId() {
@@ -78,5 +82,21 @@ public class CurrentSearch {
 
     public void setSearchGenders(String searchGenders) {
         this.searchGenders = searchGenders;
+    }
+
+    public String getSearchZipCode() {
+        return searchZipCode;
+    }
+
+    public void setSearchZipCode(String searchZipCode) {
+        this.searchZipCode = searchZipCode;
+    }
+
+    public String getSearchDistance() {
+        return searchDistance;
+    }
+
+    public void setSearchDistance(String searchDistance) {
+        this.searchDistance = searchDistance;
     }
 }

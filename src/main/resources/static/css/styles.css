@@ -318,14 +318,6 @@ min-width: 520px;
 width: 520px;
 }
 
-
-/* width of a listing in a list */
-.aListing {
-min-width: 750
-width: 360px;
-}
-
-
 /* For fetchSuggestions.js and associated suggestions code in templates */
 .results ul{
 padding: 10px 10px;

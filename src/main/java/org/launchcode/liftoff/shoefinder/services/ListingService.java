@@ -209,64 +209,62 @@ public class ListingService {
         if (currentSearch != null && currentSearch.getSearchZipCode() != null && !currentSearch.getSearchZipCode().isEmpty()) {
             LatLng searchLatLng = new LatLng();
             LatLng listingLatLng = new LatLng();
+            try {
+                GeoApiContext ctx = new GeoApiContext.Builder()
+                        .apiKey(System.getenv("GOOGLE_API_KEY"))
+                        .build();
 
-            GeoApiContext ctx = new GeoApiContext.Builder()
-                    .apiKey(System.getenv("GOOGLE_API_KEY"))
-                    .build();
-
-            GeocodingResult[] results = GeocodingApi.geocode(ctx, currentSearch.getSearchZipCode()).await();
-            if (results.length > 0) {
-                searchLatLng = results[0].geometry.location;
-            }
-
-            List<ShoeListingDistanceDTO> locationFiltered = new ArrayList<>();
-            for (ShoeListing listing : filteredListings) {
-                ShoeListingDistanceDTO tempListing = new ShoeListingDistanceDTO();
-                tempListing.setShoeListing(listing);
-                String listingZip = listing.getUserEntity().getLocation().getZipCode();
-                GeocodingResult[] listingResults = GeocodingApi.geocode(ctx, listingZip).await();
-                if (listingResults.length > 0) {
-                    listingLatLng = listingResults[0].geometry.location;
+                GeocodingResult[] results = GeocodingApi.geocode(ctx, currentSearch.getSearchZipCode()).await();
+                if (results.length > 0) {
+                    searchLatLng = results[0].geometry.location;
                 }
 
-                DistanceMatrix distanceResults = new DistanceMatrixApiRequest(ctx)
-                        .origins(searchLatLng)
-                        .destinations(listingLatLng)
-                        .mode(TravelMode.DRIVING)
-                        .await();
+                List<ShoeListingDistanceDTO> locationFiltered = new ArrayList<>();
+                for (ShoeListing listing : filteredListings) {
+                    ShoeListingDistanceDTO tempListing = new ShoeListingDistanceDTO();
+                    tempListing.setShoeListing(listing);
+                    String listingZip = listing.getUserEntity().getLocation().getZipCode();
+                    GeocodingResult[] listingResults = GeocodingApi.geocode(ctx, listingZip).await();
+                    if (listingResults.length > 0) {
+                        listingLatLng = listingResults[0].geometry.location;
+                    }
+
+                    DistanceMatrix distanceResults = new DistanceMatrixApiRequest(ctx)
+                            .origins(searchLatLng)
+                            .destinations(listingLatLng)
+                            .mode(TravelMode.DRIVING)
+                            .await();
 
 
-                DistanceMatrixElement element = distanceResults.rows[0].elements[0];
-                System.out.println(element);
-                if (element.status == DistanceMatrixElementStatus.OK) {
-                    Distance distance = element.distance;
-                    tempListing.setDistance(distance);
-                    locationFiltered.add(tempListing);
+                    DistanceMatrixElement element = distanceResults.rows[0].elements[0];
+                    System.out.println(element);
+                    if (element.status == DistanceMatrixElementStatus.OK) {
+                        Distance distance = element.distance;
+                        tempListing.setDistance(distance);
+                        locationFiltered.add(tempListing);
+
+                    }
 
                 }
-
-            }
-            Collections.sort(locationFiltered, Comparator.comparingDouble(dto -> dto.getDistance().inMeters));
-            for (ShoeListingDistanceDTO dto : locationFiltered) {
-                if (!currentSearch.getSearchDistance().isEmpty() && !currentSearch.getSearchDistance().equals("0")) {
-                    Integer distance = Integer.parseInt(currentSearch.getSearchDistance());
-                    if (dto.getDistance().inMeters * 0.00062137 < distance) {
+                Collections.sort(locationFiltered, Comparator.comparingDouble(dto -> dto.getDistance().inMeters));
+                for (ShoeListingDistanceDTO dto : locationFiltered) {
+                    if (!currentSearch.getSearchDistance().isEmpty() && !currentSearch.getSearchDistance().equals("0")) {
+                        Integer distance = Integer.parseInt(currentSearch.getSearchDistance());
+                        if (dto.getDistance().inMeters * 0.00062137 < distance) {
+                            sortedListings.add(dto.getShoeListing());
+                        }
+                    } else {
                         sortedListings.add(dto.getShoeListing());
                     }
-                } else {
-                    sortedListings.add(dto.getShoeListing());
                 }
-            }
-
-
-
+            } catch(Exception e) {
+                e.printStackTrace();
+                }
         } else {
             for (ShoeListing listing : filteredListings) {
                 sortedListings.add(listing);
             }
         }
-
-
         return sortedListings;
     }
 

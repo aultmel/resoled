@@ -605,4 +605,7 @@ input:checked + .slider:before {
     gap: 3px;
 
 }
+.custom-distance {
+    width: 80px;
+}
 

@@ -321,8 +321,6 @@ width: 520px;
 
 /* width of a listing in a list */
 .aListing {
-min-width: 360px;
-width: 360px;
 }
 
 
@@ -604,5 +602,8 @@ input:checked + .slider:before {
     grid-template-columns: repeat(3, 1fr);
     gap: 3px;
 
+}
+.custom-distance {
+    width: 80px; /* Adjust the width to your preference */
 }
 

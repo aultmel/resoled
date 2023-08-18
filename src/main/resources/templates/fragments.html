@@ -210,7 +210,7 @@
         mapId: "LISTING_MAP",
         });
 
-        const priceTag = document.createElement("div");
+        const tag = document.createElement("div");
 
         priceTag.className = "price-tag";
         priceTag.textContent = "[[${title}]]";
@@ -218,7 +218,7 @@
         marker = new AdvancedMarkerElement({
         map: map,
         position: position,
-        content: priceTag,
+        content: tag,
 
         });
         }

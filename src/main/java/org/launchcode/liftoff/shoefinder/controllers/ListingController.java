@@ -107,6 +107,7 @@ public class ListingController {
             model.addAttribute("longitude", latLng.lng);
             model.addAttribute("title", shoeListing.getTitle());
             model.addAttribute("listing", shoeListing);
+            model.addAttribute("apiKey", System.getenv("GOOGLE_API_KEY"));
         }
             return "listings/listing";
 

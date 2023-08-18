@@ -78,14 +78,17 @@
                                     </div>
 
 
-                                    <div class="form-group d-grid mb-4 mt-3 mx-auto w-75">
+                                    <div class="form-group d-grid mt-3 mx-auto w-75" th:unless="${userEntity.id.equals(listing.userEntity.id)}">
                                         <a class="button1 btn btn" style="color: white;"
                                            th:href="'/message/userMessage/' + ${listing.userEntity.displayName}" )
                                            th:text="'Message: ' + ${listing.userEntity.displayName}">
                                         </a>
+
                                     </div>
+
                                 </div>
 
+                                <br>
 
                             </div>
                         </div>

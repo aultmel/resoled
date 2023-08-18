@@ -13,7 +13,7 @@
 
                     <div class="listing-container d-flex flex-wrap">
                         <div th:each="listing : ${shoeListingList}" class="listing-item ">
-                            <div class="aListing border border-3 rounded-5 border-secondary-subtle shadow-sm p-2 mb-4">
+                            <div class="border border-3 rounded-5 border-secondary-subtle shadow-sm p-2 mb-4">
                                 <h4 th:text="${listing.title}"></h4>
 
                                 <th:block th:if="${listing.imageLocal}">
@@ -78,14 +78,17 @@
                                     </div>
 
 
-                                    <div class="form-group d-grid mb-4 mt-3 mx-auto w-75">
+                                    <div class="form-group d-grid mt-3 mx-auto w-75" th:unless="${userEntity.id.equals(listing.userEntity.id)}">
                                         <a class="button1 btn btn" style="color: white;"
                                            th:href="'/message/userMessage/' + ${listing.userEntity.displayName}" )
                                            th:text="'Message ' + ${listing.userEntity.displayName}">
                                         </a>
+
                                     </div>
+
                                 </div>
 
+                                <br>
 
                             </div>
                         </div>

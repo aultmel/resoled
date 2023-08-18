@@ -19,7 +19,7 @@
 
                     <div class="form-group mb-2 ">
                         <div class="form-floating shadow-sm">
-                            <input th:field="*{title}" id="title"
+                            <input th:field="*{title}" id="title" pattern="^[a-zA-Z0-9\s]+$"
                                    class="form-control border border-3 rounded-4 border-secondary-subtle">
                             <label for="title">Description:</label>
                             <p class="error" th:errors="*{title}"></p>

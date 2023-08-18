@@ -1,7 +1,11 @@
 package org.launchcode.liftoff.shoefinder.controllers;
 
 
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.LatLng;
 import jakarta.validation.Valid;
 import org.launchcode.liftoff.shoefinder.data.ShoeListingRepository;
 import org.launchcode.liftoff.shoefinder.data.UserRepository;
@@ -73,15 +77,40 @@ public class ListingController {
         String username = SecurityUtility.getSessionUser();
         UserEntity userEntity = userRepository.findByUsernameIgnoreCase(username);
         model.addAttribute("userEntity", userEntity);
+        LatLng latLng = new LatLng();
+
+
 
         if (result.isEmpty()) {
             model.addAttribute("title", "Invalid ShoeListing ID: " + listingId);
         } else {
             ShoeListing shoeListing = result.get();
-            model.addAttribute("title", shoeListing.getId());
+            String zipCode = shoeListing.getUserEntity().getLocation().getZipCode();
+
+            try {
+                GeoApiContext ctx = new GeoApiContext.Builder()
+                        .apiKey(System.getenv("GOOGLE_API_KEY"))
+                        .build();
+
+                GeocodingResult[] results = GeocodingApi.geocode(ctx, zipCode).await();
+                if (results.length > 0) {
+                    latLng = results[0].geometry.location;
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ApiException e) {
+                throw new RuntimeException(e);
+            }
+            model.addAttribute("latitude", latLng.lat);
+            model.addAttribute("longitude", latLng.lng);
+            model.addAttribute("title", shoeListing.getTitle());
             model.addAttribute("listing", shoeListing);
         }
-        return "listings/listing";
+            return "listings/listing";
+
+
     }
     // Handler method to display the shoe listing creation form.
 

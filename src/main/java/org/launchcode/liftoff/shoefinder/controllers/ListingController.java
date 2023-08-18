@@ -25,6 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +40,7 @@ import static org.launchcode.liftoff.shoefinder.constants.ListingConstants.SIZE_
 @RequestMapping("/listings")
 public class ListingController {
 
+    String uploadDir = "files";
     private final ListingService listingService;
     private final ShoeListingRepository shoeListingRepository;
     private final UserRepository userRepository;
@@ -283,6 +288,19 @@ public class ListingController {
 
     @PostMapping("/delete")
     public String deleteListing(@ModelAttribute("listing") ShoeListing shoeListing, Model model){
+        String imageName = "listing_image_" + shoeListing.getId() + ".jpg";
+        try {
+            Path filePath = Paths.get(uploadDir, imageName);
+
+            // Check if the file exists before deleting
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+
+            }
+        } catch (IOException e) {
+
+        }
+
         UserEntity user = shoeListing.getUserEntity();
         user.removeListing(shoeListing);
         shoeListingRepository.delete(shoeListing);

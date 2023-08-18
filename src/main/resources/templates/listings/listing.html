@@ -48,11 +48,12 @@
                             <hr class="w-75 mt-0 mb-4 p-0 mx-auto"/>
                             <th:block th:if="${userEntity.id.equals(listing.userEntity.id)}">
 
-                            <h4 class="text-center">Your Listing</h4>
+                            <br/>
                                 <form method="post" th:action="@{../listings/delete}" >
                                     <input type="hidden" th:value="${listing.id}" name="listing" id="listing">
                                 <button type="submit" class="btn btn-danger" >Delete Listing</button>
                                 </form>
+                                </br>
                             </th:block>
 
 
@@ -88,7 +89,9 @@
                                    th:text="'Message: ' + ${listing.userEntity.displayName}"></a>
                             </div>
                             </th:block>
+                            <th:block th:unless="${userEntity.id.equals(listing.userEntity.id)}">
                             <div id="map"></div>
+                            </th:block>
                         </div>
                     </div>
                 </div>

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
+<head th:replace="~{fragments :: head2}"></head>
 <header th:replace="~{fragments :: header}"></header>
 <body>
-
 <div class="gradientBg p-3 pt-4">
     <div class="container listingPage px-5">
         <div class="color2 container rounded-5 p-2 shadow-lg">
@@ -71,15 +70,12 @@
                                                  height="120">
                                         </th:block>
                                     </a>
-
                                 </div>
                                 <div class="col d-flex fs-3 ">
                                     <a th:href="'/profile/' + ${listing.userEntity.displayName}">
                                         <span th:text="${listing.userEntity.displayName}"></span>
                                     </a>
                                 </div>
-
-
                             </div>
 
                             <div class="form-group d-grid mb-4 mt-3 mx-auto w-50">
@@ -88,18 +84,14 @@
                                    th:text="'Message: ' + ${listing.userEntity.displayName}"></a>
                             </div>
                             </th:block>
-
-
+                            <div id="map"></div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

@@ -281,4 +281,12 @@ public class ListingController {
     }
 
 
+    @PostMapping("/delete")
+    public String deleteListing(@ModelAttribute("listing") ShoeListing shoeListing, Model model){
+        UserEntity user = shoeListing.getUserEntity();
+        user.removeListing(shoeListing);
+        shoeListingRepository.delete(shoeListing);
+        return "redirect:../profile";
+    }
+
 }

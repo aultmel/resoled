@@ -600,18 +600,15 @@ input:checked + .slider:before {
 
 }
 .custom-distance {
-<<<<<<< HEAD
     width: 80px; /* Adjust the width to your preference */
-=======
-    width: 80px;
->>>>>>> update
+
 }
 #map {
     height: 300px; /* The height is 400 pixels */
     width: 100%; /* The width is the width of the web page */
 
 }
-.price-tag {
+.label-tag {
     position: relative;
     display: inline-block;
     padding: 8px;
@@ -621,7 +618,7 @@ input:checked + .slider:before {
     font-size: 14px;
     font-weight: bold;
 }
-.price-tag:after {
+.label-tag:after {
     content: "";
     position: absolute;
     bottom: -10px;

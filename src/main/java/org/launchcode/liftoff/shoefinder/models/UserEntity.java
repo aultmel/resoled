@@ -173,4 +173,8 @@ public class UserEntity {
     public void setCurrentSearch(CurrentSearch currentSearch) {
         this.currentSearch = currentSearch;
     }
+
+    public void removeListing(ShoeListing listing){
+        shoeListings.remove(listing);
+    }
 }

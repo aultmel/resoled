@@ -51,7 +51,7 @@
         --shadowSelectBorderColor:  hsla(276, 91%, 38%, 1);
         --shadowGrey: hsla(0, 0%, 79%, 1);
 
-        -customDropdownHover: hsla(194, 85%, 62%, 1);
+        --customDropdownHover: hsla(194, 85%, 62%, 1);
         --customDropdownBackground: hsla(0, 0%, 95%, 1);
 
         --paginationHoverFocus: hsla(0, 0%, 79%, 1);

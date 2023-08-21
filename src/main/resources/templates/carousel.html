@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments :: head}"></head>
+<!--<script th:src="@{/js/script.js}"defer></script>-->
+<body>
+<section aria-label="CarouselBase">
+  <div th:fragment="carousel-content">
+  <div class="carousel" data-carousel>
+    <button class="carosel-button prev" data-carousel-button>&#8592;</button>
+    <button class="carosel-button next" data-carousel-button>&#8594;</button>
+<ul data-slides>
+  <li class="slide" data-active>
+    <img th:src="@{/images/good-shoe.png}" alt="GoodShoe">
+  </li>
+  <li class="slide">
+    <img th:src="@{/images/great-shoe.png}" alt="GreatShoe">
+  </li>  <li class="slide">
+  <img th:src="@{/images/new-shoe.png}" alt="NewShoe">
+</li>  <li class="slide">
+  <img th:src="@{/images/poor-shoe.png}" alt="PoorShoe">
+</li>
+</ul>
+  </div>
+  </div>
+</section>
+</body>
+</html>

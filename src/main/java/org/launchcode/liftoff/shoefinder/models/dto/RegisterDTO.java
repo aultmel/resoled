@@ -1,5 +1,6 @@
 package org.launchcode.liftoff.shoefinder.models.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -43,6 +44,17 @@ public class RegisterDTO {
 
     @NotNull(message = "Date of Birth is required")
     private LocalDate birthday;
+
+    @NotEmpty
+    @Email
+    private String email;
+
+    @Size(min = RegistrationConstants.ZIP_CODE_LENGTH,
+            max = RegistrationConstants.ZIP_CODE_LENGTH,
+            message = "Zip Code must be {min} numbers")
+    @NotEmpty
+    private String zipCode;
+
 
     public RegisterDTO() {
     }
@@ -92,4 +104,16 @@ public class RegisterDTO {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getZipCode() { return zipCode; }
+
+    public void setZipCode(String zipCode) { this.zipCode = zipCode; }
 }

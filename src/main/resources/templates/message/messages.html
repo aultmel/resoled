@@ -1,150 +1,235 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
+<header th:replace="~{fragments :: header}"></header>
 
-<body class="m-2 gradientBg">
 
-<br/>
-<div class="color9 container w-75 rounded-top p-1">
-    <div class="color13 container rounded p-4">
-        <div class="color12 container rounded p-4">
-            <div class="color7 container rounded p-4">
+<body>
+<div class="gradientBg p-3 pt-4">
+    <div class="color2 container messagesPage rounded-top-5  p-2 shadow-lg">
+        <div class="color1 container rounded-5 p-3">
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
 
-                <h2 class="text-center">Your Conversations</h2>
+                <div class="text-center">
+                    <h2 class="fst-italic">Your Conversations</h2>
 
-                <a href="/message/create">Click here to message someone new (Create new MessageChain)</a>
-                <br/>
-        <div th:each="messageChain : ${messageChainList}" class="p-1">
-<!--            <div class="color14 container rounded p-1">-->
-            <div class="color6 container rounded p-1">
-                <div class="color7 container rounded p-2">
+                    <hr class="mx-3"/>
 
-            <h5>Message Subject: <a th:href="'/message/message?messageChainId=' + ${messageChain.id}" th:text="${messageChain.messageChainSubject}"></a></h5>
-            <h5>with:
-            <!--            todo: update link to user profile page.-->
-            <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
-                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[0].username}">
-                    <span th:text="${messageChain.userEntityList[0].username}"></span>
-                </a>
-            </th:block>
-            <!--            todo: update link to user profile page.-->
-                <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
-                    <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[1].username}">
-                        <span th:text="${messageChain.userEntityList[1].username}"></span>
-                    </a>
-                </th:block>
-            </h5>
+                    <a href="/message/create" class="button1 btn btn-lg" style="color: var( --lightText);">Start a New
+                        Conversation</a>
+                    <br/>
 
-            <div class="p-2">
-            <p>Most Recent Message:
-                <div class="color5 rounded w-50 p-2">
-                <span th:text="${messageChain.messages[messageChain.messages.size() - 1].text}"></span></p>
-                <p><span th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.username}"></span>:</p>
+                    <hr class="mx-3"/>
+                    <p class="fst-italic">Click on the Message Subject to continue the conversation</p>
+
+                </div>
+                <div th:each="messageChain : ${messageChainList}" class="p-1">
+                    <div class="row container rounded-5 border border-3 border-secondary-subtle shadow p-2 mb-3 mx-1">
+                        <div class="col p-2 ">
+                            <h5>Message Subject:
+                                <br/>
+                                <a
+                                        th:href="@{'/message/message?messageChainId=' + ${messageChain.id}}"
+                                        th:text="${messageChain.messageChainSubject}"></a></h5>
+                            <div>
+
+                                <span class="mb-0 ms-1">with:</span>
+
+                                <th:block
+                                        th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
+
+                                    <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}"
+                                       class="ms-1">
+                                        <span th:text="${messageChain.userEntityList[0].displayName}"></span>
+                                    </a>
+                                    <br/>
+
+                                    <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
+                                        <th:block th:if="${messageChain.userEntityList[0].imageInfo}">
+                                            <img th:src="@{${messageChain.userEntityList[0].imageInfo.url}}"
+                                                 class="rounded-3 border border-2 border-secondary-subtle ms-4 mt-1"
+                                                 alt="Profile Image"
+                                                 height="80"/>
+                                        </th:block>
+                                        <th:block th:unless="${messageChain.userEntityList[0].imageInfo}">
+                                            <img th:src="@{/images/profile-icon.png}"
+                                                 class="rounded-3 border border-2 border-secondary-subtle ms-4 mt-1"
+                                                 alt="Profile Image"
+                                                 height="80">
+                                        </th:block>
+
+                                    </a>
+
+                                </th:block>
+                                <th:block
+                                        th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
+
+                                    <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}"
+                                       class="ms-1">
+                                        <span th:text="${messageChain.userEntityList[1].displayName}"></span>
+                                    </a>
+
+                                    <br/>
+
+                                    <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}">
+                                        <th:block th:if="${messageChain.userEntityList[1].imageInfo}">
+                                            <img th:src="@{${messageChain.userEntityList[1].imageInfo.url}}"
+                                                 class="rounded-3 border border-2 border-secondary-subtle ms-4 mt-1"
+                                                 alt="Profile Image"
+                                                 height="80"/>
+                                        </th:block>
+                                        <th:block th:unless="${messageChain.userEntityList[1].imageInfo}">
+                                            <img th:src="@{/images/profile-icon.png}"
+                                                 class="rounded-3 border border-2 border-secondary-subtle ms-4 mt-1"
+                                                 alt="Profile Image"
+                                                 height="80">
+                                        </th:block>
+                                    </a>
+                                </th:block>
+
+                            </div>
+                        </div>
+                        <div class="col p-2">
+                            <p>Most Recent Message:
+                            <div class="color5 rounded w-50 p-2">
+                                <span th:text="${messageChain.messages[messageChain.messages.size() - 1].text}"></span></p>
+                                <p> from: <span
+                                        th:text="${messageChain.messages[messageChain.messages.size() - 1].userEntity.displayName}"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
-
         </div>
-        </div></div>
+    </div>
+
+
+    <footer style="font-size: large" class="panel-footer">
+        <div class="container color2 messagesPage p-1 rounded-bottom-5">
+            <div class="color2 rounded-bottom-5 p-1">
+                <!--    sets the pagination menu / control-->
+                <nav aria-label="Conversations Page Navigation Menu">
+                    <ul class="pagination pagination-lg justify-content-center">
+
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/message/messages/page/1'}">First</a>
+                        </li>
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/message/messages/page/' + ${currentPage - 1}}">Previous</a>
+                        </li>
+
+
+                        <!--            if total number of pages is less than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages <= paginationMenuTotalVisible}">
+                            <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
+
+                                <!--            Sets active status for the current page-->
+                                <th:block th:if="${currentPage == i}">
+                                    <li class="page-item active">
+                                        <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <th:block th:unless="${currentPage == i}">
+                                    <th:block th:unless="${i == 0}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+
+                        <!--            if total number of pages is more than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages > paginationMenuTotalVisible}">
+
+                            <!--                If the currentPage is within paginationMenuSplitSidesVisible from the beginning or paginationMenuSplitSidesVisible from the end-->
+                            <th:block
+                                    th:if="${currentPage <= paginationMenuSplitSidesVisible || currentPage >= totalPages - (paginationMenuSplitSidesVisible - 1)}">
+
+                                <th:block th:each="i: ${#numbers.sequence(1, paginationMenuSplitSidesVisible)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+
+                                </th:block>
+
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{'/message/messages/page/' + ${paginationMenuSplitSidesVisible + 1}}">...</a>
+                                </li>
+
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(totalPages - (paginationMenuSplitSidesVisible - 1), totalPages)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+
+                            <!--                If current page is more than paginationMenuSplitSidesVisible from the beginning or end-->
+                            <th:block
+                                    th:if="${currentPage > paginationMenuSplitSidesVisible && currentPage < totalPages - (paginationMenuSplitSidesVisible - 1)}">
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage - paginationMenuSplitSidesVisible, currentPage - 1)}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <li class="page-item active">
+                                    <a class="page-link" th:href="@{'/message/messages/page/' + ${currentPage}}">
+                                        <span th:text="${currentPage}"></span>
+                                    </a>
+                                </li>
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage + 1, currentPage + paginationMenuSplitSidesVisible)}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/message/messages/page/' + ${currentPage + 1}}">Next</a>
+                            </li>
+                        </th:block>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/message/messages/page/' + ${totalPages}}">Last</a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </nav>
             </div>
-<!--        </div>-->
-    </div></div>
+        </div>
+    </footer>
+
 </div>
-</div>
+<script th:src="@{/js/fetchSuggestions.js}"></script>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
-
-<footer style="font-size: large" class="panel-footer">
-    <div class="container color9 w-75 p-1 rounded-bottom">
-    <div class="color9 p-1">
-    <!--    sets the pagination menu / control-->
-    <nav aria-label="Conversations Page Navigation Menu">
-        <ul class="pagination pagination-lg justify-content-center">
-
-            <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link" th:href="@{'/message/messages/page/1'}">First</a></li>
-            <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link" th:href="@{'/message/messages/page/' + ${currentPage - 1}}">Previous</a></li>
-
-
-<!--            if total number of pages is less than the paginationMenuTotalVisible set in controller -->
-            <th:block th:if="${totalPages <= paginationMenuTotalVisible}">
-                <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
-
-<!--            Sets active status for the current page-->
-                    <th:block th:if="${currentPage == i}">
-                        <li class="page-item active">
-                            <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
-                        </li>
-                    </th:block>
-                    <th:block th:unless="${currentPage == i}">
-                        <li class="page-item">
-                            <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
-                        </li>
-                    </th:block>
-                </th:block>
-            </th:block>
-
-<!--            if total number of pages is more than the paginationMenuTotalVisible set in controller -->
-            <th:block th:if="${totalPages > paginationMenuTotalVisible}">
-
-<!--                If the currentPage is within paginationMenuSplitSidesVisible from the beginning or paginationMenuSplitSidesVisible from the end-->
-                <th:block th:if="${currentPage <= paginationMenuSplitSidesVisible || currentPage >= totalPages - (paginationMenuSplitSidesVisible - 1)}">
-
-                    <th:block th:each="i: ${#numbers.sequence(1, paginationMenuSplitSidesVisible)}">
-<!--                Sets active status for the current page-->
-                        <th:block th:if="${currentPage == i}">
-                            <li class="page-item active">
-                            <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
-                            </li>
-                        </th:block>
-                        <th:block th:unless="${currentPage == i}">
-                            <li class="page-item">
-                                <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
-                            </li>
-                        </th:block>
-
-                    </th:block>
-
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{'/message/messages/page/' + ${paginationMenuSplitSidesVisible + 1}}">...</a>
-                    </li>
-
-                    <th:block th:each="i: ${#numbers.sequence(totalPages - (paginationMenuSplitSidesVisible - 1), totalPages)}">
-<!--                Sets active status for the current page-->
-                        <th:block th:if="${currentPage == i}">
-                            <li class="page-item active">
-                                <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
-                            </li>
-                        </th:block>
-                        <th:block th:unless="${currentPage == i}">
-                            <li class="page-item">
-                                <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
-                            </li>
-                        </th:block>
-                    </th:block>
-                </th:block>
-
-<!--                If current page is more than paginationMenuSplitSidesVisible from the beginning or end-->
-                <th:block th:if="${currentPage > paginationMenuSplitSidesVisible && currentPage < totalPages - (paginationMenuSplitSidesVisible - 1)}">
-                    <th:block th:each="i: ${#numbers.sequence(currentPage - paginationMenuSplitSidesVisible, currentPage - 1)}">
-                            <li class="page-item">
-                                <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
-                            </li>
-                    </th:block>
-                    <li class="page-item active">
-                        <a class="page-link" th:href="@{'/message/messages/page/' + ${currentPage}}">
-                            <span th:text="${currentPage}"></span>
-                        </a>
-                    </li>
-                    <th:block th:each="i: ${#numbers.sequence(currentPage + 1, currentPage + paginationMenuSplitSidesVisible)}">
-                        <li class="page-item">
-                            <a class="page-link" th:href="@{'/message/messages/page/' + ${i}}">[[${i}]]</a>
-                        </li>
-                    </th:block>
-                </th:block>
-            </th:block>
-            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link" th:href="@{'/message/messages/page/' + ${currentPage + 1}}">Next</a></li>
-            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link" th:href="@{'/message/messages/page/' + ${totalPages}}">Last</a></li>
-        </ul>
-    </nav>
-    </div></div>
-</footer>
 </html>

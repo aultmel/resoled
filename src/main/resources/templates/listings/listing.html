@@ -1,31 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="~{fragments :: head2}"></head>
+<header th:replace="~{fragments :: header}"></header>
 <body>
-<table>
-    <tr>
-        <th>ID</th>
-        <td th:text="${shoeListing.id}"></td>
-    </tr>
-    <tr>
-        <th>Brand</th>
-        <td th:text="${shoeListing.brand.name}"></td>
-    </tr>
-    <tr>
-        <th>Size</th>
-        <td th:text="${shoeListing.size.size}"></td>
-    </tr>
-    <tr>
-        <th>Style</th>
-        <td th:text="${shoeListing.style.name}"></td>
-    </tr>
-    <tr>
-        <th>Condition</th>
-        <td th:text="${shoeListing.condition.conditionName}"></td>
-    </tr>
-</table>
+<div class="gradientBg p-3 pt-4">
+    <div class="container listingPage px-5">
+        <div class="color2 container rounded-5 p-2 shadow-lg">
+            <div class="color1 container rounded-5 p-3">
+                <div class="gradientForm container rounded-5 shadow-lg p-4">
+                    <div class="text-center">
+                        <div class=" listingPageListing rounded-5 shadow-sm p-2 mb-1">
+                            <h3 th:text="${listing.title}"></h3>
+
+                            <th:block th:if="${listing.imageLocal}">
+                                <img th:src="@{${listing.imageLocal.url}}" width="150"
+                                     class="rounded-4 border border-2 border-secondary-subtle mb-4">
+                            </th:block>
+                            <div class="row">
+                                <div class="col">
+                                    <p th:text="'Brand: ' +  ${listing.brand.name}"></p>
+                                </div>
+                                <div class="col">
+                                    <p th:text="'Style: ' +  ${listing.style.name}"></p>
+                                </div>
+                            </div>
+                            <hr class="w-75 mt-0 p-0 mx-auto"/>
+                            <div class="row">
+                                <div class="col">
+                                    <p th:text="'Size: ' +  ${listing.size}"></p>
+                                </div>
+                                <div class="col">
+                                    <p th:text="'Size: ' +  ${listing.gender}"></p>
+                                </div>
+                            </div>
+                            <hr class="w-75 mt-0 p-0 mx-auto"/>
+
+                            <div class="row">
+                                <div class="col">
+                                    <p th:text="'Condition: ' +  ${listing.condition}"></p>
+                                </div>
+                                <div class="col">
+                                    <p th:text="'Location: ' +  ${listing.userEntity.location.zipCode}"></p>
+                                </div>
+                            </div>
+
+
+                            <hr class="w-75 mt-0 mb-4 p-0 mx-auto"/>
+                            <th:block th:if="${userEntity.id.equals(listing.userEntity.id)}">
+
+                            <br/>
+                                <form method="post" th:action="@{../listings/delete}" >
+                                    <input type="hidden" th:value="${listing.id}" name="listing" id="listing">
+                                <button type="submit" class="btn btn-danger" >Delete Listing</button>
+                                </form>
+                                </br>
+                            </th:block>
+
+
+                            <th:block th:unless="${userEntity.id.equals(listing.userEntity.id)}">
+
+                            <div class="row mx-4 container fs-3">
+                                <div class="col">
+                                    <a th:href="'/profile/' + ${listing.userEntity.displayName}">
+                                        <th:block th:if="${listing.userEntity.imageInfo}">
+                                            <img th:src="@{${listing.userEntity.imageInfo.url}}"
+                                                 class="rounded-3 border border-2 border-secondary-subtle ms-5"
+                                                 alt="Profile Image"
+                                                 height="120"/>
+                                        </th:block>
+                                        <th:block th:unless="${listing.userEntity.imageInfo}">
+                                            <img th:src="@{/images/profile-icon.png}"
+                                                 class="rounded-3 border border-2 border-secondary-subtle ms-5"
+                                                 alt="Profile Image"
+                                                 height="120">
+                                        </th:block>
+                                    </a>
+                                </div>
+                                <div class="col d-flex fs-3 ">
+                                    <a th:href="'/profile/' + ${listing.userEntity.displayName}">
+                                        <span th:text="${listing.userEntity.displayName}"></span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="form-group d-grid mb-4 mt-3 mx-auto w-50">
+                                <a class="button1 btn btn-lg shadow-lg " style="color: white;"
+                                   th:href="'/message/userMessage/' + ${listing.userEntity.displayName}")
+                                   th:text="'Message ' + ${listing.userEntity.displayName}"></a>
+                            </div>
+                            </th:block>
+                            <th:block th:unless="${userEntity.id.equals(listing.userEntity.id)}">
+                            <div id="map"></div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

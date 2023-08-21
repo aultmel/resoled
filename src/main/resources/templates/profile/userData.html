@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments :: head}"></head>
+<header th:replace="~{fragments :: header}"></header>
+<body>
+<div class="gradientBg p-3 pt-4">
+    <div class="color2 container rounded-top-5  p-2 shadow-lg">
+        <div class="color1 container rounded-5 p-3">
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
+
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <h2 class="text-center mb-3"><span th:text="${otherUser.displayName}"></span>'s Profile</h2>
+                            <div class="text-center mb-5">
+                                <th:block th:if="${otherUser.imageInfo}">
+                                    <img th:src="@{${otherUser.imageInfo.url}}" alt="Profile Image" width="200"
+                                         class=" border border-2 rounded-4 border-secondary-subtle"/>
+                                </th:block>
+                                <th:block th:unless="${otherUser.imageInfo}">
+                                    <img th:src="@{/images/profile-icon.png}" alt="Profile Image"
+                                         width="200" height="200"
+                                         class="border border-2 rounded-4 border-secondary-subtle">
+                                </th:block>
+                            </div>
+
+
+                        <hr class="w-50 mx-auto mb-4"/>
+                        <!-- Report Button -->
+                        <span id="reportButton" class="report-user-link" onclick="updateForm()">Report User</span>
+
+                        <!-- Report Form -->
+                        <div>
+                            <form th:object="${reportDTO}" th:id="reportForm"
+                                  th:action="@{../profile/{displayName}(displayName=${displayName})}" method="post"
+                                  th:style="'display:none'">
+
+                                <div class="form-group d-grid mb-4 mx-auto mt-5 w-75">
+                                    <h4 th:text="'Report User ' + ${otherUser.displayName}" class="mb-2 ms-3"></h4>
+                                    <h5 class="mb-2 ms-3">Please describe the issue:</h5>
+
+                                    <textarea th:field="*{complaintDetail}" rows="5" cols="50"
+                                              class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-3 p-3"
+                                    ></textarea>
+
+
+                                    <div class="form-group d-grid mb-4 mx-auto w-75">
+                                        <button type="submit" value="Log in"
+                                                class="btn button1 btn-lg shadow-lg">
+                                            Submit Report
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div class="col text-center">
+
+                        <!--form to initiate message to otherUser-->
+                        <h5>Start a Conversation with
+                            <th:block th:text="${otherUser.displayName}"></th:block>
+                        </h5>
+                        <form method="post" role="form"
+                              th:action="@{'../message/create?receiver=' + ${otherUser.displayName}}"
+                              th:object="${createMessageDTO}">
+
+
+                            <div class="form-group mb-2 w-75 mx-auto ">
+                                <div class="dropdown form-floating shadow-sm">
+                                    <input th:field="*{messageSubject}" id="messageSubject"
+                                           class="form-control border border-3 rounded-4 border-secondary-subtle">
+                                    <label for="messageSubject">Subject:</label>
+                                    <p class="error" th:errors="*{messageSubject}"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p class="error" th:errors="*{text}"></p>
+                                <label>
+                                    <textarea th:field="*{text}" name="text" rows="5" cols="50"
+                                              class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"></textarea>
+                                </label>
+                                <br/>
+                            </div>
+
+                            <div class="form-group d-grid mb-2 mx-auto w-75">
+                                <input type="submit" value="Send Message"
+                                       class="btn button1 btn-lg shadow-lg"/>
+                            </div>
+                        </form>
+
+
+                    </div>
+
+                </div>
+
+                <!--                    Listings-->
+                <!--                Listings  shown-->
+                <div class="row text-center">
+                    <hr class="profileMain mt-0 p-0 mx-auto"/>
+                    <H3 class="mt-3 mb-2"><span th:text="${otherUser.displayName}"></span>'s Listings</H3>
+
+                    <div class="listing-container d-flex flex-wrap">
+                        <div th:each="listing : ${shoeListingList}" class="listing-item ">
+                            <div class="aListing border border-3 rounded-5 border-secondary-subtle shadow-sm p-2 mb-4">
+                                <h4 th:text="${listing.title}"></h4>
+
+                                <th:block th:if="${listing.imageLocal}">
+                                    <img th:src="@{${listing.imageLocal.url}}" width="150"
+                                         class="rounded-4 border border-2 border-secondary-subtle mb-4">
+                                </th:block>
+                                <div class="row">
+                                    <div class="col">
+                                        <p th:text="'Brand: ' +  ${listing.brand.name}"></p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text="'Style: ' +  ${listing.style.name}"></p>
+                                    </div>
+                                </div>
+                                <hr class="w-75 mt-0 p-0 mx-auto"/>
+                                <div class="row">
+                                    <div class="col">
+                                        <p th:text="'Size: ' +  ${listing.size}"></p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text="'Size: ' +  ${listing.gender}"></p>
+                                    </div>
+                                </div>
+                                <hr class="w-75 mt-0 p-0 mx-auto"/>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <p th:text="'Condition: ' +  ${listing.condition}"></p>
+                                    </div>
+                                </div>
+
+                                <a style="color: white" class="button1 btn btn mb-3"
+                                   th:href="'/listings/details?listingId=' + ${listing.id}">See Listing</a></br>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--PAGINATION BELOW-->
+    <footer style="font-size: large" class="panel-footer">
+        <div class="container color2 p-1 rounded-bottom-5">
+            <div class="color2 rounded-bottom-5 p-1">
+                <!--    sets the pagination menu / control-->
+                <nav aria-label="Conversations Page Navigation Menu">
+                    <ul class="pagination pagination-lg justify-content-center">
+
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/profile/' + ${otherUser.displayName} + '/page/1'}">First</a>
+                        </li>
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${currentPage - 1}}">Previous</a>
+                        </li>
+
+
+                        <!--            if total number of pages is less than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages <= paginationMenuTotalVisible}">
+                            <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
+
+                                <!--            Sets active status for the current page-->
+                                <th:block th:if="${currentPage == i}">
+                                    <li class="page-item active">
+                                        <a class="page-link"
+                                           th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <th:block th:unless="${currentPage == i}">
+                                    <th:block th:unless="${i == 0}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+
+                        <!--            if total number of pages is more than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages > paginationMenuTotalVisible}">
+
+                            <!--                If the currentPage is within paginationMenuSplitSidesVisible from the beginning or paginationMenuSplitSidesVisible from the end-->
+                            <th:block
+                                    th:if="${currentPage <= paginationMenuSplitSidesVisible || currentPage >= totalPages - (paginationMenuSplitSidesVisible - 1)}">
+
+                                <th:block th:each="i: ${#numbers.sequence(1, paginationMenuSplitSidesVisible)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/' + ${otherUser.displayName}' + /page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+
+                                </th:block>
+
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{'/profile/' + ${otherUser.displayName}' + /page/' + ${paginationMenuSplitSidesVisible + 1}}">...</a>
+                                </li>
+
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(totalPages - (paginationMenuSplitSidesVisible - 1), totalPages)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/' + ${otherUser.displayName}' + /page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/profile/' + ${otherUser.displayName}' + /page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+
+                            <!--                If current page is more than paginationMenuSplitSidesVisible from the beginning or end-->
+                            <th:block
+                                    th:if="${currentPage > paginationMenuSplitSidesVisible && currentPage < totalPages - (paginationMenuSplitSidesVisible - 1)}">
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage - paginationMenuSplitSidesVisible, currentPage - 1)}">
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <li class="page-item active">
+                                    <a class="page-link"
+                                       th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${currentPage}}">
+                                        <span th:text="${currentPage}"></span>
+                                    </a>
+                                </li>
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage + 1, currentPage + paginationMenuSplitSidesVisible)}">
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           th:href="@{'/profile/' + ${otherUser.displayName}+ '/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                        <th:block th:unless="${totalPages < 2}">
+
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${currentPage + 1}}">Next</a>
+                            </li>
+                        </th:block>
+                        <th:block th:unless="${totalPages < 2}">
+
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/profile/' + ${otherUser.displayName} + '/page/' + ${totalPages}}">Last</a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+
+</div>
+
+
+<!-- JS for hidden report form -->
+<script>
+        formDisplayed = false;
+        let form = document.getElementById("reportForm");
+
+        function updateForm() {
+            if (!formDisplayed) {
+               form.style.display = "block";
+                formDisplayed = true;
+            } else {
+                form.style.display = "none";
+            formDisplayed = false;
+            }
+        }
+
+
+
+
+
+
+
+
+</script>
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
+</body>
+</html>
+

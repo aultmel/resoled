@@ -1,47 +1,185 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-  <title>Create Listing</title>
-  <!-- Include necessary CSS and JS files -->
-</head>
+<head th:replace="~{fragments :: head}"></head>
+<header th:replace="~{fragments :: header}"></header>
+
 <body>
-<h1>Create A Listing and Find Your Sole-Mate!</h1>
+<div class="gradientBg p-3 pt-4">
+    <div class="color2 createListing container rounded-5 p-2 shadow-lg">
+        <div class="color1 container rounded-5 p-3">
 
-<form th:action="@{/listing/create}" th:object="${createListingDto}" method="post" >
-  <!--  enctype="multipart/form-data"-->
-  <div class="form-group">
-    <label for="brand">Brand:</label>
-    <input type="text" id="brand" th:field="*{brand}" class="form-control" required>
-  </div>
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
 
-  <div class="form-group">
-    <label for="size">Size:</label>
-    <input type="text" id="size" th:field="*{size}" class="form-control" required>
-  </div>
+                <h2 class="text-center fst-italic">Create A Listing... Find Your Sole-Mate!</h2>
+                <br/>
 
-  <!--  <div class="form-group">-->
-  <!--    <label for="location">Location:</label>-->
-  <!--    <input type="text" id="location" th:field="*{location}" class="form-control" required>-->
-  <!--  </div>-->
 
-  <!--  <div class="form-group">-->
-  <!--    <label for="photoFile">Photo:</label>-->
-  <!--    <input type="file" id="photoFile" name="photoFile" class="form-control-file" accept="image/*" required>-->
-  <!--  </div>-->
+                <form th:action="@{../listings/create}" th:object="${createListingDTO}" method="post"
+                      enctype="multipart/form-data">
 
-  <div class="form-group">
-    <label for="condition">Condition:</label>
-    <input type="text" id="condition" th:field="*{condition}" class="form-control" required>
-  </div>
+                    <div class="form-group mb-2 ">
+                        <div class="form-floating shadow-sm">
+                            <input th:field="*{title}" id="title" pattern="^[a-zA-Z0-9\s]+$"
+                                   class="form-control border border-3 rounded-4 border-secondary-subtle">
+                            <label for="title">Description:</label>
+                            <p class="error" th:errors="*{title}"></p>
+                        </div>
+                    </div>
 
-  <div class="form-group">
-    <label for="style">Style:</label>
-    <input type="text" id="style" th:field="*{style}" class="form-control" required>
-  </div>
+                    <div class="form-group file border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+                        <div class="preview">
+                            <img id="file-ip-1-preview">
+                        </div>
+                        <input type="file" name="file" accept="image/*" id="input-file"
+                               onchange="showImagePreview(event);">
+                        <label class="file-upload-custom-button btn button1 btn-lg shadow ms-2 m-2" for="input-file">Upload Image</label>
+                    </div>
 
-  <button type="submit" class="btn btn-primary">Create Listing!</button>
-</form>
 
-<!-- Include any additional HTML or scripts -->
+
+
+
+                    <br/>
+
+                    <div class="form-group  mb-2 ">
+                        <div class="dropdown form-floating  shadow-sm"
+                             style="z-index: 5">
+                            <input class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                   id="brand-search-box"
+                                   autocomplete="off"
+                                   th:field="*{brand}"/>
+                            <div class="brand-results results">
+                            </div>
+                            <label for="brand-search-box">Brand:</label>
+                        </div>
+                        <p class="error" th:errors="*{brand}"></p>
+                    </div>
+                    <input type="hidden" id="brandSuggestionsUrl"
+                           th:value="${brandSuggestionsUrl}"/>
+
+
+                    <div class="row mb-3">
+                        <div class="form-group col">
+                            <label for="size">Size:</label>
+                            <select name="size" id="size" th:field="*{size}"
+                                    class="form-control border border-3 rounded-4 border-secondary-subtle shadow-sm"
+                                    style="z-index: 4">
+                                <option th:each="aSize : ${sizeList}" th:value="${aSize}" th:text="${aSize}"></option>
+                            </select>
+                            <p class="error" th:errors="*{size}"></p>
+                        </div>
+                        <br/>
+
+
+                        <div class="form-group col">
+                            <label for="gender">(W/M):</label>
+                            <select name="gender" id="gender" th:field="*{gender}"
+                                    class="form-control border border-3 rounded-4 border-secondary-subtle shadow-sm"
+                                    style="z-index: 4">
+                                <option th:each="aGender : ${genderList}" th:value="${aGender}"
+                                        th:text="${aGender}"></option>
+                            </select>
+                            <p class="error" th:errors="*{gender}"></p>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-2 ">
+                        <div class="dropdown form-floating shadow-sm"
+                             style="z-index: 3">
+                            <input class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                   id="style-search-box"
+                                   autocomplete="off"
+                                   th:field="*{style}"/>
+                            <div class="style-results results">
+                            </div>
+                            <label for="style-search-box">Style:</label>
+                            <p class="error" th:errors="*{style}"></p>
+                        </div>
+
+                    </div>
+                    <input type="hidden" id="styleSuggestionsUrl"
+                           th:value="${styleSuggestionsUrl}"/>
+
+
+                    <br/>
+                    <div class="form-group row fw-semibold mx-auto border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+                        <h5 style="text-align: left;">Condition:</h5>
+                        <div class="col container text-center mb-3">
+                            <input type="radio" th:id="imageRadio_1" th:name="imageRadio" th:value="NEW"
+                                   th:field="*{condition}"
+                                   class="hidden-radio">
+                            <label th:for="imageRadio_1" style="color: var( --imageRadioText);">
+                                New
+                                <br/>
+                                <img th:src="@{/images/new-shoe.png}" alt="New Shoes" width="100"
+                                     height="100" class="">
+                            </label>
+                        </div>
+
+                        <div class="col container text-center mb-3">
+
+                            <input type="radio" th:id="imageRadio_2" th:name="imageRadio"
+                                   th:value="GREAT"
+                                   th:field="*{condition}" class="hidden-radio">
+                            <label th:for="imageRadio_2" style="color: var( --imageRadioText);">Great
+                                <br/>
+                                <img th:src="@{/images/great-shoe.png}" alt="Great Condition"
+                                     width="100" height="100">
+                            </label>
+                        </div>
+
+                        <div class="col container text-center mb-3">
+                            <input type="radio" th:id="imageRadio_3" th:name="imageRadio"
+                                   th:value="GOOD"
+                                   th:field="*{condition}" class="hidden-radio">
+                            <label th:for="imageRadio_3" style="color: var( --imageRadioText);">Good
+                                <br/>
+                                <img th:src="@{/images/good-shoe.png}" alt="Good Condition" width="100"
+                                     height="100">
+                            </label>
+                        </div>
+                        <div class="col container text-center mb-3">
+                            <input type="radio" th:id="imageRadio_4" th:name="imageRadio"
+                                   th:value="POOR"
+                                   th:field="*{condition}" class="hidden-radio">
+                            <label th:for="imageRadio_4" style="color: var( --imageRadioText);">Poor
+                                <br/>
+                                <img th:src="@{/images/poor-shoe.png}" alt="Poor Condition" width="100"
+                                     height="100">
+                            </label>
+                        </div>
+                        <p class="error" th:errors="*{condition}"></p>
+                    </div>
+                    <br/>
+                    <div class="form-group d-grid mb-4 mt-2 mx-auto w-75">
+                        <button type="submit" class="btn button1 btn-lg shadow">Create Listing!</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- script for showing the image preview -->
+<script>
+    function showImagePreview(event){
+        if(event.target.files.length > 0){
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById("file-ip-1-preview");
+            preview.src = src;
+            preview.style.display = "block";
+            preview.style.width = "20em";
+            preview.style.border = "2px solid hsla(0, 0%, 79%, 1)";
+        }
+    }
+
+</script>
+
+<!--for Brand and Style Suggestions-->
+<script th:src="@{/js/fetchBrandStyleSuggestions.js}"></script>
+
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

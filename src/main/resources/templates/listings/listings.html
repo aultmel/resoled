@@ -1,23 +1,228 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="~{fragments :: head}"></head>
+<header th:replace="~{fragments :: header}"></header>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th>Listings</th>
-    </tr>
-    </thead>
-    <tr th:each="listing : ${allListings}">
-        <td><a th:href="'/listings/details?listingId=' + ${listing.id}" th:text="${listing.id}"></a></td>
-        <td th:text="${listing.brand.name}"></td>
-        <td th:text="${listing.style.name}"></td>
-        <td th:text="${listing.size.size}"></td>
-        <td th:text="${listing.location.zipCode}"></td>
-    </tr>
-</table>
+<div class="gradientBg p-3 pt-4" width="100%">
+    <div class="listings color2 container listingsPage rounded-top-5 p-2 shadow-lg">
+        <div class="color1 container rounded-5 p-3">
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
+                <div class="text-center">
+
+                    <h2>Listings</h2>
+
+                    <div class="listing-container d-flex flex-wrap">
+                        <div th:each="listing : ${shoeListingList}" class="listing-item ">
+                            <div class="border border-3 rounded-5 border-secondary-subtle shadow-sm p-2 mb-4">
+                                <h4 th:text="${listing.title}"></h4>
+
+                                <th:block th:if="${listing.imageLocal}">
+                                    <img th:src="@{${listing.imageLocal.url}}" width="50%"
+                                         class="rounded-4 border border-2 border-secondary-subtle mb-4">
+                                </th:block>
+                                <div class="row">
+                                    <div class="col">
+                                        <p th:text="'Brand: ' +  ${listing.brand.name}"></p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text="'Style: ' +  ${listing.style.name}"></p>
+                                    </div>
+                                </div>
+                                <hr class="w-75 mt-0 p-0 mx-auto"/>
+                                <div class="row">
+                                    <div class="col">
+                                        <p th:text="'Size: ' +  ${listing.size}"></p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text="'Size: ' +  ${listing.gender}"></p>
+                                    </div>
+                                </div>
+                                <hr class="w-75 mt-0 p-0 mx-auto"/>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <p th:text="'Condition: ' +  ${listing.condition}"></p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text="'Location: ' +  ${listing.userEntity.location.zipCode}"></p>
+                                    </div>
+                                </div>
+
+                                <a style="color: white" class="button1 btn btn mb-3"
+                                   th:href="'/listings/details?listingId=' + ${listing.id}">Go to Listing!</a></br>
+
+
+                                <hr class="w-75 mt-0 mb-4 p-0 mx-auto"/>
+                                <div class="row mx-4">
+                                    <div class="col">
+                                        <a th:href="'/profile/' + ${listing.userEntity.displayName}">
+                                            <th:block th:if="${listing.userEntity.imageInfo}">
+                                                <img th:src="@{${listing.userEntity.imageInfo.url}}"
+                                                     class="rounded-3 border border-2 border-secondary-subtle"
+                                                     alt="Profile Image"
+                                                     height="80"/>
+                                            </th:block>
+                                            <th:block th:unless="${listing.userEntity.imageInfo}">
+                                                <img th:src="@{/images/profile-icon.png}"
+                                                     class="rounded-3 border border-2 border-secondary-subtle"
+                                                     alt="Profile Image"
+                                                     height="80">
+                                            </th:block>
+                                        </a>
+
+                                    </div>
+                                    <div class="col d-flex">
+                                        <a th:href="'/profile/' + ${listing.userEntity.displayName}">
+                                            <span th:text="${listing.userEntity.displayName}"></span>
+                                        </a>
+                                    </div>
+
+
+                                    <div class="form-group d-grid mt-3 mx-auto w-75" th:unless="${userEntity.id.equals(listing.userEntity.id)}">
+                                        <a class="button1 btn btn" style="color: white;"
+                                           th:href="'/message/userMessage/' + ${listing.userEntity.displayName}" )
+                                           th:text="'Message ' + ${listing.userEntity.displayName}">
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                                <br>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--PAGINATION BELOW-->
+    <footer style="font-size: large" class="panel-footer">
+        <div class="listings container color2 p-1 rounded-bottom-5">
+            <div class="color2 rounded-bottom-5 p-1">
+                <!--    sets the pagination menu / control-->
+                <nav aria-label="Conversations Page Navigation Menu">
+                    <ul class="pagination pagination-lg justify-content-center">
+
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/listings/listings/page/1'}">First</a>
+                        </li>
+                        <li th:unless="${currentPage == 1}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/listings/listings/page/' + ${currentPage - 1}}">Previous</a>
+                        </li>
+
+
+                        <!--            if total number of pages is less than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages <= paginationMenuTotalVisible}">
+                            <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
+
+                                <!--            Sets active status for the current page-->
+                                <th:block th:if="${currentPage == i}">
+                                    <li class="page-item active">
+                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <th:block th:unless="${currentPage == i}">
+                                    <th:block th:unless="${i == 0}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+
+                        <!--            if total number of pages is more than the paginationMenuTotalVisible set in controller -->
+                        <th:block th:if="${totalPages > paginationMenuTotalVisible}">
+
+                            <!--                If the currentPage is within paginationMenuSplitSidesVisible from the beginning or paginationMenuSplitSidesVisible from the end-->
+                            <th:block
+                                    th:if="${currentPage <= paginationMenuSplitSidesVisible || currentPage >= totalPages - (paginationMenuSplitSidesVisible - 1)}">
+
+                                <th:block th:each="i: ${#numbers.sequence(1, paginationMenuSplitSidesVisible)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+
+                                </th:block>
+
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{'/listings/listings/page/' + ${paginationMenuSplitSidesVisible + 1}}">...</a>
+                                </li>
+
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(totalPages - (paginationMenuSplitSidesVisible - 1), totalPages)}">
+                                    <!--                Sets active status for the current page-->
+                                    <th:block th:if="${currentPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link"
+                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                    <th:block th:unless="${currentPage == i}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                        </li>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+
+                            <!--                If current page is more than paginationMenuSplitSidesVisible from the beginning or end-->
+                            <th:block
+                                    th:if="${currentPage > paginationMenuSplitSidesVisible && currentPage < totalPages - (paginationMenuSplitSidesVisible - 1)}">
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage - paginationMenuSplitSidesVisible, currentPage - 1)}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                                <li class="page-item active">
+                                    <a class="page-link" th:href="@{'/listings/listings/page/' + ${currentPage}}">
+                                        <span th:text="${currentPage}"></span>
+                                    </a>
+                                </li>
+                                <th:block
+                                        th:each="i: ${#numbers.sequence(currentPage + 1, currentPage + paginationMenuSplitSidesVisible)}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{'/listings/listings/page/' + ${i}}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/listings/listings/page/' + ${currentPage + 1}}">Next</a>
+                            </li>
+                        </th:block>
+                        <th:block th:unless="${totalPages < 2}">
+                            <li th:unless="${currentPage == totalPages}" class="page-item"><a class="page-link"
+                                                                                              th:href="@{'/listings/listings/page/' + ${totalPages}}">Last</a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

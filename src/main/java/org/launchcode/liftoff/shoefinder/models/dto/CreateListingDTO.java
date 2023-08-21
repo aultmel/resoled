@@ -1,62 +1,65 @@
 package org.launchcode.liftoff.shoefinder.models.dto;
 
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
-import org.launchcode.liftoff.shoefinder.models.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CreateListingDTO {
-    //    @OneToOne
-//    private Location location;
-    @NotEmpty
+
+    @NotEmpty(message = "Brand is required")
     private String brand;
-    @NotEmpty
-    private Integer size;
-    @NotEmpty
+
+    @NotEmpty(message = "Size is required")
+    private String size;
+
+    @NotEmpty(message = "Style is required")
     private String style;
-    @NotEmpty
+
+    @NotEmpty(message = "Condition is required")
     private String condition;
 
-//    @OneToMany(mappedBy = "listing")
-//    private List<Image> images = new ArrayList<>();
+    @NotEmpty(message = "Size is required")
+    private String gender;
 
-    public CreateListingDTO() {
+    @NotEmpty(message = "Title is required")
+    private String title;
 
-    }
+    public CreateListingDTO() {}
 
     public String getBrand() {
         return brand;
     }
-
     public void setBrand(String brand) {
         this.brand = brand;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
     }
 
     public String getStyle() {
         return style;
     }
-
     public void setStyle(String style) {
         this.style = style;
+    }
+
+    public String getSize() {
+        return size;
+    }
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public String getCondition() {
         return condition;
     }
-
     public void setCondition(String condition) {
         this.condition = condition;
     }
+
+    public String getGender() {
+        return gender;
+    }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
 }

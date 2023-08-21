@@ -1,51 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
 <head th:replace="~{fragments :: head}"></head>
-<header th:replace="fragments :: header"></header>
+<header th:replace="~{fragments :: header}"></header>
+<!--<link rel="stylesheet" th:href="@{/path/to/carousel.css}" />-->
+<!--<script th:src="@{/js/carousel.js}" defer="defer"></script>-->
 
-<body class="m-1">
+<body data-bs-theme="dark">
+<div class="gradientBg p-3 pt-4">
 
-TEST HOME
-<br/>
-<th:block th:if="${param.success}" class="alert alert-success">
-    REGISTRATION SUCCESSFUL!!  SHOE TIME
-</th:block>
+    <div class="container text-center">
+        <h2 class="mb-3 fst-italic">Welcome to ReSoled!</h2>
+        <!--        <div class="d-grid mt-5 mb-2 mx-auto shadow-lg" width="500">-->
+        <div class="mb-3">
+            <div class="slide">
+                <img alt="" src="../images/colorful-shoes-in-a-row-square.png" width-="500" height="500"
+                     class="mx-auto border rounded-4 border-secondary-subtle border-3 shadow-lg">
+            </div>
+            <div class="slide">
+                <img alt="" src="../images/active-running-shoe.png" width="500" height="500"
+                     class=" border rounded-4 border-secondary-subtle border-3 shadow-lg">
+            </div>
+            <div class="slide">
+                <img alt="" src="../images/purple-green-sneakers.png" width="500" height="500"
+                     class=" border rounded-4 border-secondary-subtle border-3 shadow-lg">
+            </div>
 
-<th:block th:if="${param.success}" class="alert alert-success">
-    LOGIN SUCCESSFUL!!  SHOE TIME
-</th:block>
-
-<!--pulling information related to the user into template-->
-<th:block th:if="${userEntity}" class="alert alert-success">
-    Welcome <span th:text="${userEntity.username}"></span>
-</th:block>
-
-<br/>
-<br/>
-
-<a href="/register">Register Page</a>
-<br/>
-<a href="/login">Login Page</a>
-<br/>
-<a href="/profile">Profile Page</a>
-<br/>
-<a href="/message/create">Create a new Message Chain Page</a>
-<br/>
-<a href="/message/messages">MessageChain page</a>
-<br/>
-<a href="/image/display">Image display Page</a>
-<br/>
-<a href="/image/upload">Image upload placeholder Page</a></br>
-<a href="/search">Search Page</a>
-
-<p>Potential Color Pallet up for review:</p>
-<th:block th:each="i: ${#numbers.sequence(5, 14)}">
-    <div th:class="'color' + ${i} + ' border rounded border-black'">
-        <br/>
-        <br/>
+            <div class="slide">
+                <img alt="" src="../images/two-colorful-hightops.png" width="500" height="500"
+                     class=" border rounded-4 border-secondary-subtle border-3 shadow-lg">
+            </div>
+        </div>
+        <button id="prevBtn" class="btn button1 btn-lg shadow-lg ms-4 border border-1 pt-0 fs-1">&#10232;</button>
+        <button id="nextBtn" class="btn button1 btn-lg shadow-lg ms-4 border border-1 border-secondary-subtle pt-0 fs-1">&#10233;</button>
     </div>
-</th:block>
 
+</div>
+
+<script th:src="@{/js/test.js}"></script>
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>

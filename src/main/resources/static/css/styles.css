@@ -1,88 +1,630 @@
+/* Color Theme Variable Definitions */
+
+/* light mode new color theme */
+:root,
+    :root.light {
+
+        /* PINK */
+        --color1: hsla(333, 93%, 56%, 1);
+
+        /* PURPLE */
+        --color2: hsla(276, 91%, 38%, 1);
+
+        /* DARK PURPLE */
+        --color3: hsla(258, 86%, 34%, 1);
+
+        /* LIGHT BLUE */
+        --color4: hsla(194, 85%, 62%, 1);
+
+        /* GREY */
+        --grey: hsla(0, 0%, 79%, 1);
+
+        --fontColor: hsla(0, 0%, 50%, 1);
+
+        --bgGradient: linear-gradient(to bottom, hsla(276, 91%, 89%, 1) 0%, hsla(0, 100%, 100%, 1) 25%, hsla(0, 100%, 100%, 1) 40%,  hsla(194, 85%, 62%, 1) 90%);
+        --formGradient: linear-gradient(hsla(0, 100%, 100%, 1), hsla(194, 90%, 98%, 1));
+        --loginGradient: radial-gradient(hsla(0, 100%, 100%, .7) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(194, 85%, 62%, 0) 100%);
+
+        --bgImage1: url('../images/home/two-shoe-bg-light.jpg');
+
+
+        --h: hsla(276, 91%, 38%, 1);
+
+        --button1Accent: hsla(276, 91%, 38%, 1);
+        --button1Hover: hsla(276, 91%, 28%, 1);
+        --button2Accent: hsla(258, 86%, 34%, 1);
+        --button2Hover: hsla(258, 86%, 24%, 1);
+
+        --lightText: hsla(100, 100%, 95%, 1);
+        --darkText: hsla(201, 100%, 20%, 1);
+
+        --link: hsla(258, 86%, 34%, 1);
+        --linkVisited: hsla(258, 86%, 34%, 1);
+        --linkHover: hsla(333, 93%, 56%, 1);
+        --linkActive: hsla(333, 93%, 56%, 1);
+
+        --navBarHover: hsla(333, 93%, 56%, 1);
+
+        --imageRadioText: hsla(276, 91%, 38%, 1);
+
+        --shadowSelectColor: hsla(333, 93%, 56%, 1);
+        --shadowSelectBorderColor:  hsla(276, 91%, 38%, 1);
+        --shadowGrey: hsla(0, 0%, 79%, 1);
+
+        --customDropdownHover: hsla(194, 85%, 62%, 1);
+        --customDropdownBackground: hsla(0, 0%, 95%, 1);
+
+        --paginationHoverFocus: hsla(0, 0%, 79%, 1);
+
+        --paginationText: hsla(258, 86%, 65%, 1);
+        --paginationActive: hsla(258, 86%, 34%, 1);
+
+        /* might not need these were for a carousel test */
+        --cImage1: url('../images/new-shoe.png');
+        --cImage2: url('../images/great-shoe.png');
+        --cImage3: url('../images/good-shoe.png');
+        --cImage4 : url('../images/poor-shoe.png');
+
+        }
+
+        :root.dark {
+
+
+       /* DARK PURPLE */
+        --color1: hsla(258, 86%, 34%, 1);
+
+        /* DARKER PURPLE */
+        --color2: hsla(258, 86%, 20%, 1);
+
+       /* PURPLE */
+       --color3: hsla(258, 86%, 55%, 1);
+
+        /* LIGHT PURPLE */
+        --color4: hsla(258, 86%, 70%, 1);
+
+        /* GREY */
+        --grey: hsla(0, 0%, 79%, 1);
+
+        --fontColor: hsla(100, 100%, 95%, 1);
+
+        --bgGradient: linear-gradient(to bottom, hsla(258, 86%, 10%, 1) 0%, hsla(258, 86%, 10%, 1) 25%, hsla(258, 86%, 10%, 1) 40%,  hsla(258, 86%, 34%, 1) 90%);
+        --formGradient: linear-gradient(hsla(258, 86%, 10%, 1), hsla(258, 86%, 5%, 1));
+        --loginGradient: radial-gradient(hsla(0, 0%, 0%, .2) 0%, hsla(194, 85%, 62%, 0) 60%,  hsla(0, 85%, 62%, 0) 100%);
+
+        --bgImage1: url('../images/home/two-shoe-bg-dark.jpg');
+
+        --h: hsla(100, 100%, 95%, 1);
+
+        --button1Accent: hsla(258, 86%, 34%, 1);
+        --button1Hover: hsla(258, 86%, 24%, 1);
+        --button2Accent: hsla(258, 86%, 34%, 1);
+        --button2Hover: hsla(258, 86%, 24%, 1);
+
+        --lightText: hsla(51, 100%, 95%, 1);
+        --darkText: hsla(201, 100%, 20%, 1);
+
+        --link: hsla(258, 86%, 55%, 1);
+        --linkVisited: hsla(258, 86%, 55%, 1);
+        --linkHover: hsla(258, 86%, 60%, 1);
+        --linkActive: hsla(258, 86%, 60%, 1);
+
+        --navBarHover: hsla(258, 86%, 65%, 1);
+
+        --imageRadioText: hsla(0, 0%, 79%, 1);
+
+        --shadowSelectColor: hsla(258, 86%, 55%, 1);
+        --shadowSelectBorderColor:  hsla(258, 86%, 55%, 1);
+        --shadowGrey: hsla(0, 0%, 20%, 1);
+
+        --customDropdownHover: hsla(258, 86%, 20%, 1);
+        --customDropdownBackground: hsla(0, 0%, 15%, 1);
+
+        --paginationHoverFocus: hsla(0, 0%, 79%, 1);
+        --paginationText: hsla(0, 0%, 95%, 1);
+        --paginationActive: hsla(258, 86%, 34%, 1);
+
+
+  /* might not need these were for a carousel test */
+        --cImage1: url('../images/new-shoe.png');
+        --cImage2: url('../images/great-shoe.png');
+        --cImage3: url('../images/good-shoe.png');
+        --cImage4 : url('../images/poor-shoe.png');
+
+        }
+
 
 
 body {
     font-size: large;
-    color: gray;
-    background:  hsla(201, 100%, 14%, 1);
+    color: var( --fontColor);
 }
 
+p {
+    color: var( --fontColor);
+}
+
+h1 {
+color: var( --h);
+}
+h2 {
+color: var( --h);
+}
+h3 {
+color: var( --h);
+}
+h4 {
+color: var( --h);
+}
+
+/* all links bold */
+a {
+ font-weight: bold;
+}
+
+/* unvisited link */
+a:link {
+  color: var( --link);
+}
+/* visited link */
+a:visited {
+  color: var( --linkVisited);
+}
+/* hover link */
+a:hover {
+  color: var( --linkHover);
+}
+/* selected link */
+a:active {
+  color: var( --linkActive);
+}
+
+label {
+    color: var( --fontColor);
+}
+
+
+
+/* below are custom classes */
+
+.color1 {
+background: var( --color1);
+}
+.color2 {
+ background: var( --color2);
+}
+.color3 {
+background: var( --color3);
+}
+.color4 {
+background: var( --color4);
+}
+
+
+.button1 {
+ background-color: var( --button1Accent);
+    color: var( --lightText);
+ &:hover {
+         background-color: var( --button1Hover);
+         color: var( --lightText);
+     }
+}
+
+
+/* Navbar text color */
+.navbar-text-color a{
+  color: var(--lightText);
+}
+
+.nav-bar-custom a {
+  color: var(--lightText);
+}
+
+.nav-bar-custom a:hover {
+  color: var( --navBarHover);
+}
+/* Fills dropdown bubble with the rest of the color, white lines present otherwise */
+.navbar-nav > li > .dropdown-menu { background-color: var(--color2); }
+
+
+/* login Background */
+.login {
+    background-image: var(--loginGradient),  var( --bgImage1);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    min-height: calc(97vh - 10px);
+}
+
+/* Gradient for most Page Backgrounds */
 .gradientBg {
-    background-image: linear-gradient(hsla(201, 100%, 8%, 1), hsla(201, 100%, 20%, 1));
+ background-image: var(--bgGradient);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: calc(97vh - 10px);
+}
+
+/* Gradient for Login and Registration Form */
+.gradientForm {
+    background-image: var( --formGradient);
+}
+
+/* Home Page */
+.home {
+    background-image: var( --bgImage1);
+    background-size: cover;
 }
 
 
-
-
-/* COLORS */
-/* baby powder */
-.color5 {
-background: hsla(45, 100%, 98%, 1);
-}
-/** lighter vanilla **/
-.color6 {
-background: hsla(51, 55%, 82%, 1);
+/* For New User Registration form */
+.registrationForm {
+width: 700px;
 }
 
-/** cream **/
-.color7 {
-background: hsla(61, 100%, 87%, 1);
+/* User Login Form */
+.loginForm {
+width: 700px;
 }
 
-/* jasmine */
-.color8 {
-background: hsla(41, 71%, 74%, 1);
+/* Messages Page */
+.messagesPage {
+width: 720px;
 }
 
-/** shamrock green **/
-.color9 {
-background: hsla(143, 52%, 41%, 1);
+/* Create Listing Page */
+.createListing {
+width: 700px;
 }
-/** jungle green **/
-.color10 {
-background: hsla(164, 93%, 34%, 1);
+
+/* Search Listing Page */
+.searchPage {
+width: 700px;
 }
-/* orange web */
-.color11 {
-background: hsla(39, 96%, 53%, 1);
+
+/* Listings Page */
+.listings {
+width: 1300px;
+}
+
+/* User Message Page */
+.userMessage {
+width: 700px;
+}
+
+/* Profile Main Page */
+.profileMain {
+width: 1220px;
+}
+
+/* User Data Page */
+.userData {
+width: 1220px;
+}
+
+/* Profile Edit page */
+.profileEdit {
+width: 720px;
 }
 
 
-/* princeton orange */
-.color12 {
-background: hsla(33, 99%, 56%, 1);
-}
-/** fire engine red **/
-.color13 {
-background:  hsla(0, 69%, 50%, 1);
+/* Listing Page */
+.listingPage {
+min-width: 720px;
+width: 720px;
 }
 
-/** prussian blue **/
-.color14 {
-background:  hsla(201, 100%, 14%, 1);
+/* width of a listing on a Listing Page */
+.listingPageListing {
+min-width: 520px;
+width: 520px;
 }
-
-
-
 
 
 
 /* For fetchSuggestions.js and associated suggestions code in templates */
-.autocompleteInputText {
-    flex: 1;
-    height: 50px;
-}
 .results ul{
-padding: 15px 10px;
+padding: 10px 10px;
 }
 .results ul li {
-list-style: none;
-padding: 15px 10px;
-cursor: pointer;
-}
-.results ul li:hover {
-background:#e9f3ff;
+    display:block;
+    list-style: none;
+    padding: 12px 10px;
+    cursor: pointer;
+    min-width: 200px;
 }
 .results {
-    max-height: 300px;
-    overflow-y: scroll;
+    position:absolute;
+    background-color: var( --customDropdownBackground);
+    max-height: 280px;
+}
+.results ul li:hover {
+    background: var( --customDropdownHover);
+}
+
+
+/* Pagination menu */
+.pagination {
+    color: var( --paginationText); !Important;
+}
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+    color: var( --paginationText); !Important;
+    background-color: var( --paginationHoverFocus) !Important
+    border: solid 1px var( --paginationActive) !Important;
+}
+.pagination > .active > a {
+    color: var( --paginationText) !Important;
+    background-color: var( --paginationActive) !Important;
+    border: solid 1px var( --paginationActive) !Important;
+}
+.pagination > .active > a:hover {
+    color: var( --paginationText) !Important;
+    font-weight: bold;
+    background-color: var( --paginationActive) !Important;
+    border: solid 1px var( --paginationActive) !Important;
+}
+.page-link {
+    color: var(--paginationText) !Important;
+}
+
+/** Image Radio Buttons for create listing shoe condition **/
+.hidden-radio {
+    display:none
+}
+input[type=radio]:checked + label>img {
+  border: 3px solid var( --shadowSelectBorderColor);
+  box-shadow: 0 .5rem 1rem var( --shadowSelectColor);
+  background-color:white;
+}
+input[type=radio] + label>img {
+  background-color: white;
+  border: 3px solid var( --shadowGrey);
+  border-radius: 25px;
+  box-shadow: 0 .5rem 1rem var( --shadowGrey);
+  width: 100px;
+  height: 100px;
+  transition: 500ms all;
+}
+
+
+
+/* for admin */
+.adminPage{
+    text-align: center;
+}
+.reportTable{
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+th{
+    padding: 10px;
+    text-align: center;
+    border: 3px solid;
+}
+.tableElement{
+    padding: 10px;
+    text-align: left;
+    border: 1px solid;
+}
+
+/* for home page carousel */
+.carousel-container {
+  width: 300px;
+  height: 300px; /* Adjust height as needed */
+  overflow: hidden;
+  position: relative;
+  background-size: cover;
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.button {
+  margin-top: 3px;
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: black;
+  outline: none;
+  color: black;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  color: white;
+  background-color: #3e8e41;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
+/* for file upload button */
+input[type="file"] {
+  position: absolute;
+  display: none;
+}
+
+.file-upload-custom-button {
+    color: var( --lightText) !Important;
+}
+
+/* for listings styling */
+.listings-container {
+    gap: 20px;
+}
+.listing-item {
+    width: calc(33.33%);
+    padding: 10px;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+/* report user link */
+.report-user-link {
+    color: var( --link);
+}
+.report-user-link:hover {
+    color: var( --linkHover);
+    cursor: pointer;
+}
+
+
+/* Navbar profile pic */
+.profile-pic {
+    height: 50px;
+    width: 50px;
+}
+
+/* Navbar profile icon padding */
+.profile-drop {
+    margin-right: 0px;
+}
+/* Positions login button */
+.login-margin {
+    margin-left: 0px;
+}
+
+/* Navbar text color */
+.navbar-text-color a{
+  color: var(--lightText);
+}
+
+.nav-bar-custom a {
+  color: var(--lightText);
+}
+
+.nav-bar-custom a:hover {
+  color: var( --navBarHover);
+}
+/* Fills dropdown bubble with the rest of the color, white lines present otherwise */
+.navbar-nav > li > .dropdown-menu { background-color: var(--color2); }
+
+/* FOLLOWING SECTIONS FOR LIGHT/DARK MODE TOGGLE */
+/* Box for light/dark mode slider */
+.light-dark-switch {
+  position: relative;
+  display: inline-block;
+
+  width: 40px;
+  height: 22px;
+}
+
+/*top: 50%;
+  bottom: 50%;
+
+  transform: translate(-50%, -50%);
+*/
+
+/* Hide default HTML checkbox */
+.light-dark-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom:2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 22px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+/* END LIGHT/DARK TOGGLE */
+
+
+/* for styling listings on profiles */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+
+}
+.custom-distance {
+    width: 80px; /* Adjust the width to your preference */
+
+}
+#map {
+    height: 300px; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+
+}
+.label-tag {
+    position: relative;
+    display: inline-block;
+    padding: 8px;
+    background-color: var( --button1Hover);
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.label-tag:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px 8px 0;
+    border-style: solid;
+    border-color: var( --button1Hover) transparent transparent transparent;
 }

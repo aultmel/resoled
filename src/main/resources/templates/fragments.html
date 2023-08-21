@@ -1,50 +1,245 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:fragment="head">
-    <meta charset="UTF-8"/>
 
+<head th:fragment="head">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}"/>
+    <meta charset="UTF-8"/>
     <!--    Below is part of Bootstrap and involves scaling for different / mobile devices-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Resoled</title>
+    <title>ReSoled</title>
 
     <!--    Below is part of Bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"/>
+
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 
     <!--    Now our style.css sheet-->
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 
+    <script th:src="@{/js/colorTheme.js}"></script>
+
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</head>
+
+<header th:fragment="header">
+
+    <nav class="navbar navbar-expand-lg color2 nav-bar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">ReSoled</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNavDropdown">
+                <ul class="navbar-nav color2">
+
+
+                    <li>
+                        <a class="nav-link " href="/listings/">Browse Soles</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/listings/create">Add a Sole</a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+        <div class="mx-3">
+            <ul class="navbar-nav color2">
+                <li class="nav-item">
+                    <!--                    <form class="d-flex" th:action="@{/search}" method="get" style="margin: auto;">-->
+                    <!--                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+                    <!--                        <button class="btn btn-outline-light" type="submit">Search</button>-->
+                    <!--                    </form>-->
+                    <a th:href="@{/search}" class="btn btn-outline-light">Search</a>
+
+                </li>
+            </ul>
+        </div>
+
+        <ul class="navbar-nav color2">
+
+
+            <li class="nav-item">
+
+
+                <div> <!-- Using Bootstrap's row class -->
+                    <!-- Column for left icon -->
+                    <!--                        <div class="col"> -->
+                    <!--                            <i class="fas fa-sun "></i>-->
+                    <!--                        </div>-->
+                    <!-- Column for switch -->
+                    <!--                        <div class="col"> -->
+                    <div class="col mx-3">
+                        <span class="fs-6" style="color: white;">Light/Dark</span>
+                            <div class="form-group d-grid mb-4 mx-auto w-50">
+                                <label class="light-dark-switch">
+                                    <input type="checkbox" id="dark-mode-toggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                    </div>
+                    <!--                        </div>-->
+                    <!-- Column for right icon -->
+                    <!--                        <div class="col"> -->
+                    <!--                            <i class="fas fa-moon "></i>-->
+                    <!--                        </div>-->
+                </div>
+                <!--                    </div>-->
+            </li>
+
+        </ul>
+
+        <!--        <div class="login-margin">-->
+        <!--            <ul>-->
+        <!--                <li class="nav-item">-->
+
+        <!--                    <th:block th:unless="${userEntity}">-->
+        <!--                        <a class="nav-link" href="/login">Login</a>-->
+        <!--                    </th:block>-->
+        <!--                    <th:block th:if="${userEntity}">-->
+        <!--                        <a class="nav-link" href="/logout">Logout</a>-->
+        <!--                    </th:block>-->
+
+        <!--                </li>-->
+        <!--            </ul>-->
+        <!--        </div>-->
+        <div class="ml-auto ">
+            <ul class="navbar-nav profile-drop me-5">
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle p-3" href="#" id="profileDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+
+                        <th:block th:if="${userEntity}">
+                            <th:block th:if="${userEntity.imageInfo}">
+                                <img th:src="@{${userEntity.imageInfo.url}}" alt="Profile Image" height="50"
+                                     class=" rounded-3"/>
+                            </th:block>
+
+                            <th:block th:unless="${userEntity.imageInfo}">
+                                <img th:src="@{/images/profile-icon.png}" alt="Profile Image"
+                                     class="profile-pic rounded-3"/>
+                            </th:block>
+                        </th:block>
+
+                        <th:block th:unless="${userEntity}">
+                            <img th:src="@{/images/profile-icon.png}" alt="Profile Image"
+                                 class="profile-pic rounded-3"/>
+                        </th:block>
+
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="profileDropdownMenuLink">
+                        <li class="nav-item mx-3">
+                            <a href="/profile" class="nav-link">Profile</a>
+                        </li>
+
+                        <li class="nav-item mx-3">
+                            <a href="/message/messages" class="nav-link">Inbox</a>
+                        </li>
+                        <th:block th:unless="${userEntity}">
+                            <a class="nav-link mx-3" href="/login">Login</a>
+                        </th:block>
+                        <th:block th:if="${userEntity}">
+                            <a class="nav-link mx-3" href="/logout">Logout</a>
+                        </th:block>
+                    </ul>
+
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+
+</header>
+
+<head th:fragment="head2">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}"/>
+    <meta charset="UTF-8"/>
+    <!--    Below is part of Bootstrap and involves scaling for different / mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>ReSoled</title>
+
+    <!--    Below is part of Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"/>
+
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+
+    <!--    Now our style.css sheet-->
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+
+    <script th:src="@{/js/colorTheme.js}"></script>
+
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "[[${apiKey}]]",
+    v: "weekly",
+    // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+    // Add other bootstrap parameters as needed, using camel case.
+  });
+    </script>
+    <script>
+        let map;
+        let marker;
+
+        async function initMap() {
+        let position = { lat: [[${latitude}]], lng: [[${longitude}]] };
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+        const { Map } = await google.maps.importLibrary("maps");
+
+        map = new Map(document.getElementById("map"), {
+        zoom: 12,
+        center: position,
+        mapId: "LISTING_MAP",
+        });
+
+        const label = document.createElement("div");
+
+        label.className = "label-tag";
+        label.textContent = "[[${title}]]";
+
+        marker = new AdvancedMarkerElement({
+        map: map,
+        position: position,
+        content: label,
+
+        });
+        }
+        initMap();
+    </script>
+
 
 
 </head>
+
 <body>
-<header th:fragment="header">
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">ReSoled</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="home">Home</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="">Soles
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/listing">Local Soles</a></li>
-                    <li><a href="/listing/create">Add a Sole</a></li>
-                </ul>
-            </li>
-            <li><a href="/search">Search</a></li>
-            <li><a href="/login">Login</a></li>
-        </ul>
-    </div>
-</nav>
-</header>
 
 
-<!--The script below is for Bootstrap-->
 <th:block th:fragment="endingScripts">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!--     To switch between light and dark mode-->
+    <script th:src="@{/js/colorTheme.js}"></script>
+
+    <!--The script below is for Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
 </th:block>
 
 

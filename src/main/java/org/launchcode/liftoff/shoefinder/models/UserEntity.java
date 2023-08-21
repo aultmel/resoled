@@ -1,10 +1,7 @@
 package org.launchcode.liftoff.shoefinder.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import org.launchcode.liftoff.shoefinder.models.dto.SearchListingsDTO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +15,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     // UserEntity will have many Messages.  Messages will be connected to only one UserEntity and organized and gathered together by MessageChain
     @OneToMany(mappedBy = "userEntity")
@@ -47,31 +44,30 @@ public class UserEntity {
     @OneToOne
     private Location location;
 
-//    private Image image;
-
     @OneToMany(mappedBy = "userEntity")
     private List<ShoeListing> shoeListings;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private ImageInfo imageInfo;
 
-
-
+    @OneToOne(cascade = CascadeType.ALL)
+    //use this to keep search active for pagination?
+    private CurrentSearch currentSearch;
 
     public UserEntity() {
     }
 
-    public UserEntity(String username, String password, List<Role> roles, String firstName,
-                      String lastName, LocalDate birthday, String displayName) {
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthday = birthday;
-        this.displayName = displayName;
-    }
 
     public long getId() {
         return id;
+    }
+
+    public ImageInfo getImageInfo() {
+        return imageInfo;
+    }
+
+    public void setImageInfo(ImageInfo imageInfo) {
+        this.imageInfo = imageInfo;
     }
 
     public String getUsername() {
@@ -162,4 +158,23 @@ public class UserEntity {
         this.displayName = displayName;
     }
 
+    public Location getLocation() { return location; }
+
+    public void setLocation(Location location) { this.location = location; }
+
+    public List<ShoeListing> getShoeListings() { return shoeListings; }
+
+    public void setShoeListings(List<ShoeListing> shoeListings) { this.shoeListings = shoeListings; }
+
+    public CurrentSearch getCurrentSearch() {
+        return currentSearch;
+    }
+
+    public void setCurrentSearch(CurrentSearch currentSearch) {
+        this.currentSearch = currentSearch;
+    }
+
+    public void removeListing(ShoeListing listing){
+        shoeListings.remove(listing);
+    }
 }

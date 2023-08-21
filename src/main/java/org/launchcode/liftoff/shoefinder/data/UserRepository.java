@@ -5,20 +5,30 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
-    UserEntity findByUsername(String username);
-    Boolean existsByUsername(String username);
+    UserEntity findById(Long id);
 
-    UserEntity findFirstByUsername(String username);
+    UserEntity findByUsernameIgnoreCase(String username);
 
-    Boolean existsByDisplayName(String displayName);
+    UserEntity findByDisplayNameIgnoreCase(String displayName);
+
+    Boolean existsByUsernameIgnoreCase(String username);
+
+    UserEntity findFirstByUsernameIgnoreCase(String username);
+
+    Boolean existsByDisplayNameIgnoreCase(String displayName);
 
     @Query("SELECT username FROM UserEntity")
     List<String> getUsernames();
 
+    @Query("SELECT displayName FROM UserEntity")
+    List<String> getDisplayNames();
+
+    Boolean existsByEmailIgnoreCase(String email);
 
 }

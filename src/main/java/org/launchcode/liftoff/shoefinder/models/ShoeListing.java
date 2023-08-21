@@ -1,116 +1,65 @@
 package org.launchcode.liftoff.shoefinder.models;
 //comments added
+
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "List")
+@Table(name = "listing")
 public class ShoeListing {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @ManyToOne
     private UserEntity userEntity;
 
-     @OneToOne
-     private Location location;
-     @ManyToOne
-     private Brand brand;
-     @ManyToOne
-     private Size size;
-     @ManyToOne
-     private Style style;
-     @ManyToOne
-     private Condition condition;
+    @ManyToOne
+    private Brand brand;
 
-    private Integer zipcode;
+    @ManyToOne
+    private Style style;
 
+    @Column(name= "`condition`")
+    private String condition;
+    private String size;
+    private String gender;
+    private String title;
 
-    @OneToMany(mappedBy = "listing")
-    private List<ImageLocal> images = new ArrayList<>();
+    @OneToOne( cascade = CascadeType.ALL)
+    private ImageLocal imageLocal;
 
     //Empty Constructor
-    public ShoeListing() {
-
-    }
-
-    // Constructor with parameters
-
-//    public ShoeListing(Long id, Brand brand, Size size, Style style, Condition condition, Location location, UserEntity userEntity) {
-//        this.id = id;
-//        this.brand = brand;
-//        this.size = size;
-//        this.style = style;
-//        this.condition = condition;
-////        this.zipcode = zipcode;
-//        this.location = location;
-//        this.userEntity = userEntity;
-//    }
+    public ShoeListing() {}
 
     //Getters and Setters Methods
-
     public Long getId() {
         return id;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
-    }
+    public UserEntity getUserEntity() {return userEntity;}
+    public void setUserEntity(UserEntity userEntity) {this.userEntity = userEntity;}
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
-    }
+    public Brand getBrand() {return brand;}
+    public void setBrand(Brand brand) {this.brand = brand;}
 
-    public Location getLocation() {
-        return location;
-    }
+    public String getSize() {return size;}
+    public void setSize(String size) {this.size = size;}
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+    public String getGender() {return gender;}
+    public void setGender(String gender) {this.gender = gender;}
 
-    public Brand getBrand() {
-        return brand;
-    }
+    public Style getStyle() {return style;}
+    public void setStyle(Style style) {this.style = style;}
 
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
+    public String getCondition() {return condition;}
+    public void setCondition(String condition) {this.condition = condition;}
 
-    public Size getSize() {
-        return size;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public void setSize(Size size) {
-        this.size = size;
-    }
-
-    public Style getStyle() {
-        return style;
-    }
-
-    public void setStyle(Style style) {
-        this.style = style;
-    }
-
-    public Condition getCondition() {
-        return condition;
-    }
-
-    public void setCondition(Condition condition) {
-        this.condition = condition;
-    }
-
-    //returns list of image byte[] data
-    public List<ImageLocal> getImages() {
-        return images;
-    }
-
-    public void setImages(List<ImageLocal> images) {
-        this.images = images;
-    }
+    public ImageLocal getImageLocal() { return imageLocal;  }
+    public void setImageLocal(ImageLocal imageLocal) { this.imageLocal = imageLocal; }
 
 }
-

@@ -1,12 +1,14 @@
 
 
+// THIS IS A GENERIC SUGGESTION FETCHER  RIGHT NOW WE ARE USING CUSTOMIZED VERSIONS OF THIS
+// This can be recreated for different suggestion types.
 // To use this script you will need to create a hidden input field in your template
 // <input type="hidden" th:hidden="*{whatEverNameYouPick}" />
 // then in your controller model.addAttribute("whatEverNameYouPick", http://localhost:8080/api/ whatEverYouPick"
 
-const suggestionsUrlField = document.getElementById('suggestionsUrl')
-const inputSearchBox = document.getElementById('input-search-box');
-const resultsWrapper = document.querySelector('.results');
+const suggestionsUrlField = document.getElementById('displayNameSuggestionsUrl')
+const inputSearchBox = document.getElementById('displayName-search-box');
+const resultsWrapper = document.querySelector('.displayName-results');
 
 
 // Event Listener for the inputSearchBox keyup events.
@@ -19,7 +21,6 @@ inputSearchBox.addEventListener("keyup", (event) => {
                  resultsWrapper.innerHTML = '';
             return;
         }
-        
     suggestionFetch(inputSearchBox.value);
  });
 
@@ -49,5 +50,7 @@ function selectInput(list) {
   inputSearchBox.value = list.innerHTML;
   resultsWrapper.innerHTML = "";
 }
+
+
 
 

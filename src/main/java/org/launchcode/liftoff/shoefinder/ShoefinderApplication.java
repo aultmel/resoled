@@ -1,14 +1,24 @@
 package org.launchcode.liftoff.shoefinder;
 
+import jakarta.annotation.Resource;
+import org.launchcode.liftoff.shoefinder.services.StorageService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+
 
 @SpringBootApplication
-public class ShoefinderApplication {
+public class ShoefinderApplication implements CommandLineRunner {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ShoefinderApplication.class, args);
+	@Resource
+	StorageService storageService;
+
+	public static void main(String[] args) {SpringApplication.run(ShoefinderApplication.class, args);
+			}
+
+	@Override
+	public void run(String... arg) throws Exception {
+//    storageService.deleteAll();
+		storageService.init();
 	}
-
 }

@@ -14,4 +14,11 @@ public interface StyleRepository extends JpaRepository<Style, Integer> {
             "GROUP BY s.name " +
             "ORDER BY COUNT(s.name) DESC")
     List<Object[]> findPopularStyles();
+
+    Boolean existsByName(String name);
+
+    Style findByName(String name);
+
+    @Query("SELECT name FROM Style")
+    List<String> getNames();
 }

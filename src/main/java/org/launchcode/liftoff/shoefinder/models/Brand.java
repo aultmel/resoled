@@ -28,6 +28,8 @@ public class Brand {
         brandNames.add("Under Armour");
     }
 
+    public Brand() {}
+
     public List<String> getBrandNames() {
         return brandNames;
     }

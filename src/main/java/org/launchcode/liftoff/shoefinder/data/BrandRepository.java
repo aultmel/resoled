@@ -13,4 +13,11 @@ public interface BrandRepository extends JpaRepository<Brand, Integer> {
             "GROUP BY b.name " +
             "ORDER BY COUNT(b.name) DESC LIMIT 5")
     List<Object[]> findPopularBrands();
+
+    Boolean existsByName(String name);
+
+    Brand findByName(String name);
+
+    @Query("SELECT name FROM Brand")
+    List<String> getNames();
 }

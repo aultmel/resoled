@@ -1,61 +1,103 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments :: head}"></head>
-<body class="m-2">
+<header th:replace="~{fragments :: header}"></header>
+<body>
+<div class="gradientBg p-3 pt-4">
+    <div class="color2 container w-75 rounded-5 p-2 shadow-lg">
+        <div class="color1 container rounded-5 p-3">
+            <div class="gradientForm container rounded-5 shadow p-4">
+                <div class="row">
+                    <div class="container rounded-5 p-4 col mx-2">
 
-<h5><span th:text="${userEntity.username}"></span> and <span>
+                        <h5><span th:text="${userEntity.displayName}"></span> and <span>
 
-
-    <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
-                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[0].username}">
-                    <span th:text="${messageChain.userEntityList[0].username}"></span>
+        <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[0].id)}">
+                                        <a th:href="'/profile/' + ${messageChain.userEntityList[0].displayName}">
+                    <span th:text="${messageChain.userEntityList[0].displayName}"></span>
                 </a>
         </th:block>
-    <!--            todo: update link to user profile page.-->
+
             <th:block th:unless="${userEntity.id.equals(messageChain.userEntityList[1].id)}">
-                <a th:href="'/profile/PUTUSERPROFILEHERE?username=' + ${messageChain.userEntityList[1].username}">
-                    <span th:text="${messageChain.userEntityList[1].username}"></span>
+                                        <a th:href="'/profile/' + ${messageChain.userEntityList[1].displayName}">
+                    <span th:text="${messageChain.userEntityList[1].displayName}"></span>
                 </a>
-
             </th:block>
-</span>
-</h5>
+            </span>
+                        </h5>
+                        <div class="">
+                            <span class="fw-bold">Conversation Subject: </span><span
+                                th:text="${messageChain.messageChainSubject}"
+                                class=""></span>
+                        </div>
 
-<span><h4>Subject:</h4> <span th:text="${messageChain.messageChainSubject}"></span></span>
 
-<div th:each="message : ${messageChain.messages}"
-     class="p-1">
-    <div class="border rounded">
-        <p th:text="${message.userEntity.username}"></p>
-        <p th:text="${message.text}"></p>
+                        <form method="post" role="form"
+                              th:action="@{../message/message}"
+                              th:object="${addMessageDTO}">
 
+                            <span class="fw-bold">Add New Message:</span>
+                            <br/>
+                            <div class="form-group d-grid mx-auto mt-1 container">
+                            <textarea th:field="*{text}" name="text" rows="5" cols="50"
+                                      class="border border-3 rounded-5 border-secondary-subtle shadow-sm mb-2 p-3"></textarea>
+                            </div>
+                            <input type="hidden" name="messageChainId" th:value="${messageChain.id}"/>
+                            <input type="hidden" name="messageChainId" th:field="*{messageChainId}"
+                                   th:value="${messageChainIdFromController}"/>
+
+                            <div class="d-grid mt-1 mb-4 mx-auto w-75">
+                                <input type="submit" value="Send Message" class="btn button1 btn-lg shadow-lg"
+                                       style="color: var( --lightText);">
+                            </div>
+
+
+                        </form>
+                        <hr/>
+                        <div class="d-grid mb-2 mt-5 mx-auto w-50">
+                            <a th:href="@{/message/}" class="btn button1 btn-lg shadow-lg"
+                               style="color: var( --lightText);">
+                                All Conversations </a>
+                        </div>
+
+
+                    </div>
+
+                    <div class="messagesList container rounded-5 p-3 col mx-2 overflow-auto shadow border border-1 border-secondary-subtle"
+                         id="messagesList"
+                         style="height: 490px;">
+                        <div th:each="message : ${messageChain.messages}" class="p-1">
+                            <div class="border border-1 rounded-5 border-secondary-subtle px-4 py-2 mb-1">
+
+                                    <th:block th:if="${message.userEntity.imageInfo}">
+                                        <img th:src="@{${message.userEntity.imageInfo.url}}"
+                                             class="rounded-3 border border-2 border-secondary-subtle mt-2 mb-2 mx-1"
+                                             alt="Profile Image"
+                                             height="40"/>
+                                    </th:block>
+                                    <th:block th:unless="${message.userEntity.imageInfo}">
+                                        <img th:src="@{/images/profile-icon.png}"
+                                             class="rounded-3 border border-2 mt-2 mb-2 mx-1"
+                                             alt="Profile Image"
+                                             height="40">
+                                    </th:block>
+                                <span th:text="${message.userEntity.displayName}"></span><span>:</span>
+
+                                <p th:text="${message.text}" class="mx-5 mb-2"></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-
 </div>
 
-
-
-
-<form method="post" role="form"
-      th:action="@{../message/message}"
-      th:object="${addMessageDTO}">
-
-    <h2>Add Message</h2>
-
-    <label>Message:
-        <textarea th:field="*{text}" name="text" rows="5" cols="50" />
-
-    </label>
-    <input type="hidden" name="messageChainId" th:value="${messageChain.id}" />
-    <input type="hidden" name="messageChainId" th:field="*{messageChainId}" th:value="${messageChainIdFromController}" />
-
-    <input type="submit" value="Add Message" class="btn btn-primary">
-
-
-</form>
-
-<a href="/message/messages">Return to MessageChain page</a>
+<script>
+     var objDiv = document.querySelector('.messagesList');
+     objDiv.scrollTop = objDiv.scrollHeight;
+</script>
 
 <th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>

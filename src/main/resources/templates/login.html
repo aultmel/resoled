@@ -1,45 +1,66 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments :: head}"></head>
 
-<body>
 
-<div class="main">
-    <div class="col-md-6 col-sm-12">
-        <th:block th:if="${param.error}" class="alert alert-success">
-            invalid username and password
-        </th:block>
-        <th:block th:if="${param.logout}" class="alert alert-success">
-            You have been logged out.
-        </th:block>
-        <div class="login-form">
-            <form method="post" role="form" th:action="@{/login}">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input
-                            id="username"
-                            type="text"
-                            class="form-control"
-                            placeholder="Username"
-                            name="username">
+<body class="m-3 text-dark login" >
+<div class="container loginForm px-5">
+    <div class="color2 container rounded-5 p-2 shadow-lg mt-5">
+        <div class="color1 container rounded-5 p-3">
+
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
+                <div class=" container rounded-5">
+                    <h2 class="text-center fst-italic">ReSoled Login</h2>
+                    <br/>
+                    <div class="container">
+                    <th:block th:if="${param.error}">
+                        <h4 class="text-center mb-3">invalid login credentials.</h4>
+                    </th:block>
+                    <th:block th:if="${param.logout}">
+                        <h4 class="text-center mb-3">You have been logged out.</h4>
+                    </th:block>
+                    </div>
+                    <div class="login-form">
+
+                        <form method="post" role="form" th:action="@{/login}">
+                            <div class="form-group mb-3 mx-4 form-floating">
+                                    <input
+                                            id="username"
+                                            type="text"
+                                            class="form-control border border-3 rounded-4 border-secondary-subtle"
+
+                                    name="username"/>
+                                    <label for="username">Username</label>
+                            </div>
+
+
+                            <div class="form-group form-floating mb-3 mx-4">
+                                <input
+                                        id="password"
+                                        type="password"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+
+                                        name="password">
+                                <label for="password">Password</label>
+                            </div>
+
+                            <br/>
+                            <div class="form-group d-grid mb-4 mx-auto w-75">
+                                <button th:href="@{/login}" type="submit" value="Log in"
+                                        class="btn button1 btn-lg shadow-lg">
+                                    Login
+                                </button>
+                            </div>
+                        </form>
+                        <hr/>
+                        <div class="form-group d-grid mt-5 mb-2 mx-auto w-50 shadow-lg">
+                            <a th:href="@{/register}" class="btn button1 btn-lg" style="color: var( --lightText);">Create
+                                a New Account</a>
+                        </div>
+
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label>Password</label>
-                    <input
-                            id="password"
-                            type="password"
-                            class="form-control"
-                            placeholder="Password"
-                            name="password">
-
-                </div>
-
-
-                <a th:href="@{/register}" class="btn btn-secondary">Register here</a>
-                <button th:href="@{/login}" type="submit" value="Log in" class="btn btn-secondary">Login</button>
-
-            </form>
+            </div>
         </div>
     </div>
 </div>

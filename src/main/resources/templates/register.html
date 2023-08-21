@@ -2,96 +2,112 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments :: head}"></head>
 
-<body class="m-2 gradientBg text-dark">
-<div class="container w-50 px-5">
-<div class="color9 container rounded p-1">
-    <div class="color13 container rounded p-4">
-        <div class="color12 container rounded p-4">
-            <div class="color7 container rounded p-4">
-            <div class="color7 container rounded">
-                <h4 class="text-center">Resoled New User Registration</h4>
+<body class="m-3 gradientBg text-dark">
+<div class="container registrationForm px-5">
+<div class="color2 container rounded p-2 shadow-lg mt-5">
+
+        <div class="color1 container rounded p-3">
+            <div class="gradientForm container rounded p-4">
+            <div class=" container rounded">
+                <h4 class="text-center">ReSoled New User Registration</h4>
                 <br/>
         <th:block th:text="${existingUsername}" class="alert"></th:block>
         <div class="">
             <form method="post" role="form"
                   th:action="@{/register}"
                   th:object="${registerDTO}">
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3 mx-4">
                     <input type="text"
                            class="form-control"
                            id="firstName"
-                           placeholder="First Name"
                             th:field="*{firstName}">
                     <label for="firstName">First Name</label>
                     <p class="error" th:errors="*{firstName}">
                 </div>
 
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3 mx-4">
                     <input
                             type="text"
                             class="form-control"
                             id="lastName"
-                            placeholder="Last Name"
                             th:field="*{lastName}">
                     <label for="lastName">Last Name</label>
                     <p class="error" th:errors="*{lastName}"></p>
                 </div>
-                <div class="form-floating mb-3">
+                <div class="form-group form-floating mb-3 mx-4">
                         <input
                                 type="text"
                                 class="form-control"
                                 id="displayName"
-                                placeholder="Display Name"
                                 th:field="*{displayName}"/>
                     <label for="displayName">Display Name</label>
                     <p class="error" th:errors="*{displayName}"></p>
                 </div>
-                <div class="mb-3">
+
+
+                <div class="form-group form-floating mb-3 mx-4">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="email"
+                            th:field="*{email}"/>
+                    <label for="email">Email</label>
+                    <p class="error" th:errors="*{email}"></p>
+                </div>
+
+                <div class="form-group form-floating mb-3 mx-4">
+                    <input
+                            type="text"
+                            inputmode="numeric"
+                            class="form-control"
+                            id="zipCode"
+                            th:field="*{zipCode}">
+                    <label  for="zipCode">Zip Code</label>
+                    <p class="error" th:errors="*{zipCode}"></p>
+                </div>
+
+                <div class="mb-3 mx-4">
                     <label>Date of Birth
                     <input
                             type="date"
                             class="form-control"
-                            placeholder="Date of Birth"
                             th:field="*{birthday}">
                     </label>
                     <p class="error" th:errors="*{birthday}"></p>
                 </div>
 
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3 mx-4">
                     <input
                             type="text"
                             class="form-control"
                             id="username"
-                            placeholder="Username"
                             th:field="*{username}">
                     <label for="username">Username</label>
                     <p class="error" th:errors="*{username}"></p>
                 </div>
 
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3 mx-4">
                     <input
                             type="password"
                             class="form-control"
                             id="password"
-                            placeholder="Password"
                             th:field="*{password}">
                     <label for="password">Password</label>
                     <p class="error" th:errors="*{password}"></p>
                 </div>
 
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3 mx-4">
 
                 <input
                             type="password"
                             class="form-control"
                             id="passwordCheck"
-                            placeholder="Confirm Password"
                             th:field="*{passwordCheck}">
                     <label for="passwordCheck">Confirm Password</label>
                     <p th:text="${passwordCheckFail}" class="text-danger"></p>
                 </div>
                 <div class="d-grid gap-2 mb-3 mx-5">
-                    <button th:href="@{/register}" type="submit" class="btn btn-primary btn-lg">Register</button>
+                    <button th:href="@{/register}" type="submit" class="btn button1 btn-lg">Register</button>
                 </div>
 
 
@@ -102,8 +118,8 @@
             </form>
         </div>
         </div></div>
-        </div>
-    </div>
+       </div>
+
 </div>
 </div>
 <br/><br/><br/>

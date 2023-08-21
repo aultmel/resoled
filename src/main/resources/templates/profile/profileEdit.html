@@ -1,49 +1,131 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments :: head}"></head>
+<header th:replace="~{fragments :: header}"></header>
 <body>
+<div class="gradientBg p-3 pt-4">
+    <div class="profileEdit color2 container rounded-5  p-2 shadow-lg">
+        <div class="color1 container rounded-5 p-3">
+            <div class="gradientForm container rounded-5 shadow-lg p-4">
 
-<h1>Edit User Profile</h1>
+                <div class="container" style="max-width: 500px">
+                    <h4 class="text-center">Select a New Profile Image</h4>
+                    <!--Form to update user profile photo-->
+                    <form   id="uploadForm" method="post"  th:action="@{../profile/upload}" enctype="multipart/form-data">
+                    <div class="form-group file border border-3 rounded-4 border-secondary-subtle shadow-sm p-2">
+                        <div class="preview">
+                            <img id="file-ip-1-preview">
+                        </div>
+                        <input type="file" accept="image/*" id="input-file" name="file"
+                               onchange="showImagePreview(event);">
+                        <label class="file-upload-custom-button btn button1 btn-lg shadow ms-2 m-2" for="input-file">Select Image</label>
+                    </div>
+                        <br/>
+                        <div class="form-group d-grid mb-4 mx-auto w-75">
+                            <button type="submit" value="Log in"
+                                    class="btn button1 btn-lg shadow-lg">
+                                Upload
+                            </button>
+                        </div>
+                    </form>
+
+                    <div
+                            th:if="${message != null}"
+                            class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+                            role="alert">
+                        [[${message}]]
+                        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                    <hr class="mt-2 mb-4"/>
+                    <!--Form to update user data-->
+
+                    <h4 class="text-center mb-3">Edit Profile Details</h4>
+
+                    <form th:object="${editProfileDTO}" th:action="@{/profile/profileEdit}" method="post">
+
+                        <div class="mb-4 container">
+
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="text"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="displayName"
+                                        name="displayName"
+                                        th:value="${userEntity.displayName}">
+
+                                <label for="displayName"> Display Name:</label>
+<!--                                <p class="error" th:errors="*{displayName}"></p>-->
+                            </div>
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="text"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="firstName"
+                                        name="firstName"
+                                        th:value="${userEntity.firstName}">
+
+                                <label for="firstName">First Name:</label>
+
+                            </div>
+                            <p th:errors="*{firstName}"></p>
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="text"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="lastName"
+                                        name="lastName"
+                                        th:value="${userEntity.lastName}">
+                                <label for="lastName">Last Name:</label>
+                                <p class="error" th:errors="*{lastName}"></p>
+                            </div>
+                            <div class="form-floating mb-3 mx-4">
+                                <input
+                                        type="email"
+                                        class="form-control border border-3 rounded-4 border-secondary-subtle"
+                                        id="email"
+                                        name="email"
+                                        th:value="${userEntity.email}"
+                                >
+                                <label for="email">Email:</label>
+                                <p class="error" th:errors="*{email}"></p>
+                            </div>
+                            <button type="submit" class="btn button1 btn-lg shadow-lg ms-5">Save</button>
+                        </div>
+
+                    </form>
 
 
-<form th:object="${userEntity}" th:action="@{../profile/profileEdit}" method="post">
-    <p>
-        <label>Edit Display Name:
-            <input type="text" th:field="*{displayName}" />
-        </label>
-        <br/>
-        <label>Edit First Name:
-            <input type="text" th:field="*{firstName}" />
-        </label>
-        <br/>
-        <label>Edit Last Name:
-            <input type="text" th:field="*{lastName}"  />
-        </label>
-        <br/>
-        <label>Edit Email:
-            <input type="text" th:field="*{email}" />
-        </label>
-        <br/>
-    </p>
-    <button type="submit">Save</button>
-    <a th:href="@{'../profile'}">Back to profile</a>
-</form>
 
+                    <hr/>
 
-<!--<form method="post" role="form"-->
-<!--      th:action="@{..profileEdit}"-->
-<!--      th:object="${editProfileDTO}">-->
-<!--    <div class="form-control">-->
-<!--        <label>Edit Username:-->
-<!--            <input th:field="*{username}" class="form-control" >-->
-<!--        </label>-->
-<!--        <label>Edit Password:-->
-<!--            <input th:field="*{password}" class="form-control" >-->
-<!--        </label>-->
-<!--    </div>-->
-<!--    <input type="submit" value="Finished Editing" class="btn btn-primary">-->
-<!--</form>-->
-
-
+                    <!--Return to Profile Button-->
+                    <div class="form-group d-grid mb-4 mx-auto mt-5 w-75">
+                        <a th:href="@{/profile}"  value="Return to Profile"
+                           class="btn button1 btn-lg shadow-lg" style="color: var( --lightText);">
+                            Return to Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Shows preview of selected photo before submission-->
+<script>
+    function showImagePreview(event){
+        if(event.target.files.length > 0){
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById("file-ip-1-preview");
+            preview.src = src;
+            preview.style.display = "block";
+            preview.style.width = "20em";
+            preview.style.border = "2px solid hsla(0, 0%, 79%, 1)";
+        }
+    }
+</script>
+<th:block th:replace="~{fragments :: endingScripts}"></th:block>
 </body>
 </html>
